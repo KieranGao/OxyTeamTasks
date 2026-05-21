@@ -1,0 +1,3 @@
+/home/oxythecrack/Desktop/OxyTasks/GateServer/build/CMakeFiles/GateServer.dir
+/home/oxythecrack/Desktop/OxyTasks/GateServer/build/CMakeFiles/edit_cache.dir
+/home/oxythecrack/Desktop/OxyTasks/GateServer/build/CMakeFiles/rebuild_cache.dir

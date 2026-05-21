@@ -1,0 +1,30 @@
+{
+    "MySQL": {
+        "host" : "127.0.0.1",
+        "port" : 3306,
+        "user" : "root",
+        "password" : "password",
+        "dbName" : "oxytasks"
+    },
+    
+    "Redis": {
+        "host" : "127.0.0.1",
+        "port" : 6379,
+        "password" : "123456"
+    },
+
+    "GateServer" : {
+        "host" : "127.0.0.1",
+        "port" : 8080
+    },
+
+    "MailerServer" : {
+        "host" : "127.0.0.1",
+        "port" : 50051
+    },
+
+    "StatusServer" : {
+        "host" : "127.0.0.1",
+        "port" : 50052       
+    }
+}
