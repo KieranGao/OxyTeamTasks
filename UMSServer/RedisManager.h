@@ -11,6 +11,7 @@ class RedisManager : public Singleton<RedisManager> {
 public:
     ~RedisManager();
     bool set(const std::string& key, const std::string& value);
+    bool setex(const std::string& key, const std::string& value, int ttl_seconds);
     bool get(const std::string& key, std::string& value);
     bool del(const std::string& key);
     bool auth(const std::string& password);

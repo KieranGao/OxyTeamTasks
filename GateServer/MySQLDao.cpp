@@ -126,3 +126,24 @@ bool MySQLDao::updateTeamInfo(int uid, int belong_captain_id) {
         return false;
     }
 }
+
+bool MySQLDao::getUserInfo(int uid, UserInfo& userinfo) {
+    auto connection = ConnectionGuard(*pool_, pool_->getConnection());
+    try {
+        auto& sql_conn = connection.get()->getConn();
+        std::string query = "SELECT username, email, role, belong_captain_id FROM user WHERE uid = ? LIMIT 1";
+        std::unique_ptr<sql::PreparedStatement> pstmt(sql_conn->prepareStatement(query));
+        pstmt->setInt(1, uid);
+        std::unique_ptr<sql::ResultSet> res(pstmt->executeQuery());
+        if(!res or !res->next()) return false;
+        userinfo.uid = uid;
+        userinfo.username = res->getString("username");
+        userinfo.email = res->getString("email");
+        userinfo.role = res->getInt("role");
+        userinfo.belong_captain_id = res->getInt("belong_captain_id");
+        return true;
+    } catch(const sql::SQLException& exp) {
+        std::cerr << "SQLException in getUserInfo: " << exp.what() << std::endl;
+        return false;
+    }
+}

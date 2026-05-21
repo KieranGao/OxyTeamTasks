@@ -60,6 +60,25 @@ bool RedisManager::set(const std::string& key, const std::string& value) {
     return true;
 }
 
+bool RedisManager::setex(const std::string& key, const std::string& value, int ttl_seconds) {
+    auto connect = conn_pool_->getConnection();
+    if(connect == nullptr) return false;
+    redisReply* reply = static_cast<redisReply*>(redisCommand(connect.get(), "SETEX %s %d %s", key.c_str(), ttl_seconds, value.c_str()));
+    conn_pool_->returnConnection(std::move(connect));
+    if (reply == nullptr) {
+        std::cerr << "Failed to execute SETEX command!" << std::endl;
+        return false;
+    }
+    if (!(reply->type == REDIS_REPLY_STATUS and (strcmp(reply->str, "OK") == 0 or strcmp(reply->str, "ok") == 0))) {
+        std::cerr << "Execute SETEX failure!" << std::endl;
+        freeReplyObject(reply);
+        return false;
+    }
+    freeReplyObject(reply);
+    std::cerr << "Execute SETEX success !" << std::endl;
+    return true;
+}
+
 bool RedisManager::auth(const std::string& password) {
     auto connect = conn_pool_->getConnection();
     if(connect == nullptr) {

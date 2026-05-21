@@ -14,8 +14,6 @@ using grpc::Channel;
 using grpc::ClientContext;
 using grpc::Status;
 
-using message::GetPushServerReq;
-using message::GetPushServerRsp;
 using message::StatusService;
 
 class StatusConnectPool {

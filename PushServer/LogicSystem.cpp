@@ -63,7 +63,7 @@ void LogicSystem::loginHandler(shared_ptr<Session> session, const short &msg_id,
 	auto uid = root["uid"].asInt();
 	std::cout << "user login uid is  " << uid << " user token  is "
 		<< root["token"].asString() << endl;
-	auto rsp = StatusGrpcClient::getInstance().Login(uid, root["token"].asString());
+	auto rsp = StatusGrpcClient::getInstance().reportLogin(uid, root["token"].asString());
 	Json::Value  rtvalue;
 	Defer defer([this, &rtvalue, session]() {
 		std::string return_str = rtvalue.toStyledString();

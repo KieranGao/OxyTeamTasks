@@ -417,29 +417,29 @@ StatusGrpcClient.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/StatusGrpcClient.cpp.s
 .PHONY : StatusGrpcClient.cpp.s
 
-VerifyGrpcClient.o: VerifyGrpcClient.cpp.o
-.PHONY : VerifyGrpcClient.o
+UserGrpcClient.o: UserGrpcClient.cpp.o
+.PHONY : UserGrpcClient.o
 
 # target to build an object file
-VerifyGrpcClient.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/VerifyGrpcClient.cpp.o
-.PHONY : VerifyGrpcClient.cpp.o
+UserGrpcClient.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/UserGrpcClient.cpp.o
+.PHONY : UserGrpcClient.cpp.o
 
-VerifyGrpcClient.i: VerifyGrpcClient.cpp.i
-.PHONY : VerifyGrpcClient.i
+UserGrpcClient.i: UserGrpcClient.cpp.i
+.PHONY : UserGrpcClient.i
 
 # target to preprocess a source file
-VerifyGrpcClient.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/VerifyGrpcClient.cpp.i
-.PHONY : VerifyGrpcClient.cpp.i
+UserGrpcClient.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/UserGrpcClient.cpp.i
+.PHONY : UserGrpcClient.cpp.i
 
-VerifyGrpcClient.s: VerifyGrpcClient.cpp.s
-.PHONY : VerifyGrpcClient.s
+UserGrpcClient.s: UserGrpcClient.cpp.s
+.PHONY : UserGrpcClient.s
 
 # target to generate assembly for a file
-VerifyGrpcClient.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/VerifyGrpcClient.cpp.s
-.PHONY : VerifyGrpcClient.cpp.s
+UserGrpcClient.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/UserGrpcClient.cpp.s
+.PHONY : UserGrpcClient.cpp.s
 
 home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.o: home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.cpp.o
 .PHONY : home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.o
@@ -630,9 +630,9 @@ help:
 	@echo "... StatusGrpcClient.o"
 	@echo "... StatusGrpcClient.i"
 	@echo "... StatusGrpcClient.s"
-	@echo "... VerifyGrpcClient.o"
-	@echo "... VerifyGrpcClient.i"
-	@echo "... VerifyGrpcClient.s"
+	@echo "... UserGrpcClient.o"
+	@echo "... UserGrpcClient.i"
+	@echo "... UserGrpcClient.s"
 	@echo "... home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.o"
 	@echo "... home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.i"
 	@echo "... home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.s"

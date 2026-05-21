@@ -1,10 +1,11 @@
 #ifndef GLOBAL_H
 #define GLOBAL_H
 
+#include <functional>
 #include <memory>
 #include <mutex>
 #include <iostream>
-#include <json/json.h>
+#include <chrono>
 
 #define CODE_PREFIX "code_"
 

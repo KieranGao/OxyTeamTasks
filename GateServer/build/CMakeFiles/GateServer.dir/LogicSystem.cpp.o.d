@@ -1633,7 +1633,7 @@ CMakeFiles/GateServer.dir/LogicSystem.cpp.o: \
  /home/oxythecrack/Desktop/OxyTasks/GateServer/../jsoncpp/include/json/writer.h \
  /home/oxythecrack/Desktop/OxyTasks/GateServer/Singleton.h \
  /home/oxythecrack/Desktop/OxyTasks/GateServer/HttpConnection.h \
- /home/oxythecrack/Desktop/OxyTasks/GateServer/VerifyGrpcClient.h \
+ /home/oxythecrack/Desktop/OxyTasks/GateServer/UserGrpcClient.h \
  /usr/include/grpcpp/grpcpp.h /usr/include/grpc/grpc.h \
  /usr/include/grpc/support/port_platform.h \
  /usr/include/grpc/impl/codegen/port_platform.h \
@@ -1819,7 +1819,6 @@ CMakeFiles/GateServer.dir/LogicSystem.cpp.o: \
  /usr/include/grpcpp/impl/codegen/sync_stream.h \
  /home/oxythecrack/Desktop/OxyTasks/GateServer/RPCConnectPool.h \
  /usr/include/c++/11/queue /usr/include/c++/11/bits/stl_queue.h \
- /home/oxythecrack/Desktop/OxyTasks/GateServer/StatusGrpcClient.h \
  /home/oxythecrack/Desktop/OxyTasks/GateServer/ConfigManager.h \
  /usr/include/boost/filesystem.hpp \
  /usr/include/boost/filesystem/config.hpp \
@@ -2163,10 +2162,7 @@ CMakeFiles/GateServer.dir/LogicSystem.cpp.o: \
  /usr/include/boost/property_tree/detail/ptree_implementation.hpp \
  /usr/include/boost/property_tree/ini_parser.hpp \
  /usr/include/boost/property_tree/detail/file_parser_error.hpp \
- /home/oxythecrack/Desktop/OxyTasks/GateServer/RedisManager.h \
- /usr/include/hiredis/hiredis.h /usr/include/hiredis/read.h \
- /usr/include/hiredis/sds.h /usr/include/hiredis/alloc.h \
- /home/oxythecrack/Desktop/OxyTasks/GateServer/RedisConnectPool.h \
+ /home/oxythecrack/Desktop/OxyTasks/GateServer/StatusGrpcClient.h \
  /home/oxythecrack/Desktop/OxyTasks/GateServer/MySQLManager.h \
  /home/oxythecrack/Desktop/OxyTasks/GateServer/MySQLDao.h \
  /home/oxythecrack/Desktop/OxyTasks/GateServer/MySQLConnectPool.h \

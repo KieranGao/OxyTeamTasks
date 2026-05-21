@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/oxythecrack/Desktop/OxyTasks/GateServer
+CMAKE_SOURCE_DIR = /home/oxythecrack/Desktop/OxyTasks/UMSServer
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/oxythecrack/Desktop/OxyTasks/GateServer/build
+CMAKE_BINARY_DIR = /home/oxythecrack/Desktop/OxyTasks/UMSServer/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/oxythecrack/Desktop/OxyTasks/GateServer/build/CMakeFiles /home/oxythecrack/Desktop/OxyTasks/GateServer/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/oxythecrack/Desktop/OxyTasks/UMSServer/build/CMakeFiles /home/oxythecrack/Desktop/OxyTasks/UMSServer/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/oxythecrack/Desktop/OxyTasks/GateServer/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/oxythecrack/Desktop/OxyTasks/UMSServer/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -117,24 +117,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named GateServer
+# Target rules for targets named UMSServer
 
 # Build rule for target.
-GateServer: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 GateServer
-.PHONY : GateServer
+UMSServer: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 UMSServer
+.PHONY : UMSServer
 
 # fast build rule for target.
-GateServer/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/build
-.PHONY : GateServer/fast
+UMSServer/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/build
+.PHONY : UMSServer/fast
 
 ConfigManager.o: ConfigManager.cpp.o
 .PHONY : ConfigManager.o
 
 # target to build an object file
 ConfigManager.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/ConfigManager.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/ConfigManager.cpp.o
 .PHONY : ConfigManager.cpp.o
 
 ConfigManager.i: ConfigManager.cpp.i
@@ -142,7 +142,7 @@ ConfigManager.i: ConfigManager.cpp.i
 
 # target to preprocess a source file
 ConfigManager.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/ConfigManager.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/ConfigManager.cpp.i
 .PHONY : ConfigManager.cpp.i
 
 ConfigManager.s: ConfigManager.cpp.s
@@ -150,111 +150,39 @@ ConfigManager.s: ConfigManager.cpp.s
 
 # target to generate assembly for a file
 ConfigManager.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/ConfigManager.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/ConfigManager.cpp.s
 .PHONY : ConfigManager.cpp.s
 
-HttpConnection.o: HttpConnection.cpp.o
-.PHONY : HttpConnection.o
+MailerGrpcClient.o: MailerGrpcClient.cpp.o
+.PHONY : MailerGrpcClient.o
 
 # target to build an object file
-HttpConnection.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/HttpConnection.cpp.o
-.PHONY : HttpConnection.cpp.o
+MailerGrpcClient.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/MailerGrpcClient.cpp.o
+.PHONY : MailerGrpcClient.cpp.o
 
-HttpConnection.i: HttpConnection.cpp.i
-.PHONY : HttpConnection.i
-
-# target to preprocess a source file
-HttpConnection.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/HttpConnection.cpp.i
-.PHONY : HttpConnection.cpp.i
-
-HttpConnection.s: HttpConnection.cpp.s
-.PHONY : HttpConnection.s
-
-# target to generate assembly for a file
-HttpConnection.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/HttpConnection.cpp.s
-.PHONY : HttpConnection.cpp.s
-
-IOContextPool.o: IOContextPool.cpp.o
-.PHONY : IOContextPool.o
-
-# target to build an object file
-IOContextPool.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/IOContextPool.cpp.o
-.PHONY : IOContextPool.cpp.o
-
-IOContextPool.i: IOContextPool.cpp.i
-.PHONY : IOContextPool.i
+MailerGrpcClient.i: MailerGrpcClient.cpp.i
+.PHONY : MailerGrpcClient.i
 
 # target to preprocess a source file
-IOContextPool.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/IOContextPool.cpp.i
-.PHONY : IOContextPool.cpp.i
+MailerGrpcClient.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/MailerGrpcClient.cpp.i
+.PHONY : MailerGrpcClient.cpp.i
 
-IOContextPool.s: IOContextPool.cpp.s
-.PHONY : IOContextPool.s
-
-# target to generate assembly for a file
-IOContextPool.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/IOContextPool.cpp.s
-.PHONY : IOContextPool.cpp.s
-
-LogicSystem.o: LogicSystem.cpp.o
-.PHONY : LogicSystem.o
-
-# target to build an object file
-LogicSystem.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/LogicSystem.cpp.o
-.PHONY : LogicSystem.cpp.o
-
-LogicSystem.i: LogicSystem.cpp.i
-.PHONY : LogicSystem.i
-
-# target to preprocess a source file
-LogicSystem.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/LogicSystem.cpp.i
-.PHONY : LogicSystem.cpp.i
-
-LogicSystem.s: LogicSystem.cpp.s
-.PHONY : LogicSystem.s
+MailerGrpcClient.s: MailerGrpcClient.cpp.s
+.PHONY : MailerGrpcClient.s
 
 # target to generate assembly for a file
-LogicSystem.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/LogicSystem.cpp.s
-.PHONY : LogicSystem.cpp.s
-
-MainServer.o: MainServer.cpp.o
-.PHONY : MainServer.o
-
-# target to build an object file
-MainServer.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/MainServer.cpp.o
-.PHONY : MainServer.cpp.o
-
-MainServer.i: MainServer.cpp.i
-.PHONY : MainServer.i
-
-# target to preprocess a source file
-MainServer.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/MainServer.cpp.i
-.PHONY : MainServer.cpp.i
-
-MainServer.s: MainServer.cpp.s
-.PHONY : MainServer.s
-
-# target to generate assembly for a file
-MainServer.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/MainServer.cpp.s
-.PHONY : MainServer.cpp.s
+MailerGrpcClient.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/MailerGrpcClient.cpp.s
+.PHONY : MailerGrpcClient.cpp.s
 
 MySQLConnectPool.o: MySQLConnectPool.cpp.o
 .PHONY : MySQLConnectPool.o
 
 # target to build an object file
 MySQLConnectPool.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/MySQLConnectPool.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/MySQLConnectPool.cpp.o
 .PHONY : MySQLConnectPool.cpp.o
 
 MySQLConnectPool.i: MySQLConnectPool.cpp.i
@@ -262,7 +190,7 @@ MySQLConnectPool.i: MySQLConnectPool.cpp.i
 
 # target to preprocess a source file
 MySQLConnectPool.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/MySQLConnectPool.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/MySQLConnectPool.cpp.i
 .PHONY : MySQLConnectPool.cpp.i
 
 MySQLConnectPool.s: MySQLConnectPool.cpp.s
@@ -270,7 +198,7 @@ MySQLConnectPool.s: MySQLConnectPool.cpp.s
 
 # target to generate assembly for a file
 MySQLConnectPool.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/MySQLConnectPool.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/MySQLConnectPool.cpp.s
 .PHONY : MySQLConnectPool.cpp.s
 
 MySQLDao.o: MySQLDao.cpp.o
@@ -278,7 +206,7 @@ MySQLDao.o: MySQLDao.cpp.o
 
 # target to build an object file
 MySQLDao.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/MySQLDao.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/MySQLDao.cpp.o
 .PHONY : MySQLDao.cpp.o
 
 MySQLDao.i: MySQLDao.cpp.i
@@ -286,7 +214,7 @@ MySQLDao.i: MySQLDao.cpp.i
 
 # target to preprocess a source file
 MySQLDao.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/MySQLDao.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/MySQLDao.cpp.i
 .PHONY : MySQLDao.cpp.i
 
 MySQLDao.s: MySQLDao.cpp.s
@@ -294,7 +222,7 @@ MySQLDao.s: MySQLDao.cpp.s
 
 # target to generate assembly for a file
 MySQLDao.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/MySQLDao.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/MySQLDao.cpp.s
 .PHONY : MySQLDao.cpp.s
 
 MySQLManager.o: MySQLManager.cpp.o
@@ -302,7 +230,7 @@ MySQLManager.o: MySQLManager.cpp.o
 
 # target to build an object file
 MySQLManager.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/MySQLManager.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/MySQLManager.cpp.o
 .PHONY : MySQLManager.cpp.o
 
 MySQLManager.i: MySQLManager.cpp.i
@@ -310,7 +238,7 @@ MySQLManager.i: MySQLManager.cpp.i
 
 # target to preprocess a source file
 MySQLManager.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/MySQLManager.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/MySQLManager.cpp.i
 .PHONY : MySQLManager.cpp.i
 
 MySQLManager.s: MySQLManager.cpp.s
@@ -318,7 +246,7 @@ MySQLManager.s: MySQLManager.cpp.s
 
 # target to generate assembly for a file
 MySQLManager.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/MySQLManager.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/MySQLManager.cpp.s
 .PHONY : MySQLManager.cpp.s
 
 RPCConnectPool.o: RPCConnectPool.cpp.o
@@ -326,7 +254,7 @@ RPCConnectPool.o: RPCConnectPool.cpp.o
 
 # target to build an object file
 RPCConnectPool.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/RPCConnectPool.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/RPCConnectPool.cpp.o
 .PHONY : RPCConnectPool.cpp.o
 
 RPCConnectPool.i: RPCConnectPool.cpp.i
@@ -334,7 +262,7 @@ RPCConnectPool.i: RPCConnectPool.cpp.i
 
 # target to preprocess a source file
 RPCConnectPool.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/RPCConnectPool.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/RPCConnectPool.cpp.i
 .PHONY : RPCConnectPool.cpp.i
 
 RPCConnectPool.s: RPCConnectPool.cpp.s
@@ -342,7 +270,7 @@ RPCConnectPool.s: RPCConnectPool.cpp.s
 
 # target to generate assembly for a file
 RPCConnectPool.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/RPCConnectPool.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/RPCConnectPool.cpp.s
 .PHONY : RPCConnectPool.cpp.s
 
 RedisConnectPool.o: RedisConnectPool.cpp.o
@@ -350,7 +278,7 @@ RedisConnectPool.o: RedisConnectPool.cpp.o
 
 # target to build an object file
 RedisConnectPool.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/RedisConnectPool.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/RedisConnectPool.cpp.o
 .PHONY : RedisConnectPool.cpp.o
 
 RedisConnectPool.i: RedisConnectPool.cpp.i
@@ -358,7 +286,7 @@ RedisConnectPool.i: RedisConnectPool.cpp.i
 
 # target to preprocess a source file
 RedisConnectPool.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/RedisConnectPool.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/RedisConnectPool.cpp.i
 .PHONY : RedisConnectPool.cpp.i
 
 RedisConnectPool.s: RedisConnectPool.cpp.s
@@ -366,7 +294,7 @@ RedisConnectPool.s: RedisConnectPool.cpp.s
 
 # target to generate assembly for a file
 RedisConnectPool.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/RedisConnectPool.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/RedisConnectPool.cpp.s
 .PHONY : RedisConnectPool.cpp.s
 
 RedisManager.o: RedisManager.cpp.o
@@ -374,7 +302,7 @@ RedisManager.o: RedisManager.cpp.o
 
 # target to build an object file
 RedisManager.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/RedisManager.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/RedisManager.cpp.o
 .PHONY : RedisManager.cpp.o
 
 RedisManager.i: RedisManager.cpp.i
@@ -382,7 +310,7 @@ RedisManager.i: RedisManager.cpp.i
 
 # target to preprocess a source file
 RedisManager.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/RedisManager.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/RedisManager.cpp.i
 .PHONY : RedisManager.cpp.i
 
 RedisManager.s: RedisManager.cpp.s
@@ -390,135 +318,39 @@ RedisManager.s: RedisManager.cpp.s
 
 # target to generate assembly for a file
 RedisManager.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/RedisManager.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/RedisManager.cpp.s
 .PHONY : RedisManager.cpp.s
 
-StatusGrpcClient.o: StatusGrpcClient.cpp.o
-.PHONY : StatusGrpcClient.o
+UMSGrpcServiceImpl.o: UMSGrpcServiceImpl.cpp.o
+.PHONY : UMSGrpcServiceImpl.o
 
 # target to build an object file
-StatusGrpcClient.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/StatusGrpcClient.cpp.o
-.PHONY : StatusGrpcClient.cpp.o
+UMSGrpcServiceImpl.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/UMSGrpcServiceImpl.cpp.o
+.PHONY : UMSGrpcServiceImpl.cpp.o
 
-StatusGrpcClient.i: StatusGrpcClient.cpp.i
-.PHONY : StatusGrpcClient.i
-
-# target to preprocess a source file
-StatusGrpcClient.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/StatusGrpcClient.cpp.i
-.PHONY : StatusGrpcClient.cpp.i
-
-StatusGrpcClient.s: StatusGrpcClient.cpp.s
-.PHONY : StatusGrpcClient.s
-
-# target to generate assembly for a file
-StatusGrpcClient.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/StatusGrpcClient.cpp.s
-.PHONY : StatusGrpcClient.cpp.s
-
-VerifyGrpcClient.o: VerifyGrpcClient.cpp.o
-.PHONY : VerifyGrpcClient.o
-
-# target to build an object file
-VerifyGrpcClient.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/VerifyGrpcClient.cpp.o
-.PHONY : VerifyGrpcClient.cpp.o
-
-VerifyGrpcClient.i: VerifyGrpcClient.cpp.i
-.PHONY : VerifyGrpcClient.i
+UMSGrpcServiceImpl.i: UMSGrpcServiceImpl.cpp.i
+.PHONY : UMSGrpcServiceImpl.i
 
 # target to preprocess a source file
-VerifyGrpcClient.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/VerifyGrpcClient.cpp.i
-.PHONY : VerifyGrpcClient.cpp.i
+UMSGrpcServiceImpl.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/UMSGrpcServiceImpl.cpp.i
+.PHONY : UMSGrpcServiceImpl.cpp.i
 
-VerifyGrpcClient.s: VerifyGrpcClient.cpp.s
-.PHONY : VerifyGrpcClient.s
-
-# target to generate assembly for a file
-VerifyGrpcClient.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/VerifyGrpcClient.cpp.s
-.PHONY : VerifyGrpcClient.cpp.s
-
-home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.o: home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.cpp.o
-.PHONY : home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.o
-
-# target to build an object file
-home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.cpp.o
-.PHONY : home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.cpp.o
-
-home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.i: home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.cpp.i
-.PHONY : home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.i
-
-# target to preprocess a source file
-home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.cpp.i
-.PHONY : home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.cpp.i
-
-home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.s: home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.cpp.s
-.PHONY : home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.s
+UMSGrpcServiceImpl.s: UMSGrpcServiceImpl.cpp.s
+.PHONY : UMSGrpcServiceImpl.s
 
 # target to generate assembly for a file
-home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.cpp.s
-.PHONY : home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.cpp.s
-
-home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.o: home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.cpp.o
-.PHONY : home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.o
-
-# target to build an object file
-home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.cpp.o
-.PHONY : home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.cpp.o
-
-home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.i: home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.cpp.i
-.PHONY : home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.i
-
-# target to preprocess a source file
-home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.cpp.i
-.PHONY : home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.cpp.i
-
-home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.s: home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.cpp.s
-.PHONY : home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.s
-
-# target to generate assembly for a file
-home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.cpp.s
-.PHONY : home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.cpp.s
-
-home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.o: home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.cpp.o
-.PHONY : home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.o
-
-# target to build an object file
-home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.cpp.o
-.PHONY : home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.cpp.o
-
-home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.i: home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.cpp.i
-.PHONY : home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.i
-
-# target to preprocess a source file
-home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.cpp.i
-.PHONY : home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.cpp.i
-
-home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.s: home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.cpp.s
-.PHONY : home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.s
-
-# target to generate assembly for a file
-home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.cpp.s
-.PHONY : home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.cpp.s
+UMSGrpcServiceImpl.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/UMSGrpcServiceImpl.cpp.s
+.PHONY : UMSGrpcServiceImpl.cpp.s
 
 main.o: main.cpp.o
 .PHONY : main.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/main.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -526,7 +358,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -534,7 +366,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 message.grpc.pb.o: message.grpc.pb.cc.o
@@ -542,7 +374,7 @@ message.grpc.pb.o: message.grpc.pb.cc.o
 
 # target to build an object file
 message.grpc.pb.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/message.grpc.pb.cc.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/message.grpc.pb.cc.o
 .PHONY : message.grpc.pb.cc.o
 
 message.grpc.pb.i: message.grpc.pb.cc.i
@@ -550,7 +382,7 @@ message.grpc.pb.i: message.grpc.pb.cc.i
 
 # target to preprocess a source file
 message.grpc.pb.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/message.grpc.pb.cc.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/message.grpc.pb.cc.i
 .PHONY : message.grpc.pb.cc.i
 
 message.grpc.pb.s: message.grpc.pb.cc.s
@@ -558,7 +390,7 @@ message.grpc.pb.s: message.grpc.pb.cc.s
 
 # target to generate assembly for a file
 message.grpc.pb.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/message.grpc.pb.cc.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/message.grpc.pb.cc.s
 .PHONY : message.grpc.pb.cc.s
 
 message.pb.o: message.pb.cc.o
@@ -566,7 +398,7 @@ message.pb.o: message.pb.cc.o
 
 # target to build an object file
 message.pb.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/message.pb.cc.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/message.pb.cc.o
 .PHONY : message.pb.cc.o
 
 message.pb.i: message.pb.cc.i
@@ -574,7 +406,7 @@ message.pb.i: message.pb.cc.i
 
 # target to preprocess a source file
 message.pb.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/message.pb.cc.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/message.pb.cc.i
 .PHONY : message.pb.cc.i
 
 message.pb.s: message.pb.cc.s
@@ -582,7 +414,7 @@ message.pb.s: message.pb.cc.s
 
 # target to generate assembly for a file
 message.pb.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/message.pb.cc.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/message.pb.cc.s
 .PHONY : message.pb.cc.s
 
 # Help Target
@@ -593,22 +425,13 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... GateServer"
+	@echo "... UMSServer"
 	@echo "... ConfigManager.o"
 	@echo "... ConfigManager.i"
 	@echo "... ConfigManager.s"
-	@echo "... HttpConnection.o"
-	@echo "... HttpConnection.i"
-	@echo "... HttpConnection.s"
-	@echo "... IOContextPool.o"
-	@echo "... IOContextPool.i"
-	@echo "... IOContextPool.s"
-	@echo "... LogicSystem.o"
-	@echo "... LogicSystem.i"
-	@echo "... LogicSystem.s"
-	@echo "... MainServer.o"
-	@echo "... MainServer.i"
-	@echo "... MainServer.s"
+	@echo "... MailerGrpcClient.o"
+	@echo "... MailerGrpcClient.i"
+	@echo "... MailerGrpcClient.s"
 	@echo "... MySQLConnectPool.o"
 	@echo "... MySQLConnectPool.i"
 	@echo "... MySQLConnectPool.s"
@@ -627,21 +450,9 @@ help:
 	@echo "... RedisManager.o"
 	@echo "... RedisManager.i"
 	@echo "... RedisManager.s"
-	@echo "... StatusGrpcClient.o"
-	@echo "... StatusGrpcClient.i"
-	@echo "... StatusGrpcClient.s"
-	@echo "... VerifyGrpcClient.o"
-	@echo "... VerifyGrpcClient.i"
-	@echo "... VerifyGrpcClient.s"
-	@echo "... home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.o"
-	@echo "... home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.i"
-	@echo "... home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.s"
-	@echo "... home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.o"
-	@echo "... home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.i"
-	@echo "... home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.s"
-	@echo "... home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.o"
-	@echo "... home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.i"
-	@echo "... home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.s"
+	@echo "... UMSGrpcServiceImpl.o"
+	@echo "... UMSGrpcServiceImpl.i"
+	@echo "... UMSGrpcServiceImpl.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

@@ -34,7 +34,7 @@ set(GATESERVER_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/MySQLDao.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/MySQLManager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RPCConnectPool.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/VerifyGrpcClient.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/UserGrpcClient.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/StatusGrpcClient.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/LogicSystem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/MainServer.cpp

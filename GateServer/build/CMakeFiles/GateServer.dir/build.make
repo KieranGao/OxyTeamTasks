@@ -208,19 +208,19 @@ CMakeFiles/GateServer.dir/RPCConnectPool.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/GateServer.dir/RPCConnectPool.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/oxythecrack/Desktop/OxyTasks/GateServer/RPCConnectPool.cpp -o CMakeFiles/GateServer.dir/RPCConnectPool.cpp.s
 
-CMakeFiles/GateServer.dir/VerifyGrpcClient.cpp.o: CMakeFiles/GateServer.dir/flags.make
-CMakeFiles/GateServer.dir/VerifyGrpcClient.cpp.o: ../VerifyGrpcClient.cpp
-CMakeFiles/GateServer.dir/VerifyGrpcClient.cpp.o: CMakeFiles/GateServer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/GateServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/GateServer.dir/VerifyGrpcClient.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/GateServer.dir/VerifyGrpcClient.cpp.o -MF CMakeFiles/GateServer.dir/VerifyGrpcClient.cpp.o.d -o CMakeFiles/GateServer.dir/VerifyGrpcClient.cpp.o -c /home/oxythecrack/Desktop/OxyTasks/GateServer/VerifyGrpcClient.cpp
+CMakeFiles/GateServer.dir/UserGrpcClient.cpp.o: CMakeFiles/GateServer.dir/flags.make
+CMakeFiles/GateServer.dir/UserGrpcClient.cpp.o: ../UserGrpcClient.cpp
+CMakeFiles/GateServer.dir/UserGrpcClient.cpp.o: CMakeFiles/GateServer.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/GateServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/GateServer.dir/UserGrpcClient.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/GateServer.dir/UserGrpcClient.cpp.o -MF CMakeFiles/GateServer.dir/UserGrpcClient.cpp.o.d -o CMakeFiles/GateServer.dir/UserGrpcClient.cpp.o -c /home/oxythecrack/Desktop/OxyTasks/GateServer/UserGrpcClient.cpp
 
-CMakeFiles/GateServer.dir/VerifyGrpcClient.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/GateServer.dir/VerifyGrpcClient.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/oxythecrack/Desktop/OxyTasks/GateServer/VerifyGrpcClient.cpp > CMakeFiles/GateServer.dir/VerifyGrpcClient.cpp.i
+CMakeFiles/GateServer.dir/UserGrpcClient.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/GateServer.dir/UserGrpcClient.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/oxythecrack/Desktop/OxyTasks/GateServer/UserGrpcClient.cpp > CMakeFiles/GateServer.dir/UserGrpcClient.cpp.i
 
-CMakeFiles/GateServer.dir/VerifyGrpcClient.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/GateServer.dir/VerifyGrpcClient.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/oxythecrack/Desktop/OxyTasks/GateServer/VerifyGrpcClient.cpp -o CMakeFiles/GateServer.dir/VerifyGrpcClient.cpp.s
+CMakeFiles/GateServer.dir/UserGrpcClient.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/GateServer.dir/UserGrpcClient.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/oxythecrack/Desktop/OxyTasks/GateServer/UserGrpcClient.cpp -o CMakeFiles/GateServer.dir/UserGrpcClient.cpp.s
 
 CMakeFiles/GateServer.dir/StatusGrpcClient.cpp.o: CMakeFiles/GateServer.dir/flags.make
 CMakeFiles/GateServer.dir/StatusGrpcClient.cpp.o: ../StatusGrpcClient.cpp
@@ -359,7 +359,7 @@ GateServer_OBJECTS = \
 "CMakeFiles/GateServer.dir/MySQLDao.cpp.o" \
 "CMakeFiles/GateServer.dir/MySQLManager.cpp.o" \
 "CMakeFiles/GateServer.dir/RPCConnectPool.cpp.o" \
-"CMakeFiles/GateServer.dir/VerifyGrpcClient.cpp.o" \
+"CMakeFiles/GateServer.dir/UserGrpcClient.cpp.o" \
 "CMakeFiles/GateServer.dir/StatusGrpcClient.cpp.o" \
 "CMakeFiles/GateServer.dir/LogicSystem.cpp.o" \
 "CMakeFiles/GateServer.dir/MainServer.cpp.o" \
@@ -382,7 +382,7 @@ GateServer: CMakeFiles/GateServer.dir/MySQLConnectPool.cpp.o
 GateServer: CMakeFiles/GateServer.dir/MySQLDao.cpp.o
 GateServer: CMakeFiles/GateServer.dir/MySQLManager.cpp.o
 GateServer: CMakeFiles/GateServer.dir/RPCConnectPool.cpp.o
-GateServer: CMakeFiles/GateServer.dir/VerifyGrpcClient.cpp.o
+GateServer: CMakeFiles/GateServer.dir/UserGrpcClient.cpp.o
 GateServer: CMakeFiles/GateServer.dir/StatusGrpcClient.cpp.o
 GateServer: CMakeFiles/GateServer.dir/LogicSystem.cpp.o
 GateServer: CMakeFiles/GateServer.dir/MainServer.cpp.o

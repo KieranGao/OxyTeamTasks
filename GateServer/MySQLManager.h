@@ -12,6 +12,7 @@ public:
     bool userResetpass(const std::string& username, const std::string& email, const std::string& new_password);
     bool checkLogin(const std::string& email, const std::string& password, UserInfo& userinfo);
     bool updateTeamInfo(int uid, int belong_captain_id);
+    bool getUserInfo(int uid, UserInfo& userinfo);
 private:
     MySQLManager();
     std::unique_ptr<MySQLDao> dao_;
