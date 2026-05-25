@@ -1,3 +1,0 @@
-/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/CMakeFiles/StatusServer.dir
-/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/CMakeFiles/edit_cache.dir
-/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/CMakeFiles/rebuild_cache.dir
