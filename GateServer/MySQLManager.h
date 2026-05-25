@@ -11,7 +11,7 @@ public:
     int registerUser(const std::string& username, const std::string& email, const std::string& password);
     bool userResetpass(const std::string& username, const std::string& email, const std::string& new_password);
     bool checkLogin(const std::string& email, const std::string& password, UserInfo& userinfo);
-    bool updateTeamInfo(int uid, int belong_captain_id);
+    bool updateTeamInfo(int uid, int belong_team_id);
     bool getUserInfo(int uid, UserInfo& userinfo);
 private:
     MySQLManager();

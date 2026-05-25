@@ -1,2 +1,8 @@
 .vscode
 Ori-Client
+GateServer/build
+PushServer/build
+StatusServer/build
+TaskServer/build
+UMSServer/build
+*.md

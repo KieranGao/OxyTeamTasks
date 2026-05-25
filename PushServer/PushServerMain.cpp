@@ -18,10 +18,10 @@ int main() {
         auto& pool = IOContextPool::getInstance();
         boost::asio::io_context io_context;
         boost::asio::signal_set signals(io_context, SIGINT, SIGTERM);
-        signals.async_wait([&io_context, &pool](){
+        signals.async_wait([&io_context, &pool](const boost::system::error_code&, int){
             io_context.stop();
             pool.stop();
-        }); 
+        });
         auto port = g_config["SelfServer"]["port"];
         MainServer server(io_context, atoi(port.c_str()));
         io_context.run();

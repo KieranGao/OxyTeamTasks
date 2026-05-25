@@ -23,6 +23,7 @@ struct UserInfo {
 	int uid;
 	int role;
 	int belong_captain_id;
+	int belong_team_id;
 };
 
 enum class ErrorCodes {

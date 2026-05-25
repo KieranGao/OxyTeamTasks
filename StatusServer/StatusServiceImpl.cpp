@@ -18,12 +18,18 @@ StatusServiceImpl::StatusServiceImpl()
 {
     auto &g_config = ConfigManager::getInstance();
     auto server_list = g_config["PushServers"]["name"];
+    allocate_method_ = g_config["AllocateMethods"]["methods"];
     std::vector<std::string> names;
     std::stringstream ss(server_list);
     std::string name;
     while(std::getline(ss,name,',')) names.push_back(name);
     server_cnt_ = names.size();
-    SegTree_ = std::make_unique<SegmentTree>(std::vector<int>(server_cnt_ + 1));
+    if(allocate_method_ == "SegmentTree")
+        SegTree_ = std::make_unique<SegmentTree>(std::vector<int>(server_cnt_ + 1));
+    else {
+        allocate_method_ = "Brute";  // fallback for unknown/missing config value
+        server_conns_.resize(server_cnt_ + 1, 0);
+    }
     int idx = 1;
     for(auto &name : names)
     {
@@ -41,15 +47,32 @@ StatusServiceImpl::StatusServiceImpl()
 PushServer& StatusServiceImpl::getPushServer() {
     std::lock_guard<std::mutex> lock(server_mtx_);
     assert(!servers_.empty());
-    int minIdx = SegTree_->queryMinidx(1,server_cnt_);
-    int minCon = SegTree_->getVal(minIdx);
-    SegTree_->updateVal(minIdx, minCon + 1);
-    return servers_idx_[minIdx];
+    if(allocate_method_ == "Brute") {
+        int minCon = INT_MAX;
+        int minIdx = 1;
+        for(int i=1;i<=server_cnt_;i++) {
+            if(minCon >= server_conns_[i]) {
+                minCon = server_conns_[i];
+                minIdx = i;
+            }
+        } 
+        server_conns_[minIdx]++;
+        return servers_idx_[minIdx];
+    } else {
+        int minIdx = SegTree_->queryMinidx(1,server_cnt_);
+        int minCon = SegTree_->getVal(minIdx);
+        SegTree_->updateVal(minIdx, minCon + 1);
+        return servers_idx_[minIdx];
+    }
 }
 
 void StatusServiceImpl::returnServer(PushServer& cs) {
     std::lock_guard<std::mutex> lock(server_mtx_);
-    SegTree_->updateVal(cs.id, SegTree_->getVal(cs.id) - 1);
+    if(allocate_method_ == "Brute") {
+        if(cs.id > 0 && cs.id <= server_cnt_) server_conns_[cs.id]--;
+    } else {
+        SegTree_->updateVal(cs.id, SegTree_->getVal(cs.id) - 1);
+    }
 }
 
 Status StatusServiceImpl::AllocatePushServer(ServerContext* context, const AllocateReq* req, AllocateRsp* resp)

@@ -260,7 +260,6 @@ CMakeFiles/UMSServer.dir/ConfigManager.cpp.o: ../ConfigManager.cpp \
   /usr/include/boost/system/api_config.hpp \
   /usr/include/boost/detail/workaround.hpp \
   /usr/include/boost/config/workaround.hpp \
-  /usr/include/boost/config/auto_link.hpp \
   /usr/include/boost/filesystem/path.hpp \
   /usr/include/boost/assert.hpp \
   /usr/include/assert.h \
@@ -1424,7 +1423,6 @@ CMakeFiles/UMSServer.dir/MailerGrpcClient.cpp.o: ../MailerGrpcClient.cpp \
   /usr/include/boost/system/api_config.hpp \
   /usr/include/boost/detail/workaround.hpp \
   /usr/include/boost/config/workaround.hpp \
-  /usr/include/boost/config/auto_link.hpp \
   /usr/include/boost/filesystem/path.hpp \
   /usr/include/boost/assert.hpp \
   /usr/include/boost/filesystem/path_traits.hpp \
@@ -2724,7 +2722,6 @@ CMakeFiles/UMSServer.dir/MySQLDao.cpp.o: ../MySQLDao.cpp \
   /usr/include/boost/filesystem/config.hpp \
   /usr/include/boost/system/api_config.hpp \
   /usr/include/boost/detail/workaround.hpp \
-  /usr/include/boost/config/auto_link.hpp \
   /usr/include/boost/filesystem/path.hpp \
   /usr/include/boost/filesystem/path_traits.hpp \
   /usr/include/boost/type_traits/is_array.hpp \
@@ -4686,7 +4683,6 @@ CMakeFiles/UMSServer.dir/RedisManager.cpp.o: ../RedisManager.cpp \
   /usr/include/boost/system/api_config.hpp \
   /usr/include/boost/detail/workaround.hpp \
   /usr/include/boost/config/workaround.hpp \
-  /usr/include/boost/config/auto_link.hpp \
   /usr/include/boost/filesystem/path.hpp \
   /usr/include/boost/assert.hpp \
   /usr/include/assert.h \
@@ -5851,7 +5847,6 @@ CMakeFiles/UMSServer.dir/UMSGrpcServiceImpl.cpp.o: ../UMSGrpcServiceImpl.cpp \
   /usr/include/boost/system/api_config.hpp \
   /usr/include/boost/detail/workaround.hpp \
   /usr/include/boost/config/workaround.hpp \
-  /usr/include/boost/config/auto_link.hpp \
   /usr/include/boost/filesystem/path.hpp \
   /usr/include/boost/assert.hpp \
   /usr/include/boost/filesystem/path_traits.hpp \
@@ -7046,7 +7041,6 @@ CMakeFiles/UMSServer.dir/main.cpp.o: ../main.cpp \
   /usr/include/boost/system/api_config.hpp \
   /usr/include/boost/detail/workaround.hpp \
   /usr/include/boost/config/workaround.hpp \
-  /usr/include/boost/config/auto_link.hpp \
   /usr/include/boost/filesystem/path.hpp \
   /usr/include/boost/assert.hpp \
   /usr/include/boost/filesystem/path_traits.hpp \
@@ -8604,8 +8598,6 @@ message.grpc.pb.cc:
 
 /usr/include/google/protobuf/stubs/stl_util.h:
 
-/usr/include/google/protobuf/stubs/callback.h:
-
 /usr/include/boost/exception/exception.hpp:
 
 /usr/include/unistd.h:
@@ -8623,6 +8615,8 @@ message.grpc.pb.cc:
 /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h:
 
 /usr/include/boost/optional/detail/optional_swap.hpp:
+
+/usr/include/c++/11/fstream:
 
 /usr/include/boost/filesystem/operations.hpp:
 
@@ -9050,6 +9044,10 @@ message.grpc.pb.cc:
 
 /usr/include/boost/filesystem/string_file.hpp:
 
+/usr/include/boost/core/explicit_operator_bool.hpp:
+
+/usr/include/boost/type_traits/remove_extent.hpp:
+
 /usr/include/boost/type_traits/detail/is_function_cxx_11.hpp:
 
 /usr/include/cppconn/datatype.h:
@@ -9103,10 +9101,6 @@ message.grpc.pb.cc:
 /usr/include/cppconn/driver.h:
 
 /usr/include/google/protobuf/stubs/common.h:
-
-/usr/include/c++/11/fstream:
-
-/usr/include/boost/config/auto_link.hpp:
 
 /usr/include/boost/iterator/iterator_categories.hpp:
 
@@ -9937,10 +9931,6 @@ message.grpc.pb.cc:
 /usr/include/grpcpp/support/string_ref.h:
 
 /usr/include/boost/config/helper_macros.hpp:
-
-/usr/include/boost/type_traits/remove_extent.hpp:
-
-/usr/include/boost/core/explicit_operator_bool.hpp:
 
 /usr/include/boost/core/swap.hpp:
 
@@ -10893,3 +10883,5 @@ message.pb.cc:
 /usr/include/google/protobuf/descriptor.h:
 
 /usr/include/google/protobuf/io/zero_copy_stream_impl_lite.h:
+
+/usr/include/google/protobuf/stubs/callback.h:

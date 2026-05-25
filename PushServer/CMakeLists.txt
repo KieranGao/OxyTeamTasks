@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(ChatServer CXX)
+project(PushServer CXX)
 
 # 设置C++标准
 set(CMAKE_CXX_STANDARD 17)
@@ -25,7 +25,7 @@ set(JSONCPP_SOURCES
 
 # 设置Gateserver源文件
 set(CHATSERVER_SOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/ChatServer.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/PushServerMain.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/IOContextPool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RedisConnectPool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RedisManager.cpp
@@ -38,7 +38,6 @@ set(CHATSERVER_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/LogicSystem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/MainServer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Session.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/MessageNode.cpp
 )
 
 # 查找protobuf包

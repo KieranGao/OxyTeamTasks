@@ -30,11 +30,21 @@ int MySQLDao::registerUser(const std::string& username, const std::string& email
         stmt->execute();
 
         std::unique_ptr<sql::Statement> stmtResult(sql_conn->createStatement());
-        // 非用户输入可以直接用executeQuery
         std::unique_ptr<sql::ResultSet> res(stmtResult->executeQuery("SELECT @result AS result"));
-        if (res and res->next()) {
-            std::cerr << "result is : " + std::to_string(res->getInt("result")) << std::endl;
-            return res->getInt("result");
+        if (!res or !res->next()) return -1;
+
+        int result = res->getInt("result");
+        std::cerr << "reg_user result code: " << result << std::endl;
+        if (result != 0) return -1;  // 1=用户名重复 2=邮箱重复 -1=异常
+
+        // Registration succeeded — fetch the new uid
+        std::unique_ptr<sql::PreparedStatement> pstmt(sql_conn->prepareStatement("SELECT uid FROM user WHERE email = ? LIMIT 1"));
+        pstmt->setString(1, email);
+        std::unique_ptr<sql::ResultSet> uidRes(pstmt->executeQuery());
+        if (uidRes and uidRes->next()) {
+            int uid = uidRes->getInt("uid");
+            std::cerr << "new user uid: " << uid << std::endl;
+            return uid;
         }
         return -1;
     } catch(const sql::SQLException& exp) {

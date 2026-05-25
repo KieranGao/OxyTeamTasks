@@ -3,7 +3,7 @@ const emailModule = require('./email');
 const const_module = require('./const');
 const { messageProto: message_proto } = require('./proto');
 
-// SendMail: receives email + verification code from UMSServer, sends email
+// SendMail: receives email + verification code from UMSServer, then sends email
 async function SendMail(call, callback) {
     console.log("SendMail called, email:", call.request.email, "code:", call.request.code)
     try {

@@ -261,7 +261,6 @@ CMakeFiles/UMSServer.dir/ConfigManager.cpp.o
  /usr/include/boost/system/api_config.hpp
  /usr/include/boost/detail/workaround.hpp
  /usr/include/boost/config/workaround.hpp
- /usr/include/boost/config/auto_link.hpp
  /usr/include/boost/filesystem/path.hpp
  /usr/include/boost/assert.hpp
  /usr/include/assert.h
@@ -1426,7 +1425,6 @@ CMakeFiles/UMSServer.dir/MailerGrpcClient.cpp.o
  /usr/include/boost/system/api_config.hpp
  /usr/include/boost/detail/workaround.hpp
  /usr/include/boost/config/workaround.hpp
- /usr/include/boost/config/auto_link.hpp
  /usr/include/boost/filesystem/path.hpp
  /usr/include/boost/assert.hpp
  /usr/include/boost/filesystem/path_traits.hpp
@@ -2728,7 +2726,6 @@ CMakeFiles/UMSServer.dir/MySQLDao.cpp.o
  /usr/include/boost/filesystem/config.hpp
  /usr/include/boost/system/api_config.hpp
  /usr/include/boost/detail/workaround.hpp
- /usr/include/boost/config/auto_link.hpp
  /usr/include/boost/filesystem/path.hpp
  /usr/include/boost/filesystem/path_traits.hpp
  /usr/include/boost/type_traits/is_array.hpp
@@ -4694,7 +4691,6 @@ CMakeFiles/UMSServer.dir/RedisManager.cpp.o
  /usr/include/boost/system/api_config.hpp
  /usr/include/boost/detail/workaround.hpp
  /usr/include/boost/config/workaround.hpp
- /usr/include/boost/config/auto_link.hpp
  /usr/include/boost/filesystem/path.hpp
  /usr/include/boost/assert.hpp
  /usr/include/assert.h
@@ -5860,7 +5856,6 @@ CMakeFiles/UMSServer.dir/UMSGrpcServiceImpl.cpp.o
  /usr/include/boost/system/api_config.hpp
  /usr/include/boost/detail/workaround.hpp
  /usr/include/boost/config/workaround.hpp
- /usr/include/boost/config/auto_link.hpp
  /usr/include/boost/filesystem/path.hpp
  /usr/include/boost/assert.hpp
  /usr/include/boost/filesystem/path_traits.hpp
@@ -7056,7 +7051,6 @@ CMakeFiles/UMSServer.dir/main.cpp.o
  /usr/include/boost/system/api_config.hpp
  /usr/include/boost/detail/workaround.hpp
  /usr/include/boost/config/workaround.hpp
- /usr/include/boost/config/auto_link.hpp
  /usr/include/boost/filesystem/path.hpp
  /usr/include/boost/assert.hpp
  /usr/include/boost/filesystem/path_traits.hpp

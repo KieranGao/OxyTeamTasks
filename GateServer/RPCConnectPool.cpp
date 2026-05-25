@@ -1,9 +1,6 @@
 #include "RPCConnectPool.h"
 
-// --- UserConnectPool (GateServer → UMSServer) ---
-
-UserConnectPool::UserConnectPool(size_t pool_size, std::string host, std::string port)
-    : is_running_(true), host_(std::move(host)), port_(std::move(port)), pool_size_(pool_size)
+UserConnectPool::UserConnectPool(size_t pool_size, std::string host, std::string port) : is_running_(true), host_(std::move(host)), port_(std::move(port)), pool_size_(pool_size)
 {
     for(int i=0;i<pool_size;i++) {
         std::shared_ptr<Channel> channel = grpc::CreateChannel(host_ + ":" + port_, grpc::InsecureChannelCredentials());

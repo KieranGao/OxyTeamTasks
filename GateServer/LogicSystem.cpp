@@ -129,6 +129,7 @@ LogicSystem::LogicSystem() {
         jsonResp["uid"] = userinfo.uid;
         jsonResp["role"] = userinfo.role;
         jsonResp["belong_captain_id"] = userinfo.belong_captain_id;
+        jsonResp["belong_team_id"] = userinfo.belong_team_id;
         jsonResp["token"] = pushRsp.token();
         jsonResp["host"] = pushRsp.host();
         std::cerr << "[Gate] Login OK: " << userinfo.username << " uid=" << userinfo.uid << " role=" << userinfo.role << std::endl;
@@ -149,8 +150,8 @@ LogicSystem::LogicSystem() {
             return;
         }
         int uid = jsonData["uid"].asInt();
-        int belong_captain_id = jsonData["belong_captain_id"].asInt();
-        bool ret = MySQLManager::getInstance().updateTeamInfo(uid, belong_captain_id);
+        int belong_team_id = jsonData["belong_team_id"].asInt();
+        bool ret = MySQLManager::getInstance().updateTeamInfo(uid, belong_team_id);
         jsonResp["error"] = ret ? 0 : static_cast<int>(ErrorCodes::USER_ID_INVALID);
         beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
     });

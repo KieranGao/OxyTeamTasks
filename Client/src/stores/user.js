@@ -14,6 +14,7 @@ export const useUserStore = defineStore('user', () => {
   const email = ref(localStorage.getItem('email') || '')
   const role = ref(Number(localStorage.getItem('role')) || 0)
   const belongCaptainId = ref(Number(localStorage.getItem('belong_captain_id')) || 0)
+  const belongTeamId = ref(Number(localStorage.getItem('belong_team_id')) || 0)
   const pushServerHost = ref('')
   const pushServerPort = ref('')
 
@@ -24,7 +25,7 @@ export const useUserStore = defineStore('user', () => {
   const isCaptain = computed(() => role.value === 1)
   const isCoach = computed(() => role.value === 2)
   const canManage = computed(() => isCaptain.value || isCoach.value)
-  const hasTeam = computed(() => belongCaptainId.value > 0)
+  const hasTeam = computed(() => belongTeamId.value > 0)
 
   // --- Helpers ---
   function persist(key, value) {
@@ -42,6 +43,7 @@ export const useUserStore = defineStore('user', () => {
     email.value = ''
     role.value = 0
     belongCaptainId.value = 0
+    belongTeamId.value = 0
     pushServerHost.value = ''
     pushServerPort.value = ''
     localStorage.removeItem('token')
@@ -50,6 +52,7 @@ export const useUserStore = defineStore('user', () => {
     localStorage.removeItem('email')
     localStorage.removeItem('role')
     localStorage.removeItem('belong_captain_id')
+    localStorage.removeItem('belong_team_id')
   }
 
   // --- Actions ---
@@ -64,6 +67,7 @@ export const useUserStore = defineStore('user', () => {
     email.value = res.email
     role.value = res.role ?? 0
     belongCaptainId.value = res.belong_captain_id ?? 0
+    belongTeamId.value = res.belong_team_id ?? 0
     pushServerHost.value = res.host || ''
     pushServerPort.value = res.port || ''
 
@@ -73,6 +77,7 @@ export const useUserStore = defineStore('user', () => {
     persist('email', res.email)
     persist('role', res.role ?? 0)
     persist('belong_captain_id', res.belong_captain_id ?? 0)
+    persist('belong_team_id', res.belong_team_id ?? 0)
     return res
   }
 
@@ -92,15 +97,14 @@ export const useUserStore = defineStore('user', () => {
     return res
   }
 
-  async function updateTeam(targetUid, captainId) {
-    const res = await apiUpdateTeam({ uid: targetUid, belong_captain_id: captainId })
+  async function updateTeam(targetUid, teamId) {
+    const res = await apiUpdateTeam({ uid: targetUid, belong_team_id: teamId })
     if (res.error !== 0) {
       throw new Error(res.error)
     }
-    // If updating own team, refresh local state
     if (targetUid === uid.value) {
-      belongCaptainId.value = captainId
-      persist('belong_captain_id', captainId)
+      belongTeamId.value = teamId
+      persist('belong_team_id', teamId)
     }
     return res
   }
@@ -117,6 +121,7 @@ export const useUserStore = defineStore('user', () => {
     email,
     role,
     belongCaptainId,
+    belongTeamId,
     pushServerHost,
     pushServerPort,
     isLoggedIn,

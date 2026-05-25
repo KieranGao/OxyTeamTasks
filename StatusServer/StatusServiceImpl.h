@@ -47,11 +47,15 @@ private:
     void insertToken(int uid, std::string token);
     PushServer& getPushServer();
     void returnServer(PushServer& cs);
+    // 使用权值线段树作负载均衡
     std::unique_ptr<SegmentTree> SegTree_;
+    // 使用暴力遍历作负载均衡
+    std::vector<int> server_conns_;
     std::unordered_map<std::string, PushServer> servers_;
     std::unordered_map<int, PushServer> servers_idx_;
     std::mutex server_mtx_;
     int server_cnt_;
+    std::string allocate_method_;
 };
 
 #endif /* STATUSSERVICEIMPL */

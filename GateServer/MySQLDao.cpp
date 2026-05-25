@@ -30,11 +30,21 @@ int MySQLDao::registerUser(const std::string& username, const std::string& email
         stmt->execute();
 
         std::unique_ptr<sql::Statement> stmtResult(sql_conn->createStatement());
-        // 非用户输入可以直接用executeQuery
         std::unique_ptr<sql::ResultSet> res(stmtResult->executeQuery("SELECT @result AS result"));
-        if (res and res->next()) {
-            std::cerr << "result is : " + std::to_string(res->getInt("result")) << std::endl;
-            return res->getInt("result");
+        if (!res or !res->next()) return -1;
+
+        int result = res->getInt("result");
+        std::cerr << "reg_user result code: " << result << std::endl;
+        if (result != 0) return -1;  // 1=用户名重复 2=邮箱重复 -1=异常
+
+        // Registration succeeded — fetch the new uid
+        std::unique_ptr<sql::PreparedStatement> pstmt(sql_conn->prepareStatement("SELECT uid FROM user WHERE email = ? LIMIT 1"));
+        pstmt->setString(1, email);
+        std::unique_ptr<sql::ResultSet> uidRes(pstmt->executeQuery());
+        if (uidRes and uidRes->next()) {
+            int uid = uidRes->getInt("uid");
+            std::cerr << "new user uid: " << uid << std::endl;
+            return uid;
         }
         return -1;
     } catch(const sql::SQLException& exp) {
@@ -111,13 +121,13 @@ bool MySQLDao::checkLogin(const std::string& email, const std::string& password,
     }
 }
 
-bool MySQLDao::updateTeamInfo(int uid, int belong_captain_id) {
+bool MySQLDao::updateTeamInfo(int uid, int belong_team_id) {
     auto connection = ConnectionGuard(*pool_, pool_->getConnection());
     try {
         auto& sql_conn = connection.get()->getConn();
-        std::string update_sql = "UPDATE user SET belong_captain_id = ? WHERE uid = ?";
+        std::string update_sql = "UPDATE user SET belong_team_id = ? WHERE uid = ?";
         std::unique_ptr<sql::PreparedStatement> pstmt(sql_conn->prepareStatement(update_sql));
-        pstmt->setInt(1, belong_captain_id);
+        pstmt->setInt(1, belong_team_id);
         pstmt->setInt(2, uid);
         int affected = pstmt->executeUpdate();
         return affected > 0;
@@ -131,7 +141,7 @@ bool MySQLDao::getUserInfo(int uid, UserInfo& userinfo) {
     auto connection = ConnectionGuard(*pool_, pool_->getConnection());
     try {
         auto& sql_conn = connection.get()->getConn();
-        std::string query = "SELECT username, email, role, belong_captain_id FROM user WHERE uid = ? LIMIT 1";
+        std::string query = "SELECT username, email, role, belong_captain_id, belong_team_id FROM user WHERE uid = ? LIMIT 1";
         std::unique_ptr<sql::PreparedStatement> pstmt(sql_conn->prepareStatement(query));
         pstmt->setInt(1, uid);
         std::unique_ptr<sql::ResultSet> res(pstmt->executeQuery());
@@ -141,6 +151,7 @@ bool MySQLDao::getUserInfo(int uid, UserInfo& userinfo) {
         userinfo.email = res->getString("email");
         userinfo.role = res->getInt("role");
         userinfo.belong_captain_id = res->getInt("belong_captain_id");
+        userinfo.belong_team_id = res->isNull("belong_team_id") ? 0 : res->getInt("belong_team_id");
         return true;
     } catch(const sql::SQLException& exp) {
         std::cerr << "SQLException in getUserInfo: " << exp.what() << std::endl;

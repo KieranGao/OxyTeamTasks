@@ -34,7 +34,7 @@ export function loginUser(data) {
 
 /**
  * Update team affiliation (coach only)
- * @param {object} data — { uid, belong_captain_id }
+ * @param {object} data — { uid, belong_team_id }
  */
 export function updateTeamInfo(data) {
   return request.post('/user_update_team', data)

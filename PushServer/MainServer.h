@@ -4,7 +4,6 @@
 #include "Session.h"
 #include <boost/asio.hpp>
 #include "IOContextPool.h"
-#include "Session.h"
 #include <memory>
 #include <map>
 #include <mutex>
@@ -15,10 +14,10 @@ class MainServer {
 public:
     MainServer(boost::asio::io_context& io_context, short port);
     ~MainServer() = default;
-    void clearSession(std::string session);
+    void clearSession(std::string uuid);
 private:
-    void handleAccept(std::shared_ptr<Session>, const boost::system::error_code& error);
-    void startAccept();
+    void onAccept(std::shared_ptr<Session>, beast::error_code ec);
+    void doAccept();
 
     boost::asio::io_context& io_context_;
     short port_;

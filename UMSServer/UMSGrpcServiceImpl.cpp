@@ -11,19 +11,16 @@ Status UMSGrpcServiceImpl::GetVerifyCode(ServerContext* context, const VerifyReq
 {
     std::string email = req->email();
     std::cerr << "[UMS] GetVerifyCode for email: " << email << std::endl;
-
-    // Generate 4-char UUID code
     std::string code;
-    bool hasExisting = RedisManager::getInstance().get(CODE_PREFIX + email, code);
-    if (!hasExisting) {
-        // Generate new code
+    bool exist = RedisManager::getInstance().get(CODE_PREFIX + email, code);
+    if(!exist) {
+        // 内存中没有就重新生成
         auto now = std::chrono::system_clock::now();
         auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count();
         code = std::to_string(ms % 10000);
-        while (code.length() < 4) code = "0" + code;
-
+        while(code.length() < 4) code = "0" + code;
         bool stored = RedisManager::getInstance().setex(CODE_PREFIX + email, code, 180);
-        if (!stored) {
+        if(!stored) {
             std::cerr << "[UMS] Failed to store code in Redis" << std::endl;
             resp->set_error(static_cast<int>(ErrorCodes::RPC_ERROR));
             resp->set_email(email);
@@ -55,25 +52,22 @@ Status UMSGrpcServiceImpl::Register(ServerContext* context, const RegisterReq* r
     std::string password = req->password();
     std::string code = req->code();
     std::cerr << "[UMS] Register user: " << username << " email: " << email << std::endl;
-
-    // Validate verify code from Redis
+ 
     std::string storedCode;
     bool valid = RedisManager::getInstance().get(CODE_PREFIX + email, storedCode);
-    if (!valid || storedCode != code) {
+    if(!valid or storedCode != code) {
         std::cerr << "[UMS] Verify code expired or mismatch" << std::endl;
         resp->set_error(static_cast<int>(ErrorCodes::VERIFY_CODE_EXPIRED));
         return Status::OK;
     }
 
-    // Register via MySQL stored procedure
     int uid = MySQLManager::getInstance().registerUser(username, email, password);
-    if (uid <= 0) {
+    if(uid <= 0) {
         std::cerr << "[UMS] Registration failed, uid=" << uid << std::endl;
         resp->set_error(static_cast<int>(ErrorCodes::USER_ALREADY_EXISTS));
         return Status::OK;
     }
-
-    // Clean up verify code after successful registration
+    // 成功注册后删除Redis中的验证码
     RedisManager::getInstance().del(CODE_PREFIX + email);
 
     resp->set_error(static_cast<int>(ErrorCodes::SUCCESS));
@@ -111,25 +105,20 @@ Status UMSGrpcServiceImpl::ResetPass(ServerContext* context, const ResetPassReq*
     std::string code = req->code();
     std::cerr << "[UMS] ResetPass for user: " << username << " email: " << email << std::endl;
 
-    // Validate verify code from Redis
     std::string storedCode;
     bool valid = RedisManager::getInstance().get(CODE_PREFIX + email, storedCode);
-    if (!valid || storedCode != code) {
+    if(!valid or storedCode != code) {
         std::cerr << "[UMS] Verify code expired or mismatch" << std::endl;
         resp->set_error(static_cast<int>(ErrorCodes::VERIFY_CODE_EXPIRED));
         return Status::OK;
     }
-
     bool ok = MySQLManager::getInstance().userResetpass(username, email, newPassword);
-    if (!ok) {
+    if(!ok) {
         std::cerr << "[UMS] ResetPass failed: user/email mismatch" << std::endl;
         resp->set_error(static_cast<int>(ErrorCodes::USER_DO_NOT_EXISTS));
         return Status::OK;
     }
-
-    // Clean up verify code
     RedisManager::getInstance().del(CODE_PREFIX + email);
-
     resp->set_error(static_cast<int>(ErrorCodes::SUCCESS));
     std::cerr << "[UMS] ResetPass success" << std::endl;
     return Status::OK;

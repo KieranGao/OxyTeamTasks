@@ -26,9 +26,9 @@
             <template v-if="editingTeam">
               <div class="team-edit-row">
                 <el-input-number
-                  v-model="teamForm.captainId"
+                  v-model="teamForm.teamId"
                   :min="0"
-                  placeholder="队长 UID"
+                  placeholder="队伍 ID"
                   size="small"
                   style="width: 120px"
                 />
@@ -38,7 +38,7 @@
             </template>
             <template v-else>
               <span class="value">
-                {{ userStore.belongCaptainId > 0 ? '队伍 ' + userStore.belongCaptainId : '未分配' }}
+                {{ userStore.belongTeamId > 0 ? '队伍 ' + userStore.belongTeamId : '未分配' }}
               </span>
               <el-button
                 v-if="userStore.isCoach"
@@ -85,24 +85,24 @@ import { ElMessage } from 'element-plus'
 const userStore = useUserStore()
 const appStore = useAppStore()
 
-// role: 0=队员(gray) 1=队长(green) 2=教练(blue)
+// role: 0=队员(gray) 1=队长(green) 2=教练(red)
 const roleTagColor = computed(() => {
-  const map = { 0: 'info', 1: 'success', 2: '' }
+  const map = { 0: 'info', 1: 'success', 2: 'danger' }
   return map[userStore.role] || 'info'
 })
 
 // Team editing
 const editingTeam = ref(false)
-const teamForm = reactive({ captainId: 0 })
+const teamForm = reactive({ teamId: 0 })
 
 function startEditTeam() {
-  teamForm.captainId = userStore.belongCaptainId
+  teamForm.teamId = userStore.belongTeamId
   editingTeam.value = true
 }
 
 async function saveTeam() {
   try {
-    await userStore.updateTeam(userStore.uid, teamForm.captainId)
+    await userStore.updateTeam(userStore.uid, teamForm.teamId)
     ElMessage.success('所属队伍已更新')
     editingTeam.value = false
   } catch {
