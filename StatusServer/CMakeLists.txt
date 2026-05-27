@@ -29,14 +29,12 @@ set(GATESERVER_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/RedisConnectPool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RedisManager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ConfigManager.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/MySQLConnectPool.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/MySQLDao.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/MySQLManager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RPCConnectPool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/StatusGrpcClient.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/SegmentTree.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/StatusServiceImpl.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/StatusServer.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Logger.cpp
 )
 
 # 查找protobuf包
@@ -52,17 +50,16 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(GRPC REQUIRED grpc++)
 message(STATUS "Using gRPC ${GRPC_VERSION}")
 
-# 查找MySQLConnect库
-find_path(MYSQLCPPCONN_INCLUDE_DIR NAMES mysql_driver.h PATHS /usr/include /usr/local/include)
-find_library(MYSQLCPPCONN_LIBRARY NAMES mysqlcppconn PATHS /usr/lib /usr/local/lib /usr/lib/x86_64-linux-gnu)
+# MySQL not used by StatusServer
 
 
 # 包含目录
 include_directories(${Boost_INCLUDE_DIRS})
+    include_directories(${CMAKE_CURRENT_BINARY_DIR})
 include_directories(${JSONCPP_INCLUDE_DIR})
 include_directories(${Protobuf_INCLUDE_DIRS})
 include_directories(${HIREDIS_INCLUDE_DIR})
-include_directories(${MYSQLCPPCONN_INCLUDE_DIR})
+# MySQL not needed for StatusServer
 
 # 设置proto文件路径
 set(PROTO_FILE "${CMAKE_CURRENT_SOURCE_DIR}/message.proto")
@@ -109,5 +106,5 @@ target_link_libraries(${PROJECT_NAME}
     ${GRPC_LIBRARIES}
     protobuf::libprotobuf
     ${HIREDIS_LIBRARY}
-    ${MYSQLCPPCONN_LIBRARY}
+    # MySQL library not needed
 )

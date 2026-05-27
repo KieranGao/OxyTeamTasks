@@ -24,6 +24,7 @@ struct UserInfo {
     int role;
     int belong_captain_id;
     int belong_team_id;
+    int status;
 };
 
 enum class ErrorCodes {
@@ -34,7 +35,10 @@ enum class ErrorCodes {
     USER_ALREADY_EXISTS = 1004,
     USER_DO_NOT_EXISTS = 1005,
     USER_LOGIN_ERROR = 1006,
-    USER_ID_INVALID = 1007
+    USER_ID_INVALID = 1007,
+    USER_NOT_APPROVED = 1008,
+    USER_ALREADY_APPROVED = 1009,
+    INVALID_TOKEN = 1010
 };
 
 // WEBSOCKET MESSAGE TYPE

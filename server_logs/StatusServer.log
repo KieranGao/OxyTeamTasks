@@ -1,0 +1,34 @@
+Config path: "/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/config.ini"
+===== Parsed config =====
+[AllocateMethods]
+  methods=SegmentTree
+[GateServer]
+  host=127.0.0.1
+  port=8080
+[Log]
+  file_path=../logs/
+  flush_interval=5
+  level=DEBUG
+  max_buffer_size=100
+  service_name=StatusServer
+[Monitor]
+  heartbeat_timeout=30
+[MySQL]
+  dbName=oxytasks
+  host=127.0.0.1
+  password=password
+  port=3306
+  user=root
+[PushServer1]
+  host=127.0.0.1
+  name=PushServer1
+  port=8890
+[PushServers]
+  name=PushServer1
+[Redis]
+  host=127.0.0.1
+  password=123456
+  port=6379
+[StatusServer]
+  host=127.0.0.1
+  port=50052

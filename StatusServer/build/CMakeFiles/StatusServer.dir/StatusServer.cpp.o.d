@@ -1976,29 +1976,14 @@ CMakeFiles/StatusServer.dir/StatusServer.cpp.o: \
  /usr/include/boost/property_tree/detail/ptree_implementation.hpp \
  /usr/include/boost/property_tree/ini_parser.hpp \
  /usr/include/boost/property_tree/detail/file_parser_error.hpp \
+ /home/oxythecrack/Desktop/OxyTasks/StatusServer/Logger.h \
+ /usr/include/c++/11/queue /usr/include/c++/11/bits/stl_queue.h \
+ /usr/include/c++/11/thread /usr/include/c++/11/bits/this_thread_sleep.h \
  /usr/include/hiredis/hiredis.h /usr/include/hiredis/read.h \
  /usr/include/hiredis/sds.h /usr/include/hiredis/alloc.h \
  /usr/include/c++/11/stdlib.h \
  /home/oxythecrack/Desktop/OxyTasks/StatusServer/RedisManager.h \
  /home/oxythecrack/Desktop/OxyTasks/StatusServer/RedisConnectPool.h \
- /usr/include/c++/11/queue /usr/include/c++/11/bits/stl_queue.h \
- /home/oxythecrack/Desktop/OxyTasks/StatusServer/MySQLManager.h \
- /home/oxythecrack/Desktop/OxyTasks/StatusServer/MySQLDao.h \
- /home/oxythecrack/Desktop/OxyTasks/StatusServer/MySQLConnectPool.h \
- /usr/include/mysql_driver.h /usr/include/boost/scoped_ptr.hpp \
- /usr/include/boost/smart_ptr/scoped_ptr.hpp \
- /usr/include/cppconn/driver.h /usr/include/cppconn/connection.h \
- /usr/include/cppconn/build_config.h /usr/include/cppconn/warning.h \
- /usr/include/cppconn/sqlstring.h /usr/include/cppconn/variant.h \
- /usr/include/cppconn/exception.h /usr/include/mysql_connection.h \
- /usr/include/cppconn/connection.h /usr/include/cppconn/statement.h \
- /usr/include/cppconn/config.h /usr/include/inttypes.h \
- /usr/include/cppconn/resultset.h \
- /usr/include/cppconn/resultset_metadata.h \
- /usr/include/cppconn/datatype.h \
- /usr/include/cppconn/prepared_statement.h \
- /usr/include/cppconn/statement.h /usr/include/cppconn/resultset.h \
- /usr/include/c++/11/thread /usr/include/c++/11/bits/this_thread_sleep.h \
  /home/oxythecrack/Desktop/OxyTasks/StatusServer/IOContextPool.h \
  /usr/include/grpcpp/grpcpp.h /usr/include/grpc/grpc.h \
  /usr/include/grpc/support/port_platform.h \
@@ -2100,8 +2085,8 @@ CMakeFiles/StatusServer.dir/StatusServer.cpp.o: \
  /usr/include/grpcpp/server_posix.h \
  /usr/include/grpcpp/server_posix_impl.h \
  /home/oxythecrack/Desktop/OxyTasks/StatusServer/StatusServiceImpl.h \
- /home/oxythecrack/Desktop/OxyTasks/StatusServer/message.grpc.pb.h \
- /home/oxythecrack/Desktop/OxyTasks/StatusServer/message.pb.h \
+ /home/oxythecrack/Desktop/OxyTasks/StatusServer/build/message.grpc.pb.h \
+ /home/oxythecrack/Desktop/OxyTasks/StatusServer/build/message.pb.h \
  /usr/include/google/protobuf/port_def.inc \
  /usr/include/google/protobuf/port_undef.inc \
  /usr/include/google/protobuf/io/coded_stream.h \

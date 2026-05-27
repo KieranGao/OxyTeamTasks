@@ -303,8 +303,8 @@ CMakeFiles/StatusServer.dir/StatusGrpcClient.cpp.o: \
  /usr/include/grpcpp/impl/codegen/server_context.h \
  /usr/include/grpcpp/server_posix.h \
  /usr/include/grpcpp/server_posix_impl.h \
- /home/oxythecrack/Desktop/OxyTasks/StatusServer/message.grpc.pb.h \
- /home/oxythecrack/Desktop/OxyTasks/StatusServer/message.pb.h \
+ /home/oxythecrack/Desktop/OxyTasks/StatusServer/build/message.grpc.pb.h \
+ /home/oxythecrack/Desktop/OxyTasks/StatusServer/build/message.pb.h \
  /usr/include/google/protobuf/port_def.inc \
  /usr/include/google/protobuf/port_undef.inc \
  /usr/include/google/protobuf/io/coded_stream.h \

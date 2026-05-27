@@ -23,6 +23,8 @@ set(UMS_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/MySQLDao.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/MySQLManager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RPCConnectPool.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/StatusGrpcClient.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Logger.cpp
 )
 
 # Protobuf
@@ -43,6 +45,7 @@ find_path(MYSQLCPPCONN_INCLUDE_DIR NAMES mysql_driver.h PATHS /usr/include /usr/
 find_library(MYSQLCPPCONN_LIBRARY NAMES mysqlcppconn PATHS /usr/lib /usr/local/lib /usr/lib/x86_64-linux-gnu)
 
 include_directories(${Boost_INCLUDE_DIRS})
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
 include_directories(${Protobuf_INCLUDE_DIRS})
 include_directories(${HIREDIS_INCLUDE_DIR})
 include_directories(${MYSQLCPPCONN_INCLUDE_DIR})

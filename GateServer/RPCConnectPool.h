@@ -24,7 +24,6 @@ public:
     ~UserConnectPool();
     std::unique_ptr<UserService::Stub> getStub();
     void returnStub(std::unique_ptr<UserService::Stub> stub);
-    void start();
     void stop();
 private:
     std::queue<std::unique_ptr<UserService::Stub>> stubs_;
@@ -43,7 +42,6 @@ public:
     ~StatusConnectPool();
     std::unique_ptr<StatusService::Stub> getStub();
     void returnStub(std::unique_ptr<StatusService::Stub> stub);
-    void start();
     void stop();
 private:
     std::queue<std::unique_ptr<StatusService::Stub>> stubs_;

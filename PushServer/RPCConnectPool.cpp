@@ -1,4 +1,5 @@
 #include "RPCConnectPool.h"
+#include "Logger.h"
 
 StatusConnectPool::StatusConnectPool(size_t pool_size, std::string host, std::string port) 
     : is_running_(true), host_(std::move(host)), port_(std::move(port)), pool_size_(pool_size) 
@@ -12,12 +13,14 @@ StatusConnectPool::StatusConnectPool(size_t pool_size, std::string host, std::st
 StatusConnectPool::~StatusConnectPool() {
     // std::lock_guard<std::mutex> lock(mutex_); 不可加，会产生死锁
     stop();
-    std::cerr << "StatusConnectPool is destroyed" << std::endl;
+    LOG_DEBUG("StatusConnectPool is destroyed");
 }
 
 std::unique_ptr<StatusService::Stub> StatusConnectPool::getStub() {
     std::unique_lock<std::mutex> lock(mutex_);
-    cond_.wait(lock, [this](){ return !stubs_.empty() or !is_running_; });
+    if (!cond_.wait_for(lock, std::chrono::seconds(5), [this](){ return !stubs_.empty() or !is_running_; })) {
+        return nullptr;
+    }
     if(!is_running_) {
         return nullptr; // 连接池已停止，返回空指针
     }

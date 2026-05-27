@@ -1980,4 +1980,6 @@ CMakeFiles/GateServer.dir/RedisManager.cpp.o: \
  /usr/include/boost/multi_index/member.hpp \
  /usr/include/boost/property_tree/detail/ptree_implementation.hpp \
  /usr/include/boost/property_tree/ini_parser.hpp \
- /usr/include/boost/property_tree/detail/file_parser_error.hpp
+ /usr/include/boost/property_tree/detail/file_parser_error.hpp \
+ /home/oxythecrack/Desktop/OxyTasks/GateServer/Logger.h \
+ /usr/include/c++/11/thread /usr/include/c++/11/bits/this_thread_sleep.h

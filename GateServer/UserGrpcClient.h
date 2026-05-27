@@ -20,6 +20,16 @@ using message::ResetPassReq;
 using message::ResetPassRsp;
 using message::VerifyReq;
 using message::VerifyRsp;
+using message::ListPendingUsersReq;
+using message::ListPendingUsersRsp;
+using message::ApproveUserReq;
+using message::ApproveUserRsp;
+using message::RejectUserReq;
+using message::RejectUserRsp;
+using message::SetUserRoleReq;
+using message::SetUserRoleRsp;
+using message::ListAllUsersReq;
+using message::ListAllUsersRsp;
 using message::UserService;
 
 class UserGrpcClient : public Singleton<UserGrpcClient> {
@@ -29,6 +39,11 @@ public:
     RegisterRsp registerUser(const std::string& username, const std::string& email, const std::string& password, const std::string& code);
     LoginRsp login(const std::string& email, const std::string& password);
     ResetPassRsp resetPass(const std::string& username, const std::string& email, const std::string& newPassword, const std::string& code);
+    ListPendingUsersRsp listPendingUsers();
+    ApproveUserRsp approveUser(int uid, int role, int belong_team_id);
+    RejectUserRsp rejectUser(int uid);
+    SetUserRoleRsp setUserRole(int uid, int role, int belong_team_id);
+    ListAllUsersRsp listAllUsers();
 private:
     std::unique_ptr<UserConnectPool> rpc_pool_;
     UserGrpcClient();

@@ -22,6 +22,14 @@ public:
     bool lpop(const std::string& key, std::string& value);
     bool rpop(const std::string& key, std::string& value);
     bool existskey(const std::string& key);
+    bool setex(const std::string& key, const std::string& value, int seconds);
+    bool expire(const std::string& key, int seconds);
+    // lrange: 获取列表中指定范围的元素，返回 JSON 数组字符串
+    std::string lrange(const std::string& key, int start, int stop);
+    // lrangeVec: 返回每个元素的原始字符串，逐个解析更健壮
+    std::vector<std::string> lrangeVec(const std::string& key, int start, int stop);
+    bool ltrim(const std::string& key, int start, int stop);
+    std::string keys(const std::string& pattern);  // KEYS pattern，返回 JSON 数组
     // hset和hget是redis中的hash表操作，hset可以设置一个key下的field和value，hget可以获取一个key下的field对应的value
     // 形象来说，key->field->value，就像一个二维表一样，key是表名，field是列名，value是数据
     bool hset(const std::string& key, const std::string& field, const std::string& value);

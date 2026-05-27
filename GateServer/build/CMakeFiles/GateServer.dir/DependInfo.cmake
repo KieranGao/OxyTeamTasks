@@ -8,9 +8,11 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/oxythecrack/Desktop/OxyTasks/GateServer/AsyncTaskPool.cpp" "CMakeFiles/GateServer.dir/AsyncTaskPool.cpp.o" "gcc" "CMakeFiles/GateServer.dir/AsyncTaskPool.cpp.o.d"
   "/home/oxythecrack/Desktop/OxyTasks/GateServer/ConfigManager.cpp" "CMakeFiles/GateServer.dir/ConfigManager.cpp.o" "gcc" "CMakeFiles/GateServer.dir/ConfigManager.cpp.o.d"
   "/home/oxythecrack/Desktop/OxyTasks/GateServer/HttpConnection.cpp" "CMakeFiles/GateServer.dir/HttpConnection.cpp.o" "gcc" "CMakeFiles/GateServer.dir/HttpConnection.cpp.o.d"
   "/home/oxythecrack/Desktop/OxyTasks/GateServer/IOContextPool.cpp" "CMakeFiles/GateServer.dir/IOContextPool.cpp.o" "gcc" "CMakeFiles/GateServer.dir/IOContextPool.cpp.o.d"
+  "/home/oxythecrack/Desktop/OxyTasks/GateServer/Logger.cpp" "CMakeFiles/GateServer.dir/Logger.cpp.o" "gcc" "CMakeFiles/GateServer.dir/Logger.cpp.o.d"
   "/home/oxythecrack/Desktop/OxyTasks/GateServer/LogicSystem.cpp" "CMakeFiles/GateServer.dir/LogicSystem.cpp.o" "gcc" "CMakeFiles/GateServer.dir/LogicSystem.cpp.o.d"
   "/home/oxythecrack/Desktop/OxyTasks/GateServer/MainServer.cpp" "CMakeFiles/GateServer.dir/MainServer.cpp.o" "gcc" "CMakeFiles/GateServer.dir/MainServer.cpp.o.d"
   "/home/oxythecrack/Desktop/OxyTasks/GateServer/MySQLConnectPool.cpp" "CMakeFiles/GateServer.dir/MySQLConnectPool.cpp.o" "gcc" "CMakeFiles/GateServer.dir/MySQLConnectPool.cpp.o.d"

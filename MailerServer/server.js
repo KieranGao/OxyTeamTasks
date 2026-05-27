@@ -31,12 +31,27 @@ async function SendMail(call, callback) {
     }
 }
 
+function sendHeartbeat() {
+    const client = new message_proto.StatusService('127.0.0.1:50052', grpc.credentials.createInsecure());
+    client.ServerHeartbeat({
+        service: 'MailerServer',
+        host: '127.0.0.1',
+        port: '50051',
+        timestamp: Math.floor(Date.now() / 1000)
+    }, (err, resp) => {
+        if (err) console.log('[Heartbeat] StatusServer unreachable:', err.message);
+    });
+}
+
 function main() {
     var server = new grpc.Server();
     server.addService(message_proto.MailerService.service, { SendMail: SendMail });
 
     server.bindAsync('127.0.0.1:50051', grpc.ServerCredentials.createInsecure(), () => {
         console.log('MailerServer grpc started on :50051');
+        // Start heartbeat to StatusServer
+        sendHeartbeat();
+        setInterval(sendHeartbeat, 10000);
     });
 }
 

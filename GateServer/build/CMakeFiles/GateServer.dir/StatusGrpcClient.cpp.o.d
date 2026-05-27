@@ -303,8 +303,8 @@ CMakeFiles/GateServer.dir/StatusGrpcClient.cpp.o: \
  /usr/include/grpcpp/impl/codegen/server_context.h \
  /usr/include/grpcpp/server_posix.h \
  /usr/include/grpcpp/server_posix_impl.h \
- /home/oxythecrack/Desktop/OxyTasks/GateServer/message.grpc.pb.h \
- /home/oxythecrack/Desktop/OxyTasks/GateServer/message.pb.h \
+ /home/oxythecrack/Desktop/OxyTasks/GateServer/build/message.grpc.pb.h \
+ /home/oxythecrack/Desktop/OxyTasks/GateServer/build/message.pb.h \
  /usr/include/google/protobuf/port_def.inc \
  /usr/include/google/protobuf/port_undef.inc \
  /usr/include/google/protobuf/io/coded_stream.h \
@@ -2159,4 +2159,6 @@ CMakeFiles/GateServer.dir/StatusGrpcClient.cpp.o: \
  /usr/include/boost/multi_index/member.hpp \
  /usr/include/boost/property_tree/detail/ptree_implementation.hpp \
  /usr/include/boost/property_tree/ini_parser.hpp \
- /usr/include/boost/property_tree/detail/file_parser_error.hpp
+ /usr/include/boost/property_tree/detail/file_parser_error.hpp \
+ /home/oxythecrack/Desktop/OxyTasks/GateServer/Logger.h \
+ /usr/include/c++/11/thread /usr/include/c++/11/bits/this_thread_sleep.h

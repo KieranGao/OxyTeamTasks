@@ -1,4 +1,5 @@
 #include "RPCConnectPool.h"
+#include "Logger.h"
 
 UserConnectPool::UserConnectPool(size_t pool_size, std::string host, std::string port) : is_running_(true), host_(std::move(host)), port_(std::move(port)), pool_size_(pool_size)
 {
@@ -10,12 +11,14 @@ UserConnectPool::UserConnectPool(size_t pool_size, std::string host, std::string
 
 UserConnectPool::~UserConnectPool() {
     stop();
-    std::cerr << "UserConnectPool destroyed" << std::endl;
+    LOG_DEBUG("UserConnectPool destroyed");
 }
 
 std::unique_ptr<UserService::Stub> UserConnectPool::getStub() {
     std::unique_lock<std::mutex> lock(mutex_);
-    cond_.wait(lock, [this](){ return !stubs_.empty() or !is_running_; });
+    if (!cond_.wait_for(lock, std::chrono::seconds(5), [this](){ return !stubs_.empty() or !is_running_; })) {
+        return nullptr;
+    }
     if(!is_running_) return nullptr;
     auto stub = std::move(stubs_.front());
     stubs_.pop();
@@ -50,12 +53,14 @@ StatusConnectPool::StatusConnectPool(size_t pool_size, std::string host, std::st
 
 StatusConnectPool::~StatusConnectPool() {
     stop();
-    std::cerr << "StatusConnectPool destroyed" << std::endl;
+    LOG_INFO("StatusConnectPool destroyed");
 }
 
 std::unique_ptr<StatusService::Stub> StatusConnectPool::getStub() {
     std::unique_lock<std::mutex> lock(mutex_);
-    cond_.wait(lock, [this](){ return !stubs_.empty() or !is_running_; });
+    if (!cond_.wait_for(lock, std::chrono::seconds(5), [this](){ return !stubs_.empty() or !is_running_; })) {
+        return nullptr;
+    }
     if(!is_running_) return nullptr;
     auto stub = std::move(stubs_.front());
     stubs_.pop();

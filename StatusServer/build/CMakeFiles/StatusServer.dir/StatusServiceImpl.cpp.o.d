@@ -303,8 +303,8 @@ CMakeFiles/StatusServer.dir/StatusServiceImpl.cpp.o: \
  /usr/include/grpcpp/impl/codegen/server_context.h \
  /usr/include/grpcpp/server_posix.h \
  /usr/include/grpcpp/server_posix_impl.h \
- /home/oxythecrack/Desktop/OxyTasks/StatusServer/message.grpc.pb.h \
- /home/oxythecrack/Desktop/OxyTasks/StatusServer/message.pb.h \
+ /home/oxythecrack/Desktop/OxyTasks/StatusServer/build/message.grpc.pb.h \
+ /home/oxythecrack/Desktop/OxyTasks/StatusServer/build/message.pb.h \
  /usr/include/google/protobuf/port_def.inc \
  /usr/include/google/protobuf/port_undef.inc \
  /usr/include/google/protobuf/io/coded_stream.h \
@@ -2264,4 +2264,6 @@ CMakeFiles/StatusServer.dir/StatusServiceImpl.cpp.o: \
  /home/oxythecrack/Desktop/OxyTasks/StatusServer/RedisManager.h \
  /usr/include/hiredis/hiredis.h /usr/include/hiredis/read.h \
  /usr/include/hiredis/sds.h /usr/include/hiredis/alloc.h \
- /home/oxythecrack/Desktop/OxyTasks/StatusServer/RedisConnectPool.h
+ /home/oxythecrack/Desktop/OxyTasks/StatusServer/RedisConnectPool.h \
+ /home/oxythecrack/Desktop/OxyTasks/StatusServer/Logger.h \
+ /usr/include/c++/11/thread /usr/include/c++/11/bits/this_thread_sleep.h

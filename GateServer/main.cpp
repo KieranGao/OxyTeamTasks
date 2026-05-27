@@ -1,35 +1,77 @@
 #include "Global.h"
 #include "MainServer.h"
 #include "ConfigManager.h"
+#include "Logger.h"
+#include "StatusGrpcClient.h"
+#include "AsyncTaskPool.h"
 #include <hiredis/hiredis.h>
+#include <thread>
+#include <chrono>
 #include "assert.h"
 #include "RedisManager.h"
 
 int main() {
     ConfigManager& configManager = ConfigManager::getInstance();
     std::string gate_port_str = configManager["GateServer"]["port"];
-    std::string verify_port_str = configManager["MailerServer"]["port"];
     unsigned short gate_port = std::atoi(gate_port_str.c_str());
-    unsigned short verify_port = std::atoi(verify_port_str.c_str());
-    // TestRedisManager();
+
+    // Init Logger FIRST, then set callback BEFORE any LOG calls
+    Logger::getInstance();
+
+    Logger::getInstance().setRemoteFlushCallback([](const std::vector<LogEntry>& batch) {
+        ReportLogReq req;
+        req.set_service("GateServer");
+        for(auto& e : batch) {
+            auto* entry = req.add_entries();
+            entry->set_service("GateServer");
+            entry->set_level(Logger::levelToString(e.level));
+            entry->set_message(e.message);
+            entry->set_timestamp(e.timestamp);
+        }
+        StatusGrpcClient::getInstance().reportLog(req);
+    });
+
+    AsyncTaskPool::getInstance();  // 提前初始化线程池
+    RedisManager::getInstance();   // 初始化 Redis 连接池（用于 token 验证等）
+    LOG_INFO("GateServer starting on port {}", gate_port);
+
+    // Heartbeat thread
+    std::atomic<bool> hb_running{true};
+    std::thread hb_thread([&hb_running, &configManager]() {
+        std::string host = configManager["GateServer"]["host"];
+        std::string port = configManager["GateServer"]["port"];
+        while (hb_running) {
+            std::this_thread::sleep_for(std::chrono::seconds(10));
+            if (!hb_running) break;
+            StatusGrpcClient::getInstance().heartbeat(host, port);
+        }
+    });
+
     try
     {
         unsigned short port = static_cast<unsigned short>(gate_port);
         net::io_context ioc{ 1 };
         boost::asio::signal_set signals(ioc, SIGINT, SIGTERM);
-        signals.async_wait([&ioc](const boost::system::error_code& error, int signal_number) {
-            if (error) 
-                return;
-            ioc.stop();
-            });
+        signals.async_wait([&ioc, &hb_running](const boost::system::error_code& error, int signal_number) {
+            if (error) return;
+            hb_running = false;
+            LOG_INFO("GateServer shutting down");
+            AsyncTaskPool::getInstance().stop();   // 1. 停线程池（排空任务）
+            Logger::getInstance().stop();           // 2. 停 logger flush
+            ioc.stop();                             // 3. 停 IO
+        });
         std::make_shared<MainServer>(ioc, port)->start();
         ioc.run();
     }
     catch (std::exception const& e)
     {
-        std::cerr << "Error: " << e.what() << std::endl;
+        LOG_ERROR("Fatal error: {}", e.what());
+        hb_running = false;
+        if (hb_thread.joinable()) hb_thread.join();
         return EXIT_FAILURE;
     }
 
+    hb_running = false;
+    if (hb_thread.joinable()) hb_thread.join();
     return 0;
 }

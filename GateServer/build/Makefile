@@ -129,6 +129,30 @@ GateServer/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/build
 .PHONY : GateServer/fast
 
+AsyncTaskPool.o: AsyncTaskPool.cpp.o
+.PHONY : AsyncTaskPool.o
+
+# target to build an object file
+AsyncTaskPool.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/AsyncTaskPool.cpp.o
+.PHONY : AsyncTaskPool.cpp.o
+
+AsyncTaskPool.i: AsyncTaskPool.cpp.i
+.PHONY : AsyncTaskPool.i
+
+# target to preprocess a source file
+AsyncTaskPool.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/AsyncTaskPool.cpp.i
+.PHONY : AsyncTaskPool.cpp.i
+
+AsyncTaskPool.s: AsyncTaskPool.cpp.s
+.PHONY : AsyncTaskPool.s
+
+# target to generate assembly for a file
+AsyncTaskPool.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/AsyncTaskPool.cpp.s
+.PHONY : AsyncTaskPool.cpp.s
+
 ConfigManager.o: ConfigManager.cpp.o
 .PHONY : ConfigManager.o
 
@@ -200,6 +224,30 @@ IOContextPool.s: IOContextPool.cpp.s
 IOContextPool.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/IOContextPool.cpp.s
 .PHONY : IOContextPool.cpp.s
+
+Logger.o: Logger.cpp.o
+.PHONY : Logger.o
+
+# target to build an object file
+Logger.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/Logger.cpp.o
+.PHONY : Logger.cpp.o
+
+Logger.i: Logger.cpp.i
+.PHONY : Logger.i
+
+# target to preprocess a source file
+Logger.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/Logger.cpp.i
+.PHONY : Logger.cpp.i
+
+Logger.s: Logger.cpp.s
+.PHONY : Logger.s
+
+# target to generate assembly for a file
+Logger.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GateServer.dir/build.make CMakeFiles/GateServer.dir/Logger.cpp.s
+.PHONY : Logger.cpp.s
 
 LogicSystem.o: LogicSystem.cpp.o
 .PHONY : LogicSystem.o
@@ -594,6 +642,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... GateServer"
+	@echo "... AsyncTaskPool.o"
+	@echo "... AsyncTaskPool.i"
+	@echo "... AsyncTaskPool.s"
 	@echo "... ConfigManager.o"
 	@echo "... ConfigManager.i"
 	@echo "... ConfigManager.s"
@@ -603,6 +654,9 @@ help:
 	@echo "... IOContextPool.o"
 	@echo "... IOContextPool.i"
 	@echo "... IOContextPool.s"
+	@echo "... Logger.o"
+	@echo "... Logger.i"
+	@echo "... Logger.s"
 	@echo "... LogicSystem.o"
 	@echo "... LogicSystem.i"
 	@echo "... LogicSystem.s"

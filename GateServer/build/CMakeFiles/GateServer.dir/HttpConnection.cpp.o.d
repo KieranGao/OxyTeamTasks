@@ -1632,4 +1632,18 @@ CMakeFiles/GateServer.dir/HttpConnection.cpp.o: \
  /usr/include/c++/11/bits/stl_stack.h \
  /home/oxythecrack/Desktop/OxyTasks/GateServer/../jsoncpp/include/json/writer.h \
  /home/oxythecrack/Desktop/OxyTasks/GateServer/LogicSystem.h \
- /home/oxythecrack/Desktop/OxyTasks/GateServer/Singleton.h
+ /home/oxythecrack/Desktop/OxyTasks/GateServer/Singleton.h \
+ /usr/include/c++/11/unordered_set \
+ /usr/include/c++/11/bits/unordered_set.h \
+ /home/oxythecrack/Desktop/OxyTasks/GateServer/Logger.h \
+ /usr/include/c++/11/fstream /usr/include/c++/11/bits/codecvt.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
+ /usr/include/c++/11/bits/fstream.tcc /usr/include/c++/11/queue \
+ /usr/include/c++/11/bits/stl_queue.h /usr/include/c++/11/thread \
+ /usr/include/c++/11/bits/this_thread_sleep.h \
+ /home/oxythecrack/Desktop/OxyTasks/GateServer/RedisManager.h \
+ /usr/include/hiredis/hiredis.h /usr/include/hiredis/read.h \
+ /usr/include/hiredis/sds.h /usr/include/hiredis/alloc.h \
+ /usr/include/c++/11/stdlib.h \
+ /home/oxythecrack/Desktop/OxyTasks/GateServer/RedisConnectPool.h

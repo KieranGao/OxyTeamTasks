@@ -1644,4 +1644,10 @@ CMakeFiles/GateServer.dir/MySQLConnectPool.cpp.o: \
  /home/oxythecrack/Desktop/OxyTasks/GateServer/../jsoncpp/include/json/reader.h \
  /home/oxythecrack/Desktop/OxyTasks/GateServer/../jsoncpp/include/json/value.h \
  /usr/include/c++/11/stack /usr/include/c++/11/bits/stl_stack.h \
- /home/oxythecrack/Desktop/OxyTasks/GateServer/../jsoncpp/include/json/writer.h
+ /home/oxythecrack/Desktop/OxyTasks/GateServer/../jsoncpp/include/json/writer.h \
+ /home/oxythecrack/Desktop/OxyTasks/GateServer/Logger.h \
+ /usr/include/c++/11/fstream /usr/include/c++/11/bits/codecvt.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
+ /usr/include/c++/11/bits/fstream.tcc \
+ /home/oxythecrack/Desktop/OxyTasks/GateServer/Singleton.h

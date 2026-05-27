@@ -26,6 +26,11 @@ static const char* UserService_method_names[] = {
   "/message.UserService/Login",
   "/message.UserService/ResetPass",
   "/message.UserService/GetVerifyCode",
+  "/message.UserService/ListPendingUsers",
+  "/message.UserService/ApproveUser",
+  "/message.UserService/RejectUser",
+  "/message.UserService/SetUserRole",
+  "/message.UserService/ListAllUsers",
 };
 
 std::unique_ptr< UserService::Stub> UserService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -39,6 +44,11 @@ UserService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channe
   , rpcmethod_Login_(UserService_method_names[1], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_ResetPass_(UserService_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_GetVerifyCode_(UserService_method_names[3], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ListPendingUsers_(UserService_method_names[4], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ApproveUser_(UserService_method_names[5], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_RejectUser_(UserService_method_names[6], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_SetUserRole_(UserService_method_names[7], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ListAllUsers_(UserService_method_names[8], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status UserService::Stub::Register(::grpc::ClientContext* context, const ::message::RegisterReq& request, ::message::RegisterRsp* response) {
@@ -153,6 +163,146 @@ void UserService::Stub::experimental_async::GetVerifyCode(::grpc::ClientContext*
   return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::message::VerifyRsp>::Create(channel_.get(), cq, rpcmethod_GetVerifyCode_, context, request, false);
 }
 
+::grpc::Status UserService::Stub::ListPendingUsers(::grpc::ClientContext* context, const ::message::ListPendingUsersReq& request, ::message::ListPendingUsersRsp* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ListPendingUsers_, context, request, response);
+}
+
+void UserService::Stub::experimental_async::ListPendingUsers(::grpc::ClientContext* context, const ::message::ListPendingUsersReq* request, ::message::ListPendingUsersRsp* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ListPendingUsers_, context, request, response, std::move(f));
+}
+
+void UserService::Stub::experimental_async::ListPendingUsers(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::message::ListPendingUsersRsp* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ListPendingUsers_, context, request, response, std::move(f));
+}
+
+void UserService::Stub::experimental_async::ListPendingUsers(::grpc::ClientContext* context, const ::message::ListPendingUsersReq* request, ::message::ListPendingUsersRsp* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ListPendingUsers_, context, request, response, reactor);
+}
+
+void UserService::Stub::experimental_async::ListPendingUsers(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::message::ListPendingUsersRsp* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ListPendingUsers_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::message::ListPendingUsersRsp>* UserService::Stub::AsyncListPendingUsersRaw(::grpc::ClientContext* context, const ::message::ListPendingUsersReq& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::message::ListPendingUsersRsp>::Create(channel_.get(), cq, rpcmethod_ListPendingUsers_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::message::ListPendingUsersRsp>* UserService::Stub::PrepareAsyncListPendingUsersRaw(::grpc::ClientContext* context, const ::message::ListPendingUsersReq& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::message::ListPendingUsersRsp>::Create(channel_.get(), cq, rpcmethod_ListPendingUsers_, context, request, false);
+}
+
+::grpc::Status UserService::Stub::ApproveUser(::grpc::ClientContext* context, const ::message::ApproveUserReq& request, ::message::ApproveUserRsp* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ApproveUser_, context, request, response);
+}
+
+void UserService::Stub::experimental_async::ApproveUser(::grpc::ClientContext* context, const ::message::ApproveUserReq* request, ::message::ApproveUserRsp* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ApproveUser_, context, request, response, std::move(f));
+}
+
+void UserService::Stub::experimental_async::ApproveUser(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::message::ApproveUserRsp* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ApproveUser_, context, request, response, std::move(f));
+}
+
+void UserService::Stub::experimental_async::ApproveUser(::grpc::ClientContext* context, const ::message::ApproveUserReq* request, ::message::ApproveUserRsp* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ApproveUser_, context, request, response, reactor);
+}
+
+void UserService::Stub::experimental_async::ApproveUser(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::message::ApproveUserRsp* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ApproveUser_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::message::ApproveUserRsp>* UserService::Stub::AsyncApproveUserRaw(::grpc::ClientContext* context, const ::message::ApproveUserReq& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::message::ApproveUserRsp>::Create(channel_.get(), cq, rpcmethod_ApproveUser_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::message::ApproveUserRsp>* UserService::Stub::PrepareAsyncApproveUserRaw(::grpc::ClientContext* context, const ::message::ApproveUserReq& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::message::ApproveUserRsp>::Create(channel_.get(), cq, rpcmethod_ApproveUser_, context, request, false);
+}
+
+::grpc::Status UserService::Stub::RejectUser(::grpc::ClientContext* context, const ::message::RejectUserReq& request, ::message::RejectUserRsp* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_RejectUser_, context, request, response);
+}
+
+void UserService::Stub::experimental_async::RejectUser(::grpc::ClientContext* context, const ::message::RejectUserReq* request, ::message::RejectUserRsp* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_RejectUser_, context, request, response, std::move(f));
+}
+
+void UserService::Stub::experimental_async::RejectUser(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::message::RejectUserRsp* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_RejectUser_, context, request, response, std::move(f));
+}
+
+void UserService::Stub::experimental_async::RejectUser(::grpc::ClientContext* context, const ::message::RejectUserReq* request, ::message::RejectUserRsp* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_RejectUser_, context, request, response, reactor);
+}
+
+void UserService::Stub::experimental_async::RejectUser(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::message::RejectUserRsp* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_RejectUser_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::message::RejectUserRsp>* UserService::Stub::AsyncRejectUserRaw(::grpc::ClientContext* context, const ::message::RejectUserReq& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::message::RejectUserRsp>::Create(channel_.get(), cq, rpcmethod_RejectUser_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::message::RejectUserRsp>* UserService::Stub::PrepareAsyncRejectUserRaw(::grpc::ClientContext* context, const ::message::RejectUserReq& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::message::RejectUserRsp>::Create(channel_.get(), cq, rpcmethod_RejectUser_, context, request, false);
+}
+
+::grpc::Status UserService::Stub::SetUserRole(::grpc::ClientContext* context, const ::message::SetUserRoleReq& request, ::message::SetUserRoleRsp* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_SetUserRole_, context, request, response);
+}
+
+void UserService::Stub::experimental_async::SetUserRole(::grpc::ClientContext* context, const ::message::SetUserRoleReq* request, ::message::SetUserRoleRsp* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_SetUserRole_, context, request, response, std::move(f));
+}
+
+void UserService::Stub::experimental_async::SetUserRole(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::message::SetUserRoleRsp* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_SetUserRole_, context, request, response, std::move(f));
+}
+
+void UserService::Stub::experimental_async::SetUserRole(::grpc::ClientContext* context, const ::message::SetUserRoleReq* request, ::message::SetUserRoleRsp* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_SetUserRole_, context, request, response, reactor);
+}
+
+void UserService::Stub::experimental_async::SetUserRole(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::message::SetUserRoleRsp* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_SetUserRole_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::message::SetUserRoleRsp>* UserService::Stub::AsyncSetUserRoleRaw(::grpc::ClientContext* context, const ::message::SetUserRoleReq& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::message::SetUserRoleRsp>::Create(channel_.get(), cq, rpcmethod_SetUserRole_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::message::SetUserRoleRsp>* UserService::Stub::PrepareAsyncSetUserRoleRaw(::grpc::ClientContext* context, const ::message::SetUserRoleReq& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::message::SetUserRoleRsp>::Create(channel_.get(), cq, rpcmethod_SetUserRole_, context, request, false);
+}
+
+::grpc::Status UserService::Stub::ListAllUsers(::grpc::ClientContext* context, const ::message::ListAllUsersReq& request, ::message::ListAllUsersRsp* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ListAllUsers_, context, request, response);
+}
+
+void UserService::Stub::experimental_async::ListAllUsers(::grpc::ClientContext* context, const ::message::ListAllUsersReq* request, ::message::ListAllUsersRsp* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ListAllUsers_, context, request, response, std::move(f));
+}
+
+void UserService::Stub::experimental_async::ListAllUsers(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::message::ListAllUsersRsp* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ListAllUsers_, context, request, response, std::move(f));
+}
+
+void UserService::Stub::experimental_async::ListAllUsers(::grpc::ClientContext* context, const ::message::ListAllUsersReq* request, ::message::ListAllUsersRsp* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ListAllUsers_, context, request, response, reactor);
+}
+
+void UserService::Stub::experimental_async::ListAllUsers(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::message::ListAllUsersRsp* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ListAllUsers_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::message::ListAllUsersRsp>* UserService::Stub::AsyncListAllUsersRaw(::grpc::ClientContext* context, const ::message::ListAllUsersReq& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::message::ListAllUsersRsp>::Create(channel_.get(), cq, rpcmethod_ListAllUsers_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::message::ListAllUsersRsp>* UserService::Stub::PrepareAsyncListAllUsersRaw(::grpc::ClientContext* context, const ::message::ListAllUsersReq& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::message::ListAllUsersRsp>::Create(channel_.get(), cq, rpcmethod_ListAllUsers_, context, request, false);
+}
+
 UserService::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       UserService_method_names[0],
@@ -194,6 +344,56 @@ UserService::Service::Service() {
              ::message::VerifyRsp* resp) {
                return service->GetVerifyCode(ctx, req, resp);
              }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      UserService_method_names[4],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< UserService::Service, ::message::ListPendingUsersReq, ::message::ListPendingUsersRsp>(
+          [](UserService::Service* service,
+             ::grpc_impl::ServerContext* ctx,
+             const ::message::ListPendingUsersReq* req,
+             ::message::ListPendingUsersRsp* resp) {
+               return service->ListPendingUsers(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      UserService_method_names[5],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< UserService::Service, ::message::ApproveUserReq, ::message::ApproveUserRsp>(
+          [](UserService::Service* service,
+             ::grpc_impl::ServerContext* ctx,
+             const ::message::ApproveUserReq* req,
+             ::message::ApproveUserRsp* resp) {
+               return service->ApproveUser(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      UserService_method_names[6],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< UserService::Service, ::message::RejectUserReq, ::message::RejectUserRsp>(
+          [](UserService::Service* service,
+             ::grpc_impl::ServerContext* ctx,
+             const ::message::RejectUserReq* req,
+             ::message::RejectUserRsp* resp) {
+               return service->RejectUser(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      UserService_method_names[7],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< UserService::Service, ::message::SetUserRoleReq, ::message::SetUserRoleRsp>(
+          [](UserService::Service* service,
+             ::grpc_impl::ServerContext* ctx,
+             const ::message::SetUserRoleReq* req,
+             ::message::SetUserRoleRsp* resp) {
+               return service->SetUserRole(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      UserService_method_names[8],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< UserService::Service, ::message::ListAllUsersReq, ::message::ListAllUsersRsp>(
+          [](UserService::Service* service,
+             ::grpc_impl::ServerContext* ctx,
+             const ::message::ListAllUsersReq* req,
+             ::message::ListAllUsersRsp* resp) {
+               return service->ListAllUsers(ctx, req, resp);
+             }, this)));
 }
 
 UserService::Service::~Service() {
@@ -221,6 +421,41 @@ UserService::Service::~Service() {
 }
 
 ::grpc::Status UserService::Service::GetVerifyCode(::grpc::ServerContext* context, const ::message::VerifyReq* request, ::message::VerifyRsp* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status UserService::Service::ListPendingUsers(::grpc::ServerContext* context, const ::message::ListPendingUsersReq* request, ::message::ListPendingUsersRsp* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status UserService::Service::ApproveUser(::grpc::ServerContext* context, const ::message::ApproveUserReq* request, ::message::ApproveUserRsp* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status UserService::Service::RejectUser(::grpc::ServerContext* context, const ::message::RejectUserReq* request, ::message::RejectUserRsp* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status UserService::Service::SetUserRole(::grpc::ServerContext* context, const ::message::SetUserRoleReq* request, ::message::SetUserRoleRsp* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status UserService::Service::ListAllUsers(::grpc::ServerContext* context, const ::message::ListAllUsersReq* request, ::message::ListAllUsersRsp* response) {
   (void) context;
   (void) request;
   (void) response;
@@ -297,6 +532,11 @@ MailerService::Service::~Service() {
 static const char* StatusService_method_names[] = {
   "/message.StatusService/AllocatePushServer",
   "/message.StatusService/ReportLogin",
+  "/message.StatusService/ReportLog",
+  "/message.StatusService/QueryLogs",
+  "/message.StatusService/ServerHeartbeat",
+  "/message.StatusService/QueryServerStatus",
+  "/message.StatusService/ReportDisconnect",
 };
 
 std::unique_ptr< StatusService::Stub> StatusService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -308,6 +548,11 @@ std::unique_ptr< StatusService::Stub> StatusService::NewStub(const std::shared_p
 StatusService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
   : channel_(channel), rpcmethod_AllocatePushServer_(StatusService_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_ReportLogin_(StatusService_method_names[1], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ReportLog_(StatusService_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_QueryLogs_(StatusService_method_names[3], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ServerHeartbeat_(StatusService_method_names[4], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_QueryServerStatus_(StatusService_method_names[5], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ReportDisconnect_(StatusService_method_names[6], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status StatusService::Stub::AllocatePushServer(::grpc::ClientContext* context, const ::message::AllocateReq& request, ::message::AllocateRsp* response) {
@@ -366,6 +611,146 @@ void StatusService::Stub::experimental_async::ReportLogin(::grpc::ClientContext*
   return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::message::LoginReportRsp>::Create(channel_.get(), cq, rpcmethod_ReportLogin_, context, request, false);
 }
 
+::grpc::Status StatusService::Stub::ReportLog(::grpc::ClientContext* context, const ::message::ReportLogReq& request, ::message::ReportLogRsp* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ReportLog_, context, request, response);
+}
+
+void StatusService::Stub::experimental_async::ReportLog(::grpc::ClientContext* context, const ::message::ReportLogReq* request, ::message::ReportLogRsp* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ReportLog_, context, request, response, std::move(f));
+}
+
+void StatusService::Stub::experimental_async::ReportLog(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::message::ReportLogRsp* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ReportLog_, context, request, response, std::move(f));
+}
+
+void StatusService::Stub::experimental_async::ReportLog(::grpc::ClientContext* context, const ::message::ReportLogReq* request, ::message::ReportLogRsp* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ReportLog_, context, request, response, reactor);
+}
+
+void StatusService::Stub::experimental_async::ReportLog(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::message::ReportLogRsp* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ReportLog_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::message::ReportLogRsp>* StatusService::Stub::AsyncReportLogRaw(::grpc::ClientContext* context, const ::message::ReportLogReq& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::message::ReportLogRsp>::Create(channel_.get(), cq, rpcmethod_ReportLog_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::message::ReportLogRsp>* StatusService::Stub::PrepareAsyncReportLogRaw(::grpc::ClientContext* context, const ::message::ReportLogReq& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::message::ReportLogRsp>::Create(channel_.get(), cq, rpcmethod_ReportLog_, context, request, false);
+}
+
+::grpc::Status StatusService::Stub::QueryLogs(::grpc::ClientContext* context, const ::message::QueryLogsReq& request, ::message::QueryLogsRsp* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_QueryLogs_, context, request, response);
+}
+
+void StatusService::Stub::experimental_async::QueryLogs(::grpc::ClientContext* context, const ::message::QueryLogsReq* request, ::message::QueryLogsRsp* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_QueryLogs_, context, request, response, std::move(f));
+}
+
+void StatusService::Stub::experimental_async::QueryLogs(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::message::QueryLogsRsp* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_QueryLogs_, context, request, response, std::move(f));
+}
+
+void StatusService::Stub::experimental_async::QueryLogs(::grpc::ClientContext* context, const ::message::QueryLogsReq* request, ::message::QueryLogsRsp* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_QueryLogs_, context, request, response, reactor);
+}
+
+void StatusService::Stub::experimental_async::QueryLogs(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::message::QueryLogsRsp* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_QueryLogs_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::message::QueryLogsRsp>* StatusService::Stub::AsyncQueryLogsRaw(::grpc::ClientContext* context, const ::message::QueryLogsReq& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::message::QueryLogsRsp>::Create(channel_.get(), cq, rpcmethod_QueryLogs_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::message::QueryLogsRsp>* StatusService::Stub::PrepareAsyncQueryLogsRaw(::grpc::ClientContext* context, const ::message::QueryLogsReq& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::message::QueryLogsRsp>::Create(channel_.get(), cq, rpcmethod_QueryLogs_, context, request, false);
+}
+
+::grpc::Status StatusService::Stub::ServerHeartbeat(::grpc::ClientContext* context, const ::message::HeartbeatReq& request, ::message::HeartbeatRsp* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ServerHeartbeat_, context, request, response);
+}
+
+void StatusService::Stub::experimental_async::ServerHeartbeat(::grpc::ClientContext* context, const ::message::HeartbeatReq* request, ::message::HeartbeatRsp* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ServerHeartbeat_, context, request, response, std::move(f));
+}
+
+void StatusService::Stub::experimental_async::ServerHeartbeat(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::message::HeartbeatRsp* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ServerHeartbeat_, context, request, response, std::move(f));
+}
+
+void StatusService::Stub::experimental_async::ServerHeartbeat(::grpc::ClientContext* context, const ::message::HeartbeatReq* request, ::message::HeartbeatRsp* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ServerHeartbeat_, context, request, response, reactor);
+}
+
+void StatusService::Stub::experimental_async::ServerHeartbeat(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::message::HeartbeatRsp* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ServerHeartbeat_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::message::HeartbeatRsp>* StatusService::Stub::AsyncServerHeartbeatRaw(::grpc::ClientContext* context, const ::message::HeartbeatReq& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::message::HeartbeatRsp>::Create(channel_.get(), cq, rpcmethod_ServerHeartbeat_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::message::HeartbeatRsp>* StatusService::Stub::PrepareAsyncServerHeartbeatRaw(::grpc::ClientContext* context, const ::message::HeartbeatReq& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::message::HeartbeatRsp>::Create(channel_.get(), cq, rpcmethod_ServerHeartbeat_, context, request, false);
+}
+
+::grpc::Status StatusService::Stub::QueryServerStatus(::grpc::ClientContext* context, const ::message::QueryServerStatusReq& request, ::message::QueryServerStatusRsp* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_QueryServerStatus_, context, request, response);
+}
+
+void StatusService::Stub::experimental_async::QueryServerStatus(::grpc::ClientContext* context, const ::message::QueryServerStatusReq* request, ::message::QueryServerStatusRsp* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_QueryServerStatus_, context, request, response, std::move(f));
+}
+
+void StatusService::Stub::experimental_async::QueryServerStatus(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::message::QueryServerStatusRsp* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_QueryServerStatus_, context, request, response, std::move(f));
+}
+
+void StatusService::Stub::experimental_async::QueryServerStatus(::grpc::ClientContext* context, const ::message::QueryServerStatusReq* request, ::message::QueryServerStatusRsp* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_QueryServerStatus_, context, request, response, reactor);
+}
+
+void StatusService::Stub::experimental_async::QueryServerStatus(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::message::QueryServerStatusRsp* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_QueryServerStatus_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::message::QueryServerStatusRsp>* StatusService::Stub::AsyncQueryServerStatusRaw(::grpc::ClientContext* context, const ::message::QueryServerStatusReq& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::message::QueryServerStatusRsp>::Create(channel_.get(), cq, rpcmethod_QueryServerStatus_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::message::QueryServerStatusRsp>* StatusService::Stub::PrepareAsyncQueryServerStatusRaw(::grpc::ClientContext* context, const ::message::QueryServerStatusReq& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::message::QueryServerStatusRsp>::Create(channel_.get(), cq, rpcmethod_QueryServerStatus_, context, request, false);
+}
+
+::grpc::Status StatusService::Stub::ReportDisconnect(::grpc::ClientContext* context, const ::message::DisconnectReq& request, ::message::DisconnectRsp* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ReportDisconnect_, context, request, response);
+}
+
+void StatusService::Stub::experimental_async::ReportDisconnect(::grpc::ClientContext* context, const ::message::DisconnectReq* request, ::message::DisconnectRsp* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ReportDisconnect_, context, request, response, std::move(f));
+}
+
+void StatusService::Stub::experimental_async::ReportDisconnect(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::message::DisconnectRsp* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ReportDisconnect_, context, request, response, std::move(f));
+}
+
+void StatusService::Stub::experimental_async::ReportDisconnect(::grpc::ClientContext* context, const ::message::DisconnectReq* request, ::message::DisconnectRsp* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ReportDisconnect_, context, request, response, reactor);
+}
+
+void StatusService::Stub::experimental_async::ReportDisconnect(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::message::DisconnectRsp* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ReportDisconnect_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::message::DisconnectRsp>* StatusService::Stub::AsyncReportDisconnectRaw(::grpc::ClientContext* context, const ::message::DisconnectReq& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::message::DisconnectRsp>::Create(channel_.get(), cq, rpcmethod_ReportDisconnect_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::message::DisconnectRsp>* StatusService::Stub::PrepareAsyncReportDisconnectRaw(::grpc::ClientContext* context, const ::message::DisconnectReq& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::message::DisconnectRsp>::Create(channel_.get(), cq, rpcmethod_ReportDisconnect_, context, request, false);
+}
+
 StatusService::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       StatusService_method_names[0],
@@ -387,6 +772,56 @@ StatusService::Service::Service() {
              ::message::LoginReportRsp* resp) {
                return service->ReportLogin(ctx, req, resp);
              }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      StatusService_method_names[2],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< StatusService::Service, ::message::ReportLogReq, ::message::ReportLogRsp>(
+          [](StatusService::Service* service,
+             ::grpc_impl::ServerContext* ctx,
+             const ::message::ReportLogReq* req,
+             ::message::ReportLogRsp* resp) {
+               return service->ReportLog(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      StatusService_method_names[3],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< StatusService::Service, ::message::QueryLogsReq, ::message::QueryLogsRsp>(
+          [](StatusService::Service* service,
+             ::grpc_impl::ServerContext* ctx,
+             const ::message::QueryLogsReq* req,
+             ::message::QueryLogsRsp* resp) {
+               return service->QueryLogs(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      StatusService_method_names[4],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< StatusService::Service, ::message::HeartbeatReq, ::message::HeartbeatRsp>(
+          [](StatusService::Service* service,
+             ::grpc_impl::ServerContext* ctx,
+             const ::message::HeartbeatReq* req,
+             ::message::HeartbeatRsp* resp) {
+               return service->ServerHeartbeat(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      StatusService_method_names[5],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< StatusService::Service, ::message::QueryServerStatusReq, ::message::QueryServerStatusRsp>(
+          [](StatusService::Service* service,
+             ::grpc_impl::ServerContext* ctx,
+             const ::message::QueryServerStatusReq* req,
+             ::message::QueryServerStatusRsp* resp) {
+               return service->QueryServerStatus(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      StatusService_method_names[6],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< StatusService::Service, ::message::DisconnectReq, ::message::DisconnectRsp>(
+          [](StatusService::Service* service,
+             ::grpc_impl::ServerContext* ctx,
+             const ::message::DisconnectReq* req,
+             ::message::DisconnectRsp* resp) {
+               return service->ReportDisconnect(ctx, req, resp);
+             }, this)));
 }
 
 StatusService::Service::~Service() {
@@ -400,6 +835,41 @@ StatusService::Service::~Service() {
 }
 
 ::grpc::Status StatusService::Service::ReportLogin(::grpc::ServerContext* context, const ::message::LoginReportReq* request, ::message::LoginReportRsp* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status StatusService::Service::ReportLog(::grpc::ServerContext* context, const ::message::ReportLogReq* request, ::message::ReportLogRsp* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status StatusService::Service::QueryLogs(::grpc::ServerContext* context, const ::message::QueryLogsReq* request, ::message::QueryLogsRsp* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status StatusService::Service::ServerHeartbeat(::grpc::ServerContext* context, const ::message::HeartbeatReq* request, ::message::HeartbeatRsp* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status StatusService::Service::QueryServerStatus(::grpc::ServerContext* context, const ::message::QueryServerStatusReq* request, ::message::QueryServerStatusRsp* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status StatusService::Service::ReportDisconnect(::grpc::ServerContext* context, const ::message::DisconnectReq* request, ::message::DisconnectRsp* response) {
   (void) context;
   (void) request;
   (void) response;

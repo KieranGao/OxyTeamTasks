@@ -4,6 +4,7 @@
 #include "Singleton.h"
 #include <queue>
 #include <thread>
+#include <shared_mutex>
 #include "Session.h"
 #include <functional>
 #include "Global.h"
@@ -32,12 +33,13 @@ private:
         std::string msg_data_;
     };
 
-    std::thread workers_thread_;
-    std::queue<LogicNode> msg_queue_;
+    std::vector<std::thread> workers_threads_;
+    std::queue<LogicNode> msg_queue_; // 用于接收读到的消息，按顺序处理回调，目的为【不阻塞网络线程，网络与业务解耦】
     std::mutex mtx_;
     std::condition_variable cv_;
     std::atomic<bool> is_running_;
     std::unordered_map<std::string, FunCallBack> fun_callbacks_;
+    std::shared_mutex users_mtx_;
     std::unordered_map<int, std::shared_ptr<UserInfo>> users_;
 };
 

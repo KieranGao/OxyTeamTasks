@@ -4,9 +4,9 @@
 #include <json/reader.h>
 #include "Global.h"
 #include "ConfigManager.h"
+#include "Logger.h"
 #include <hiredis/hiredis.h>
 #include "RedisManager.h"
-#include "MySQLManager.h"
 #include "IOContextPool.h"
 #include <memory>
 #include <string>
@@ -21,44 +21,37 @@ using grpc::InsecureServerCredentials;
 
 void RunServer() {
     auto& g_config = ConfigManager::getInstance();
-    std::string server_address = g_config["StatusServer"]["host"] 
-        + ":" + g_config["StatusServer"]["port"];
-    // 初始化 gRPC 服务
+    std::string host = g_config["StatusServer"]["host"];
+    std::string port = g_config["StatusServer"]["port"];
+    std::string server_address = host + ":" + port;
+
+    Logger::getInstance();
+    LOG_INFO("StatusServer starting on {}", server_address);
+
     StatusServiceImpl service;
     ServerBuilder builder;
     builder.AddListeningPort(server_address, InsecureServerCredentials());
     builder.RegisterService(&service);
     std::unique_ptr<Server> server(builder.BuildAndStart());
-    std::cerr << "Server listening on " << server_address << std::endl;
-    // Boost.Asio 处理信号（SIGINT / SIGTERM）用于优雅关闭
-    boost::asio::io_context io_context;
-    boost::asio::signal_set signals(io_context, SIGINT, SIGTERM);
-    // 信号捕获回调
+    LOG_INFO("StatusServer gRPC listening on {}", server_address);
+
+    boost::asio::io_context signal_io;
+    boost::asio::signal_set signals(signal_io, SIGINT, SIGTERM);
     signals.async_wait([&](const boost::system::error_code& ec, int) {
         if (!ec) {
-            std::cerr << "\nReceived shutdown signal, stopping gRPC server..." << std::endl;
-            server->Shutdown(); // 关闭 gRPC 服务
+            LOG_INFO("StatusServer shutting down...");
+            server->Shutdown();
         }
     });
 
-    // 在独立线程运行 io_context
-    std::thread signal_thread([&io_context]() {
-        try {
-            io_context.run();
-        } catch (const std::exception& e) {
-            std::cerr << "Signal thread error: " << e.what() << std::endl;
-        }
+    std::thread signal_thread([&signal_io]() {
+        signal_io.run();
     });
 
-    // 等待 gRPC 服务器退出
     server->Wait();
-    // 停止信号处理并等待线程退出
-    io_context.stop();
-    if (signal_thread.joinable()) {
-        signal_thread.join();
-    }
-
-    std::cerr << "Status server stopped gracefully" << std::endl;
+    signal_io.stop();
+    if (signal_thread.joinable()) signal_thread.join();
+    LOG_INFO("StatusServer stopped");
 }
 
 int main(int argc, char** argv) {

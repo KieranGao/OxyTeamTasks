@@ -14,8 +14,12 @@ const request = axios.create({
 request.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token')
+    const uid = localStorage.getItem('uid')
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
+    }
+    if (uid) {
+      config.headers['X-User-Id'] = uid
     }
     return config
   },

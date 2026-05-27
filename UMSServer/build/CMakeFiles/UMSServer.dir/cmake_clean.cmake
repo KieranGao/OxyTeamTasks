@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/UMSServer.dir/ConfigManager.cpp.o"
   "CMakeFiles/UMSServer.dir/ConfigManager.cpp.o.d"
+  "CMakeFiles/UMSServer.dir/Logger.cpp.o"
+  "CMakeFiles/UMSServer.dir/Logger.cpp.o.d"
   "CMakeFiles/UMSServer.dir/MailerGrpcClient.cpp.o"
   "CMakeFiles/UMSServer.dir/MailerGrpcClient.cpp.o.d"
   "CMakeFiles/UMSServer.dir/MySQLConnectPool.cpp.o"
@@ -15,6 +17,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/UMSServer.dir/RedisConnectPool.cpp.o.d"
   "CMakeFiles/UMSServer.dir/RedisManager.cpp.o"
   "CMakeFiles/UMSServer.dir/RedisManager.cpp.o.d"
+  "CMakeFiles/UMSServer.dir/StatusGrpcClient.cpp.o"
+  "CMakeFiles/UMSServer.dir/StatusGrpcClient.cpp.o.d"
   "CMakeFiles/UMSServer.dir/UMSGrpcServiceImpl.cpp.o"
   "CMakeFiles/UMSServer.dir/UMSGrpcServiceImpl.cpp.o.d"
   "CMakeFiles/UMSServer.dir/main.cpp.o"

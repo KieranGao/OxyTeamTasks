@@ -1,7 +1,11 @@
 #include "UMSGrpcServiceImpl.h"
 #include "ConfigManager.h"
+#include "Logger.h"
+#include "StatusGrpcClient.h"
 #include <grpcpp/grpcpp.h>
-#include <iostream>
+#include <thread>
+#include <chrono>
+#include <atomic>
 #include <csignal>
 
 int main() {
@@ -10,19 +14,43 @@ int main() {
     std::string port = config["UMSServer"]["port"];
     std::string addr = host + ":" + port;
 
-    UMSGrpcServiceImpl service;
+    Logger::getInstance();
+    LOG_INFO("UMSServer starting on {}", addr);
 
+    Logger::getInstance().setRemoteFlushCallback([](const std::vector<LogEntry>& batch) {
+        ReportLogReq req;
+        req.set_service("UMSServer");
+        for (auto& e : batch) {
+            auto* entry = req.add_entries();
+            entry->set_service("UMSServer");
+            entry->set_level(Logger::levelToString(e.level));
+            entry->set_message(e.message);
+            entry->set_timestamp(e.timestamp);
+        }
+        StatusGrpcClient::getInstance().reportLog(req);
+    });
+
+    // Heartbeat thread
+    std::atomic<bool> hb_running{true};
+    std::thread hb_thread([&]() {
+        while (hb_running) {
+            std::this_thread::sleep_for(std::chrono::seconds(10));
+            if (!hb_running) break;
+            StatusGrpcClient::getInstance().heartbeat(host, port);
+        }
+    });
+
+    UMSGrpcServiceImpl service;
     grpc::ServerBuilder builder;
     builder.AddListeningPort(addr, grpc::InsecureServerCredentials());
     builder.RegisterService(&service);
-
     std::unique_ptr<grpc::Server> server(builder.BuildAndStart());
-    std::cout << "[UMS] UserService gRPC server listening on " << addr << std::endl;
+    LOG_INFO("UMSServer gRPC listening on {}", addr);
 
-    // Wait for shutdown signal
-    std::signal(SIGINT, [](int) { exit(0); });
-    std::signal(SIGTERM, [](int) { exit(0); });
-
+    // Graceful shutdown via server->Wait() blocking
     server->Wait();
+
+    hb_running = false;
+    if (hb_thread.joinable()) hb_thread.join();
     return 0;
 }

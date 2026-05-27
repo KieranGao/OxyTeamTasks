@@ -9,6 +9,11 @@ service UserService {
   rpc Login(LoginReq) returns (LoginRsp);                 // 登录
   rpc ResetPass(ResetPassReq) returns (ResetPassRsp);     // 重置密码
   rpc GetVerifyCode(VerifyReq) returns (VerifyRsp);       // 获取验证码
+  rpc ListPendingUsers(ListPendingUsersReq) returns (ListPendingUsersRsp); // 待审核用户列表
+  rpc ApproveUser(ApproveUserReq) returns (ApproveUserRsp);                // 审批通过
+  rpc RejectUser(RejectUserReq) returns (RejectUserRsp);                   // 拒绝注册
+  rpc SetUserRole(SetUserRoleReq) returns (SetUserRoleRsp);                // 设置角色/队伍
+  rpc ListAllUsers(ListAllUsersReq) returns (ListAllUsersRsp);                // 所有已激活用户
 }
 
 // 注册
@@ -33,6 +38,7 @@ message LoginRsp {
   int32 error = 1;
   int32 uid = 2;
   string token = 3;
+  int32 status = 4;  // 0=pending, 1=active
 }
 
 // 重置密码
@@ -58,6 +64,76 @@ message VerifyRsp {
   string code = 3;
 }
 
+// 待审核用户
+message ListPendingUsersReq {
+  int32 coach_uid = 1;
+}
+
+message PendingUser {
+  int32 uid = 1;
+  string username = 2;
+  string email = 3;
+  int32 role = 4;
+  int32 belong_team_id = 5;
+}
+
+message ListPendingUsersRsp {
+  int32 error = 1;
+  repeated PendingUser users = 2;
+}
+
+// 审批通过
+message ApproveUserReq {
+  int32 uid = 1;
+  int32 role = 2;
+  int32 belong_team_id = 3;
+  int32 coach_uid = 4;
+}
+
+message ApproveUserRsp {
+  int32 error = 1;
+}
+
+// 拒绝注册
+message RejectUserReq {
+  int32 uid = 1;
+  int32 coach_uid = 2;
+}
+
+message RejectUserRsp {
+  int32 error = 1;
+}
+
+// 设置角色
+message SetUserRoleReq {
+  int32 uid = 1;
+  int32 role = 2;
+  int32 belong_team_id = 3;
+  int32 coach_uid = 4;
+}
+
+message SetUserRoleRsp {
+  int32 error = 1;
+}
+
+// 所有已激活用户
+message ListAllUsersReq {}
+
+message UserInfoMsg {
+  int32 uid = 1;
+  string username = 2;
+  string email = 3;
+  int32 role = 4;
+  int32 belong_team_id = 5;
+  int32 belong_captain_id = 6;
+  int32 status = 7;
+}
+
+message ListAllUsersRsp {
+  int32 error = 1;
+  repeated UserInfoMsg users = 2;
+}
+
 // ------------------------------
 // 邮件服务（MailerServer）
 // ------------------------------
@@ -80,8 +156,22 @@ message SendMailRsp {
 // ------------------------------
 
 service StatusService {
-  rpc AllocatePushServer(AllocateReq) returns (AllocateRsp); // 分配推送节点
-  rpc ReportLogin(LoginReportReq) returns (LoginReportRsp);  // 上报登录
+  rpc AllocatePushServer(AllocateReq) returns (AllocateRsp);             // 分配推送节点
+  rpc ReportLogin(LoginReportReq) returns (LoginReportRsp);              // 上报登录
+  rpc ReportLog(ReportLogReq) returns (ReportLogRsp);                    // 上报日志
+  rpc QueryLogs(QueryLogsReq) returns (QueryLogsRsp);                    // 查询日志
+  rpc ServerHeartbeat(HeartbeatReq) returns (HeartbeatRsp);              // 服务心跳
+  rpc QueryServerStatus(QueryServerStatusReq) returns (QueryServerStatusRsp); // 查询服务状态
+  rpc ReportDisconnect(DisconnectReq) returns (DisconnectRsp);             // 上报断线（减连接数）
+}
+
+// 断线上报
+message DisconnectReq {
+  string server_name = 1;
+}
+
+message DisconnectRsp {
+  int32 error = 1;
 }
 
 message AllocateReq {
@@ -102,4 +192,65 @@ message LoginReportReq {
 
 message LoginReportRsp {
   int32 error = 1;
+}
+
+// 日志上报
+message LogEntry {
+  string service = 1;
+  string level = 2;
+  string message = 3;
+  int64 timestamp = 4;
+}
+
+message ReportLogReq {
+  string service = 1;
+  repeated LogEntry entries = 2;
+}
+
+message ReportLogRsp {
+  int32 error = 1;
+}
+
+// 日志查询
+message QueryLogsReq {
+  string service = 1;
+  string level = 2;
+  int32 limit = 3;
+  int32 coach_uid = 4;
+}
+
+message QueryLogsRsp {
+  int32 error = 1;
+  repeated LogEntry entries = 2;
+}
+
+// 心跳
+message HeartbeatReq {
+  string service = 1;
+  string host = 2;
+  string port = 3;
+  int64 timestamp = 4;
+}
+
+message HeartbeatRsp {
+  int32 error = 1;
+}
+
+// 服务状态
+message ServerInfo {
+  string service = 1;
+  string host = 2;
+  string port = 3;
+  string status = 4;
+  int64 last_heartbeat = 5;
+  int32 connections = 6;  // 当前连接数（仅 PushServer 有效）
+}
+
+message QueryServerStatusReq {
+  int32 coach_uid = 1;
+}
+
+message QueryServerStatusRsp {
+  int32 error = 1;
+  repeated ServerInfo servers = 2;
 }

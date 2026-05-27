@@ -81,12 +81,12 @@ clean: CMakeFiles/UMSServer.dir/clean
 CMakeFiles/UMSServer.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/oxythecrack/Desktop/OxyTasks/UMSServer/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14 "Built target UMSServer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/oxythecrack/Desktop/OxyTasks/UMSServer/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 "Built target UMSServer"
 .PHONY : CMakeFiles/UMSServer.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/UMSServer.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/oxythecrack/Desktop/OxyTasks/UMSServer/build/CMakeFiles 14
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/oxythecrack/Desktop/OxyTasks/UMSServer/build/CMakeFiles 16
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/UMSServer.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/oxythecrack/Desktop/OxyTasks/UMSServer/build/CMakeFiles 0
 .PHONY : CMakeFiles/UMSServer.dir/rule

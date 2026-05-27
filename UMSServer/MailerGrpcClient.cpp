@@ -1,4 +1,5 @@
 #include "MailerGrpcClient.h"
+#include "Logger.h"
 
 MailerGrpcClient::MailerGrpcClient() {
     ConfigManager& config = ConfigManager::getInstance();
@@ -17,7 +18,7 @@ SendMailRsp MailerGrpcClient::sendMail(const std::string& email, const std::stri
     Defer defer([&stub, this](){ rpc_pool_->returnStub(std::move(stub)); });
     Status status = stub->SendMail(&context, request, &response);
     if (!status.ok()) {
-        std::cerr << "Mailer RPC failed: " << status.error_message() << std::endl;
+        LOG_ERROR("Mailer RPC failed: {}", status.error_message());
         response.set_error(static_cast<int32_t>(ErrorCodes::RPC_ERROR));
     }
     return response;

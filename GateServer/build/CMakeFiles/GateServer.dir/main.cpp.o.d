@@ -1634,6 +1634,8 @@ CMakeFiles/GateServer.dir/main.cpp.o: \
  /home/oxythecrack/Desktop/OxyTasks/GateServer/HttpConnection.h \
  /home/oxythecrack/Desktop/OxyTasks/GateServer/LogicSystem.h \
  /home/oxythecrack/Desktop/OxyTasks/GateServer/Singleton.h \
+ /usr/include/c++/11/unordered_set \
+ /usr/include/c++/11/bits/unordered_set.h \
  /home/oxythecrack/Desktop/OxyTasks/GateServer/ConfigManager.h \
  /usr/include/boost/filesystem.hpp \
  /usr/include/boost/filesystem/config.hpp \
@@ -1979,9 +1981,192 @@ CMakeFiles/GateServer.dir/main.cpp.o: \
  /usr/include/boost/property_tree/detail/ptree_implementation.hpp \
  /usr/include/boost/property_tree/ini_parser.hpp \
  /usr/include/boost/property_tree/detail/file_parser_error.hpp \
+ /home/oxythecrack/Desktop/OxyTasks/GateServer/Logger.h \
+ /usr/include/c++/11/queue /usr/include/c++/11/bits/stl_queue.h \
+ /usr/include/c++/11/thread /usr/include/c++/11/bits/this_thread_sleep.h \
+ /home/oxythecrack/Desktop/OxyTasks/GateServer/StatusGrpcClient.h \
+ /usr/include/grpcpp/grpcpp.h /usr/include/grpc/grpc.h \
+ /usr/include/grpc/support/port_platform.h \
+ /usr/include/grpc/impl/codegen/port_platform.h \
+ /usr/include/grpc/status.h /usr/include/grpc/impl/codegen/status.h \
+ /usr/include/grpc/byte_buffer.h \
+ /usr/include/grpc/impl/codegen/byte_buffer.h \
+ /usr/include/grpc/impl/codegen/grpc_types.h \
+ /usr/include/grpc/impl/codegen/compression_types.h \
+ /usr/include/grpc/impl/codegen/gpr_types.h \
+ /usr/include/grpc/impl/codegen/slice.h \
+ /usr/include/grpc/impl/codegen/gpr_slice.h \
+ /usr/include/grpc/slice_buffer.h /usr/include/grpc/slice.h \
+ /usr/include/grpc/support/sync.h /usr/include/grpc/impl/codegen/sync.h \
+ /usr/include/grpc/impl/codegen/sync_generic.h \
+ /usr/include/grpc/impl/codegen/atm.h \
+ /usr/include/grpc/impl/codegen/atm_gcc_atomic.h \
+ /usr/include/grpc/impl/codegen/sync_posix.h \
+ /usr/include/grpc/impl/codegen/connectivity_state.h \
+ /usr/include/grpc/impl/codegen/propagation_bits.h \
+ /usr/include/grpc/support/time.h /usr/include/grpcpp/channel.h \
+ /usr/include/grpcpp/channel_impl.h /usr/include/grpcpp/impl/call.h \
+ /usr/include/grpcpp/impl/codegen/call.h \
+ /usr/include/grpcpp/impl/codegen/call_hook.h \
+ /usr/include/grpcpp/impl/codegen/channel_interface.h \
+ /usr/include/grpcpp/impl/codegen/status.h \
+ /usr/include/grpcpp/impl/codegen/config.h \
+ /usr/include/grpcpp/impl/codegen/status_code_enum.h \
+ /usr/include/grpcpp/impl/codegen/time.h \
+ /usr/include/grpcpp/impl/codegen/client_interceptor.h \
+ /usr/include/grpcpp/impl/codegen/interceptor.h \
+ /usr/include/grpcpp/impl/codegen/byte_buffer.h \
+ /usr/include/grpcpp/impl/codegen/core_codegen_interface.h \
+ /usr/include/grpc/impl/codegen/byte_buffer_reader.h \
+ /usr/include/grpcpp/impl/codegen/serialization_traits.h \
+ /usr/include/grpcpp/impl/codegen/slice.h \
+ /usr/include/grpcpp/impl/codegen/string_ref.h \
+ /usr/include/grpcpp/impl/codegen/metadata_map.h \
+ /usr/include/grpc/impl/codegen/log.h /usr/include/c++/11/stdlib.h \
+ /usr/include/grpcpp/impl/codegen/rpc_method.h \
+ /usr/include/grpcpp/impl/codegen/completion_queue_impl.h \
+ /usr/include/grpcpp/impl/codegen/completion_queue_tag.h \
+ /usr/include/grpcpp/impl/codegen/grpc_library.h \
+ /usr/include/grpcpp/impl/codegen/sync.h \
+ /usr/include/grpcpp/client_context.h \
+ /usr/include/grpcpp/impl/codegen/client_context.h \
+ /usr/include/grpcpp/impl/codegen/client_context_impl.h \
+ /usr/include/grpcpp/impl/codegen/create_auth_context.h \
+ /usr/include/grpcpp/impl/codegen/security/auth_context.h \
+ /usr/include/grpcpp/completion_queue.h \
+ /usr/include/grpcpp/impl/codegen/completion_queue.h \
+ /usr/include/grpcpp/create_channel.h \
+ /usr/include/grpcpp/create_channel_impl.h \
+ /usr/include/grpcpp/security/credentials.h \
+ /usr/include/grpcpp/security/credentials_impl.h \
+ /usr/include/grpc/grpc_security_constants.h \
+ /usr/include/grpcpp/security/auth_context.h \
+ /usr/include/grpcpp/security/tls_credentials_options.h \
+ /usr/include/grpc/support/log.h /usr/include/grpcpp/support/config.h \
+ /usr/include/grpcpp/support/channel_arguments_impl.h \
+ /usr/include/grpc/compression.h /usr/include/grpcpp/resource_quota.h \
+ /usr/include/grpcpp/resource_quota_impl.h \
+ /usr/include/grpcpp/support/status.h \
+ /usr/include/grpcpp/support/string_ref.h \
+ /usr/include/grpcpp/support/channel_arguments.h \
+ /usr/include/grpcpp/create_channel_posix.h \
+ /usr/include/grpcpp/create_channel_posix_impl.h \
+ /usr/include/grpcpp/server.h /usr/include/grpcpp/server_impl.h \
+ /usr/include/grpc/support/atm.h \
+ /usr/include/grpcpp/completion_queue_impl.h \
+ /usr/include/grpcpp/health_check_service_interface.h \
+ /usr/include/grpcpp/health_check_service_interface_impl.h \
+ /usr/include/grpcpp/impl/codegen/server_interface.h \
+ /usr/include/grpcpp/impl/codegen/interceptor_common.h \
+ /usr/include/grpcpp/impl/codegen/call_op_set_interface.h \
+ /usr/include/grpcpp/impl/codegen/intercepted_channel.h \
+ /usr/include/grpcpp/impl/codegen/server_interceptor.h \
+ /usr/include/grpcpp/impl/codegen/rpc_service_method.h \
+ /usr/include/grpcpp/impl/codegen/server_context_impl.h \
+ /usr/include/grpcpp/impl/codegen/call_op_set.h \
+ /usr/include/grpcpp/impl/codegen/callback_common.h \
+ /usr/include/grpcpp/impl/codegen/message_allocator.h \
+ /usr/include/grpcpp/impl/codegen/server_callback_impl.h \
+ /usr/include/grpcpp/impl/rpc_service_method.h \
+ /usr/include/grpcpp/security/server_credentials.h \
+ /usr/include/grpcpp/security/server_credentials_impl.h \
+ /usr/include/grpcpp/security/auth_metadata_processor.h \
+ /usr/include/grpcpp/security/auth_metadata_processor_impl.h \
+ /usr/include/grpcpp/server_builder.h \
+ /usr/include/grpcpp/server_builder_impl.h \
+ /usr/include/grpc/support/cpu.h \
+ /usr/include/grpc/support/workaround_list.h \
+ /usr/include/grpcpp/impl/channel_argument_option.h \
+ /usr/include/grpcpp/impl/server_builder_option.h \
+ /usr/include/grpcpp/impl/server_builder_option_impl.h \
+ /usr/include/grpcpp/impl/server_builder_plugin.h \
+ /usr/include/grpcpp/server_context.h \
+ /usr/include/grpcpp/impl/codegen/server_context.h \
+ /usr/include/grpcpp/server_posix.h \
+ /usr/include/grpcpp/server_posix_impl.h \
+ /home/oxythecrack/Desktop/OxyTasks/GateServer/build/message.grpc.pb.h \
+ /home/oxythecrack/Desktop/OxyTasks/GateServer/build/message.pb.h \
+ /usr/include/google/protobuf/port_def.inc \
+ /usr/include/google/protobuf/port_undef.inc \
+ /usr/include/google/protobuf/io/coded_stream.h \
+ /usr/include/x86_64-linux-gnu/sys/param.h \
+ /usr/include/x86_64-linux-gnu/bits/param.h /usr/include/linux/param.h \
+ /usr/include/x86_64-linux-gnu/asm/param.h \
+ /usr/include/asm-generic/param.h \
+ /usr/include/google/protobuf/stubs/common.h /usr/include/c++/11/set \
+ /usr/include/c++/11/bits/stl_set.h \
+ /usr/include/c++/11/bits/stl_multiset.h \
+ /usr/include/google/protobuf/stubs/port.h \
+ /usr/include/google/protobuf/stubs/platform_macros.h \
+ /usr/include/byteswap.h /usr/include/google/protobuf/stubs/macros.h \
+ /usr/include/google/protobuf/stubs/logging.h \
+ /usr/include/google/protobuf/stubs/strutil.h \
+ /usr/include/google/protobuf/stubs/stringpiece.h \
+ /usr/include/google/protobuf/stubs/hash.h \
+ /usr/include/google/protobuf/port.h /usr/include/google/protobuf/arena.h \
+ /usr/include/google/protobuf/arena_impl.h \
+ /usr/include/google/protobuf/arenastring.h \
+ /usr/include/google/protobuf/stubs/fastmem.h \
+ /usr/include/google/protobuf/generated_message_table_driven.h \
+ /usr/include/google/protobuf/map.h \
+ /usr/include/google/protobuf/generated_enum_util.h \
+ /usr/include/google/protobuf/message_lite.h \
+ /usr/include/google/protobuf/metadata_lite.h \
+ /usr/include/google/protobuf/stubs/once.h \
+ /usr/include/google/protobuf/map_type_handler.h \
+ /usr/include/google/protobuf/parse_context.h \
+ /usr/include/google/protobuf/io/zero_copy_stream.h \
+ /usr/include/google/protobuf/implicit_weak_message.h \
+ /usr/include/google/protobuf/repeated_field.h \
+ /usr/include/google/protobuf/stubs/casts.h \
+ /usr/include/google/protobuf/wire_format_lite.h \
+ /usr/include/google/protobuf/map_entry_lite.h \
+ /usr/include/google/protobuf/generated_message_util.h \
+ /usr/include/google/protobuf/any.h \
+ /usr/include/google/protobuf/has_bits.h \
+ /usr/include/google/protobuf/map_field_lite.h \
+ /usr/include/google/protobuf/inlined_string_field.h \
+ /usr/include/google/protobuf/generated_message_reflection.h \
+ /usr/include/google/protobuf/descriptor.h \
+ /usr/include/google/protobuf/stubs/mutex.h \
+ /usr/include/google/protobuf/generated_enum_reflection.h \
+ /usr/include/google/protobuf/unknown_field_set.h \
+ /usr/include/google/protobuf/io/zero_copy_stream_impl_lite.h \
+ /usr/include/google/protobuf/stubs/callback.h \
+ /usr/include/google/protobuf/stubs/stl_util.h \
+ /usr/include/google/protobuf/message.h \
+ /usr/include/google/protobuf/extension_set.h \
+ /usr/include/grpcpp/impl/codegen/async_generic_service.h \
+ /usr/include/grpcpp/impl/codegen/async_stream_impl.h \
+ /usr/include/grpcpp/impl/codegen/service_type.h \
+ /usr/include/grpcpp/impl/codegen/server_callback_handlers.h \
+ /usr/include/grpcpp/impl/codegen/async_stream.h \
+ /usr/include/grpcpp/impl/codegen/async_unary_call.h \
+ /usr/include/grpcpp/impl/codegen/async_unary_call_impl.h \
+ /usr/include/grpcpp/impl/codegen/client_callback.h \
+ /usr/include/grpcpp/impl/codegen/client_callback_impl.h \
+ /usr/include/grpcpp/impl/codegen/method_handler.h \
+ /usr/include/grpcpp/impl/codegen/method_handler_impl.h \
+ /usr/include/grpcpp/impl/codegen/sync_stream_impl.h \
+ /usr/include/grpcpp/impl/codegen/proto_utils.h \
+ /usr/include/grpcpp/impl/codegen/config_protobuf.h \
+ /usr/include/google/protobuf/descriptor.pb.h \
+ /usr/include/google/protobuf/descriptor_database.h \
+ /usr/include/google/protobuf/util/json_util.h \
+ /usr/include/google/protobuf/util/type_resolver.h \
+ /usr/include/google/protobuf/type.pb.h \
+ /usr/include/google/protobuf/any.pb.h \
+ /usr/include/google/protobuf/source_context.pb.h \
+ /usr/include/google/protobuf/stubs/status.h \
+ /usr/include/google/protobuf/stubs/bytestream.h \
+ /usr/include/grpcpp/impl/codegen/proto_buffer_reader.h \
+ /usr/include/grpcpp/impl/codegen/proto_buffer_writer.h \
+ /usr/include/grpcpp/impl/codegen/server_callback.h \
+ /usr/include/grpcpp/impl/codegen/stub_options.h \
+ /usr/include/grpcpp/impl/codegen/sync_stream.h \
+ /home/oxythecrack/Desktop/OxyTasks/GateServer/RPCConnectPool.h \
+ /home/oxythecrack/Desktop/OxyTasks/GateServer/AsyncTaskPool.h \
  /usr/include/hiredis/hiredis.h /usr/include/hiredis/read.h \
  /usr/include/hiredis/sds.h /usr/include/hiredis/alloc.h \
- /usr/include/c++/11/stdlib.h \
  /home/oxythecrack/Desktop/OxyTasks/GateServer/RedisManager.h \
- /home/oxythecrack/Desktop/OxyTasks/GateServer/RedisConnectPool.h \
- /usr/include/c++/11/queue /usr/include/c++/11/bits/stl_queue.h
+ /home/oxythecrack/Desktop/OxyTasks/GateServer/RedisConnectPool.h

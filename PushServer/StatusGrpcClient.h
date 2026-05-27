@@ -14,12 +14,21 @@ using grpc::Status;
 
 using message::LoginReportReq;
 using message::LoginReportRsp;
+using message::ReportLogReq;
+using message::ReportLogRsp;
+using message::HeartbeatReq;
+using message::HeartbeatRsp;
+using message::DisconnectReq;
+using message::DisconnectRsp;
 using message::StatusService;
 
 class StatusGrpcClient : public Singleton<StatusGrpcClient> {
     friend class Singleton<StatusGrpcClient>;
 public:
     LoginReportRsp reportLogin(int uid, const std::string& token);
+    void reportLog(const ReportLogReq& req);
+    void heartbeat(const std::string& host, const std::string& port);
+    void reportDisconnect(const std::string& server_name);
 private:
     std::unique_ptr<StatusConnectPool> rpc_pool_;
     StatusGrpcClient();

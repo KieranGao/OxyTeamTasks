@@ -1,13 +1,14 @@
 #include "RedisManager.h"
 #include "ConfigManager.h"
+#include "Logger.h"
 
 RedisManager::RedisManager() {
     auto& config = ConfigManager::getInstance();
     std::string host = config["Redis"]["host"];
     std::string port = config["Redis"]["port"];
     std::string password = config["Redis"]["password"];
-    std::cout << host << ' ' << port << ' ' << password << std::endl;
-    conn_pool_ = std::make_unique<RedisConnectPool>(5, host, std::atoi(port.c_str()), password);
+    LOG_DEBUG("Redis connecting to {}:{}", host, port);
+    conn_pool_ = std::make_unique<RedisConnectPool>(20, host, std::atoi(port.c_str()), password);
 }
 
 RedisManager::~RedisManager() {
@@ -23,14 +24,14 @@ bool RedisManager::get(const std::string& key, std::string& value) {
     redisReply* reply = static_cast<redisReply*>(redisCommand(connect.get(), "GET %s", key.c_str()));
     conn_pool_->returnConnection(std::move(connect));
     if (reply == nullptr) {
-        std::cerr << "Failed to execute GET command!" << std::endl;
+        LOG_ERROR("Failed to execute GET command!");
         // 此时无需释放reply_，因为它是nullptr
         return false;
     }
     if (reply->type == REDIS_REPLY_STRING) {
         value = std::string(reply->str, reply->len);
         freeReplyObject(reply);
-        std::cerr << "Executed command [ GET " << key << " ] success ! " << std::endl;
+        LOG_DEBUG("Executed command [ GET {} ] success ! ", key);
         return true;
     }
     freeReplyObject(reply);
@@ -45,19 +46,95 @@ bool RedisManager::set(const std::string& key, const std::string& value) {
     redisReply* reply = static_cast<redisReply*>(redisCommand(connect.get(), "SET %s %s", key.c_str(), value.c_str()));
     conn_pool_->returnConnection(std::move(connect));
     if (reply == nullptr) {
-        std::cerr << "Failed to execute SET command!" << std::endl;
+        LOG_ERROR("Failed to execute SET command!");
         return false;
     }
     //如果执行失败则释放连接
     if (!(reply->type == REDIS_REPLY_STATUS and (strcmp(reply->str, "OK") == 0 or strcmp(reply->str, "ok") == 0)))
     {
-        std::cerr << "Execute command [ SET " << key << "  " << value << " ] failure ! " << std::endl;
+        LOG_ERROR("Execute command [ SET {}  {} ] failure ! ", key, value);
         freeReplyObject(reply);     
         return false;
     }
     freeReplyObject(reply);
-    std::cerr << "Execut command [ SET " << key << "  " << value << " ] success ! " << std::endl;
+    LOG_DEBUG("Execut command [ SET {}  {} ] success ! ", key, value);
     return true;
+}
+
+bool RedisManager::setex(const std::string& key, const std::string& value, int seconds) {
+    auto connect = conn_pool_->getConnection();
+    if (connect == nullptr) return false;
+    redisReply* reply = static_cast<redisReply*>(redisCommand(connect.get(), "SETEX %s %d %s", key.c_str(), seconds, value.c_str()));
+    conn_pool_->returnConnection(std::move(connect));
+    if (reply == nullptr) { std::cerr << "Failed to execute SETEX command!" << std::endl; return false; }
+    if (!(reply->type == REDIS_REPLY_STATUS && (strcmp(reply->str, "OK") == 0 || strcmp(reply->str, "ok") == 0))) {
+        LOG_ERROR("Execute command [ SETEX {} ] failure ! ", key);
+        freeReplyObject(reply);
+        return false;
+    }
+    freeReplyObject(reply);
+    return true;
+}
+
+bool RedisManager::expire(const std::string& key, int seconds) {
+    auto connect = conn_pool_->getConnection();
+    if (connect == nullptr) return false;
+    redisReply* reply = static_cast<redisReply*>(redisCommand(connect.get(), "EXPIRE %s %d", key.c_str(), seconds));
+    conn_pool_->returnConnection(std::move(connect));
+    if (reply == nullptr) return false;
+    bool ok = (reply->type == REDIS_REPLY_INTEGER && reply->integer > 0);
+    freeReplyObject(reply);
+    return ok;
+}
+
+std::string RedisManager::lrange(const std::string& key, int start, int stop) {
+    auto connect = conn_pool_->getConnection();
+    if (connect == nullptr) return "";
+    redisReply* reply = static_cast<redisReply*>(redisCommand(connect.get(), "LRANGE %s %d %d", key.c_str(), start, stop));
+    conn_pool_->returnConnection(std::move(connect));
+    if (reply == nullptr || reply->type != REDIS_REPLY_ARRAY) {
+        if (reply) freeReplyObject(reply);
+        return "";
+    }
+    // Build a JSON array string from the Redis array results
+    std::string result = "[";
+    for (size_t i = 0; i < reply->elements; ++i) {
+        if (i > 0) result += ",";
+        if (reply->element[i]->type == REDIS_REPLY_STRING)
+            result += std::string(reply->element[i]->str, reply->element[i]->len);
+    }
+    result += "]";
+    freeReplyObject(reply);
+    return result;
+}
+
+std::vector<std::string> RedisManager::lrangeVec(const std::string& key, int start, int stop) {
+    std::vector<std::string> result;
+    auto connect = conn_pool_->getConnection();
+    if (connect == nullptr) return result;
+    redisReply* reply = static_cast<redisReply*>(redisCommand(connect.get(), "LRANGE %s %d %d", key.c_str(), start, stop));
+    conn_pool_->returnConnection(std::move(connect));
+    if (reply == nullptr || reply->type != REDIS_REPLY_ARRAY) {
+        if (reply) freeReplyObject(reply);
+        return result;
+    }
+    for (size_t i = 0; i < reply->elements; ++i) {
+        if (reply->element[i]->type == REDIS_REPLY_STRING)
+            result.push_back(std::string(reply->element[i]->str, reply->element[i]->len));
+    }
+    freeReplyObject(reply);
+    return result;
+}
+
+bool RedisManager::ltrim(const std::string& key, int start, int stop) {
+    auto connect = conn_pool_->getConnection();
+    if (connect == nullptr) return false;
+    redisReply* reply = static_cast<redisReply*>(redisCommand(connect.get(), "LTRIM %s %d %d", key.c_str(), start, stop));
+    conn_pool_->returnConnection(std::move(connect));
+    if (reply == nullptr) return false;
+    bool ok = (reply->type == REDIS_REPLY_STATUS && (strcmp(reply->str, "OK") == 0 || strcmp(reply->str, "ok") == 0));
+    freeReplyObject(reply);
+    return ok;
 }
 
 bool RedisManager::auth(const std::string& password) {
@@ -68,18 +145,18 @@ bool RedisManager::auth(const std::string& password) {
     redisReply* reply = static_cast<redisReply*>(redisCommand(connect.get(), "AUTH %s", password.c_str()));
     conn_pool_->returnConnection(std::move(connect));
     if (reply == nullptr) {
-        std::cerr << "Failed to execute AUTH command!" << std::endl;
+        LOG_ERROR("Failed to execute AUTH command!");
         return false;
     }
 
     if (reply and reply->type == REDIS_REPLY_ERROR) {
-        std::cerr << "Failed to authenticate with Redis!" << std::endl;
+        LOG_ERROR("Failed to authenticate with Redis!");
         freeReplyObject(reply);
         return false;
     }
 
     freeReplyObject(reply);
-    std::cerr << "Authenticated with Redis successfully." << std::endl;
+    LOG_DEBUG("Authenticated with Redis successfully.");
     return true;
 }
 
@@ -91,16 +168,16 @@ bool RedisManager::del(const std::string& key) {
     redisReply* reply = static_cast<redisReply*>(redisCommand(connect.get(), "DEL %s", key.c_str()));
     conn_pool_->returnConnection(std::move(connect));
     if (reply == nullptr) {
-        std::cerr << "Failed to execute DEL command!" << std::endl;
+        LOG_ERROR("Failed to execute DEL command!");
         return false;
     }
     if (reply->type != REDIS_REPLY_INTEGER or reply->integer <= 0) {
-        std::cerr << "Failed to execute DEL command!" << std::endl;
+        LOG_ERROR("Failed to execute DEL command!");
         freeReplyObject(reply);
         return false;
     }
     freeReplyObject(reply);
-    std::cerr << "Executed command [ DEL " << key << " ] success ! " << std::endl;
+    LOG_DEBUG("Executed command [ DEL {} ] success ! ", key);
     return true;
 }
 
@@ -112,16 +189,16 @@ bool RedisManager::lpush(const std::string& key, const std::string& value) {
     redisReply* reply = static_cast<redisReply*>(redisCommand(connect.get(), "LPUSH %s %s", key.c_str(), value.c_str()));
     conn_pool_->returnConnection(std::move(connect));
     if (reply == nullptr) {
-        std::cerr << "Failed to execute LPUSH command!" << std::endl;
+        LOG_ERROR("Failed to execute LPUSH command!");
         return false;
     }
     if (reply->type != REDIS_REPLY_INTEGER or reply->integer <= 0) {
-        std::cerr << "Failed to execute LPUSH command!" << std::endl;
+        LOG_ERROR("Failed to execute LPUSH command!");
         freeReplyObject(reply);
         return false;
     }
     freeReplyObject(reply);
-    std::cerr << "Executed command [ LPUSH " << key << "  " << value << " ] success ! " << std::endl;
+    LOG_DEBUG("Executed command [ LPUSH {}  {} ] success ! ", key, value);
     return true;
 }
 
@@ -133,17 +210,17 @@ bool RedisManager::rpush(const std::string& key, const std::string& value) {
     redisReply* reply = static_cast<redisReply*>(redisCommand(connect.get(), "RPUSH %s %s", key.c_str(), value.c_str()));
     conn_pool_->returnConnection(std::move(connect));
     if (reply == nullptr) {
-        std::cerr << "Failed to execute RPUSH command!" << std::endl;
+        LOG_ERROR("Failed to execute RPUSH command!");
         return false;
     }
     if (reply->type != REDIS_REPLY_INTEGER or reply->integer <= 0) {
-        std::cerr << "Failed to execute RPUSH command!" << std::endl;
+        LOG_ERROR("Failed to execute RPUSH command!");
         freeReplyObject(reply);
-        std::cerr << "Executed command [ RPUSH " << key << "  " << value << " ] failure ! " << std::endl;
+        LOG_ERROR("Executed command [ RPUSH {}  {} ] failure ! ", key, value);
         return false;
     }
     freeReplyObject(reply);
-    std::cerr << "Executed command [ RPUSH " << key << "  " << value << " ] success ! " << std::endl;
+    LOG_DEBUG("Executed command [ RPUSH {}  {} ] success ! ", key, value);
     return true;
 }
 
@@ -155,17 +232,17 @@ bool RedisManager::lpop(const std::string& key, std::string& value) {
     redisReply* reply = static_cast<redisReply*>(redisCommand(connect.get(), "LPOP %s", key.c_str()));
     conn_pool_->returnConnection(std::move(connect));
     if (reply == nullptr) {
-        std::cerr << "Failed to execute LPOP command!" << std::endl;
+        LOG_ERROR("Failed to execute LPOP command!");
         return false;
     }
     if (reply->type == REDIS_REPLY_STRING) {
         value = std::string(reply->str, reply->len);
         freeReplyObject(reply);
-        std::cerr << "Executed command [ LPOP " << key << " ] success ! " << std::endl;
+        LOG_DEBUG("Executed command [ LPOP {} ] success ! ", key);
         return true;
     }
     freeReplyObject(reply);
-    std::cerr << "Failed to execute LPOP command!" << std::endl;
+    LOG_ERROR("Failed to execute LPOP command!");
     return false;
 }
 
@@ -177,17 +254,17 @@ bool RedisManager::rpop(const std::string& key, std::string& value) {
     redisReply* reply = static_cast<redisReply*>(redisCommand(connect.get(), "RPOP %s", key.c_str()));
     conn_pool_->returnConnection(std::move(connect));
     if (reply == nullptr) {
-        std::cerr << "Failed to execute RPOP command!" << std::endl;
+        LOG_ERROR("Failed to execute RPOP command!");
         return false;
     }
     if (reply->type == REDIS_REPLY_STRING) {
         value = std::string(reply->str, reply->len);
         freeReplyObject(reply);
-        std::cerr << "Executed command [ RPOP " << key << " ] success ! " << std::endl;
+        LOG_DEBUG("Executed command [ RPOP {} ] success ! ", key);
         return true;
     }
     freeReplyObject(reply);
-    std::cerr << "Failed to execute RPOP command!" << std::endl;
+    LOG_ERROR("Failed to execute RPOP command!");
     return false;
 }
 
@@ -199,11 +276,11 @@ bool RedisManager::hset(const std::string &key, const std::string &field, const 
     redisReply* reply = static_cast<redisReply*>(redisCommand(connect.get(), "HSET %s %s %s", key.c_str(), field.c_str(), value.c_str()));
     conn_pool_->returnConnection(std::move(connect));
     if (reply == nullptr or reply->type != REDIS_REPLY_INTEGER ) {
-        std::cerr << "Executed command [ HSet " << key << "  " << field <<"  " << value << " ] failure ! " << std::endl;
+        LOG_ERROR("Executed command [ HSet {}  {}  {} ] failure ! ", key, field, value);
         freeReplyObject(reply);
         return false;
     }
-    std::cerr << "Executed command [ HSet " << key << "  " << field <<"  " << value << " ] success ! " << std::endl;
+    LOG_DEBUG("Executed command [ HSet {}  {}  {} ] success ! ", key, field, value);
     freeReplyObject(reply);
     return true;
 }
@@ -226,11 +303,11 @@ bool RedisManager::hset(const char* key, const char* field, const char* value, s
     redisReply* reply = (redisReply*)redisCommandArgv(connect.get(), 4, argv, argvlen);
     conn_pool_->returnConnection(std::move(connect));
     if (reply == nullptr or reply->type != REDIS_REPLY_INTEGER) {
-        std::cerr << "Executed command [ HSet " << key << "  " << field << "  " << value << " ] failure ! " << std::endl;
+        LOG_ERROR("Executed command [ HSet {}  {}  {} ] failure ! ", key, field, value);
         freeReplyObject(reply);
         return false;
     }
-    std::cerr << "Executed command [ HSet " << key << "  " << field << "  " << value << " ] success ! " << std::endl;
+    LOG_DEBUG("Executed command [ HSet {}  {}  {} ] success ! ", key, field, value);
     freeReplyObject(reply);
     return true;
 }
@@ -253,12 +330,12 @@ std::string RedisManager::hget(const std::string &key, const std::string &field)
     conn_pool_->returnConnection(std::move(connect));
     if (reply == nullptr || reply->type == REDIS_REPLY_NIL) {
         freeReplyObject(reply);
-        std::cerr << "Executed command [ HGet " << key << " "<< field <<"  ] failure ! " << std::endl;
+        LOG_ERROR("Executed command [ HGet {} {}  ] failure ! ", key, field);
         return "";
     }
     std::string value = reply->str;
     freeReplyObject(reply);
-    std::cerr << "Executed command [ HGet " << key << " " << field << " ] success ! " << std::endl;
+    LOG_DEBUG("Executed command [ HGet {} {} ] success ! ", key, field);
     return value;
 }
 
@@ -270,13 +347,33 @@ bool RedisManager::existskey(const std::string& key) {
     redisReply* reply = static_cast<redisReply*>(redisCommand(connect.get(), "EXISTS %s", key.c_str()));
     conn_pool_->returnConnection(std::move(connect));
     if (reply == nullptr) {
-        std::cerr << "Failed to execute EXISTS command!" << std::endl;
+        LOG_ERROR("Failed to execute EXISTS command!");
         return false;
     }
     bool exists = (reply->type == REDIS_REPLY_INTEGER and reply->integer > 0);
     freeReplyObject(reply);
-    std::cerr << "Executed command [ EXISTS " << key << " ] " << (exists ? "exists" : "does not exist") << " ! " << std::endl;
+    LOG_DEBUG("Executed command [ EXISTS {} ] {} ! ", key, (exists ? "exists" : "does not exist"));
     return exists;
+}
+
+std::string RedisManager::keys(const std::string& pattern) {
+    auto connect = conn_pool_->getConnection();
+    if (connect == nullptr) return "[]";
+    redisReply* reply = static_cast<redisReply*>(redisCommand(connect.get(), "KEYS %s", pattern.c_str()));
+    conn_pool_->returnConnection(std::move(connect));
+    if (reply == nullptr || reply->type != REDIS_REPLY_ARRAY) {
+        if (reply) freeReplyObject(reply);
+        return "[]";
+    }
+    std::string result = "[";
+    for (size_t i = 0; i < reply->elements; ++i) {
+        if (i > 0) result += ",";
+        if (reply->element[i]->type == REDIS_REPLY_STRING)
+            result += "\"" + std::string(reply->element[i]->str, reply->element[i]->len) + "\"";
+    }
+    result += "]";
+    freeReplyObject(reply);
+    return result;
 }
 
 void RedisManager::close() {

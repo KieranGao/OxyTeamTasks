@@ -1,17 +1,25 @@
 #include "LogicSystem.h"
+#include "AsyncTaskPool.h"
 #include "StatusGrpcClient.h"
 #include "MySQLManager.h"
 #include "Global.h"
+#include "Logger.h"
 
 LogicSystem::LogicSystem() : is_running_(true) {
     registerCallBacks();
-    workers_thread_ = std::thread(&LogicSystem::dealMsg, this);
+    unsigned int n = std::thread::hardware_concurrency();
+    if (n < 2) n = 2;
+    for (unsigned int i = 0; i < n; ++i) {
+        workers_threads_.emplace_back(&LogicSystem::dealMsg, this);
+    }
 }
 
 LogicSystem::~LogicSystem() {
     is_running_ = false;
-    cv_.notify_one();
-    workers_thread_.join();
+    cv_.notify_all();
+    for (auto& t : workers_threads_) {
+        if (t.joinable()) t.join();
+    }
 }
 
 void LogicSystem::postMsgToQue(std::shared_ptr<Session> session, std::string msg_data) {
@@ -35,23 +43,21 @@ void LogicSystem::dealMsg() {
             auto node = std::move(msg_queue_.front());
             msg_queue_.pop();
             lock.unlock();
-
-            // Parse JSON to extract message type
             Json::Value root;
             Json::Reader reader;
             if (!reader.parse(node.msg_data_, root)) {
-                std::cerr << "[LogicSystem] JSON parse error" << std::endl;
+                LOG_ERROR("[LogicSystem] JSON parse error");
                 lock.lock();
                 continue;
             }
             std::string type = root.get("type", "").asString();
-            std::cout << "[LogicSystem] msg type: " << type << std::endl;
+            LOG_DEBUG("[LogicSystem] msg type: {}", type);
 
             auto cb = fun_callbacks_.find(type);
             if (cb != fun_callbacks_.end()) {
                 cb->second(node.session_, node.msg_data_);
             } else {
-                std::cout << "[LogicSystem] no handler for type: " << type << std::endl;
+                LOG_DEBUG("[LogicSystem] no handler for type: {}", type);
             }
             lock.lock();
         }
@@ -66,41 +72,61 @@ void LogicSystem::registerCallBacks() {
 void LogicSystem::loginHandler(std::shared_ptr<Session> session, const std::string& msg_data) {
     Json::Reader reader;
     Json::Value root;
-    reader.parse(msg_data, root);
-    int uid = root["uid"].asInt();
-    std::string token = root["token"].asString();
-    std::cout << "[PushServer] TCP login: uid=" << uid << " token=" << token << std::endl;
-
-    // Validate token via StatusServer
-    LoginReportRsp rsp = StatusGrpcClient::getInstance().reportLogin(uid, token);
-
-    Json::Value rtvalue;
-    Defer defer([this, &rtvalue, session]() {
-        std::string return_str = rtvalue.toStyledString();
-        session->send(return_str);
-    });
-
-    rtvalue["type"] = WS_MSG_LOGIN_RSP;
-    rtvalue["error"] = static_cast<int>(rsp.error());
-
-    if (rsp.error() != static_cast<int>(ErrorCodes::SUCCESS)) {
+    if (!reader.parse(msg_data, root)) {
+        LOG_ERROR("[PushServer] loginHandler: JSON parse failed");
+        Json::Value err;
+        err["type"] = WS_MSG_LOGIN_RSP;
+        err["error"] = static_cast<int>(ErrorCodes::JSON_PARSE_ERROR);
+        session->send(err.toStyledString());
         return;
     }
+    int uid = root["uid"].asInt();
+    std::string token = root["token"].asString();
+    if (uid <= 0 or token.empty()) {
+        LOG_ERROR("[PushServer] loginHandler: invalid uid or token");
+        Json::Value err;
+        err["type"] = WS_MSG_LOGIN_RSP;
+        err["error"] = static_cast<int>(ErrorCodes::JSON_PARSE_ERROR);
+        session->send(err.toStyledString());
+        return;
+    }
+    LOG_DEBUG("[PushServer] login: uid={} token={}", uid, token);
+    Json::Value rtvalue;
+    rtvalue["type"] = WS_MSG_LOGIN_RSP;
+    Defer defer([&rtvalue, session]() {
+        session->send(rtvalue.toStyledString());
+        // Close session on auth failure — don't leave unauthenticated connections open
+        if (rtvalue["error"].asInt() != 0) {
+            session->close();
+        }
+    });
 
-    // Lookup or cache user info
-    auto it = users_.find(uid);
-    std::shared_ptr<UserInfo> user_info = nullptr;
-    if (it == users_.end()) {
+    LoginReportRsp rsp = StatusGrpcClient::getInstance().reportLogin(uid, token);
+    if (rsp.error() != 0) {
+        LOG_ERROR("[PushServer] loginHandler: token validation failed for uid={}, error={}", uid, rsp.error());
+        rtvalue["error"] = rsp.error();
+        return;
+    }
+    rtvalue["error"] = 0;
+    rtvalue["uid"] = uid;
+
+    std::shared_ptr<UserInfo> user_info;
+    {
+        std::shared_lock<std::shared_mutex> read_lock(users_mtx_);
+        auto it = users_.find(uid);
+        if (it != users_.end()) {
+            user_info = it->second;
+        }
+    }
+    if (!user_info) {
         user_info = MySQLManager::getInstance().getUser(uid);
         if (!user_info) {
             rtvalue["error"] = static_cast<int>(ErrorCodes::USER_ID_INVALID);
             return;
         }
+        std::unique_lock<std::shared_mutex> write_lock(users_mtx_);
         users_[uid] = user_info;
-    } else {
-        user_info = it->second;
     }
-
-    rtvalue["uid"] = uid;
     rtvalue["name"] = user_info->username;
+    // 后续会由defer的回调去发送JSON回包
 }

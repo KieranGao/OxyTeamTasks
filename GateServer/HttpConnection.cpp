@@ -1,5 +1,6 @@
 #include "HttpConnection.h"
-
+#include "Logger.h"
+#include "RedisManager.h"
 
 HttpConnection::HttpConnection(boost::asio::io_context& ioc)
     : socket_(ioc) {}
@@ -10,7 +11,7 @@ void HttpConnection::start() {
     byte_transferred) {
         try {
             if(ec) {
-                std::cerr << "read error: " << ec.message() << std::endl;
+                LOG_ERROR("read error: {}", ec.message());
                 return;
             }
             // 这里不需要使用byte_transferred变量，但编译器会警告未使用变量，所以用boost::ignore_unused来避免警告
@@ -20,7 +21,7 @@ void HttpConnection::start() {
             self->checkDeadline_(); // 检查是否超时
         }
         catch (std::exception& exp) {
-            std::cerr << "exception is " << exp.what() << std::endl;
+            LOG_ERROR("exception is {}", exp.what());
         }
     });
 }
@@ -122,9 +123,73 @@ void HttpConnection::PreParseGetParam() {
     }
 }
 
+bool HttpConnection::authenticateRequest_() {
+
+    std::string target = req_.target().to_string();
+    auto query_pos = target.find('?');
+    std::string path = (query_pos != std::string::npos) ? target.substr(0, query_pos) : target;
+    // 如果是公开端点，则不需要token验证
+    if(PUBLIC_PATHS.count(path)) return true;
+
+    auto write401 = [this](int error_code) {
+        resp_.result(http::status::unauthorized);
+        resp_.set(http::field::content_type, "application/json");
+        Json::Value err;
+        err["error"] = error_code;
+        beast::ostream(resp_.body()) << err.toStyledString();
+    };
+
+    // 提取Authorization: Bearer <token>
+    auto auth_it = req_.find(http::field::authorization);
+    if (auth_it == req_.end()) {
+        write401(static_cast<int>(ErrorCodes::AUTH_TOKEN_MISSING));
+        return false;
+    }
+    std::string auth_value(auth_it->value().data(), auth_it->value().size());
+    std::string token;
+    const std::string bearer_prefix = "Bearer ";
+    if (auth_value.compare(0, bearer_prefix.size(), bearer_prefix) == 0)
+        token = auth_value.substr(bearer_prefix.size());
+    else
+        token = auth_value;
+    if (token.empty()) {
+        write401(static_cast<int>(ErrorCodes::AUTH_TOKEN_MISSING));
+        return false;
+    }
+
+    // 提取X-User-Id
+    auto uid_it = req_.find("X-User-Id");
+    if (uid_it == req_.end()) {
+        write401(static_cast<int>(ErrorCodes::AUTH_TOKEN_MISSING));
+        return false;
+    }
+    int uid = 0;
+    try {
+        uid = std::stoi(std::string(uid_it->value().data(), uid_it->value().size()));
+    } catch (...) {
+        write401(static_cast<int>(ErrorCodes::AUTH_TOKEN_MISSING));
+        return false;
+    }
+
+    // Validate token locally via Redis (same Redis that StatusServer uses)
+    std::string token_key = USER_TOKEN_PREFIX + std::to_string(uid);
+    std::string stored_token;
+    if (!RedisManager::getInstance().get(token_key, stored_token) || stored_token != token) {
+        write401(static_cast<int>(ErrorCodes::AUTH_TOKEN_INVALID));
+        return false;
+    }
+
+    return true;
+}
+
 void HttpConnection::handleRequest_() {
-    resp_.version(req_.version()); // 设置响应的版本
-    resp_.keep_alive(false); // 不保持连接，处理完请求就关闭连接
+    resp_.version(req_.version());
+    resp_.keep_alive(false);
+
+    if (!authenticateRequest_()) {
+        makeResponse_();
+        return;
+    }
 
     if(req_.method() == http::verb::get) {
         PreParseGetParam(); // 预处理GET请求的URL和参数

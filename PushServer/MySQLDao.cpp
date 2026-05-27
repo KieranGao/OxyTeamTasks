@@ -1,6 +1,7 @@
 #include "MySQLDao.h"
 #include "ConfigManager.h"
 #include "Global.h"
+#include "Logger.h"
 MySQLDao::MySQLDao() {
     ConfigManager& config = ConfigManager::getInstance();
     std::string host = config["MySQL"]["host"];
@@ -18,7 +19,7 @@ MySQLDao::~MySQLDao() {
 bool MySQLDao::checkLogin(const std::string& email, const std::string& password, UserInfo& userinfo) {
     auto connection = ConnectionGuard(*pool_, pool_->getConnection());
     try {
-        std::cerr << "User: " << email << " is logging in!" << std::endl;
+        LOG_DEBUG("User: {} is logging in!", email);
         auto& sql_conn = connection.get()->getConn();
         std::string query = "SELECT uid, username, role, belong_captain_id, belong_team_id FROM user WHERE email = ? AND password = ? LIMIT 1";
         std::unique_ptr<sql::PreparedStatement> pstmt(sql_conn->prepareStatement(query));
@@ -26,7 +27,7 @@ bool MySQLDao::checkLogin(const std::string& email, const std::string& password,
         pstmt->setString(2, password);
         std::unique_ptr<sql::ResultSet> res(pstmt->executeQuery());
         if(!res or !res->next()) {
-            std::cerr << "Error: password and email do not match or user not exist." << std::endl;
+            LOG_ERROR("Error: password and email do not match or user not exist.");
             return false;
         }
         userinfo.email = email;
@@ -36,13 +37,13 @@ bool MySQLDao::checkLogin(const std::string& email, const std::string& password,
         userinfo.role = res->getInt("role");
         userinfo.belong_captain_id = res->isNull("belong_captain_id") ? 0 : res->getInt("belong_captain_id");
         userinfo.belong_team_id = res->isNull("belong_team_id") ? 0 : res->getInt("belong_team_id");
-        std::cerr << "user: " << email << " has login!" << std::endl;
+        LOG_DEBUG("user: {} has login!", email);
         return true;
 
     } catch(const sql::SQLException& exp) {
-        std::cerr << "SQLException: " << exp.what();
-        std::cerr << " (MySQL error code: " << exp.getErrorCode();
-        std::cerr << ", SQLState: " << exp.getSQLState() << " )" << std::endl;
+        LOG_ERROR("SQLException: {}", exp.what());
+        LOG_ERROR(" (MySQL error code: {}", exp.getErrorCode());
+        LOG_DEBUG(", SQLState: {} )", exp.getSQLState());
         return false;
     }
 }
@@ -68,9 +69,9 @@ std::shared_ptr<UserInfo> MySQLDao::getUser(int uid) {
         return userinfo;
     }
     catch (const sql::SQLException& exp) {
-        std::cerr << "SQLException: " << exp.what();
-        std::cerr << " (MySQL error code: " << exp.getErrorCode();
-        std::cerr << ", SQLState: " << exp.getSQLState() << " )" << std::endl;
+        LOG_ERROR("SQLException: {}", exp.what());
+        LOG_ERROR(" (MySQL error code: {}", exp.getErrorCode());
+        LOG_DEBUG(", SQLState: {} )", exp.getSQLState());
         return nullptr;
     }
 };

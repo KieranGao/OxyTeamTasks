@@ -1,8 +1,15 @@
 .vscode
+.claude
 Ori-Client
 GateServer/build
 PushServer/build
 StatusServer/build
 TaskServer/build
 UMSServer/build
-*.md
+GateServer/logs
+PushServer/logs
+StatusServer/logs
+TaskServer/logs
+UMSServer/logs
+scripts
+docs

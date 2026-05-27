@@ -26,7 +26,9 @@ enum class ErrorCodes {
     USER_DO_NOT_EXISTS = 1005,
     USER_LOGIN_ERROR = 1006,
     INVALID_UID = 1007,
-    INVALID_TOKEN = 1008
+    USER_NOT_APPROVED = 1008,
+    USER_ALREADY_APPROVED = 1009,
+    INVALID_TOKEN = 1010
 };
 
 // class ConfigManager;

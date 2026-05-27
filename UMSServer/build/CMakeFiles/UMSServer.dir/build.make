@@ -222,10 +222,38 @@ CMakeFiles/UMSServer.dir/RPCConnectPool.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/UMSServer.dir/RPCConnectPool.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/oxythecrack/Desktop/OxyTasks/UMSServer/RPCConnectPool.cpp -o CMakeFiles/UMSServer.dir/RPCConnectPool.cpp.s
 
+CMakeFiles/UMSServer.dir/StatusGrpcClient.cpp.o: CMakeFiles/UMSServer.dir/flags.make
+CMakeFiles/UMSServer.dir/StatusGrpcClient.cpp.o: ../StatusGrpcClient.cpp
+CMakeFiles/UMSServer.dir/StatusGrpcClient.cpp.o: CMakeFiles/UMSServer.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/UMSServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/UMSServer.dir/StatusGrpcClient.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/UMSServer.dir/StatusGrpcClient.cpp.o -MF CMakeFiles/UMSServer.dir/StatusGrpcClient.cpp.o.d -o CMakeFiles/UMSServer.dir/StatusGrpcClient.cpp.o -c /home/oxythecrack/Desktop/OxyTasks/UMSServer/StatusGrpcClient.cpp
+
+CMakeFiles/UMSServer.dir/StatusGrpcClient.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/UMSServer.dir/StatusGrpcClient.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/oxythecrack/Desktop/OxyTasks/UMSServer/StatusGrpcClient.cpp > CMakeFiles/UMSServer.dir/StatusGrpcClient.cpp.i
+
+CMakeFiles/UMSServer.dir/StatusGrpcClient.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/UMSServer.dir/StatusGrpcClient.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/oxythecrack/Desktop/OxyTasks/UMSServer/StatusGrpcClient.cpp -o CMakeFiles/UMSServer.dir/StatusGrpcClient.cpp.s
+
+CMakeFiles/UMSServer.dir/Logger.cpp.o: CMakeFiles/UMSServer.dir/flags.make
+CMakeFiles/UMSServer.dir/Logger.cpp.o: ../Logger.cpp
+CMakeFiles/UMSServer.dir/Logger.cpp.o: CMakeFiles/UMSServer.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/UMSServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/UMSServer.dir/Logger.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/UMSServer.dir/Logger.cpp.o -MF CMakeFiles/UMSServer.dir/Logger.cpp.o.d -o CMakeFiles/UMSServer.dir/Logger.cpp.o -c /home/oxythecrack/Desktop/OxyTasks/UMSServer/Logger.cpp
+
+CMakeFiles/UMSServer.dir/Logger.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/UMSServer.dir/Logger.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/oxythecrack/Desktop/OxyTasks/UMSServer/Logger.cpp > CMakeFiles/UMSServer.dir/Logger.cpp.i
+
+CMakeFiles/UMSServer.dir/Logger.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/UMSServer.dir/Logger.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/oxythecrack/Desktop/OxyTasks/UMSServer/Logger.cpp -o CMakeFiles/UMSServer.dir/Logger.cpp.s
+
 CMakeFiles/UMSServer.dir/message.pb.cc.o: CMakeFiles/UMSServer.dir/flags.make
 CMakeFiles/UMSServer.dir/message.pb.cc.o: message.pb.cc
 CMakeFiles/UMSServer.dir/message.pb.cc.o: CMakeFiles/UMSServer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/UMSServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/UMSServer.dir/message.pb.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/UMSServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/UMSServer.dir/message.pb.cc.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/UMSServer.dir/message.pb.cc.o -MF CMakeFiles/UMSServer.dir/message.pb.cc.o.d -o CMakeFiles/UMSServer.dir/message.pb.cc.o -c /home/oxythecrack/Desktop/OxyTasks/UMSServer/build/message.pb.cc
 
 CMakeFiles/UMSServer.dir/message.pb.cc.i: cmake_force
@@ -239,7 +267,7 @@ CMakeFiles/UMSServer.dir/message.pb.cc.s: cmake_force
 CMakeFiles/UMSServer.dir/message.grpc.pb.cc.o: CMakeFiles/UMSServer.dir/flags.make
 CMakeFiles/UMSServer.dir/message.grpc.pb.cc.o: message.grpc.pb.cc
 CMakeFiles/UMSServer.dir/message.grpc.pb.cc.o: CMakeFiles/UMSServer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/UMSServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/UMSServer.dir/message.grpc.pb.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/UMSServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/UMSServer.dir/message.grpc.pb.cc.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/UMSServer.dir/message.grpc.pb.cc.o -MF CMakeFiles/UMSServer.dir/message.grpc.pb.cc.o.d -o CMakeFiles/UMSServer.dir/message.grpc.pb.cc.o -c /home/oxythecrack/Desktop/OxyTasks/UMSServer/build/message.grpc.pb.cc
 
 CMakeFiles/UMSServer.dir/message.grpc.pb.cc.i: cmake_force
@@ -262,6 +290,8 @@ UMSServer_OBJECTS = \
 "CMakeFiles/UMSServer.dir/MySQLDao.cpp.o" \
 "CMakeFiles/UMSServer.dir/MySQLManager.cpp.o" \
 "CMakeFiles/UMSServer.dir/RPCConnectPool.cpp.o" \
+"CMakeFiles/UMSServer.dir/StatusGrpcClient.cpp.o" \
+"CMakeFiles/UMSServer.dir/Logger.cpp.o" \
 "CMakeFiles/UMSServer.dir/message.pb.cc.o" \
 "CMakeFiles/UMSServer.dir/message.grpc.pb.cc.o"
 
@@ -278,6 +308,8 @@ UMSServer: CMakeFiles/UMSServer.dir/MySQLConnectPool.cpp.o
 UMSServer: CMakeFiles/UMSServer.dir/MySQLDao.cpp.o
 UMSServer: CMakeFiles/UMSServer.dir/MySQLManager.cpp.o
 UMSServer: CMakeFiles/UMSServer.dir/RPCConnectPool.cpp.o
+UMSServer: CMakeFiles/UMSServer.dir/StatusGrpcClient.cpp.o
+UMSServer: CMakeFiles/UMSServer.dir/Logger.cpp.o
 UMSServer: CMakeFiles/UMSServer.dir/message.pb.cc.o
 UMSServer: CMakeFiles/UMSServer.dir/message.grpc.pb.cc.o
 UMSServer: CMakeFiles/UMSServer.dir/build.make
@@ -287,7 +319,7 @@ UMSServer: /usr/lib/x86_64-linux-gnu/libprotobuf.so
 UMSServer: /usr/lib/x86_64-linux-gnu/libhiredis.so
 UMSServer: /usr/lib/x86_64-linux-gnu/libmysqlcppconn.so
 UMSServer: CMakeFiles/UMSServer.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/oxythecrack/Desktop/OxyTasks/UMSServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Linking CXX executable UMSServer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/oxythecrack/Desktop/OxyTasks/UMSServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Linking CXX executable UMSServer"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/UMSServer.dir/link.txt --verbose=$(VERBOSE)
 	/usr/bin/cmake -E copy_if_different /home/oxythecrack/Desktop/OxyTasks/UMSServer/config.ini /home/oxythecrack/Desktop/OxyTasks/UMSServer/build/config.ini
 

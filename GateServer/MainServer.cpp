@@ -1,9 +1,10 @@
 #include "MainServer.h"
 #include "IOContextPool.h"
+#include "Logger.h"
 MainServer::MainServer(boost::asio::io_context& ioc, unsigned short port)
     : acceptor_(ioc, tcp::endpoint(tcp::v4(), port)),
       ioc_(ioc) {
-        std::cerr << "GateServer is listening on port: " << acceptor_.local_endpoint().port() << std::endl;
+        LOG_DEBUG("GateServer is listening on port: {}", acceptor_.local_endpoint().port());
       }
 
 void MainServer::start()
@@ -25,7 +26,7 @@ void MainServer::start()
             self->start();
         }
         catch (std::exception& exp) {
-            std::cerr << "exception is " << exp.what() << std::endl;
+            LOG_ERROR("exception is {}", exp.what());
             self->start();
         }
     });

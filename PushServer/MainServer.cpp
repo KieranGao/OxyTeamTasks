@@ -1,9 +1,12 @@
 #include "MainServer.h"
+#include "AsyncTaskPool.h"
 #include <iostream>
+#include "Logger.h"
+#include "StatusGrpcClient.h"
 
-MainServer::MainServer(boost::asio::io_context& io_context, short port)
-    : io_context_(io_context), port_(port), acceptor_(io_context, tcp::endpoint(tcp::v4(), port)) {
-    std::cerr << "PushServer listening on port: " << port_ << std::endl;
+MainServer::MainServer(boost::asio::io_context& io_context, short port, const std::string& server_name)
+    : io_context_(io_context), port_(port), server_name_(server_name), acceptor_(io_context, tcp::endpoint(tcp::v4(), port)) {
+    LOG_DEBUG("PushServer listening on port: {}", port_);
     doAccept();
 }
 
@@ -24,16 +27,38 @@ void MainServer::onAccept(std::shared_ptr<Session> session, beast::error_code ec
                     sessions_.insert({session->getUUID(), session});
                     session->start();
                 } else {
-                    std::cerr << "WebSocket handshake failed: " << ws_ec.message() << std::endl;
+                    LOG_ERROR("WebSocket handshake failed: {}", ws_ec.message());
                 }
             });
     } else {
-        std::cerr << "Accept failed: " << ec.message() << std::endl;
+        LOG_ERROR("Accept failed: {}", ec.message());
     }
     doAccept();
 }
 
-void MainServer::clearSession(std::string uuid) {
+void MainServer::stop() {
+    // 先关闭所有活跃 session，再停 acceptor
+    acceptor_.close();
     std::lock_guard<std::mutex> lock(mtx_);
-    sessions_.erase(uuid);
+    for (auto& [uuid, session] : sessions_) {
+        session->close();
+    }
+    sessions_.clear();
+}
+
+void MainServer::clearSession(std::string uuid) {
+    {
+        std::lock_guard<std::mutex> lock(mtx_);
+        sessions_.erase(uuid);
+    }
+    LOG_DEBUG("[PushServer] session cleared: uuid={}", uuid);
+    // 通知 StatusServer 递减连接计数 — 投递到线程池，不阻塞 IO 线程
+    std::string name = server_name_;
+    AsyncTaskPool::getInstance().post([name]() {
+        try {
+            StatusGrpcClient::getInstance().reportDisconnect(name);
+        } catch (...) {
+            LOG_ERROR("[PushServer] reportDisconnect failed for {}", name);
+        }
+    });
 }

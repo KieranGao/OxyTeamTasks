@@ -177,77 +177,29 @@ IOContextPool.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/StatusServer.dir/build.make CMakeFiles/StatusServer.dir/IOContextPool.cpp.s
 .PHONY : IOContextPool.cpp.s
 
-MySQLConnectPool.o: MySQLConnectPool.cpp.o
-.PHONY : MySQLConnectPool.o
+Logger.o: Logger.cpp.o
+.PHONY : Logger.o
 
 # target to build an object file
-MySQLConnectPool.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/StatusServer.dir/build.make CMakeFiles/StatusServer.dir/MySQLConnectPool.cpp.o
-.PHONY : MySQLConnectPool.cpp.o
+Logger.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/StatusServer.dir/build.make CMakeFiles/StatusServer.dir/Logger.cpp.o
+.PHONY : Logger.cpp.o
 
-MySQLConnectPool.i: MySQLConnectPool.cpp.i
-.PHONY : MySQLConnectPool.i
-
-# target to preprocess a source file
-MySQLConnectPool.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/StatusServer.dir/build.make CMakeFiles/StatusServer.dir/MySQLConnectPool.cpp.i
-.PHONY : MySQLConnectPool.cpp.i
-
-MySQLConnectPool.s: MySQLConnectPool.cpp.s
-.PHONY : MySQLConnectPool.s
-
-# target to generate assembly for a file
-MySQLConnectPool.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/StatusServer.dir/build.make CMakeFiles/StatusServer.dir/MySQLConnectPool.cpp.s
-.PHONY : MySQLConnectPool.cpp.s
-
-MySQLDao.o: MySQLDao.cpp.o
-.PHONY : MySQLDao.o
-
-# target to build an object file
-MySQLDao.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/StatusServer.dir/build.make CMakeFiles/StatusServer.dir/MySQLDao.cpp.o
-.PHONY : MySQLDao.cpp.o
-
-MySQLDao.i: MySQLDao.cpp.i
-.PHONY : MySQLDao.i
+Logger.i: Logger.cpp.i
+.PHONY : Logger.i
 
 # target to preprocess a source file
-MySQLDao.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/StatusServer.dir/build.make CMakeFiles/StatusServer.dir/MySQLDao.cpp.i
-.PHONY : MySQLDao.cpp.i
+Logger.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/StatusServer.dir/build.make CMakeFiles/StatusServer.dir/Logger.cpp.i
+.PHONY : Logger.cpp.i
 
-MySQLDao.s: MySQLDao.cpp.s
-.PHONY : MySQLDao.s
-
-# target to generate assembly for a file
-MySQLDao.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/StatusServer.dir/build.make CMakeFiles/StatusServer.dir/MySQLDao.cpp.s
-.PHONY : MySQLDao.cpp.s
-
-MySQLManager.o: MySQLManager.cpp.o
-.PHONY : MySQLManager.o
-
-# target to build an object file
-MySQLManager.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/StatusServer.dir/build.make CMakeFiles/StatusServer.dir/MySQLManager.cpp.o
-.PHONY : MySQLManager.cpp.o
-
-MySQLManager.i: MySQLManager.cpp.i
-.PHONY : MySQLManager.i
-
-# target to preprocess a source file
-MySQLManager.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/StatusServer.dir/build.make CMakeFiles/StatusServer.dir/MySQLManager.cpp.i
-.PHONY : MySQLManager.cpp.i
-
-MySQLManager.s: MySQLManager.cpp.s
-.PHONY : MySQLManager.s
+Logger.s: Logger.cpp.s
+.PHONY : Logger.s
 
 # target to generate assembly for a file
-MySQLManager.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/StatusServer.dir/build.make CMakeFiles/StatusServer.dir/MySQLManager.cpp.s
-.PHONY : MySQLManager.cpp.s
+Logger.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/StatusServer.dir/build.make CMakeFiles/StatusServer.dir/Logger.cpp.s
+.PHONY : Logger.cpp.s
 
 RPCConnectPool.o: RPCConnectPool.cpp.o
 .PHONY : RPCConnectPool.o
@@ -552,15 +504,9 @@ help:
 	@echo "... IOContextPool.o"
 	@echo "... IOContextPool.i"
 	@echo "... IOContextPool.s"
-	@echo "... MySQLConnectPool.o"
-	@echo "... MySQLConnectPool.i"
-	@echo "... MySQLConnectPool.s"
-	@echo "... MySQLDao.o"
-	@echo "... MySQLDao.i"
-	@echo "... MySQLDao.s"
-	@echo "... MySQLManager.o"
-	@echo "... MySQLManager.i"
-	@echo "... MySQLManager.s"
+	@echo "... Logger.o"
+	@echo "... Logger.i"
+	@echo "... Logger.s"
 	@echo "... RPCConnectPool.o"
 	@echo "... RPCConnectPool.i"
 	@echo "... RPCConnectPool.s"

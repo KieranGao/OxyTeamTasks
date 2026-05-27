@@ -1114,4 +1114,11 @@ CMakeFiles/GateServer.dir/IOContextPool.cpp.o: \
  /usr/include/boost/asio/impl/write_at.hpp \
  /home/oxythecrack/Desktop/OxyTasks/GateServer/Singleton.h \
  /usr/include/c++/11/iostream /usr/include/c++/11/thread \
- /usr/include/c++/11/bits/this_thread_sleep.h
+ /usr/include/c++/11/bits/this_thread_sleep.h \
+ /home/oxythecrack/Desktop/OxyTasks/GateServer/Logger.h \
+ /usr/include/c++/11/fstream /usr/include/c++/11/bits/codecvt.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
+ /usr/include/c++/11/bits/fstream.tcc /usr/include/c++/11/queue \
+ /usr/include/c++/11/deque /usr/include/c++/11/bits/stl_deque.h \
+ /usr/include/c++/11/bits/deque.tcc /usr/include/c++/11/bits/stl_queue.h

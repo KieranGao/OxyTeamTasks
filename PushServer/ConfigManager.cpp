@@ -3,7 +3,7 @@
 ConfigManager::ConfigManager() {
     boost::filesystem::path current_path = boost::filesystem::current_path();
     boost::filesystem::path config_path = current_path / "config.ini";
-    std::cerr << "Config path: " << config_path << std::endl;
+    std::cout << "Config path: " << config_path << std::endl;
 
     try {
         boost::property_tree::ptree pt;
@@ -21,11 +21,11 @@ ConfigManager::ConfigManager() {
             conf_map_[section_name] = section_info;
         }
 
-        std::cerr << "===== Parsed config =====" << std::endl;
+        std::cout << "===== Parsed config =====" << std::endl;
         for (const auto &entry : conf_map_) {
-            std::cerr << "[" << entry.first << "]" << std::endl;
+            std::cout << "[" << entry.first << "]" << std::endl;
             for (auto& kv : entry.second._section_datas) {
-                std::cerr << kv.first << "=" << kv.second << std::endl;
+                std::cout << "  " << kv.first << "=" << kv.second << std::endl;
             }
         }
 

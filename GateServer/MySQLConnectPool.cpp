@@ -1,4 +1,7 @@
 #include "MySQLConnectPool.h"
+#include "Logger.h"
+#include <chrono>
+#include <chrono>
 
 MySQLConnectPool::MySQLConnectPool(size_t pool_size,std::string url, std::string user, std::string password, std::string dbName) :
     pool_size_(pool_size), url_(std::move(url)), user_(std::move(user)), password_(std::move(password)), dbName_(std::move(dbName))
@@ -15,13 +18,13 @@ MySQLConnectPool::MySQLConnectPool(size_t pool_size,std::string url, std::string
         }
         check_thread_ = std::thread(&MySQLConnectPool::checkLoop, this);
     } catch(sql::SQLException& exp) {
-        std::cerr << "SQL Initialize Error! " << exp.what() << std::endl;
+        LOG_ERROR("SQL Initialize Error! {}", exp.what());
     }
 }
 
 MySQLConnectPool::~MySQLConnectPool() {
     stop();
-    std::cerr << "MySQL Connection Pool Destroyed!" << std::endl;
+    LOG_DEBUG("MySQL Connection Pool Destroyed!");
 }
 
 void MySQLConnectPool::checkLoop() {
@@ -64,7 +67,7 @@ void MySQLConnectPool::checkConnection() {
             statement->executeQuery("SELECT 1");
             connection->setLastTime(timeStamp);
         } catch(sql::SQLException& exp) {
-            std::cerr << "Error keeping connection alive: " << exp.what() << std::endl;
+            LOG_ERROR("Error keeping connection alive: {}", exp.what());
             // 重新创建新的连接，替换旧的连接
             sql::mysql::MySQL_Driver* driver = sql::mysql::get_driver_instance();
             sql::Connection* new_connection = driver->connect(url_, user_, password_);
@@ -77,7 +80,9 @@ void MySQLConnectPool::checkConnection() {
 
 std::unique_ptr<SqlConnection> MySQLConnectPool::getConnection() {
     std::unique_lock<std::mutex> lock(mutex_);
-    cond_.wait(lock, [this](){ return !connections_.empty() or !is_running_;});
+    if (!cond_.wait_for(lock, std::chrono::seconds(3), [this](){ return !connections_.empty() or !is_running_;})) {
+        return nullptr;
+    }
     if(!is_running_) return nullptr;
     auto connection = std::move(connections_.front());
     connections_.pop();

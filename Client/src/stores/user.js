@@ -2,6 +2,15 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { loginUser, registerUser as apiRegister, resetPassword as apiResetPassword, updateTeamInfo as apiUpdateTeam } from '@/api/user'
 
+// Lazy-load pushClient to avoid blocking app init
+let pushClient = null
+async function getPushClient() {
+  if (!pushClient) {
+    pushClient = await import('@/utils/pushClient')
+  }
+  return pushClient
+}
+
 // role: 0 = 队员, 1 = 队长, 2 = 教练 (matches database)
 const ROLE_LABELS = { 0: '队员', 1: '队长', 2: '教练' }
 const ROLE_KEYS = { 0: 'member', 1: 'captain', 2: 'coach' }
@@ -78,6 +87,17 @@ export const useUserStore = defineStore('user', () => {
     persist('role', res.role ?? 0)
     persist('belong_captain_id', res.belong_captain_id ?? 0)
     persist('belong_team_id', res.belong_team_id ?? 0)
+
+    // Auto-connect WebSocket to PushServer after login
+    if (pushServerHost.value && pushServerPort.value) {
+      try {
+        const pc = await getPushClient()
+        pc.connectPushServer(pushServerHost.value, pushServerPort.value, uid.value, token.value)
+      } catch (e) {
+        console.error('[UserStore] Failed to connect PushServer:', e)
+      }
+    }
+
     return res
   }
 
@@ -109,7 +129,10 @@ export const useUserStore = defineStore('user', () => {
     return res
   }
 
-  function logout() {
+  async function logout() {
+    if (pushClient) {
+      await pushClient.disconnect()
+    }
     clearAuth()
     window.location.hash = '#/login'
   }

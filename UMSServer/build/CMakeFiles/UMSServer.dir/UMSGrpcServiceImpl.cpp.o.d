@@ -303,8 +303,8 @@ CMakeFiles/UMSServer.dir/UMSGrpcServiceImpl.cpp.o: \
  /usr/include/grpcpp/impl/codegen/server_context.h \
  /usr/include/grpcpp/server_posix.h \
  /usr/include/grpcpp/server_posix_impl.h \
- /home/oxythecrack/Desktop/OxyTasks/UMSServer/message.grpc.pb.h \
- /home/oxythecrack/Desktop/OxyTasks/UMSServer/message.pb.h \
+ /home/oxythecrack/Desktop/OxyTasks/UMSServer/build/message.grpc.pb.h \
+ /home/oxythecrack/Desktop/OxyTasks/UMSServer/build/message.pb.h \
  /usr/include/google/protobuf/port_def.inc \
  /usr/include/google/protobuf/port_undef.inc \
  /usr/include/google/protobuf/io/coded_stream.h \
@@ -1074,4 +1074,5 @@ CMakeFiles/UMSServer.dir/UMSGrpcServiceImpl.cpp.o: \
  /usr/include/hiredis/hiredis.h /usr/include/hiredis/read.h \
  /usr/include/x86_64-linux-gnu/sys/time.h /usr/include/hiredis/sds.h \
  /usr/include/hiredis/alloc.h \
- /home/oxythecrack/Desktop/OxyTasks/UMSServer/RedisConnectPool.h
+ /home/oxythecrack/Desktop/OxyTasks/UMSServer/RedisConnectPool.h \
+ /home/oxythecrack/Desktop/OxyTasks/UMSServer/Logger.h

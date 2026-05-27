@@ -22,9 +22,10 @@ class ConfigManager : public Singleton<ConfigManager> {
     friend class Singleton<ConfigManager>;
 public:
     // 支持 config["section"] 取值
-    SectionInfo operator[](const std::string &section) const {
+    const SectionInfo& operator[](const std::string &section) const {
+        static SectionInfo empty;
         auto it = conf_map_.find(section);
-        return (it != conf_map_.end()) ? it->second : SectionInfo();
+        return (it != conf_map_.end()) ? it->second : empty;
     }
 private:
     ConfigManager();

@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/oxythecrack/Desktop/OxyTasks/UMSServer/ConfigManager.cpp" "CMakeFiles/UMSServer.dir/ConfigManager.cpp.o" "gcc" "CMakeFiles/UMSServer.dir/ConfigManager.cpp.o.d"
+  "/home/oxythecrack/Desktop/OxyTasks/UMSServer/Logger.cpp" "CMakeFiles/UMSServer.dir/Logger.cpp.o" "gcc" "CMakeFiles/UMSServer.dir/Logger.cpp.o.d"
   "/home/oxythecrack/Desktop/OxyTasks/UMSServer/MailerGrpcClient.cpp" "CMakeFiles/UMSServer.dir/MailerGrpcClient.cpp.o" "gcc" "CMakeFiles/UMSServer.dir/MailerGrpcClient.cpp.o.d"
   "/home/oxythecrack/Desktop/OxyTasks/UMSServer/MySQLConnectPool.cpp" "CMakeFiles/UMSServer.dir/MySQLConnectPool.cpp.o" "gcc" "CMakeFiles/UMSServer.dir/MySQLConnectPool.cpp.o.d"
   "/home/oxythecrack/Desktop/OxyTasks/UMSServer/MySQLDao.cpp" "CMakeFiles/UMSServer.dir/MySQLDao.cpp.o" "gcc" "CMakeFiles/UMSServer.dir/MySQLDao.cpp.o.d"
@@ -16,6 +17,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/oxythecrack/Desktop/OxyTasks/UMSServer/RPCConnectPool.cpp" "CMakeFiles/UMSServer.dir/RPCConnectPool.cpp.o" "gcc" "CMakeFiles/UMSServer.dir/RPCConnectPool.cpp.o.d"
   "/home/oxythecrack/Desktop/OxyTasks/UMSServer/RedisConnectPool.cpp" "CMakeFiles/UMSServer.dir/RedisConnectPool.cpp.o" "gcc" "CMakeFiles/UMSServer.dir/RedisConnectPool.cpp.o.d"
   "/home/oxythecrack/Desktop/OxyTasks/UMSServer/RedisManager.cpp" "CMakeFiles/UMSServer.dir/RedisManager.cpp.o" "gcc" "CMakeFiles/UMSServer.dir/RedisManager.cpp.o.d"
+  "/home/oxythecrack/Desktop/OxyTasks/UMSServer/StatusGrpcClient.cpp" "CMakeFiles/UMSServer.dir/StatusGrpcClient.cpp.o" "gcc" "CMakeFiles/UMSServer.dir/StatusGrpcClient.cpp.o.d"
   "/home/oxythecrack/Desktop/OxyTasks/UMSServer/UMSGrpcServiceImpl.cpp" "CMakeFiles/UMSServer.dir/UMSGrpcServiceImpl.cpp.o" "gcc" "CMakeFiles/UMSServer.dir/UMSGrpcServiceImpl.cpp.o.d"
   "/home/oxythecrack/Desktop/OxyTasks/UMSServer/main.cpp" "CMakeFiles/UMSServer.dir/main.cpp.o" "gcc" "CMakeFiles/UMSServer.dir/main.cpp.o.d"
   "/home/oxythecrack/Desktop/OxyTasks/UMSServer/build/message.grpc.pb.cc" "CMakeFiles/UMSServer.dir/message.grpc.pb.cc.o" "gcc" "CMakeFiles/UMSServer.dir/message.grpc.pb.cc.o.d"

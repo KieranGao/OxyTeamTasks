@@ -25,7 +25,6 @@ public:
 
     std::unique_ptr<StatusService::Stub> getStub();
     void returnStub(std::unique_ptr<StatusService::Stub> stub);
-    void start();
     void stop();
 private:
     std::queue<std::unique_ptr<StatusService::Stub>> stubs_;

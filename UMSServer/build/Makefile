@@ -153,6 +153,30 @@ ConfigManager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/ConfigManager.cpp.s
 .PHONY : ConfigManager.cpp.s
 
+Logger.o: Logger.cpp.o
+.PHONY : Logger.o
+
+# target to build an object file
+Logger.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/Logger.cpp.o
+.PHONY : Logger.cpp.o
+
+Logger.i: Logger.cpp.i
+.PHONY : Logger.i
+
+# target to preprocess a source file
+Logger.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/Logger.cpp.i
+.PHONY : Logger.cpp.i
+
+Logger.s: Logger.cpp.s
+.PHONY : Logger.s
+
+# target to generate assembly for a file
+Logger.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/Logger.cpp.s
+.PHONY : Logger.cpp.s
+
 MailerGrpcClient.o: MailerGrpcClient.cpp.o
 .PHONY : MailerGrpcClient.o
 
@@ -321,6 +345,30 @@ RedisManager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/RedisManager.cpp.s
 .PHONY : RedisManager.cpp.s
 
+StatusGrpcClient.o: StatusGrpcClient.cpp.o
+.PHONY : StatusGrpcClient.o
+
+# target to build an object file
+StatusGrpcClient.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/StatusGrpcClient.cpp.o
+.PHONY : StatusGrpcClient.cpp.o
+
+StatusGrpcClient.i: StatusGrpcClient.cpp.i
+.PHONY : StatusGrpcClient.i
+
+# target to preprocess a source file
+StatusGrpcClient.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/StatusGrpcClient.cpp.i
+.PHONY : StatusGrpcClient.cpp.i
+
+StatusGrpcClient.s: StatusGrpcClient.cpp.s
+.PHONY : StatusGrpcClient.s
+
+# target to generate assembly for a file
+StatusGrpcClient.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UMSServer.dir/build.make CMakeFiles/UMSServer.dir/StatusGrpcClient.cpp.s
+.PHONY : StatusGrpcClient.cpp.s
+
 UMSGrpcServiceImpl.o: UMSGrpcServiceImpl.cpp.o
 .PHONY : UMSGrpcServiceImpl.o
 
@@ -429,6 +477,9 @@ help:
 	@echo "... ConfigManager.o"
 	@echo "... ConfigManager.i"
 	@echo "... ConfigManager.s"
+	@echo "... Logger.o"
+	@echo "... Logger.i"
+	@echo "... Logger.s"
 	@echo "... MailerGrpcClient.o"
 	@echo "... MailerGrpcClient.i"
 	@echo "... MailerGrpcClient.s"
@@ -450,6 +501,9 @@ help:
 	@echo "... RedisManager.o"
 	@echo "... RedisManager.i"
 	@echo "... RedisManager.s"
+	@echo "... StatusGrpcClient.o"
+	@echo "... StatusGrpcClient.i"
+	@echo "... StatusGrpcClient.s"
 	@echo "... UMSGrpcServiceImpl.o"
 	@echo "... UMSGrpcServiceImpl.i"
 	@echo "... UMSGrpcServiceImpl.s"

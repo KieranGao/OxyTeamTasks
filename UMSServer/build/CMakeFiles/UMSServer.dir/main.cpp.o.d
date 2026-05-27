@@ -303,8 +303,8 @@ CMakeFiles/UMSServer.dir/main.cpp.o: \
  /usr/include/grpcpp/impl/codegen/server_context.h \
  /usr/include/grpcpp/server_posix.h \
  /usr/include/grpcpp/server_posix_impl.h \
- /home/oxythecrack/Desktop/OxyTasks/UMSServer/message.grpc.pb.h \
- /home/oxythecrack/Desktop/OxyTasks/UMSServer/message.pb.h \
+ /home/oxythecrack/Desktop/OxyTasks/UMSServer/build/message.grpc.pb.h \
+ /home/oxythecrack/Desktop/OxyTasks/UMSServer/build/message.pb.h \
  /usr/include/google/protobuf/port_def.inc \
  /usr/include/google/protobuf/port_undef.inc \
  /usr/include/google/protobuf/io/coded_stream.h \
@@ -1027,4 +1027,12 @@ CMakeFiles/UMSServer.dir/main.cpp.o: \
  /usr/include/boost/property_tree/detail/ptree_implementation.hpp \
  /usr/include/boost/property_tree/ini_parser.hpp \
  /usr/include/boost/property_tree/detail/file_parser_error.hpp \
- /usr/include/c++/11/csignal
+ /home/oxythecrack/Desktop/OxyTasks/UMSServer/Logger.h \
+ /usr/include/c++/11/queue /usr/include/c++/11/deque \
+ /usr/include/c++/11/bits/stl_deque.h /usr/include/c++/11/bits/deque.tcc \
+ /usr/include/c++/11/bits/stl_queue.h /usr/include/c++/11/thread \
+ /usr/include/c++/11/bits/std_thread.h \
+ /usr/include/c++/11/bits/this_thread_sleep.h \
+ /home/oxythecrack/Desktop/OxyTasks/UMSServer/StatusGrpcClient.h \
+ /home/oxythecrack/Desktop/OxyTasks/UMSServer/RPCConnectPool.h \
+ /usr/include/c++/11/condition_variable /usr/include/c++/11/csignal

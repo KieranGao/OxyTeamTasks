@@ -16,6 +16,16 @@ struct UserInfo {
     int uid;
     int role;
     int belong_captain_id;
+    int belong_team_id;
+    int status;
+};
+
+struct PendingUserInfo {
+    int uid;
+    std::string username;
+    std::string email;
+    int role;
+    int belong_team_id;
 };
 
 enum class ErrorCodes {
@@ -26,7 +36,9 @@ enum class ErrorCodes {
     USER_ALREADY_EXISTS = 1004,
     USER_DO_NOT_EXISTS = 1005,
     USER_LOGIN_ERROR = 1006,
-    USER_ID_INVALID = 1007
+    USER_ID_INVALID = 1007,
+    USER_NOT_APPROVED = 1008,
+    USER_ALREADY_APPROVED = 1009
 };
 
 class Defer {

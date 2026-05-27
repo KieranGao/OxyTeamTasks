@@ -138,52 +138,10 @@ CMakeFiles/StatusServer.dir/ConfigManager.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/StatusServer.dir/ConfigManager.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/oxythecrack/Desktop/OxyTasks/StatusServer/ConfigManager.cpp -o CMakeFiles/StatusServer.dir/ConfigManager.cpp.s
 
-CMakeFiles/StatusServer.dir/MySQLConnectPool.cpp.o: CMakeFiles/StatusServer.dir/flags.make
-CMakeFiles/StatusServer.dir/MySQLConnectPool.cpp.o: ../MySQLConnectPool.cpp
-CMakeFiles/StatusServer.dir/MySQLConnectPool.cpp.o: CMakeFiles/StatusServer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/StatusServer.dir/MySQLConnectPool.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/StatusServer.dir/MySQLConnectPool.cpp.o -MF CMakeFiles/StatusServer.dir/MySQLConnectPool.cpp.o.d -o CMakeFiles/StatusServer.dir/MySQLConnectPool.cpp.o -c /home/oxythecrack/Desktop/OxyTasks/StatusServer/MySQLConnectPool.cpp
-
-CMakeFiles/StatusServer.dir/MySQLConnectPool.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/StatusServer.dir/MySQLConnectPool.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/oxythecrack/Desktop/OxyTasks/StatusServer/MySQLConnectPool.cpp > CMakeFiles/StatusServer.dir/MySQLConnectPool.cpp.i
-
-CMakeFiles/StatusServer.dir/MySQLConnectPool.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/StatusServer.dir/MySQLConnectPool.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/oxythecrack/Desktop/OxyTasks/StatusServer/MySQLConnectPool.cpp -o CMakeFiles/StatusServer.dir/MySQLConnectPool.cpp.s
-
-CMakeFiles/StatusServer.dir/MySQLDao.cpp.o: CMakeFiles/StatusServer.dir/flags.make
-CMakeFiles/StatusServer.dir/MySQLDao.cpp.o: ../MySQLDao.cpp
-CMakeFiles/StatusServer.dir/MySQLDao.cpp.o: CMakeFiles/StatusServer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/StatusServer.dir/MySQLDao.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/StatusServer.dir/MySQLDao.cpp.o -MF CMakeFiles/StatusServer.dir/MySQLDao.cpp.o.d -o CMakeFiles/StatusServer.dir/MySQLDao.cpp.o -c /home/oxythecrack/Desktop/OxyTasks/StatusServer/MySQLDao.cpp
-
-CMakeFiles/StatusServer.dir/MySQLDao.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/StatusServer.dir/MySQLDao.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/oxythecrack/Desktop/OxyTasks/StatusServer/MySQLDao.cpp > CMakeFiles/StatusServer.dir/MySQLDao.cpp.i
-
-CMakeFiles/StatusServer.dir/MySQLDao.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/StatusServer.dir/MySQLDao.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/oxythecrack/Desktop/OxyTasks/StatusServer/MySQLDao.cpp -o CMakeFiles/StatusServer.dir/MySQLDao.cpp.s
-
-CMakeFiles/StatusServer.dir/MySQLManager.cpp.o: CMakeFiles/StatusServer.dir/flags.make
-CMakeFiles/StatusServer.dir/MySQLManager.cpp.o: ../MySQLManager.cpp
-CMakeFiles/StatusServer.dir/MySQLManager.cpp.o: CMakeFiles/StatusServer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/StatusServer.dir/MySQLManager.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/StatusServer.dir/MySQLManager.cpp.o -MF CMakeFiles/StatusServer.dir/MySQLManager.cpp.o.d -o CMakeFiles/StatusServer.dir/MySQLManager.cpp.o -c /home/oxythecrack/Desktop/OxyTasks/StatusServer/MySQLManager.cpp
-
-CMakeFiles/StatusServer.dir/MySQLManager.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/StatusServer.dir/MySQLManager.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/oxythecrack/Desktop/OxyTasks/StatusServer/MySQLManager.cpp > CMakeFiles/StatusServer.dir/MySQLManager.cpp.i
-
-CMakeFiles/StatusServer.dir/MySQLManager.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/StatusServer.dir/MySQLManager.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/oxythecrack/Desktop/OxyTasks/StatusServer/MySQLManager.cpp -o CMakeFiles/StatusServer.dir/MySQLManager.cpp.s
-
 CMakeFiles/StatusServer.dir/RPCConnectPool.cpp.o: CMakeFiles/StatusServer.dir/flags.make
 CMakeFiles/StatusServer.dir/RPCConnectPool.cpp.o: ../RPCConnectPool.cpp
 CMakeFiles/StatusServer.dir/RPCConnectPool.cpp.o: CMakeFiles/StatusServer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/StatusServer.dir/RPCConnectPool.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/StatusServer.dir/RPCConnectPool.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/StatusServer.dir/RPCConnectPool.cpp.o -MF CMakeFiles/StatusServer.dir/RPCConnectPool.cpp.o.d -o CMakeFiles/StatusServer.dir/RPCConnectPool.cpp.o -c /home/oxythecrack/Desktop/OxyTasks/StatusServer/RPCConnectPool.cpp
 
 CMakeFiles/StatusServer.dir/RPCConnectPool.cpp.i: cmake_force
@@ -197,7 +155,7 @@ CMakeFiles/StatusServer.dir/RPCConnectPool.cpp.s: cmake_force
 CMakeFiles/StatusServer.dir/StatusGrpcClient.cpp.o: CMakeFiles/StatusServer.dir/flags.make
 CMakeFiles/StatusServer.dir/StatusGrpcClient.cpp.o: ../StatusGrpcClient.cpp
 CMakeFiles/StatusServer.dir/StatusGrpcClient.cpp.o: CMakeFiles/StatusServer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/StatusServer.dir/StatusGrpcClient.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/StatusServer.dir/StatusGrpcClient.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/StatusServer.dir/StatusGrpcClient.cpp.o -MF CMakeFiles/StatusServer.dir/StatusGrpcClient.cpp.o.d -o CMakeFiles/StatusServer.dir/StatusGrpcClient.cpp.o -c /home/oxythecrack/Desktop/OxyTasks/StatusServer/StatusGrpcClient.cpp
 
 CMakeFiles/StatusServer.dir/StatusGrpcClient.cpp.i: cmake_force
@@ -211,7 +169,7 @@ CMakeFiles/StatusServer.dir/StatusGrpcClient.cpp.s: cmake_force
 CMakeFiles/StatusServer.dir/SegmentTree.cpp.o: CMakeFiles/StatusServer.dir/flags.make
 CMakeFiles/StatusServer.dir/SegmentTree.cpp.o: ../SegmentTree.cpp
 CMakeFiles/StatusServer.dir/SegmentTree.cpp.o: CMakeFiles/StatusServer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/StatusServer.dir/SegmentTree.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/StatusServer.dir/SegmentTree.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/StatusServer.dir/SegmentTree.cpp.o -MF CMakeFiles/StatusServer.dir/SegmentTree.cpp.o.d -o CMakeFiles/StatusServer.dir/SegmentTree.cpp.o -c /home/oxythecrack/Desktop/OxyTasks/StatusServer/SegmentTree.cpp
 
 CMakeFiles/StatusServer.dir/SegmentTree.cpp.i: cmake_force
@@ -225,7 +183,7 @@ CMakeFiles/StatusServer.dir/SegmentTree.cpp.s: cmake_force
 CMakeFiles/StatusServer.dir/StatusServiceImpl.cpp.o: CMakeFiles/StatusServer.dir/flags.make
 CMakeFiles/StatusServer.dir/StatusServiceImpl.cpp.o: ../StatusServiceImpl.cpp
 CMakeFiles/StatusServer.dir/StatusServiceImpl.cpp.o: CMakeFiles/StatusServer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/StatusServer.dir/StatusServiceImpl.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/StatusServer.dir/StatusServiceImpl.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/StatusServer.dir/StatusServiceImpl.cpp.o -MF CMakeFiles/StatusServer.dir/StatusServiceImpl.cpp.o.d -o CMakeFiles/StatusServer.dir/StatusServiceImpl.cpp.o -c /home/oxythecrack/Desktop/OxyTasks/StatusServer/StatusServiceImpl.cpp
 
 CMakeFiles/StatusServer.dir/StatusServiceImpl.cpp.i: cmake_force
@@ -239,7 +197,7 @@ CMakeFiles/StatusServer.dir/StatusServiceImpl.cpp.s: cmake_force
 CMakeFiles/StatusServer.dir/StatusServer.cpp.o: CMakeFiles/StatusServer.dir/flags.make
 CMakeFiles/StatusServer.dir/StatusServer.cpp.o: ../StatusServer.cpp
 CMakeFiles/StatusServer.dir/StatusServer.cpp.o: CMakeFiles/StatusServer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/StatusServer.dir/StatusServer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/StatusServer.dir/StatusServer.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/StatusServer.dir/StatusServer.cpp.o -MF CMakeFiles/StatusServer.dir/StatusServer.cpp.o.d -o CMakeFiles/StatusServer.dir/StatusServer.cpp.o -c /home/oxythecrack/Desktop/OxyTasks/StatusServer/StatusServer.cpp
 
 CMakeFiles/StatusServer.dir/StatusServer.cpp.i: cmake_force
@@ -250,10 +208,24 @@ CMakeFiles/StatusServer.dir/StatusServer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/StatusServer.dir/StatusServer.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/oxythecrack/Desktop/OxyTasks/StatusServer/StatusServer.cpp -o CMakeFiles/StatusServer.dir/StatusServer.cpp.s
 
+CMakeFiles/StatusServer.dir/Logger.cpp.o: CMakeFiles/StatusServer.dir/flags.make
+CMakeFiles/StatusServer.dir/Logger.cpp.o: ../Logger.cpp
+CMakeFiles/StatusServer.dir/Logger.cpp.o: CMakeFiles/StatusServer.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/StatusServer.dir/Logger.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/StatusServer.dir/Logger.cpp.o -MF CMakeFiles/StatusServer.dir/Logger.cpp.o.d -o CMakeFiles/StatusServer.dir/Logger.cpp.o -c /home/oxythecrack/Desktop/OxyTasks/StatusServer/Logger.cpp
+
+CMakeFiles/StatusServer.dir/Logger.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/StatusServer.dir/Logger.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/oxythecrack/Desktop/OxyTasks/StatusServer/Logger.cpp > CMakeFiles/StatusServer.dir/Logger.cpp.i
+
+CMakeFiles/StatusServer.dir/Logger.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/StatusServer.dir/Logger.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/oxythecrack/Desktop/OxyTasks/StatusServer/Logger.cpp -o CMakeFiles/StatusServer.dir/Logger.cpp.s
+
 CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.cpp.o: CMakeFiles/StatusServer.dir/flags.make
 CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.cpp.o: /home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.cpp
 CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.cpp.o: CMakeFiles/StatusServer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.cpp.o -MF CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.cpp.o.d -o CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.cpp.o -c /home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.cpp
 
 CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.cpp.i: cmake_force
@@ -267,7 +239,7 @@ CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_js
 CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.cpp.o: CMakeFiles/StatusServer.dir/flags.make
 CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.cpp.o: /home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.cpp
 CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.cpp.o: CMakeFiles/StatusServer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.cpp.o -MF CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.cpp.o.d -o CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.cpp.o -c /home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.cpp
 
 CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.cpp.i: cmake_force
@@ -281,7 +253,7 @@ CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_js
 CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.cpp.o: CMakeFiles/StatusServer.dir/flags.make
 CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.cpp.o: /home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.cpp
 CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.cpp.o: CMakeFiles/StatusServer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.cpp.o -MF CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.cpp.o.d -o CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.cpp.o -c /home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.cpp
 
 CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.cpp.i: cmake_force
@@ -295,7 +267,7 @@ CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_js
 CMakeFiles/StatusServer.dir/message.pb.cc.o: CMakeFiles/StatusServer.dir/flags.make
 CMakeFiles/StatusServer.dir/message.pb.cc.o: message.pb.cc
 CMakeFiles/StatusServer.dir/message.pb.cc.o: CMakeFiles/StatusServer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/StatusServer.dir/message.pb.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/StatusServer.dir/message.pb.cc.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/StatusServer.dir/message.pb.cc.o -MF CMakeFiles/StatusServer.dir/message.pb.cc.o.d -o CMakeFiles/StatusServer.dir/message.pb.cc.o -c /home/oxythecrack/Desktop/OxyTasks/StatusServer/build/message.pb.cc
 
 CMakeFiles/StatusServer.dir/message.pb.cc.i: cmake_force
@@ -309,7 +281,7 @@ CMakeFiles/StatusServer.dir/message.pb.cc.s: cmake_force
 CMakeFiles/StatusServer.dir/message.grpc.pb.cc.o: CMakeFiles/StatusServer.dir/flags.make
 CMakeFiles/StatusServer.dir/message.grpc.pb.cc.o: message.grpc.pb.cc
 CMakeFiles/StatusServer.dir/message.grpc.pb.cc.o: CMakeFiles/StatusServer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/StatusServer.dir/message.grpc.pb.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/StatusServer.dir/message.grpc.pb.cc.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/StatusServer.dir/message.grpc.pb.cc.o -MF CMakeFiles/StatusServer.dir/message.grpc.pb.cc.o.d -o CMakeFiles/StatusServer.dir/message.grpc.pb.cc.o -c /home/oxythecrack/Desktop/OxyTasks/StatusServer/build/message.grpc.pb.cc
 
 CMakeFiles/StatusServer.dir/message.grpc.pb.cc.i: cmake_force
@@ -326,14 +298,12 @@ StatusServer_OBJECTS = \
 "CMakeFiles/StatusServer.dir/RedisConnectPool.cpp.o" \
 "CMakeFiles/StatusServer.dir/RedisManager.cpp.o" \
 "CMakeFiles/StatusServer.dir/ConfigManager.cpp.o" \
-"CMakeFiles/StatusServer.dir/MySQLConnectPool.cpp.o" \
-"CMakeFiles/StatusServer.dir/MySQLDao.cpp.o" \
-"CMakeFiles/StatusServer.dir/MySQLManager.cpp.o" \
 "CMakeFiles/StatusServer.dir/RPCConnectPool.cpp.o" \
 "CMakeFiles/StatusServer.dir/StatusGrpcClient.cpp.o" \
 "CMakeFiles/StatusServer.dir/SegmentTree.cpp.o" \
 "CMakeFiles/StatusServer.dir/StatusServiceImpl.cpp.o" \
 "CMakeFiles/StatusServer.dir/StatusServer.cpp.o" \
+"CMakeFiles/StatusServer.dir/Logger.cpp.o" \
 "CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.cpp.o" \
 "CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.cpp.o" \
 "CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.cpp.o" \
@@ -347,14 +317,12 @@ StatusServer: CMakeFiles/StatusServer.dir/IOContextPool.cpp.o
 StatusServer: CMakeFiles/StatusServer.dir/RedisConnectPool.cpp.o
 StatusServer: CMakeFiles/StatusServer.dir/RedisManager.cpp.o
 StatusServer: CMakeFiles/StatusServer.dir/ConfigManager.cpp.o
-StatusServer: CMakeFiles/StatusServer.dir/MySQLConnectPool.cpp.o
-StatusServer: CMakeFiles/StatusServer.dir/MySQLDao.cpp.o
-StatusServer: CMakeFiles/StatusServer.dir/MySQLManager.cpp.o
 StatusServer: CMakeFiles/StatusServer.dir/RPCConnectPool.cpp.o
 StatusServer: CMakeFiles/StatusServer.dir/StatusGrpcClient.cpp.o
 StatusServer: CMakeFiles/StatusServer.dir/SegmentTree.cpp.o
 StatusServer: CMakeFiles/StatusServer.dir/StatusServiceImpl.cpp.o
 StatusServer: CMakeFiles/StatusServer.dir/StatusServer.cpp.o
+StatusServer: CMakeFiles/StatusServer.dir/Logger.cpp.o
 StatusServer: CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_reader.cpp.o
 StatusServer: CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_writer.cpp.o
 StatusServer: CMakeFiles/StatusServer.dir/home/oxythecrack/Desktop/OxyTasks/jsoncpp/src/lib_json/json_value.cpp.o
@@ -365,9 +333,8 @@ StatusServer: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.74.0
 StatusServer: /usr/lib/x86_64-linux-gnu/libboost_system.so.1.74.0
 StatusServer: /usr/lib/x86_64-linux-gnu/libprotobuf.so
 StatusServer: /usr/lib/x86_64-linux-gnu/libhiredis.so
-StatusServer: /usr/lib/x86_64-linux-gnu/libmysqlcppconn.so
 StatusServer: CMakeFiles/StatusServer.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Linking CXX executable StatusServer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/oxythecrack/Desktop/OxyTasks/StatusServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Linking CXX executable StatusServer"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/StatusServer.dir/link.txt --verbose=$(VERBOSE)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Copying config.ini to build directory"
 	/usr/bin/cmake -E copy_if_different /home/oxythecrack/Desktop/OxyTasks/StatusServer/config.ini /home/oxythecrack/Desktop/OxyTasks/StatusServer/build/config.ini

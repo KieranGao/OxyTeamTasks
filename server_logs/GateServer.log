@@ -1,0 +1,27 @@
+Config path: "/home/oxythecrack/Desktop/OxyTasks/GateServer/build/config.ini"
+===== Parsed config =====
+[GateServer]
+  host=127.0.0.1
+  port=8080
+[Log]
+  file_path=../logs/
+  flush_interval=5
+  level=INFO
+  max_buffer_size=100
+  service_name=GateServer
+[MySQL]
+  dbName=oxytasks
+  host=127.0.0.1
+  password=password
+  port=3306
+  user=root
+[Redis]
+  host=127.0.0.1
+  password=123456
+  port=6379
+[StatusServer]
+  host=127.0.0.1
+  port=50052
+[UMSServer]
+  host=127.0.0.1
+  port=50053

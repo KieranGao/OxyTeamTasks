@@ -10,9 +10,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/oxythecrack/Desktop/OxyTasks/StatusServer/ConfigManager.cpp" "CMakeFiles/StatusServer.dir/ConfigManager.cpp.o" "gcc" "CMakeFiles/StatusServer.dir/ConfigManager.cpp.o.d"
   "/home/oxythecrack/Desktop/OxyTasks/StatusServer/IOContextPool.cpp" "CMakeFiles/StatusServer.dir/IOContextPool.cpp.o" "gcc" "CMakeFiles/StatusServer.dir/IOContextPool.cpp.o.d"
-  "/home/oxythecrack/Desktop/OxyTasks/StatusServer/MySQLConnectPool.cpp" "CMakeFiles/StatusServer.dir/MySQLConnectPool.cpp.o" "gcc" "CMakeFiles/StatusServer.dir/MySQLConnectPool.cpp.o.d"
-  "/home/oxythecrack/Desktop/OxyTasks/StatusServer/MySQLDao.cpp" "CMakeFiles/StatusServer.dir/MySQLDao.cpp.o" "gcc" "CMakeFiles/StatusServer.dir/MySQLDao.cpp.o.d"
-  "/home/oxythecrack/Desktop/OxyTasks/StatusServer/MySQLManager.cpp" "CMakeFiles/StatusServer.dir/MySQLManager.cpp.o" "gcc" "CMakeFiles/StatusServer.dir/MySQLManager.cpp.o.d"
+  "/home/oxythecrack/Desktop/OxyTasks/StatusServer/Logger.cpp" "CMakeFiles/StatusServer.dir/Logger.cpp.o" "gcc" "CMakeFiles/StatusServer.dir/Logger.cpp.o.d"
   "/home/oxythecrack/Desktop/OxyTasks/StatusServer/RPCConnectPool.cpp" "CMakeFiles/StatusServer.dir/RPCConnectPool.cpp.o" "gcc" "CMakeFiles/StatusServer.dir/RPCConnectPool.cpp.o.d"
   "/home/oxythecrack/Desktop/OxyTasks/StatusServer/RedisConnectPool.cpp" "CMakeFiles/StatusServer.dir/RedisConnectPool.cpp.o" "gcc" "CMakeFiles/StatusServer.dir/RedisConnectPool.cpp.o.d"
   "/home/oxythecrack/Desktop/OxyTasks/StatusServer/RedisManager.cpp" "CMakeFiles/StatusServer.dir/RedisManager.cpp.o" "gcc" "CMakeFiles/StatusServer.dir/RedisManager.cpp.o.d"

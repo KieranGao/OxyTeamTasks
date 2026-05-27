@@ -1,4 +1,5 @@
 #include "IOContextPool.h"
+#include "Logger.h"
 
 // 为什么不用加锁？
 // 因为每个线程都有自己的io_context对象，线程之间不会共享io_context对象，所以不需要加锁来保护io_context对象的访问。
@@ -25,7 +26,7 @@ IOContextPool::IOContextPool(size_t pool_size) : io_contexts_(pool_size), works_
 IOContextPool::~IOContextPool() {
     // RAII，析构时自动调用stop()函数，停止io_context服务，等待线程退出
     stop();
-    std::cerr << "IOContextPool is destroyed" << std::endl;
+    LOG_DEBUG("IOContextPool is destroyed");
 }
 
 boost::asio::io_context& IOContextPool::getIOContext() {

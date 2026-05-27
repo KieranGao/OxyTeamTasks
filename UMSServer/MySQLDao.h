@@ -11,6 +11,11 @@ public:
     int registerUser(const std::string& username, const std::string& email, const std::string& password);
     bool checkLogin(const std::string& email, const std::string& password, UserInfo& userinfo);
     bool updateTeamInfo(int uid, int belong_captain_id);
+    bool listPendingUsers(std::vector<PendingUserInfo>& users);
+    bool approveUser(int uid, int role, int belong_team_id);
+    bool rejectUser(int uid);
+    bool setUserRole(int uid, int role, int belong_team_id);
+    bool listAllUsers(std::vector<PendingUserInfo>& users);
 private:
     std::unique_ptr<MySQLConnectPool> pool_;
 };

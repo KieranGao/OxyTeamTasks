@@ -18,6 +18,16 @@ using message::ResetPassReq;
 using message::ResetPassRsp;
 using message::VerifyReq;
 using message::VerifyRsp;
+using message::ListPendingUsersReq;
+using message::ListPendingUsersRsp;
+using message::ApproveUserReq;
+using message::ApproveUserRsp;
+using message::RejectUserReq;
+using message::RejectUserRsp;
+using message::SetUserRoleReq;
+using message::SetUserRoleRsp;
+using message::ListAllUsersReq;
+using message::ListAllUsersRsp;
 using message::UserService;
 
 class UMSGrpcServiceImpl final : public UserService::Service {
@@ -27,6 +37,11 @@ public:
     Status Login(ServerContext* context, const LoginReq* req, LoginRsp* resp) override;
     Status ResetPass(ServerContext* context, const ResetPassReq* req, ResetPassRsp* resp) override;
     Status GetVerifyCode(ServerContext* context, const VerifyReq* req, VerifyRsp* resp) override;
+    Status ListPendingUsers(ServerContext* context, const ListPendingUsersReq* req, ListPendingUsersRsp* resp) override;
+    Status ApproveUser(ServerContext* context, const ApproveUserReq* req, ApproveUserRsp* resp) override;
+    Status RejectUser(ServerContext* context, const RejectUserReq* req, RejectUserRsp* resp) override;
+    Status SetUserRole(ServerContext* context, const SetUserRoleReq* req, SetUserRoleRsp* resp) override;
+    Status ListAllUsers(ServerContext* context, const ListAllUsersReq* req, ListAllUsersRsp* resp) override;
 };
 
 #endif /* UMSGRPCSERVICEIMPL_H */

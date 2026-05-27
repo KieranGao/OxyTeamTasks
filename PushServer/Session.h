@@ -30,7 +30,7 @@ public:
 private:
     void doRead();
     void onRead(beast::error_code ec, std::size_t bytes_transferred);
-    void doWrite();
+    void doWriteLocked();   // caller must hold send_mtx_
     void onWrite(beast::error_code ec, std::size_t bytes_transferred);
 
     websocket::stream<tcp::socket> ws_;
@@ -38,7 +38,7 @@ private:
     std::string uuid_;
     MainServer* server_;
     bool is_running_;
-    std::queue<std::string> send_que_;
+    std::queue<std::string> send_que_; // 用于防止异步写过程中产生并发写冲突
     std::mutex send_mtx_;
 };
 

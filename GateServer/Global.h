@@ -10,6 +10,7 @@
 #include <json/json.h>
 
 #define CODE_PREFIX "code_"
+#define USER_TOKEN_PREFIX  "utoken_"
 
 namespace beast = boost::beast;     // from <boost/beast.hpp>
 namespace http = beast::http;       // from <boost/beast/http.hpp>
@@ -24,6 +25,7 @@ struct UserInfo {
 	int role;
 	int belong_captain_id;
 	int belong_team_id;
+	int status;
 };
 
 enum class ErrorCodes {
@@ -34,7 +36,11 @@ enum class ErrorCodes {
     USER_ALREADY_EXISTS = 1004,
     USER_DO_NOT_EXISTS = 1005,
     USER_LOGIN_ERROR = 1006,
-    USER_ID_INVALID = 1007
+    USER_ID_INVALID = 1007,
+    USER_NOT_APPROVED = 1008,
+    USER_ALREADY_APPROVED = 1009,
+    AUTH_TOKEN_INVALID = 1010,
+    AUTH_TOKEN_MISSING = 1011
 };
 
 // class ConfigManager;

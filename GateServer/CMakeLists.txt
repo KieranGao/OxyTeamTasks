@@ -25,6 +25,7 @@ set(JSONCPP_SOURCES
 
 # 设置Gateserver源文件
 set(GATESERVER_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/AsyncTaskPool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/HttpConnection.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/IOContextPool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RedisConnectPool.cpp
@@ -39,6 +40,7 @@ set(GATESERVER_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/LogicSystem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/MainServer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Logger.cpp
 )
 
 # 查找protobuf包
@@ -61,6 +63,7 @@ find_library(MYSQLCPPCONN_LIBRARY NAMES mysqlcppconn PATHS /usr/lib /usr/local/l
 
 # 包含目录
 include_directories(${Boost_INCLUDE_DIRS})
+    include_directories(${CMAKE_CURRENT_BINARY_DIR})
 include_directories(${JSONCPP_INCLUDE_DIR})
 include_directories(${Protobuf_INCLUDE_DIRS})
 include_directories(${HIREDIS_INCLUDE_DIR})
