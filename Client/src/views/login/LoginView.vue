@@ -101,9 +101,20 @@ async function handleLogin() {
   width: 100%;
 }
 
+.login-view :deep(.el-input__wrapper:focus-within) {
+  box-shadow: 0 0 0 2px var(--color-primary-bg), 0 0 0 3px var(--color-primary) !important;
+}
+
+.login-view :deep(.el-button--large) {
+  height: 44px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
 .login-footer {
   text-align: center;
-  margin-top: 8px;
+  margin-top: 12px;
   display: flex;
   justify-content: center;
   gap: 8px;
@@ -112,6 +123,7 @@ async function handleLogin() {
 .login-footer a {
   font-size: 13px;
   color: var(--text-secondary);
+  transition: color var(--transition-fast);
 }
 
 .login-footer a:hover {

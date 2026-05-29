@@ -329,8 +329,6 @@ LogicSystem::LogicSystem() {
         beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
     });
 
-    // ---- TaskService endpoints (via gRPC to TaskServer) ----
-
     registerPost("/task_create", [](std::shared_ptr<HttpConnection> connection) {
         auto body = beast::buffers_to_string(connection->req_.body().data());
         connection->resp_.set(http::field::content_type, "application/json");

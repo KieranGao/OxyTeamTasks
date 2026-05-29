@@ -65,8 +65,8 @@
           <div v-if="checkinLoading" class="loading-placeholder">加载中...</div>
           <div v-else class="checkin-area">
             <div v-if="checkedInToday" class="checked-in-state">
-              <el-icon :size="36" color="#67c23a"><CircleCheckFilled /></el-icon>
-              <span style="font-size:16px; color:#67c23a; font-weight:600; margin:8px 0">今日已打卡</span>
+              <el-icon :size="36" color="var(--color-success)"><CircleCheckFilled /></el-icon>
+              <span style="font-size:16px; color:var(--color-success); font-weight:600; margin:8px 0">今日已打卡</span>
             </div>
             <div v-else>
               <el-button type="success" :loading="checking" @click.stop="handleDashboardCheckin" style="width:100%">
@@ -169,17 +169,32 @@ async function handleDashboardCheckin() {
 </script>
 
 <style scoped>
-.stat-card { cursor: pointer; transition: transform var(--transition-fast); }
-.stat-card:hover { transform: translateY(-2px); }
+.stat-card {
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+}
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+.stat-card:first-child { border-top: 3px solid var(--color-primary); }
+.stat-card:nth-child(2) { border-top: 3px solid var(--color-warning); }
+.stat-card:nth-child(3) { border-top: 3px solid var(--color-success); }
+
 .card-header { display: flex; justify-content: space-between; align-items: center; }
+.card-header span { font-weight: 600; }
+
 .stat-grid { display: flex; justify-content: space-around; text-align: center; }
-.stat-item { padding: 8px; }
-.stat-num { display: block; font-size: 28px; font-weight: 700; line-height: 1.2; }
-.stat-label { font-size: 13px; color: var(--text-secondary); }
+.stat-item { padding: 10px; }
+.stat-num { display: block; font-size: 30px; font-weight: 700; line-height: 1.2; letter-spacing: -0.5px; }
+.stat-label { font-size: 12px; color: var(--text-secondary); margin-top: 4px; display: block; }
 .stat-item.pending .stat-num { color: var(--color-info); }
 .stat-item.progress .stat-num { color: var(--color-warning); }
 .stat-item.done .stat-num { color: var(--color-success); }
-.loading-placeholder { text-align: center; color: var(--text-secondary); padding: 24px 0; }
+
+.loading-placeholder { text-align: center; color: var(--text-secondary); padding: 28px 0; }
 .checkin-area { text-align: center; padding: 8px 0; }
 .checked-in-state { display: flex; flex-direction: column; align-items: center; }
 </style>

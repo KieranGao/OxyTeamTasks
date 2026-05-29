@@ -112,18 +112,32 @@ async function saveTeam() {
 </script>
 
 <style scoped>
+.el-card:first-child { border-top: 3px solid var(--color-primary); }
+.el-card:nth-child(2) { border-top: 3px solid var(--color-warning); }
+.el-card:nth-child(3) { border-top: 3px solid var(--color-info); }
+
 .info-item,
 .setting-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 0;
+  padding: 12px 0;
   border-bottom: 1px solid var(--border-light);
+  transition: background var(--transition-fast);
 }
 
 .info-item:last-child,
 .setting-item:last-child {
   border-bottom: none;
+}
+
+.info-item:hover,
+.setting-item:hover {
+  background: var(--color-primary-bg);
+  border-radius: var(--radius-sm);
+  margin: 0 -8px;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 .info-item .label {

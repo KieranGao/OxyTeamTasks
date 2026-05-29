@@ -8,7 +8,7 @@
     <!-- Check-in button -->
     <el-card shadow="hover" class="checkin-card">
       <div v-if="checkedInToday" class="checked-in-state">
-        <el-icon :size="48" color="#67c23a"><CircleCheckFilled /></el-icon>
+        <el-icon :size="48" color="var(--color-success)"><CircleCheckFilled /></el-icon>
         <p class="checked-text">今日已打卡</p>
         <p class="checked-sub">继续保持，明天再来！</p>
       </div>
@@ -46,7 +46,7 @@
           }"
         >
           <span class="cal-day-num">{{ cell.day }}</span>
-          <el-icon v-if="cell.checked" color="#67c23a" :size="16"><Check /></el-icon>
+          <el-icon v-if="cell.checked" color="var(--color-success)" :size="16"><Check /></el-icon>
         </div>
       </div>
       <div class="cal-legend">
@@ -178,11 +178,16 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.checkin-card { margin-bottom: 16px; text-align: center; }
+.checkin-card { margin-bottom: 16px; text-align: center; border-top: 3px solid var(--color-success); }
 .checked-in-state { padding: 20px 0; }
-.checked-text { font-size: 18px; margin: 12px 0 4px; color: #67c23a; font-weight: 600; }
+.checked-text { font-size: 18px; margin: 12px 0 4px; color: var(--color-success); font-weight: 600; }
 .checked-sub { color: var(--text-secondary); }
-.checkin-btn { padding: 14px 48px; font-size: 18px; border-radius: var(--radius-lg); }
+.checkin-btn { padding: 14px 48px; font-size: 18px; border-radius: var(--radius-lg); animation: pulse-glow 2s infinite; }
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+  50% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+}
 
 .cal-header { display: flex; justify-content: space-between; align-items: center; }
 .cal-nav { display: flex; align-items: center; }
@@ -194,14 +199,16 @@ onMounted(async () => {
   text-align: center; padding: 8px 4px; border-radius: var(--radius-sm);
   min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center;
   background: var(--bg-secondary);
+  transition: all var(--transition-fast);
 }
+.cal-cell:hover { transform: scale(1.05); }
 .cal-day-num { font-size: 14px; margin-bottom: 2px; }
-.cal-cell.cal-other-month .cal-day-num { color: var(--text-disabled); opacity: 0.4; }
-.cal-cell.cal-today { border: 2px solid var(--color-primary); }
-.cal-cell.cal-checked { background: #e1f3d8; }
+.cal-cell.cal-other-month .cal-day-num { color: var(--text-secondary); opacity: 0.3; }
+.cal-cell.cal-today { border: 2px solid var(--color-primary); box-shadow: 0 0 0 2px var(--color-primary-bg); }
+.cal-cell.cal-checked { background: var(--color-success-bg); }
 
 .cal-legend { margin-top: 12px; display: flex; gap: 16px; align-items: center; justify-content: center; font-size: 13px; color: var(--text-secondary); }
 .legend-dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 4px; }
-.legend-dot.checked { background: #67c23a; }
+.legend-dot.checked { background: var(--color-success); }
 .legend-dot.unchecked { background: var(--bg-secondary); border: 1px solid var(--border-light); }
 </style>

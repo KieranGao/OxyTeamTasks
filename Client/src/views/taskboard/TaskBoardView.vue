@@ -65,8 +65,8 @@ function userName(uid) {
 
 const columns = computed(() => [
   { status: 0, label: '待处理', tagType: 'info', bg: 'var(--border-light)', tasks: allTasks.value.filter(t => (t.my_status ?? t.status) === 0) },
-  { status: 1, label: '进行中', tagType: 'warning', bg: 'rgba(230,162,60,0.08)', tasks: allTasks.value.filter(t => (t.my_status ?? t.status) === 1) },
-  { status: 2, label: '已完成', tagType: 'success', bg: 'rgba(103,194,58,0.08)', tasks: allTasks.value.filter(t => (t.my_status ?? t.status) === 2) },
+  { status: 1, label: '进行中', tagType: 'warning', bg: 'var(--color-warning-bg)', tasks: allTasks.value.filter(t => (t.my_status ?? t.status) === 1) },
+  { status: 2, label: '已完成', tagType: 'success', bg: 'var(--color-success-bg)', tasks: allTasks.value.filter(t => (t.my_status ?? t.status) === 2) },
 ])
 
 function priorityType(p) { return { 1: 'danger', 2: 'warning', 3: 'info' }[p] || 'info' }
@@ -129,12 +129,42 @@ onMounted(async () => { await loadUsers(); await loadTasks() })
 <style scoped>
 .header-row { display: flex; justify-content: space-between; align-items: flex-start; }
 .kanban-row { min-height: 400px; }
-.kanban-col { border-radius: var(--radius-md); padding: 12px; display: flex; flex-direction: column; }
-.col-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; font-weight: 600; font-size: 15px; }
+.kanban-col {
+  border-radius: var(--radius-md);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-light);
+  position: relative;
+  overflow: hidden;
+}
+.kanban-col::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+.kanban-col:nth-child(1)::before { background: var(--color-info); }
+.kanban-col:nth-child(2)::before { background: var(--gradient-warning); }
+.kanban-col:nth-child(3)::before { background: var(--gradient-success); }
+
+.col-header { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; font-weight: 600; font-size: 15px; }
 .col-body { flex: 1; display: flex; flex-direction: column; gap: 10px; }
 .col-empty { text-align: center; color: var(--text-secondary); padding: 32px 0; font-size: 13px; }
-.task-card { }
-.task-card:hover { border-color: var(--color-primary); }
+
+.task-card {
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+  border-left: 3px solid transparent;
+}
+.task-card:hover {
+  border-color: var(--color-primary);
+  transform: translateX(2px);
+  box-shadow: var(--shadow-md);
+}
+
 .task-title { font-weight: 600; margin-bottom: 8px; font-size: 14px; }
 .task-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
 .task-desc { font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; line-height: 1.4; }

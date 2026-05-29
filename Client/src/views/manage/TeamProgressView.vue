@@ -119,7 +119,7 @@
               <div class="section-title">任务进度</div>
               <el-progress
                 :percentage="m.taskRate"
-                :color="m.taskRate === 100 ? '#67c23a' : '#2d6cdf'"
+                :color="m.taskRate === 100 ? 'var(--color-success)' : 'var(--color-primary)'"
                 :stroke-width="14"
               />
               <div class="stat-row">
@@ -179,7 +179,7 @@
               :class="{ 'cal-other-month': !cell.isCurrentMonth, 'cal-checked': cell.checked }"
             >
               <span class="cal-day-num">{{ cell.day }}</span>
-              <el-icon v-if="cell.checked" color="#67c23a" :size="16"><Check /></el-icon>
+              <el-icon v-if="cell.checked" color="var(--color-success)" :size="16"><Check /></el-icon>
             </div>
           </div>
         </div>
@@ -408,8 +408,19 @@ onMounted(loadData)
 
 <style scoped>
 .overall-row { margin-bottom: 20px; }
-.summary-card { text-align: center; }
-.summary-num { font-size: 32px; font-weight: 700; }
+.summary-card {
+  text-align: center;
+  border-top: 3px solid var(--color-primary);
+  transition: transform var(--transition-fast);
+}
+.summary-card:hover { transform: translateY(-2px); }
+.summary-num {
+  font-size: 32px; font-weight: 700;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 .summary-label { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
 
 .member-card { height: 100%; }
@@ -428,16 +439,17 @@ onMounted(loadData)
 .member-task-header { display: flex; justify-content: space-between; align-items: center; }
 
 /* Check-in */
-.checkin-member-card { cursor: pointer; transition: box-shadow 0.2s; }
-.checkin-member-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+.checkin-member-card { cursor: pointer; transition: all var(--transition-fast); }
+.checkin-member-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
 .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
 .cal-weekday { text-align: center; font-weight: 600; font-size: 13px; padding: 8px 0; color: var(--text-secondary); }
 .cal-cell {
   text-align: center; padding: 8px 4px; border-radius: var(--radius-sm);
   min-height: 48px; display: flex; flex-direction: column; align-items: center; justify-content: center;
   background: var(--bg-secondary);
+  transition: all var(--transition-fast);
 }
 .cal-day-num { font-size: 14px; margin-bottom: 2px; }
-.cal-cell.cal-other-month .cal-day-num { color: var(--text-disabled); opacity: 0.4; }
-.cal-cell.cal-checked { background: #e1f3d8; }
+.cal-cell.cal-other-month .cal-day-num { color: var(--text-secondary); opacity: 0.3; }
+.cal-cell.cal-checked { background: var(--color-success-bg); }
 </style>

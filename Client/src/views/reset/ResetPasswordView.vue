@@ -257,6 +257,17 @@ function goLogin() {
   width: 100%;
 }
 
+.reset-view :deep(.el-input__wrapper:focus-within) {
+  box-shadow: 0 0 0 2px var(--color-primary-bg), 0 0 0 3px var(--color-primary) !important;
+}
+
+.reset-view :deep(.el-button--large) {
+  height: 44px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
 .verify-row {
   display: flex;
   gap: 8px;
@@ -282,6 +293,7 @@ function goLogin() {
 .reset-footer a {
   font-size: 13px;
   color: var(--text-secondary);
+  transition: color var(--transition-fast);
 }
 
 .reset-footer a:hover {

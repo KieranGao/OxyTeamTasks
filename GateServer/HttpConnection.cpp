@@ -184,7 +184,7 @@ bool HttpConnection::authenticateRequest_() {
 
 void HttpConnection::handleRequest_() {
     resp_.version(req_.version());
-    resp_.keep_alive(false);
+    resp_.keep_alive(false); // 维持HTTP短连接
 
     if (!authenticateRequest_()) {
         makeResponse_();

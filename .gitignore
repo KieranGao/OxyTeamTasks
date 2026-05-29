@@ -7,7 +7,6 @@ StatusServer/build
 TaskServer/build
 UMSServer/build
 
-# Generated protobuf/gRPC files (generated alongside .proto)
 GateServer/message.pb.cc
 GateServer/message.pb.h
 GateServer/message.grpc.pb.cc

@@ -146,15 +146,20 @@ onUnmounted(() => {
 .monitor { padding: 0; }
 .page-header { margin-bottom: 20px; }
 .page-header h2 { margin: 0 0 4px; font-size: 20px; }
-.subtitle { color: #909399; font-size: 13px; margin: 0; }
+.subtitle { color: var(--text-secondary); font-size: 13px; margin: 0; }
 .section-card { margin-bottom: 20px; }
 .card-header { display: flex; align-items: center; justify-content: space-between; }
 .card-title { font-weight: 600; }
-.auto-refresh { font-size: 12px; color: #909399; }
+.auto-refresh { font-size: 12px; color: var(--text-secondary); }
 .log-filters { display: flex; align-items: center; }
+.server-card {
+  border-top: 3px solid var(--color-primary);
+  transition: transform var(--transition-fast);
+}
+.server-card:hover { transform: translateY(-2px); }
 .server-card .server-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
 .server-card .server-name { font-weight: 600; font-size: 15px; }
-.server-info p { margin: 4px 0; font-size: 13px; color: #606266; }
-.conn-count { font-size: 13px; color: #303133; margin: 4px 0; }
-.heartbeat-time { font-size: 12px; color: #909399; }
+.server-info p { margin: 4px 0; font-size: 13px; color: var(--text-secondary); }
+.conn-count { font-size: 13px; color: var(--text-primary); margin: 4px 0; }
+.heartbeat-time { font-size: 12px; color: var(--text-secondary); }
 </style>

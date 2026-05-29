@@ -182,17 +182,26 @@ onMounted(loadTodos)
 </script>
 
 <style scoped>
-.add-bar { display: flex; gap: 8px; margin-bottom: 16px; }
+.add-bar {
+  display: flex; gap: 8px; margin-bottom: 16px;
+  padding: 14px 16px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+}
 .add-input { flex: 1; }
 .filter-bar { margin-bottom: 16px; }
 .todo-list { display: flex; flex-direction: column; }
 .todo-item {
   display: flex; align-items: center; gap: 10px;
-  padding: 10px 0;
+  padding: 12px 0;
   border-bottom: 1px solid var(--border-light);
+  transition: background var(--transition-fast);
 }
 .todo-item:last-child { border-bottom: none; }
-.todo-item.finished .todo-content { text-decoration: line-through; opacity: 0.5; }
+.todo-item:hover { background: var(--color-primary-bg); border-radius: var(--radius-sm); }
+.todo-item.finished .todo-content { text-decoration: line-through; opacity: 0.4; }
 .todo-content { flex: 1; font-size: 14px; }
 .todo-deadline { font-size: 12px; color: var(--text-secondary); white-space: nowrap; }
 </style>

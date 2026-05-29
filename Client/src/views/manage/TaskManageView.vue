@@ -407,12 +407,20 @@ onMounted(async () => {
 
 <style scoped>
 .header-row { display: flex; justify-content: space-between; align-items: flex-start; }
-.filter-bar { display: flex; gap: 12px; align-items: center; margin-bottom: 16px; }
+.filter-bar {
+  display: flex; gap: 12px; align-items: center; margin-bottom: 16px;
+  padding: 12px 16px; background: var(--glass-bg); backdrop-filter: var(--glass-blur);
+  border-radius: var(--radius-md); border: 1px solid var(--border-light);
+}
 .task-count { color: var(--text-secondary); font-size: 13px; }
 
 .batch-row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
 .task-card-wrapper { margin-bottom: 12px; }
-.task-card { }
+.task-card {
+  border-left: 3px solid var(--color-primary);
+  transition: all var(--transition-fast);
+}
+.task-card:hover { transform: translateX(2px); box-shadow: var(--shadow-md); }
 .card-body { display: flex; gap: 24px; }
 .card-main { flex: 1; min-width: 0; }
 .card-meta { display: flex; flex-direction: column; gap: 6px; min-width: 200px; flex-shrink: 0; }

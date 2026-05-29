@@ -3,6 +3,7 @@
     <!-- Sidebar -->
     <aside class="sidebar">
       <div class="sidebar-logo">
+        <div class="logo-glow"></div>
         <span v-if="!appStore.sidebarCollapsed" class="logo-text">OxyTeamTask</span>
         <span v-else class="logo-icon">OT</span>
       </div>
@@ -184,6 +185,17 @@ function handleUserCommand(cmd) {
   flex-direction: column;
   transition: width var(--transition-normal), min-width var(--transition-normal);
   overflow: hidden;
+  position: relative;
+}
+
+.sidebar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(79, 110, 247, 0.3), rgba(124, 92, 252, 0.1), transparent);
 }
 
 .sidebar-collapsed .sidebar {
@@ -196,28 +208,46 @@ function handleUserCommand(cmd) {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+.logo-glow {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 60px;
+  background: radial-gradient(ellipse, rgba(79, 110, 247, 0.2), transparent 70%);
+  pointer-events: none;
 }
 
 .logo-text {
   font-size: 16px;
   font-weight: 700;
   color: #fff;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
+  position: relative;
+  z-index: 1;
 }
 
 .logo-icon {
   font-size: 18px;
   font-weight: 700;
-  color: var(--color-primary-light);
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .menu-group-title {
-  padding: 8px 20px 4px;
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.3);
+  padding: 12px 20px 4px;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.25);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
+  font-weight: 600;
 }
 
 /* Override Element Plus menu styles within sidebar */
@@ -226,21 +256,30 @@ function handleUserCommand(cmd) {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
+  padding: 4px 0;
 }
 
 .sidebar :deep(.el-menu-item) {
-  height: 44px;
-  line-height: 44px;
-  margin: 2px 8px;
+  height: 42px;
+  line-height: 42px;
+  margin: 2px 10px;
   border-radius: var(--radius-sm);
+  font-size: 13px;
+  transition: all var(--transition-fast);
+}
+
+.sidebar :deep(.el-menu-item:hover) {
+  background: var(--bg-sidebar-hover) !important;
 }
 
 .sidebar :deep(.el-menu-item.is-active) {
-  background-color: var(--bg-sidebar-active) !important;
+  background: var(--bg-sidebar-active) !important;
+  box-shadow: 0 2px 8px rgba(79, 110, 247, 0.3);
 }
 
 .sidebar :deep(.el-divider--horizontal) {
-  margin: 8px 12px;
+  margin: 6px 14px;
+  border-color: rgba(255, 255, 255, 0.06);
 }
 
 /* ===== Main Area ===== */
@@ -255,13 +294,17 @@ function handleUserCommand(cmd) {
 .header {
   height: var(--header-height);
   min-height: var(--header-height);
-  background: var(--bg-secondary);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   border-bottom: 1px solid var(--border-light);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
-  box-shadow: var(--shadow-sm);
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .header-left {
@@ -278,6 +321,7 @@ function handleUserCommand(cmd) {
 
 .collapse-btn {
   font-size: 18px;
+  color: var(--text-secondary);
 }
 
 .notification-badge {
@@ -289,13 +333,13 @@ function handleUserCommand(cmd) {
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  padding: 4px 8px;
-  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  border-radius: var(--radius-md);
   transition: background var(--transition-fast);
 }
 
 .user-info:hover {
-  background: var(--bg-primary);
+  background: var(--color-primary-bg);
 }
 
 .username {
@@ -305,6 +349,7 @@ function handleUserCommand(cmd) {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-weight: 500;
 }
 
 .arrow {

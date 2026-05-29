@@ -212,7 +212,7 @@ onMounted(fetchPending)
 .user-manage { padding: 0; }
 .page-header { margin-bottom: 20px; }
 .page-header h2 { margin: 0 0 4px; font-size: 20px; }
-.subtitle { color: #909399; font-size: 13px; margin: 0; }
+.subtitle { color: var(--text-secondary); font-size: 13px; margin: 0; }
 .section-card { margin-bottom: 20px; }
 .card-header { display: flex; align-items: center; justify-content: space-between; }
 .card-title { font-weight: 600; }
