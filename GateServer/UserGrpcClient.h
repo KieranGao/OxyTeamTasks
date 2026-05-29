@@ -30,6 +30,8 @@ using message::SetUserRoleReq;
 using message::SetUserRoleRsp;
 using message::ListAllUsersReq;
 using message::ListAllUsersRsp;
+using message::UpdateTeamInfoReq;
+using message::UpdateTeamInfoRsp;
 using message::UserService;
 
 class UserGrpcClient : public Singleton<UserGrpcClient> {
@@ -44,6 +46,7 @@ public:
     RejectUserRsp rejectUser(int uid);
     SetUserRoleRsp setUserRole(int uid, int role, int belong_team_id);
     ListAllUsersRsp listAllUsers();
+    UpdateTeamInfoRsp updateTeamInfo(int uid, int belong_team_id);
 private:
     std::unique_ptr<UserConnectPool> rpc_pool_;
     UserGrpcClient();

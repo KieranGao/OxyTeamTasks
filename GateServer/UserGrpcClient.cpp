@@ -146,3 +146,19 @@ ListAllUsersRsp UserGrpcClient::listAllUsers() {
     }
     return response;
 }
+
+UpdateTeamInfoRsp UserGrpcClient::updateTeamInfo(int uid, int belong_team_id) {
+    UpdateTeamInfoReq request;
+    UpdateTeamInfoRsp response;
+    ClientContext context;
+    request.set_uid(uid);
+    request.set_belong_team_id(belong_team_id);
+    auto stub = rpc_pool_->getStub();
+    Defer defer([&stub, this](){ rpc_pool_->returnStub(std::move(stub)); });
+    Status status = stub->UpdateTeamInfo(&context, request, &response);
+    if(!status.ok()) {
+        LOG_ERROR("UserService UpdateTeamInfo RPC failed: {}", status.error_message());
+        response.set_error(static_cast<int32_t>(ErrorCodes::RPC_ERROR));
+    }
+    return response;
+}

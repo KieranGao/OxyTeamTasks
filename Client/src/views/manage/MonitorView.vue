@@ -52,6 +52,7 @@
               <el-option label="UMSServer" value="UMSServer" />
               <el-option label="StatusServer" value="StatusServer" />
               <el-option label="PushServer" value="PushServer" />
+              <el-option label="TaskServer" value="TaskServer" />
               <el-option label="MailerServer" value="MailerServer" />
             </el-select>
             <el-select v-model="filterLevel" placeholder="全部级别" clearable size="small" style="width: 120px; margin-left: 8px">

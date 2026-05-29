@@ -28,6 +28,8 @@ using message::SetUserRoleReq;
 using message::SetUserRoleRsp;
 using message::ListAllUsersReq;
 using message::ListAllUsersRsp;
+using message::UpdateTeamInfoReq;
+using message::UpdateTeamInfoRsp;
 using message::UserService;
 
 class UMSGrpcServiceImpl final : public UserService::Service {
@@ -42,6 +44,7 @@ public:
     Status RejectUser(ServerContext* context, const RejectUserReq* req, RejectUserRsp* resp) override;
     Status SetUserRole(ServerContext* context, const SetUserRoleReq* req, SetUserRoleRsp* resp) override;
     Status ListAllUsers(ServerContext* context, const ListAllUsersReq* req, ListAllUsersRsp* resp) override;
+    Status UpdateTeamInfo(ServerContext* context, const UpdateTeamInfoReq* req, UpdateTeamInfoRsp* resp) override;
 };
 
 #endif /* UMSGRPCSERVICEIMPL_H */

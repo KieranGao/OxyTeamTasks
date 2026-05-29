@@ -19,6 +19,7 @@ AsyncTaskPool::~AsyncTaskPool() {
 }
 
 void AsyncTaskPool::post(std::function<void()> task) {
+    // boost::asio::post是线程安全的
     boost::asio::post(ioc_, std::move(task));
 }
 

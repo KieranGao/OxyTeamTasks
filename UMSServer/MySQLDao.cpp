@@ -140,6 +140,22 @@ bool MySQLDao::updateTeamInfo(int uid, int belong_captain_id) {
     }
 }
 
+bool MySQLDao::updateUserTeam(int uid, int belong_team_id) {
+    auto connection = ConnectionGuard(*pool_, pool_->getConnection());
+    try {
+        auto& sql_conn = connection.get()->getConn();
+        std::string update_sql = "UPDATE user SET belong_team_id = ? WHERE uid = ?";
+        std::unique_ptr<sql::PreparedStatement> pstmt(sql_conn->prepareStatement(update_sql));
+        pstmt->setInt(1, belong_team_id);
+        pstmt->setInt(2, uid);
+        int affected = pstmt->executeUpdate();
+        return affected > 0;
+    } catch(const sql::SQLException& exp) {
+        LOG_ERROR("SQLException in updateUserTeam: {}", exp.what());
+        return false;
+    }
+}
+
 bool MySQLDao::listPendingUsers(std::vector<PendingUserInfo>& users) {
     auto connection = ConnectionGuard(*pool_, pool_->getConnection());
     try {
@@ -246,7 +262,7 @@ bool MySQLDao::listAllUsers(std::vector<PendingUserInfo>& users) {
         auto& sql_conn = connection.get()->getConn();
         std::unique_ptr<sql::Statement> stmt(sql_conn->createStatement());
         std::unique_ptr<sql::ResultSet> res(stmt->executeQuery(
-            "SELECT uid, username, email, role, belong_team_id FROM user WHERE status = 1 ORDER BY uid"));
+            "SELECT uid, username, email, role, belong_team_id, status FROM user WHERE status = 1 ORDER BY uid"));
         while (res && res->next()) {
             PendingUserInfo info;
             info.uid = res->getInt("uid");
@@ -254,6 +270,7 @@ bool MySQLDao::listAllUsers(std::vector<PendingUserInfo>& users) {
             info.email = res->getString("email");
             info.role = res->getInt("role");
             info.belong_team_id = res->getInt("belong_team_id");
+            info.status = res->getInt("status");
             users.push_back(info);
         }
         return true;

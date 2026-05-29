@@ -3,6 +3,7 @@
 #include "HttpConnection.h"
 #include "UserGrpcClient.h"
 #include "StatusGrpcClient.h"
+#include "TaskGrpcClient.h"
 #include "MySQLManager.h"
 #include "Logger.h"
 
@@ -110,19 +111,15 @@ LogicSystem::LogicSystem() {
         AsyncTaskPool::getInstance().post([p, email, password]() {
             Json::Value result;
             try {
-                // Step 1: Authenticate via UMSServer
                 LoginRsp loginRsp = UserGrpcClient::getInstance().login(email, password);
                 if(loginRsp.error() != 0) {
                     result["error"] = loginRsp.error();
                     p->set_value(result);
                     return;
                 }
-
-                // Step 2: Get user info from MySQL
                 UserInfo userinfo;
                 MySQLManager::getInstance().getUserInfo(loginRsp.uid(), userinfo);
-
-                // Step 3: Allocate PushServer via StatusServer
+                
                 AllocateRsp pushRsp = StatusGrpcClient::getInstance().allocatePushServer(loginRsp.uid());
                 if(pushRsp.error() != 0) {
                     LOG_ERROR("[Gate] AllocatePushServer failed: {}", pushRsp.error());
@@ -171,8 +168,6 @@ LogicSystem::LogicSystem() {
         }
     });
 
-    // ---- Team management (direct MySQL — to be moved to UMSServer later) ----
-
     registerPost("/user_update_team", [](std::shared_ptr<HttpConnection> connection) {
         auto body = beast::buffers_to_string(connection->req_.body().data());
         LOG_DEBUG("[Gate] UPDATE_TEAM: {}", body);
@@ -186,8 +181,8 @@ LogicSystem::LogicSystem() {
         }
         int uid = jsonData["uid"].asInt();
         int belong_team_id = jsonData["belong_team_id"].asInt();
-        bool ret = MySQLManager::getInstance().updateTeamInfo(uid, belong_team_id);
-        jsonResp["error"] = ret ? 0 : static_cast<int>(ErrorCodes::USER_ID_INVALID);
+        UpdateTeamInfoRsp rsp = UserGrpcClient::getInstance().updateTeamInfo(uid, belong_team_id);
+        jsonResp["error"] = rsp.error();
         beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
     });
 
@@ -278,6 +273,7 @@ LogicSystem::LogicSystem() {
             user["email"] = u.email();
             user["role"] = u.role();
             user["belong_team_id"] = u.belong_team_id();
+            user["status"] = u.status();
             users.append(user);
         }
         jsonResp["users"] = users;
@@ -330,6 +326,297 @@ LogicSystem::LogicSystem() {
             servers.append(srv);
         }
         jsonResp["servers"] = servers;
+        beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
+    });
+
+    // ---- TaskService endpoints (via gRPC to TaskServer) ----
+
+    registerPost("/task_create", [](std::shared_ptr<HttpConnection> connection) {
+        auto body = beast::buffers_to_string(connection->req_.body().data());
+        connection->resp_.set(http::field::content_type, "application/json");
+        Json::Value jsonData, jsonResp;
+        Json::Reader reader;
+        if (!reader.parse(body, jsonData)) {
+            jsonResp["error"] = static_cast<int>(ErrorCodes::JSON_PARSE_ERROR);
+            beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
+            return;
+        }
+        CreateTaskRsp rsp = TaskGrpcClient::getInstance().createTask(
+            jsonData["uid"].asInt(),
+            jsonData["title"].asString(),
+            jsonData.get("description", "").asString(),
+            jsonData.get("priority", 3).asInt(),
+            jsonData.get("deadline", "").asString(),
+            jsonData.get("assigned_to", "0").asString()
+        );
+        jsonResp["error"] = rsp.error();
+        jsonResp["id"] = rsp.id();
+        beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
+    });
+
+    registerPost("/task_update", [](std::shared_ptr<HttpConnection> connection) {
+        auto body = beast::buffers_to_string(connection->req_.body().data());
+        connection->resp_.set(http::field::content_type, "application/json");
+        Json::Value jsonData, jsonResp;
+        Json::Reader reader;
+        if (!reader.parse(body, jsonData)) {
+            jsonResp["error"] = static_cast<int>(ErrorCodes::JSON_PARSE_ERROR);
+            beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
+            return;
+        }
+        UpdateTaskRsp rsp = TaskGrpcClient::getInstance().updateTask(
+            jsonData["id"].asInt(),
+            jsonData["uid"].asInt(),
+            jsonData.get("title", "").asString(),
+            jsonData.get("description", "").asString(),
+            jsonData.get("status", 0).asInt(),
+            jsonData.get("priority", 3).asInt(),
+            jsonData.get("deadline", "").asString(),
+            jsonData.get("assigned_to", "0").asString()
+        );
+        jsonResp["error"] = rsp.error();
+        beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
+    });
+
+    registerPost("/task_delete", [](std::shared_ptr<HttpConnection> connection) {
+        auto body = beast::buffers_to_string(connection->req_.body().data());
+        connection->resp_.set(http::field::content_type, "application/json");
+        Json::Value jsonData, jsonResp;
+        Json::Reader reader;
+        if (!reader.parse(body, jsonData)) {
+            jsonResp["error"] = static_cast<int>(ErrorCodes::JSON_PARSE_ERROR);
+            beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
+            return;
+        }
+        DeleteTaskRsp rsp = TaskGrpcClient::getInstance().deleteTask(
+            jsonData["id"].asInt(),
+            0
+        );
+        jsonResp["error"] = rsp.error();
+        beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
+    });
+
+    registerPost("/task_get", [](std::shared_ptr<HttpConnection> connection) {
+        auto body = beast::buffers_to_string(connection->req_.body().data());
+        connection->resp_.set(http::field::content_type, "application/json");
+        Json::Value jsonData, jsonResp;
+        Json::Reader reader;
+        if (!reader.parse(body, jsonData)) {
+            jsonResp["error"] = static_cast<int>(ErrorCodes::JSON_PARSE_ERROR);
+            beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
+            return;
+        }
+        GetTaskRsp rsp = TaskGrpcClient::getInstance().getTask(jsonData["id"].asInt());
+        jsonResp["error"] = rsp.error();
+        if (rsp.error() == 0 && rsp.has_task()) {
+            auto& t = rsp.task();
+            Json::Value task;
+            task["id"] = t.id();
+            task["uid"] = t.uid();
+            task["title"] = t.title();
+            task["description"] = t.description();
+            task["status"] = t.status();
+            task["priority"] = t.priority();
+            task["deadline"] = t.deadline();
+            task["assigned_to"] = t.assigned_to();
+            task["created_at"] = t.created_at();
+            task["updated_at"] = t.updated_at();
+            task["my_status"] = t.my_status();
+            Json::Value astatuses(Json::arrayValue);
+            for (int j = 0; j < t.assignee_statuses_size(); ++j) {
+                auto& as = t.assignee_statuses(j);
+                Json::Value a;
+                a["assignee_uid"] = as.assignee_uid();
+                a["status"] = as.status();
+                astatuses.append(a);
+            }
+            task["assignee_statuses"] = astatuses;
+            jsonResp["task"] = task;
+        }
+        beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
+    });
+
+    registerPost("/task_list", [](std::shared_ptr<HttpConnection> connection) {
+        auto body = beast::buffers_to_string(connection->req_.body().data());
+        connection->resp_.set(http::field::content_type, "application/json");
+        Json::Value jsonData, jsonResp;
+        Json::Reader reader;
+        if (!reader.parse(body, jsonData)) {
+            jsonResp["error"] = static_cast<int>(ErrorCodes::JSON_PARSE_ERROR);
+            beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
+            return;
+        }
+        ListTasksRsp rsp = TaskGrpcClient::getInstance().listTasks(
+            jsonData.get("uid", 0).asInt(),
+            jsonData.get("status", -1).asInt(),
+            jsonData.get("assigned_to", "0").asString()
+        );
+        jsonResp["error"] = rsp.error();
+        Json::Value tasks(Json::arrayValue);
+        for (int i = 0; i < rsp.tasks_size(); ++i) {
+            auto& t = rsp.tasks(i);
+            Json::Value task;
+            task["id"] = t.id();
+            task["uid"] = t.uid();
+            task["title"] = t.title();
+            task["description"] = t.description();
+            task["status"] = t.status();
+            task["priority"] = t.priority();
+            task["deadline"] = t.deadline();
+            task["assigned_to"] = t.assigned_to();
+            task["created_at"] = t.created_at();
+            task["updated_at"] = t.updated_at();
+            task["my_status"] = t.my_status();
+            Json::Value astatuses(Json::arrayValue);
+            for (int j = 0; j < t.assignee_statuses_size(); ++j) {
+                auto& as = t.assignee_statuses(j);
+                Json::Value a;
+                a["assignee_uid"] = as.assignee_uid();
+                a["status"] = as.status();
+                astatuses.append(a);
+            }
+            task["assignee_statuses"] = astatuses;
+            tasks.append(task);
+        }
+        jsonResp["tasks"] = tasks;
+        beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
+    });
+
+    registerPost("/todo_add", [](std::shared_ptr<HttpConnection> connection) {
+        auto body = beast::buffers_to_string(connection->req_.body().data());
+        connection->resp_.set(http::field::content_type, "application/json");
+        Json::Value jsonData, jsonResp;
+        Json::Reader reader;
+        if (!reader.parse(body, jsonData)) {
+            jsonResp["error"] = static_cast<int>(ErrorCodes::JSON_PARSE_ERROR);
+            beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
+            return;
+        }
+        AddTodoRsp rsp = TaskGrpcClient::getInstance().addTodo(
+            jsonData["uid"].asInt(),
+            jsonData["content"].asString(),
+            jsonData.get("priority", 3).asInt(),
+            jsonData.get("deadline", "").asString()
+        );
+        jsonResp["error"] = rsp.error();
+        jsonResp["id"] = rsp.id();
+        beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
+    });
+
+    registerPost("/todo_list", [](std::shared_ptr<HttpConnection> connection) {
+        auto body = beast::buffers_to_string(connection->req_.body().data());
+        connection->resp_.set(http::field::content_type, "application/json");
+        Json::Value jsonData, jsonResp;
+        Json::Reader reader;
+        if (!reader.parse(body, jsonData)) {
+            jsonResp["error"] = static_cast<int>(ErrorCodes::JSON_PARSE_ERROR);
+            beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
+            return;
+        }
+        ListTodoRsp rsp = TaskGrpcClient::getInstance().listTodo(
+            jsonData["uid"].asInt(),
+            jsonData.get("is_finished", 0).asInt()
+        );
+        jsonResp["error"] = rsp.error();
+        Json::Value todos(Json::arrayValue);
+        for (int i = 0; i < rsp.todos_size(); ++i) {
+            auto& td = rsp.todos(i);
+            Json::Value todo;
+            todo["id"] = td.id();
+            todo["uid"] = td.uid();
+            todo["content"] = td.content();
+            todo["priority"] = td.priority();
+            todo["deadline"] = td.deadline();
+            todo["is_finished"] = td.is_finished();
+            todos.append(todo);
+        }
+        jsonResp["todos"] = todos;
+        beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
+    });
+
+    registerPost("/todo_delete", [](std::shared_ptr<HttpConnection> connection) {
+        auto body = beast::buffers_to_string(connection->req_.body().data());
+        connection->resp_.set(http::field::content_type, "application/json");
+        Json::Value jsonData, jsonResp;
+        Json::Reader reader;
+        if (!reader.parse(body, jsonData)) {
+            jsonResp["error"] = static_cast<int>(ErrorCodes::JSON_PARSE_ERROR);
+            beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
+            return;
+        }
+        DeleteTodoRsp rsp = TaskGrpcClient::getInstance().deleteTodo(
+            jsonData["id"].asInt(),
+            jsonData["uid"].asInt()
+        );
+        jsonResp["error"] = rsp.error();
+        beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
+    });
+
+    registerPost("/checkin", [](std::shared_ptr<HttpConnection> connection) {
+        auto body = beast::buffers_to_string(connection->req_.body().data());
+        connection->resp_.set(http::field::content_type, "application/json");
+        Json::Value jsonData, jsonResp;
+        Json::Reader reader;
+        if (!reader.parse(body, jsonData)) {
+            jsonResp["error"] = static_cast<int>(ErrorCodes::JSON_PARSE_ERROR);
+            beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
+            return;
+        }
+        CheckinRsp rsp = TaskGrpcClient::getInstance().checkin(
+            jsonData["uid"].asInt()
+        );
+        jsonResp["error"] = rsp.error();
+        beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
+    });
+
+    registerPost("/checkin_list", [](std::shared_ptr<HttpConnection> connection) {
+        auto body = beast::buffers_to_string(connection->req_.body().data());
+        connection->resp_.set(http::field::content_type, "application/json");
+        Json::Value jsonData, jsonResp;
+        Json::Reader reader;
+        if (!reader.parse(body, jsonData)) {
+            jsonResp["error"] = static_cast<int>(ErrorCodes::JSON_PARSE_ERROR);
+            beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
+            return;
+        }
+        GetCheckinsRsp rsp = TaskGrpcClient::getInstance().getCheckins(
+            jsonData.get("uid", 0).asInt(),
+            jsonData.get("date_from", "").asString(),
+            jsonData.get("date_to", "").asString()
+        );
+        jsonResp["error"] = rsp.error();
+        Json::Value records(Json::arrayValue);
+        for (int i = 0; i < rsp.records_size(); ++i) {
+            auto& r = rsp.records(i);
+            Json::Value rec;
+            rec["uid"] = r.uid();
+            rec["checkin_date"] = r.checkin_date();
+            rec["created_at"] = r.created_at();
+            records.append(rec);
+        }
+        jsonResp["records"] = records;
+        beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
+    });
+
+    registerPost("/todo_update", [](std::shared_ptr<HttpConnection> connection) {
+        auto body = beast::buffers_to_string(connection->req_.body().data());
+        connection->resp_.set(http::field::content_type, "application/json");
+        Json::Value jsonData, jsonResp;
+        Json::Reader reader;
+        if (!reader.parse(body, jsonData)) {
+            jsonResp["error"] = static_cast<int>(ErrorCodes::JSON_PARSE_ERROR);
+            beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
+            return;
+        }
+        UpdateTodoRsp rsp = TaskGrpcClient::getInstance().updateTodo(
+            jsonData["id"].asInt(),
+            jsonData["uid"].asInt(),
+            jsonData.get("content", "").asString(),
+            jsonData.get("priority", 3).asInt(),
+            jsonData.get("deadline", "").asString(),
+            jsonData.get("is_finished", 2).asInt()
+        );
+        jsonResp["error"] = rsp.error();
         beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
     });
 }

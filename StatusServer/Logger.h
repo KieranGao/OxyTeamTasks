@@ -54,7 +54,7 @@ public:
     void warn(const std::string& fmt, Args&&... args)  { log(LogLevel::WARN,  format_string(fmt, std::forward<Args>(args)...)); }
     template<typename... Args>
     void error(const std::string& fmt, Args&&... args) { log(LogLevel::ERROR, format_string(fmt, std::forward<Args>(args)...)); }
-
+    int getFlushInterval();
     void log(LogLevel level, const std::string& msg);
     void setRemoteFlushCallback(RemoteFlushCallback cb);
     std::string getServiceName() const { return service_name_; }
@@ -83,7 +83,6 @@ private:
     std::atomic<bool> running_{false};
     int flush_interval_;
     int max_buffer_;
-    bool skip_remote_;
 };
 
 #define LOG_DEBUG(fmt, ...) Logger::getInstance().debug(fmt, ##__VA_ARGS__)

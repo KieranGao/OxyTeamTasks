@@ -7,7 +7,6 @@
 #include "Logger.h"
 #include <hiredis/hiredis.h>
 #include "RedisManager.h"
-#include "IOContextPool.h"
 #include <memory>
 #include <string>
 #include <thread>
@@ -26,6 +25,40 @@ void RunServer() {
     std::string server_address = host + ":" + port;
 
     Logger::getInstance();
+    Logger::getInstance().setRemoteFlushCallback([](const std::vector<LogEntry>& batch) {
+        LOG_DEBUG("[StatusServer] log remote flush callback called!");
+        for(auto &entry : batch) {
+            if (entry.level == LogLevel::DEBUG) continue;  // DEBUG 只写本地文件，不推远程
+            std::string redis_key = "logs:StatusServer";
+            std::string service = "StatusServer";
+            std::string lvl = "INFO";
+            switch(entry.level) {
+                case LogLevel::INFO:{
+                    lvl = "INFO";
+                    break;
+                }
+                case LogLevel::ERROR: {
+                    lvl = "ERROR";
+                    break;
+                }
+                case LogLevel::WARN: {
+                    lvl = "WARN";
+                    break;
+                }
+                default:{
+                    LOG_ERROR("Invalid log level!");
+                    break;
+                }
+            }
+            std::string json = "{\"service\":\"" + service + "\",\"level\":\"" + lvl 
+                + "\",\"message\":\"" + jsonEscape(entry.message) + "\",\"timestamp\":" + std::to_string(entry.timestamp) + "}";
+
+            auto& redis = RedisManager::getInstance();
+            redis.lpush(redis_key, json);
+            redis.ltrim(redis_key, 0, 499);
+            redis.expire(redis_key, 604800);
+        }
+    });
     LOG_INFO("StatusServer starting on {}", server_address);
 
     StatusServiceImpl service;

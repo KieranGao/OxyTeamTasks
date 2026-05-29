@@ -4,7 +4,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-Logger::Logger() : min_level_(LogLevel::DEBUG), flush_interval_(5), max_buffer_(100), skip_remote_(false) {
+Logger::Logger() : min_level_(LogLevel::DEBUG), flush_interval_(5), max_buffer_(100) {
     auto& cfg = ConfigManager::getInstance();
     std::string level_str = cfg["Log"]["level"];
     log_dir_  = cfg["Log"]["file_path"];
@@ -21,11 +21,7 @@ Logger::Logger() : min_level_(LogLevel::DEBUG), flush_interval_(5), max_buffer_(
     else if (level_str == "WARN")  min_level_ = LogLevel::WARN;
     else if (level_str == "INFO")  min_level_ = LogLevel::INFO;
     else                           min_level_ = LogLevel::DEBUG;
-
     mkdir(log_dir_.c_str(), 0755);
-
-    skip_remote_ = (service_name_ == "StatusServer");
-
     rotateIfNeeded();
     if (!file_.is_open()) {
         file_.open(log_dir_ + service_name_ + ".log", std::ios::app);
@@ -33,6 +29,10 @@ Logger::Logger() : min_level_(LogLevel::DEBUG), flush_interval_(5), max_buffer_(
 
     running_ = true;
     flush_thread_ = std::thread(&Logger::flushLoop, this);
+}
+
+int Logger::getFlushInterval() {
+    return this->flush_interval_;
 }
 
 void Logger::stop() {
@@ -47,6 +47,7 @@ Logger::~Logger() {
 }
 
 void Logger::setRemoteFlushCallback(RemoteFlushCallback cb) {
+    std::cout << "LOGGER REMOTE FLUSH CALLBACK SET!" << std::endl;
     remote_flush_ = std::move(cb);
 }
 
@@ -105,8 +106,8 @@ void Logger::log(LogLevel level, const std::string& msg) {
         std::lock_guard<std::mutex> lock(mtx_);
         writeToFile(line);
     }
-
-    if (!skip_remote_ && level >= LogLevel::INFO) {
+    // 不再skip remote
+    if (level >= LogLevel::INFO) {
         auto now = std::chrono::system_clock::now();
         int64_t ts = std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count();
         std::lock_guard<std::mutex> lock(buf_mtx_);

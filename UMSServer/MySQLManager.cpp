@@ -23,6 +23,10 @@ bool MySQLManager::updateTeamInfo(int uid, int belong_captain_id) {
     return dao_->updateTeamInfo(uid, belong_captain_id);
 }
 
+bool MySQLManager::updateUserTeam(int uid, int belong_team_id) {
+    return dao_->updateUserTeam(uid, belong_team_id);
+}
+
 bool MySQLManager::listPendingUsers(std::vector<PendingUserInfo>& users) {
     return dao_->listPendingUsers(users);
 }

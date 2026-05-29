@@ -16,6 +16,7 @@ import TaskManageView from '@/views/manage/TaskManageView.vue'
 import TeamProgressView from '@/views/manage/TeamProgressView.vue'
 import UserManageView from '@/views/manage/UserManageView.vue'
 import MonitorView from '@/views/manage/MonitorView.vue'
+import AllTeamsInfoView from '@/views/manage/AllTeamsInfoView.vue'
 
 const routes = [
   {
@@ -64,13 +65,19 @@ const routes = [
         path: 'manage/team',
         name: 'TeamProgress',
         component: TeamProgressView,
-        meta: { title: '全队进度', roles: ['captain', 'coach'] },
+        meta: { title: '队伍信息', roles: ['captain', 'coach'] },
       },
       {
         path: 'manage/users',
         name: 'UserManage',
         component: UserManageView,
         meta: { title: '权限管理', roles: ['coach'] },
+      },
+      {
+        path: 'manage/allteams',
+        name: 'AllTeamsInfo',
+        component: AllTeamsInfoView,
+        meta: { title: '全队信息', roles: ['coach'] },
       },
       {
         path: 'manage/monitor',

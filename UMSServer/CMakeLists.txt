@@ -45,23 +45,23 @@ find_path(MYSQLCPPCONN_INCLUDE_DIR NAMES mysql_driver.h PATHS /usr/include /usr/
 find_library(MYSQLCPPCONN_LIBRARY NAMES mysqlcppconn PATHS /usr/lib /usr/local/lib /usr/lib/x86_64-linux-gnu)
 
 include_directories(${Boost_INCLUDE_DIRS})
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${Protobuf_INCLUDE_DIRS})
 include_directories(${HIREDIS_INCLUDE_DIR})
 include_directories(${MYSQLCPPCONN_INCLUDE_DIR})
 
 # Proto generation
 set(PROTO_FILE "${CMAKE_CURRENT_SOURCE_DIR}/message.proto")
-set(PROTO_SRC "${CMAKE_CURRENT_BINARY_DIR}/message.pb.cc")
-set(PROTO_HDR "${CMAKE_CURRENT_BINARY_DIR}/message.pb.h")
-set(GRPC_SRC "${CMAKE_CURRENT_BINARY_DIR}/message.grpc.pb.cc")
-set(GRPC_HDR "${CMAKE_CURRENT_BINARY_DIR}/message.grpc.pb.h")
+set(PROTO_SRC "${CMAKE_CURRENT_SOURCE_DIR}/message.pb.cc")
+set(PROTO_HDR "${CMAKE_CURRENT_SOURCE_DIR}/message.pb.h")
+set(GRPC_SRC "${CMAKE_CURRENT_SOURCE_DIR}/message.grpc.pb.cc")
+set(GRPC_HDR "${CMAKE_CURRENT_SOURCE_DIR}/message.grpc.pb.h")
 
 add_custom_command(
     OUTPUT ${PROTO_SRC} ${PROTO_HDR} ${GRPC_SRC} ${GRPC_HDR}
     COMMAND protobuf::protoc
-    ARGS --grpc_out "${CMAKE_CURRENT_BINARY_DIR}"
-         --cpp_out "${CMAKE_CURRENT_BINARY_DIR}"
+    ARGS --grpc_out "${CMAKE_CURRENT_SOURCE_DIR}"
+         --cpp_out "${CMAKE_CURRENT_SOURCE_DIR}"
          -I "${CMAKE_CURRENT_SOURCE_DIR}"
          --plugin=protoc-gen-grpc=${GRPC_PREFIX}/bin/grpc_cpp_plugin
          "${PROTO_FILE}"

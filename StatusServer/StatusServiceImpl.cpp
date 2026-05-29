@@ -150,23 +150,6 @@ bool StatusServiceImpl::insertToken(int uid, std::string token) {
 }
 
 
-// ---- JSON 转义 ----
-static std::string jsonEscape(const std::string& s) {
-    std::string out;
-    out.reserve(s.size());
-    for (char c : s) {
-        switch (c) {
-            case '"':  out += "\\\""; break;
-            case '\\': out += "\\\\"; break;
-            case '\n': out += "\\n";  break;
-            case '\r': out += "\\r";  break;
-            case '\t': out += "\\t";  break;
-            default:   out += c;
-        }
-    }
-    return out;
-}
-
 // ---- 日志上报 ----
 // 日志由各服务 Logger 后台线程每 5s 批量 gRPC 上报至此
 // INFO+ 级别 → LPUSH Redis List + LTRIM 500 + EXPIRE 7天

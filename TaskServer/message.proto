@@ -1,0 +1,458 @@
+syntax = "proto3";
+package message;
+
+// ==========================================
+// 用户管理服务（UMSServer）
+// ==========================================
+
+service UserService {
+  rpc Register(RegisterReq) returns (RegisterRsp);                           // 注册
+  rpc Login(LoginReq) returns (LoginRsp);                                    // 登录
+  rpc ResetPass(ResetPassReq) returns (ResetPassRsp);                        // 重置密码
+  rpc GetVerifyCode(VerifyReq) returns (VerifyRsp);                          // 获取验证码
+  rpc ListPendingUsers(ListPendingUsersReq) returns (ListPendingUsersRsp);   // 待审核用户列表
+  rpc ApproveUser(ApproveUserReq) returns (ApproveUserRsp);                  // 审批通过
+  rpc RejectUser(RejectUserReq) returns (RejectUserRsp);                     // 拒绝注册
+  rpc SetUserRole(SetUserRoleReq) returns (SetUserRoleRsp);                  // 设置角色/队伍
+  rpc ListAllUsers(ListAllUsersReq) returns (ListAllUsersRsp);               // 所有已激活用户
+  rpc UpdateTeamInfo(UpdateTeamInfoReq) returns (UpdateTeamInfoRsp);         // 更新用户队伍
+}
+
+// --- 注册 ---
+message RegisterReq {
+  string username = 1;  // 用户名
+  string email = 2;     // 邮箱
+  string password = 3;  // 密码
+  string code = 4;      // 邮箱验证码
+}
+
+message RegisterRsp {
+  int32 error = 1;  // 0成功 1用户名重复 2邮箱重复 3验证码错误
+}
+
+// --- 登录 ---
+message LoginReq {
+  string email = 1;     // 邮箱
+  string password = 2;  // 密码
+}
+
+message LoginRsp {
+  int32 error = 1;   // 0成功
+  int32 uid = 2;     // 用户ID
+  string token = 3;  // 会话Token
+  int32 status = 4;  // 账号状态: 0=待审核 1=已激活
+}
+
+// --- 重置密码 ---
+message ResetPassReq {
+  string username = 1;      // 用户名
+  string email = 2;         // 邮箱
+  string new_password = 3;  // 新密码
+  string code = 4;          // 邮箱验证码
+}
+
+message ResetPassRsp {
+  int32 error = 1;  // 0成功
+}
+
+// --- 验证码 ---
+message VerifyReq {
+  string email = 1;  // 接收验证码的邮箱
+}
+
+message VerifyRsp {
+  int32 error = 1;   // 0成功
+  string email = 2;  // 邮箱
+  string code = 3;   // 验证码（调试用）
+}
+
+// --- 待审核用户 ---
+message ListPendingUsersReq {
+  int32 coach_uid = 1;  // 教练UID
+}
+
+message PendingUser {
+  int32 uid = 1;             // 用户ID
+  string username = 2;       // 用户名
+  string email = 3;          // 邮箱
+  int32 role = 4;            // 角色: 0=队员 1=队长 2=教练
+  int32 belong_team_id = 5;  // 所属队伍ID
+}
+
+message ListPendingUsersRsp {
+  int32 error = 1;                  // 0成功
+  repeated PendingUser users = 2;   // 待审核用户列表
+}
+
+// --- 审批通过 ---
+message ApproveUserReq {
+  int32 uid = 1;             // 被审批的用户ID
+  int32 role = 2;            // 分配角色
+  int32 belong_team_id = 3;  // 分配队伍
+  int32 coach_uid = 4;       // 操作的教练UID
+}
+
+message ApproveUserRsp {
+  int32 error = 1;  // 0成功
+}
+
+// --- 拒绝注册 ---
+message RejectUserReq {
+  int32 uid = 1;        // 被拒绝的用户ID
+  int32 coach_uid = 2;  // 操作的教练UID
+}
+
+message RejectUserRsp {
+  int32 error = 1;  // 0成功
+}
+
+// --- 设置角色 ---
+message SetUserRoleReq {
+  int32 uid = 1;             // 用户ID
+  int32 role = 2;            // 角色: 0=队员 1=队长 2=教练
+  int32 belong_team_id = 3;  // 所属队伍ID
+  int32 coach_uid = 4;       // 操作的教练UID
+}
+
+message SetUserRoleRsp {
+  int32 error = 1;  // 0成功
+}
+
+// --- 所有已激活用户 ---
+message ListAllUsersReq {}
+
+message UserInfoMsg {
+  int32 uid = 1;               // 用户ID
+  string username = 2;         // 用户名
+  string email = 3;            // 邮箱
+  int32 role = 4;              // 角色: 0=队员 1=队长 2=教练
+  int32 belong_team_id = 5;    // 所属队伍ID
+  int32 belong_captain_id = 6; // 所属队伍的队长ID
+  int32 status = 7;            // 账号状态: 0=待审核 1=已激活
+}
+
+message ListAllUsersRsp {
+  int32 error = 1;                // 0成功
+  repeated UserInfoMsg users = 2; // 用户列表
+}
+
+// --- 更新用户队伍 ---
+message UpdateTeamInfoReq {
+  int32 uid = 1;             // 用户ID
+  int32 belong_team_id = 2;  // 新队伍ID
+}
+
+message UpdateTeamInfoRsp {
+  int32 error = 1;  // 0成功
+}
+
+// ==========================================
+// 邮件服务（MailerServer）
+// ==========================================
+
+service MailerService {
+  rpc SendMail(SendMailReq) returns (SendMailRsp);  // 发送邮件
+}
+
+message SendMailReq {
+  string email = 1;  // 目标邮箱
+  string code = 2;   // 验证码内容
+}
+
+message SendMailRsp {
+  int32 error = 1;  // 0成功
+}
+
+// ==========================================
+// 状态调度服务（StatusServer）
+// ==========================================
+
+service StatusService {
+  rpc AllocatePushServer(AllocateReq) returns (AllocateRsp);                      // 分配推送节点
+  rpc ReportLogin(LoginReportReq) returns (LoginReportRsp);                       // 上报登录
+  rpc ReportLog(ReportLogReq) returns (ReportLogRsp);                             // 上报日志
+  rpc QueryLogs(QueryLogsReq) returns (QueryLogsRsp);                             // 查询日志
+  rpc ServerHeartbeat(HeartbeatReq) returns (HeartbeatRsp);                       // 服务心跳
+  rpc QueryServerStatus(QueryServerStatusReq) returns (QueryServerStatusRsp);     // 查询服务状态
+  rpc ReportDisconnect(DisconnectReq) returns (DisconnectRsp);                    // 上报断线（减连接数）
+}
+
+// --- 分配推送节点 ---
+message AllocateReq {
+  int32 uid = 1;  // 用户ID
+}
+
+message AllocateRsp {
+  int32 error = 1;   // 0成功
+  string host = 2;   // PushServer IP
+  string port = 3;   // PushServer 端口
+  string token = 4;  // 连接Token
+}
+
+// --- 上报登录 ---
+message LoginReportReq {
+  int32 uid = 1;     // 用户ID
+  string token = 2;  // 会话Token
+}
+
+message LoginReportRsp {
+  int32 error = 1;  // 0成功
+}
+
+// --- 日志上报 ---
+message LogEntry {
+  string service = 1;   // 服务名
+  string level = 2;     // 日志级别: INFO/WARNING/ERROR/DEBUG
+  string message = 3;   // 日志内容
+  int64 timestamp = 4;  // 时间戳
+}
+
+message ReportLogReq {
+  string service = 1;           // 服务名
+  repeated LogEntry entries = 2; // 日志条目列表
+}
+
+message ReportLogRsp {
+  int32 error = 1;  // 0成功
+}
+
+// --- 日志查询 ---
+message QueryLogsReq {
+  string service = 1;     // 服务名（空=全部）
+  string level = 2;       // 日志级别筛选（空=全部）
+  int32 limit = 3;        // 返回条数上限
+  int32 coach_uid = 4;    // 教练UID（权限校验）
+}
+
+message QueryLogsRsp {
+  int32 error = 1;              // 0成功
+  repeated LogEntry entries = 2; // 日志列表
+}
+
+// --- 服务心跳 ---
+message HeartbeatReq {
+  string service = 1;    // 服务名
+  string host = 2;       // 服务IP
+  string port = 3;       // 服务端口
+  int64 timestamp = 4;   // 时间戳
+}
+
+message HeartbeatRsp {
+  int32 error = 1;  // 0成功
+}
+
+// --- 服务状态 ---
+message ServerInfo {
+  string service = 1;        // 服务名
+  string host = 2;           // IP
+  string port = 3;           // 端口
+  string status = 4;         // 状态: online/offline
+  int64 last_heartbeat = 5;  // 最后心跳时间
+  int32 connections = 6;     // 当前连接数（仅PushServer有效）
+}
+
+message QueryServerStatusReq {
+  int32 coach_uid = 1;  // 教练UID权限校验
+}
+
+message QueryServerStatusRsp {
+  int32 error = 1;                // 0成功
+  repeated ServerInfo servers = 2; // 服务器状态列表
+}
+
+// --- 断线上报 ---
+message DisconnectReq {
+  string server_name = 1;  // 服务名
+}
+
+message DisconnectRsp {
+  int32 error = 1;  // 0成功
+}
+
+// ==========================================
+// 任务管理服务（TaskServer）
+// ==========================================
+
+service TaskService {
+  rpc CreateTask(CreateTaskReq) returns (CreateTaskRsp);    // 创建任务
+  rpc UpdateTask(UpdateTaskReq) returns (UpdateTaskRsp);    // 更新任务
+  rpc DeleteTask(DeleteTaskReq) returns (DeleteTaskRsp);    // 删除任务
+  rpc GetTask(GetTaskReq) returns (GetTaskRsp);             // 获取单个任务
+  rpc ListTasks(ListTasksReq) returns (ListTasksRsp);       // 列出任务
+  rpc AddTodo(AddTodoReq) returns (AddTodoRsp);             // 添加TODO
+  rpc ListTodo(ListTodoReq) returns (ListTodoRsp);          // 列出TODO
+  rpc UpdateTodo(UpdateTodoReq) returns (UpdateTodoRsp);    // 更新TODO
+  rpc DeleteTodo(DeleteTodoReq) returns (DeleteTodoRsp);    // 删除TODO
+  rpc Checkin(CheckinReq) returns (CheckinRsp);           // 每日打卡
+  rpc GetCheckins(GetCheckinsReq) returns (GetCheckinsRsp); // 查询打卡记录
+}
+
+// --- 指派人独立状态 ---
+message AssigneeStatus {
+  int32 assignee_uid = 1;  // 指派人UID
+  int32 status = 2;        // 该指派人独立的任务状态: 0=待处理 1=进行中 2=已完成
+}
+
+// --- 任务详情 ---
+message TaskInfo {
+  int32 id = 1;                               // 任务ID
+  int32 uid = 2;                              // 创建者UID
+  string title = 3;                           // 标题
+  string description = 4;                     // 描述
+  int32 status = 5;                           // 全局状态: 0=待处理 1=进行中 2=已完成
+  int32 priority = 6;                         // 优先级: 1=高 2=中 3=低
+  string deadline = 7;                        // 截止日期
+  string assigned_to = 8;                     // 指派人UID列表（逗号分隔）
+  string created_at = 9;                      // 创建时间
+  string updated_at = 10;                     // 更新时间
+  int32 my_status = 11;                       // 当前请求用户对该任务的独立状态
+  repeated AssigneeStatus assignee_statuses = 12; // 所有指派人的独立状态
+}
+
+// --- 创建任务 ---
+message CreateTaskReq {
+  int32 uid = 1;           // 创建者UID
+  string title = 2;        // 标题
+  string description = 3;  // 描述
+  int32 priority = 4;      // 优先级
+  string deadline = 5;     // 截止日期
+  string assigned_to = 6;  // 指派人UID列表（逗号分隔）
+}
+
+message CreateTaskRsp {
+  int32 error = 1;  // 0成功
+  int32 id = 2;     // 新任务ID
+}
+
+// --- 更新任务 ---
+message UpdateTaskReq {
+  int32 id = 1;             // 任务ID
+  int32 uid = 2;            // 操作用户UID（0=修改全局字段，>0=修改个人状态）
+  string title = 3;         // 标题
+  string description = 4;   // 描述
+  int32 status = 5;         // 状态
+  int32 priority = 6;       // 优先级
+  string deadline = 7;      // 截止日期
+  string assigned_to = 8;   // 指派人列表
+}
+
+message UpdateTaskRsp {
+  int32 error = 1;  // 0成功
+}
+
+// --- 删除任务 ---
+message DeleteTaskReq {
+  int32 id = 1;   // 任务ID
+  int32 uid = 2;  // 操作用户UID
+}
+
+message DeleteTaskRsp {
+  int32 error = 1;  // 0成功
+}
+
+// --- 获取单个任务 ---
+message GetTaskReq {
+  int32 id = 1;  // 任务ID
+}
+
+message GetTaskRsp {
+  int32 error = 1;     // 0成功
+  TaskInfo task = 2;   // 任务详情
+}
+
+// --- 列出任务 ---
+message ListTasksReq {
+  int32 uid = 1;          // 查询用户UID（0=全部）
+  int32 status = 2;       // 状态筛选: -1=全部 0=待处理 1=进行中 2=已完成
+  string assigned_to = 3; // 指派人筛选（"0"=全部）
+}
+
+message ListTasksRsp {
+  int32 error = 1;             // 0成功
+  repeated TaskInfo tasks = 2; // 任务列表
+}
+
+// --- TODO条目 ---
+message TodoInfo {
+  int32 id = 1;          // TODO ID
+  int32 uid = 2;         // 创建者UID
+  string content = 3;    // 内容
+  int32 priority = 4;    // 优先级: 1=高 2=中 3=低
+  string deadline = 5;   // 截止日期
+  int32 is_finished = 6; // 是否完成: 0=未完成 1=已完成
+}
+
+// --- 添加TODO ---
+message AddTodoReq {
+  int32 uid = 1;        // 创建者UID
+  string content = 2;   // 内容
+  int32 priority = 3;   // 优先级
+  string deadline = 4;  // 截止日期
+}
+
+message AddTodoRsp {
+  int32 error = 1;  // 0成功
+  int32 id = 2;     // 新TODO ID
+}
+
+// --- 列出TODO ---
+message ListTodoReq {
+  int32 uid = 1;         // 用户UID
+  int32 is_finished = 2; // 完成状态筛选: 0=未完成 1=已完成
+}
+
+message ListTodoRsp {
+  int32 error = 1;            // 0成功
+  repeated TodoInfo todos = 2; // TODO列表
+}
+
+// --- 更新TODO ---
+message UpdateTodoReq {
+  int32 id = 1;           // TODO ID
+  int32 uid = 2;          // 用户UID
+  string content = 3;     // 内容
+  int32 priority = 4;     // 优先级
+  string deadline = 5;    // 截止日期
+  int32 is_finished = 6;  // 是否完成
+}
+
+message UpdateTodoRsp {
+  int32 error = 1;  // 0成功
+}
+
+// --- 删除TODO ---
+message DeleteTodoReq {
+  int32 id = 1;   // TODO ID
+  int32 uid = 2;  // 用户UID
+}
+
+message DeleteTodoRsp {
+  int32 error = 1;  // 0成功
+}
+
+// --- 打卡 ---
+message CheckinReq {
+  int32 uid = 1;  // 打卡用户UID
+}
+
+message CheckinRsp {
+  int32 error = 1;  // 0成功 3001今日已打卡
+}
+
+// --- 打卡记录 ---
+message CheckinRecord {
+  int32 uid = 1;           // 用户UID
+  string checkin_date = 2; // 打卡日期 YYYY-MM-DD
+  string created_at = 3;   // 创建时间
+}
+
+message GetCheckinsReq {
+  int32 uid = 1;        // 查询用户UID (0=全部)
+  string date_from = 2; // 起始日期 YYYY-MM-DD (含)
+  string date_to = 3;   // 结束日期 YYYY-MM-DD (含)
+}
+
+message GetCheckinsRsp {
+  int32 error = 1;                       // 0成功
+  repeated CheckinRecord records = 2;    // 打卡记录列表
+}

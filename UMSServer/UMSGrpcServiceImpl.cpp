@@ -195,6 +195,15 @@ Status UMSGrpcServiceImpl::ListAllUsers(ServerContext* context, const ListAllUse
         pu->set_email(u.email);
         pu->set_role(u.role);
         pu->set_belong_team_id(u.belong_team_id);
+        pu->set_status(u.status);
     }
+    return Status::OK;
+}
+
+Status UMSGrpcServiceImpl::UpdateTeamInfo(ServerContext* context, const UpdateTeamInfoReq* req, UpdateTeamInfoRsp* resp)
+{
+    LOG_INFO("[UMS] UpdateTeamInfo uid={} team={}", req->uid(), req->belong_team_id());
+    bool ok = MySQLManager::getInstance().updateUserTeam(req->uid(), req->belong_team_id());
+    resp->set_error(ok ? static_cast<int>(ErrorCodes::SUCCESS) : static_cast<int>(ErrorCodes::USER_ID_INVALID));
     return Status::OK;
 }

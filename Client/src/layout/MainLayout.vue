@@ -46,13 +46,17 @@
           </el-menu-item>
           <el-menu-item index="/manage/team">
             <el-icon><DataLine /></el-icon>
-            <span>全队进度</span>
+            <span>队伍信息</span>
           </el-menu-item>
         </template>
 
         <template v-if="userStore.isCoach">
           <el-divider style="margin: 8px 0; border-color: rgba(255,255,255,0.08)" />
           <div v-if="!appStore.sidebarCollapsed" class="menu-group-title">教练</div>
+          <el-menu-item index="/manage/allteams">
+            <el-icon><DataBoard /></el-icon>
+            <span>全队信息</span>
+          </el-menu-item>
           <el-menu-item index="/manage/users">
             <el-icon><User /></el-icon>
             <span>权限管理</span>
@@ -134,7 +138,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { useAppStore } from '@/stores/app'
 import {
-  HomeFilled, Grid, List, Check, Bell, EditPen, DataLine,
+  HomeFilled, Grid, List, Check, Bell, EditPen, DataLine, DataBoard,
   User, Monitor, Expand, Fold, Moon, Sunny, ArrowDown, SwitchButton,
 } from '@element-plus/icons-vue'
 

@@ -1,256 +1,153 @@
 syntax = "proto3";
 package message;
 
-// ------------------------------------------
-// 用户信息管理（User Management Service Server）
-// ------------------------------------------
+// ==========================================
+// 用户管理服务（UMSServer）
+// ==========================================
+
 service UserService {
-  rpc Register(RegisterReq) returns (RegisterRsp);        // 注册
-  rpc Login(LoginReq) returns (LoginRsp);                 // 登录
-  rpc ResetPass(ResetPassReq) returns (ResetPassRsp);     // 重置密码
-  rpc GetVerifyCode(VerifyReq) returns (VerifyRsp);       // 获取验证码
-  rpc ListPendingUsers(ListPendingUsersReq) returns (ListPendingUsersRsp); // 待审核用户列表
-  rpc ApproveUser(ApproveUserReq) returns (ApproveUserRsp);                // 审批通过
-  rpc RejectUser(RejectUserReq) returns (RejectUserRsp);                   // 拒绝注册
-  rpc SetUserRole(SetUserRoleReq) returns (SetUserRoleRsp);                // 设置角色/队伍
-  rpc ListAllUsers(ListAllUsersReq) returns (ListAllUsersRsp);                // 所有已激活用户
+  rpc Register(RegisterReq) returns (RegisterRsp);                           // 注册
+  rpc Login(LoginReq) returns (LoginRsp);                                    // 登录
+  rpc ResetPass(ResetPassReq) returns (ResetPassRsp);                        // 重置密码
+  rpc GetVerifyCode(VerifyReq) returns (VerifyRsp);                          // 获取验证码
+  rpc ListPendingUsers(ListPendingUsersReq) returns (ListPendingUsersRsp);   // 待审核用户列表
+  rpc ApproveUser(ApproveUserReq) returns (ApproveUserRsp);                  // 审批通过
+  rpc RejectUser(RejectUserReq) returns (RejectUserRsp);                     // 拒绝注册
+  rpc SetUserRole(SetUserRoleReq) returns (SetUserRoleRsp);                  // 设置角色/队伍
+  rpc ListAllUsers(ListAllUsersReq) returns (ListAllUsersRsp);               // 所有已激活用户
 }
 
-// 注册
+// --- 注册 ---
 message RegisterReq {
-  string username = 1;
-  string email = 2;
-  string password = 3;
-  string code = 4;
+  string username = 1;  // 用户名
+  string email = 2;     // 邮箱
+  string password = 3;  // 密码
+  string code = 4;      // 邮箱验证码
 }
 
 message RegisterRsp {
-  int32 error = 1;  // 0成功 1用户名重复 2邮箱重复
+  int32 error = 1;  // 0成功 1用户名重复 2邮箱重复 3验证码错误
 }
 
-// 登录
+// --- 登录 ---
 message LoginReq {
-  string email = 1;
-  string password = 2;
+  string email = 1;     // 邮箱
+  string password = 2;  // 密码
 }
 
 message LoginRsp {
-  int32 error = 1;
-  int32 uid = 2;
-  string token = 3;
-  int32 status = 4;  // 0=pending, 1=active
+  int32 error = 1;   // 0成功
+  int32 uid = 2;     // 用户ID
+  string token = 3;  // 会话Token
+  int32 status = 4;  // 账号状态: 0=待审核 1=已激活
 }
 
-// 重置密码
+// --- 重置密码 ---
 message ResetPassReq {
-  string username = 1;
-  string email = 2;
-  string new_password = 3;
-  string code = 4;
+  string username = 1;      // 用户名
+  string email = 2;         // 邮箱
+  string new_password = 3;  // 新密码
+  string code = 4;          // 邮箱验证码
 }
 
 message ResetPassRsp {
-  int32 error = 1;
+  int32 error = 1;  // 0成功
 }
 
-// 验证码
+// --- 验证码 ---
 message VerifyReq {
-  string email = 1;
+  string email = 1;  // 接收验证码的邮箱
 }
 
 message VerifyRsp {
-  int32 error = 1;
-  string email = 2;
-  string code = 3;
+  int32 error = 1;   // 0成功
+  string email = 2;  // 邮箱
+  string code = 3;   // 验证码（调试用）
 }
 
-// 待审核用户
+// --- 待审核用户 ---
 message ListPendingUsersReq {
-  int32 coach_uid = 1;
+  int32 coach_uid = 1;  // 教练UID
 }
 
 message PendingUser {
-  int32 uid = 1;
-  string username = 2;
-  string email = 3;
-  int32 role = 4;
-  int32 belong_team_id = 5;
+  int32 uid = 1;             // 用户ID
+  string username = 2;       // 用户名
+  string email = 3;          // 邮箱
+  int32 role = 4;            // 角色: 0=队员 1=队长 2=教练
+  int32 belong_team_id = 5;  // 所属队伍ID
 }
 
 message ListPendingUsersRsp {
-  int32 error = 1;
-  repeated PendingUser users = 2;
+  int32 error = 1;                  // 0成功
+  repeated PendingUser users = 2;   // 待审核用户列表
 }
 
-// 审批通过
+// --- 审批通过 ---
 message ApproveUserReq {
-  int32 uid = 1;
-  int32 role = 2;
-  int32 belong_team_id = 3;
-  int32 coach_uid = 4;
+  int32 uid = 1;             // 被审批的用户ID
+  int32 role = 2;            // 分配角色
+  int32 belong_team_id = 3;  // 分配队伍
+  int32 coach_uid = 4;       // 操作的教练UID
 }
 
 message ApproveUserRsp {
-  int32 error = 1;
+  int32 error = 1;  // 0成功
 }
 
-// 拒绝注册
+// --- 拒绝注册 ---
 message RejectUserReq {
-  int32 uid = 1;
-  int32 coach_uid = 2;
+  int32 uid = 1;        // 被拒绝的用户ID
+  int32 coach_uid = 2;  // 操作的教练UID
 }
 
 message RejectUserRsp {
-  int32 error = 1;
+  int32 error = 1;  // 0成功
 }
 
-// 设置角色
+// --- 设置角色 ---
 message SetUserRoleReq {
-  int32 uid = 1;
-  int32 role = 2;
-  int32 belong_team_id = 3;
-  int32 coach_uid = 4;
+  int32 uid = 1;             // 用户ID
+  int32 role = 2;            // 角色: 0=队员 1=队长 2=教练
+  int32 belong_team_id = 3;  // 所属队伍ID
+  int32 coach_uid = 4;       // 操作的教练UID
 }
 
 message SetUserRoleRsp {
-  int32 error = 1;
+  int32 error = 1;  // 0成功
 }
 
-// 所有已激活用户
+// --- 所有已激活用户 ---
 message ListAllUsersReq {}
 
 message UserInfoMsg {
-  int32 uid = 1;
-  string username = 2;
-  string email = 3;
-  int32 role = 4;
-  int32 belong_team_id = 5;
-  int32 belong_captain_id = 6;
-  int32 status = 7;
+  int32 uid = 1;               // 用户ID
+  string username = 2;         // 用户名
+  string email = 3;            // 邮箱
+  int32 role = 4;              // 角色: 0=队员 1=队长 2=教练
+  int32 belong_team_id = 5;    // 所属队伍ID
+  int32 belong_captain_id = 6; // 所属队伍的队长ID
+  int32 status = 7;            // 账号状态: 0=待审核 1=已激活
 }
 
 message ListAllUsersRsp {
-  int32 error = 1;
-  repeated UserInfoMsg users = 2;
+  int32 error = 1;                // 0成功
+  repeated UserInfoMsg users = 2; // 用户列表
 }
 
-// ------------------------------
+// ==========================================
 // 邮件服务（MailerServer）
-// ------------------------------
+// ==========================================
 
 service MailerService {
-  rpc SendMail(SendMailReq) returns (SendMailRsp);
+  rpc SendMail(SendMailReq) returns (SendMailRsp);  // 发送邮件
 }
 
 message SendMailReq {
-  string email = 1;
-  string code = 2;
+  string email = 1;  // 目标邮箱
+  string code = 2;   // 验证码内容
 }
 
 message SendMailRsp {
-  int32 error = 1;
-}
-
-// ------------------------------
-// 状态调度服务（StatusServer）
-// ------------------------------
-
-service StatusService {
-  rpc AllocatePushServer(AllocateReq) returns (AllocateRsp);             // 分配推送节点
-  rpc ReportLogin(LoginReportReq) returns (LoginReportRsp);              // 上报登录
-  rpc ReportLog(ReportLogReq) returns (ReportLogRsp);                    // 上报日志
-  rpc QueryLogs(QueryLogsReq) returns (QueryLogsRsp);                    // 查询日志
-  rpc ServerHeartbeat(HeartbeatReq) returns (HeartbeatRsp);              // 服务心跳
-  rpc QueryServerStatus(QueryServerStatusReq) returns (QueryServerStatusRsp); // 查询服务状态
-  rpc ReportDisconnect(DisconnectReq) returns (DisconnectRsp);             // 上报断线（减连接数）
-}
-
-// 断线上报
-message DisconnectReq {
-  string server_name = 1;
-}
-
-message DisconnectRsp {
-  int32 error = 1;
-}
-
-message AllocateReq {
-  int32 uid = 1;
-}
-
-message AllocateRsp {
-  int32 error = 1;
-  string host = 2;
-  string port = 3;
-  string token = 4;
-}
-
-message LoginReportReq {
-  int32 uid = 1;
-  string token = 2;
-}
-
-message LoginReportRsp {
-  int32 error = 1;
-}
-
-// 日志上报
-message LogEntry {
-  string service = 1;
-  string level = 2;
-  string message = 3;
-  int64 timestamp = 4;
-}
-
-message ReportLogReq {
-  string service = 1;
-  repeated LogEntry entries = 2;
-}
-
-message ReportLogRsp {
-  int32 error = 1;
-}
-
-// 日志查询
-message QueryLogsReq {
-  string service = 1;
-  string level = 2;
-  int32 limit = 3;
-  int32 coach_uid = 4;
-}
-
-message QueryLogsRsp {
-  int32 error = 1;
-  repeated LogEntry entries = 2;
-}
-
-// 心跳
-message HeartbeatReq {
-  string service = 1;
-  string host = 2;
-  string port = 3;
-  int64 timestamp = 4;
-}
-
-message HeartbeatRsp {
-  int32 error = 1;
-}
-
-// 服务状态
-message ServerInfo {
-  string service = 1;
-  string host = 2;
-  string port = 3;
-  string status = 4;
-  int64 last_heartbeat = 5;
-  int32 connections = 6;  // 当前连接数（仅 PushServer 有效）
-}
-
-message QueryServerStatusReq {
-  int32 coach_uid = 1;
-}
-
-message QueryServerStatusRsp {
-  int32 error = 1;
-  repeated ServerInfo servers = 2;
+  int32 error = 1;  // 0成功
 }

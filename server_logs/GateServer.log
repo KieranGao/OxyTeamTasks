@@ -22,6 +22,9 @@ Config path: "/home/oxythecrack/Desktop/OxyTasks/GateServer/build/config.ini"
 [StatusServer]
   host=127.0.0.1
   port=50052
+[TaskServer]
+  host=127.0.0.1
+  port=50054
 [UMSServer]
   host=127.0.0.1
   port=50053

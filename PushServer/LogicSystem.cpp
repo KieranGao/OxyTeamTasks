@@ -95,7 +95,6 @@ void LogicSystem::loginHandler(std::shared_ptr<Session> session, const std::stri
     rtvalue["type"] = WS_MSG_LOGIN_RSP;
     Defer defer([&rtvalue, session]() {
         session->send(rtvalue.toStyledString());
-        // Close session on auth failure — don't leave unauthenticated connections open
         if (rtvalue["error"].asInt() != 0) {
             session->close();
         }

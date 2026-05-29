@@ -171,14 +171,14 @@ bool HttpConnection::authenticateRequest_() {
         return false;
     }
 
-    // Validate token locally via Redis (same Redis that StatusServer uses)
+    // 通过redis验证token
     std::string token_key = USER_TOKEN_PREFIX + std::to_string(uid);
     std::string stored_token;
     if (!RedisManager::getInstance().get(token_key, stored_token) || stored_token != token) {
         write401(static_cast<int>(ErrorCodes::AUTH_TOKEN_INVALID));
         return false;
     }
-
+    LOG_DEBUG("[GateServer] uid = {} passed token authorization for url {}",uid, path);
     return true;
 }
 

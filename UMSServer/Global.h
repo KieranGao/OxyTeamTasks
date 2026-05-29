@@ -26,6 +26,7 @@ struct PendingUserInfo {
     std::string email;
     int role;
     int belong_team_id;
+    int status = 0;
 };
 
 enum class ErrorCodes {

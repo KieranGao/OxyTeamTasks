@@ -6,7 +6,7 @@ Config path: "/home/oxythecrack/Desktop/OxyTasks/PushServer/build/config.ini"
 [Log]
   file_path=../logs/
   flush_interval=5
-  level=DEBUG
+  level=INFO
   max_buffer_size=100
   service_name=PushServer
 [MySQL]

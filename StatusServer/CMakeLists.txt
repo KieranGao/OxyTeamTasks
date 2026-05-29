@@ -23,9 +23,8 @@ set(JSONCPP_SOURCES
     ${JSONCPP_ROOT}/src/lib_json/json_value.cpp
 )
 
-# 设置Gateserver源文件
+# 设置StatusServer源文件
 set(GATESERVER_SOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/IOContextPool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RedisConnectPool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RedisManager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ConfigManager.cpp
@@ -50,30 +49,26 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(GRPC REQUIRED grpc++)
 message(STATUS "Using gRPC ${GRPC_VERSION}")
 
-# MySQL not used by StatusServer
-
-
 # 包含目录
 include_directories(${Boost_INCLUDE_DIRS})
-    include_directories(${CMAKE_CURRENT_BINARY_DIR})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${JSONCPP_INCLUDE_DIR})
 include_directories(${Protobuf_INCLUDE_DIRS})
 include_directories(${HIREDIS_INCLUDE_DIR})
-# MySQL not needed for StatusServer
 
 # 设置proto文件路径
 set(PROTO_FILE "${CMAKE_CURRENT_SOURCE_DIR}/message.proto")
-set(PROTO_SRC "${CMAKE_CURRENT_BINARY_DIR}/message.pb.cc")
-set(PROTO_HDR "${CMAKE_CURRENT_BINARY_DIR}/message.pb.h")
-set(GRPC_SRC "${CMAKE_CURRENT_BINARY_DIR}/message.grpc.pb.cc")
-set(GRPC_HDR "${CMAKE_CURRENT_BINARY_DIR}/message.grpc.pb.h")
+set(PROTO_SRC "${CMAKE_CURRENT_SOURCE_DIR}/message.pb.cc")
+set(PROTO_HDR "${CMAKE_CURRENT_SOURCE_DIR}/message.pb.h")
+set(GRPC_SRC "${CMAKE_CURRENT_SOURCE_DIR}/message.grpc.pb.cc")
+set(GRPC_HDR "${CMAKE_CURRENT_SOURCE_DIR}/message.grpc.pb.h")
 
 # 生成protobuf和grpc文件
 add_custom_command(
     OUTPUT ${PROTO_SRC} ${PROTO_HDR} ${GRPC_SRC} ${GRPC_HDR}
     COMMAND protobuf::protoc
-    ARGS --grpc_out "${CMAKE_CURRENT_BINARY_DIR}"
-         --cpp_out "${CMAKE_CURRENT_BINARY_DIR}"
+    ARGS --grpc_out "${CMAKE_CURRENT_SOURCE_DIR}"
+         --cpp_out "${CMAKE_CURRENT_SOURCE_DIR}"
          -I "${CMAKE_CURRENT_SOURCE_DIR}"
          --plugin=protoc-gen-grpc=${GRPC_PREFIX}/bin/grpc_cpp_plugin
          "${PROTO_FILE}"
