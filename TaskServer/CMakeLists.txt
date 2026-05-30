@@ -23,6 +23,7 @@ set(TASKSERVER_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/MySQLManager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RPCConnectPool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/StatusGrpcClient.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/PushGrpcClient.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Logger.cpp
 )
 

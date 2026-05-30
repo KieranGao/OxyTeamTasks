@@ -347,6 +347,67 @@ bool MySQLDao::deleteTodo(int id, int uid) {
     }
 }
 
+// 查找任务id为taskid，用户为uid对当前任务的状态
+int MySQLDao::getAssigneeStatus(int taskId, int uid) {
+    auto connection = ConnectionGuard(*pool_, pool_->getConnection());
+    try {
+        auto& sql_conn = connection.get()->getConn();
+        std::string sql = "SELECT status FROM task_assignments WHERE task_id = ? AND assignee_uid = ?";
+        std::unique_ptr<sql::PreparedStatement> pstmt(sql_conn->prepareStatement(sql));
+        pstmt->setInt(1, taskId);
+        pstmt->setInt(2, uid);
+        std::unique_ptr<sql::ResultSet> res(pstmt->executeQuery());
+        if (res && res->next()) {
+            return res->getInt("status");
+        }
+        return -1; 
+    } catch (const sql::SQLException& exp) {
+        LOG_ERROR("SQLException in getAssigneeStatus: {}", exp.what());
+        return -1;
+    }
+}
+
+std::vector<MySQLDao::DeadlineTask> MySQLDao::getDeadlineTasksToday() {
+    auto connection = ConnectionGuard(*pool_, pool_->getConnection());
+    std::vector<DeadlineTask> tasks;
+    try {
+        auto& sql_conn = connection.get()->getConn();
+        std::string sql = "SELECT id, uid, title, assigned_to FROM task "
+                          "WHERE DATE(deadline) = CURDATE() AND status != 2 AND assigned_to != ''";
+        std::unique_ptr<sql::Statement> stmt(sql_conn->createStatement());
+        std::unique_ptr<sql::ResultSet> res(stmt->executeQuery(sql));
+        while (res && res->next()) {
+            DeadlineTask t;
+            t.id = res->getInt("id");
+            t.uid = res->getInt("uid");
+            t.title = res->getString("title");
+            t.assigned_to = res->getString("assigned_to");
+            tasks.push_back(t);
+        }
+    } catch (const sql::SQLException& exp) {
+        LOG_ERROR("SQLException in getDeadlineTasksToday: {}", exp.what());
+    }
+    return tasks;
+}
+
+std::vector<int> MySQLDao::getUncheckedInUsersToday() {
+    auto connection = ConnectionGuard(*pool_, pool_->getConnection());
+    std::vector<int> uids;
+    try {
+        auto& sql_conn = connection.get()->getConn();
+        std::string sql = "SELECT uid FROM user WHERE status = 1 "
+                          "AND uid NOT IN (SELECT uid FROM checkins WHERE checkin_date = CURDATE())";
+        std::unique_ptr<sql::Statement> stmt(sql_conn->createStatement());
+        std::unique_ptr<sql::ResultSet> res(stmt->executeQuery(sql));
+        while (res && res->next()) {
+            uids.push_back(res->getInt("uid"));
+        }
+    } catch (const sql::SQLException& exp) {
+        LOG_ERROR("SQLException in getUncheckedInUsersToday: {}", exp.what());
+    }
+    return uids;
+}
+
 int MySQLDao::checkin(int uid) {
     auto connection = ConnectionGuard(*pool_, pool_->getConnection());
     try {

@@ -36,6 +36,7 @@ set(CHATSERVER_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/MySQLManager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RPCConnectPool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/StatusGrpcClient.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/PushGrpcServiceImpl.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/LogicSystem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/MainServer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Session.cpp

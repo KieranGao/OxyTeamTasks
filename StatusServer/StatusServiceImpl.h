@@ -30,22 +30,26 @@ using message::QueryServerStatusReq;
 using message::QueryServerStatusRsp;
 using message::DisconnectReq;
 using message::DisconnectRsp;
+using message::GetPushServerForUserReq;
+using message::GetPushServerForUserRsp;
 using message::StatusService;
 
 class PushServer {
 public:
-    PushServer() : host(""), port(""), name(""), id(0) {}
-    PushServer(const PushServer& cs) : host(cs.host), port(cs.port), name(cs.name), id(cs.id) {}
+    PushServer() : host(""), port(""), grpc_port(""), name(""), id(0) {}
+    PushServer(const PushServer& cs) : host(cs.host), port(cs.port), grpc_port(cs.grpc_port), name(cs.name), id(cs.id) {}
     PushServer& operator=(const PushServer& cs) {
         if(&cs == this) return *this;
         host = cs.host;
         name = cs.name;
         port = cs.port;
+        grpc_port = cs.grpc_port;
         id = cs.id;
         return *this;
     }
     std::string host;
     std::string port;
+    std::string grpc_port;
     std::string name;
     int id;
 };
@@ -60,6 +64,7 @@ public:
     Status ServerHeartbeat(ServerContext* context, const HeartbeatReq* req, HeartbeatRsp* resp) override;
     Status QueryServerStatus(ServerContext* context, const QueryServerStatusReq* req, QueryServerStatusRsp* resp) override;
     Status ReportDisconnect(ServerContext* context, const DisconnectReq* req, DisconnectRsp* resp) override;
+    Status GetPushServerForUser(ServerContext* context, const GetPushServerForUserReq* req, GetPushServerForUserRsp* resp) override;
 private:
     bool insertToken(int uid, std::string token);
     PushServer& getPushServer();

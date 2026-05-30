@@ -178,37 +178,38 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.checkin-card { margin-bottom: 16px; text-align: center; border-top: 3px solid var(--color-success); }
-.checked-in-state { padding: 20px 0; }
-.checked-text { font-size: 18px; margin: 12px 0 4px; color: var(--color-success); font-weight: 600; }
-.checked-sub { color: var(--text-secondary); }
-.checkin-btn { padding: 14px 48px; font-size: 18px; border-radius: var(--radius-lg); animation: pulse-glow 2s infinite; }
+.checkin-card { margin-bottom: 20px; text-align: center; border-top: 4px solid var(--color-success); overflow: visible; }
+.checked-in-state { padding: 24px 0; }
+.checked-text { font-size: 20px; margin: 12px 0 4px; color: var(--color-success); font-weight: 700; }
+.checked-sub { color: var(--text-secondary); font-size: 13px; }
+.checkin-btn { padding: 16px 56px; font-size: 18px; border-radius: var(--radius-lg); font-weight: 600; letter-spacing: 1px; animation: pulse-glow 2s infinite; }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
-  50% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.35); }
+  50% { box-shadow: 0 0 0 12px rgba(34, 197, 94, 0); }
 }
 
 .cal-header { display: flex; justify-content: space-between; align-items: center; }
 .cal-nav { display: flex; align-items: center; }
-.cal-month-label { font-weight: 600; margin: 0 12px; min-width: 100px; text-align: center; }
+.cal-month-label { font-weight: 700; margin: 0 16px; min-width: 110px; text-align: center; font-size: 15px; }
 
-.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
-.cal-weekday { text-align: center; font-weight: 600; font-size: 13px; padding: 8px 0; color: var(--text-secondary); }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.cal-weekday { text-align: center; font-weight: 600; font-size: 12px; padding: 10px 0; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
 .cal-cell {
-  text-align: center; padding: 8px 4px; border-radius: var(--radius-sm);
-  min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 10px 4px; border-radius: var(--radius-sm);
+  min-height: 56px; display: flex; flex-direction: column; align-items: center; justify-content: center;
   background: var(--bg-secondary);
+  border: 1px solid transparent;
   transition: all var(--transition-fast);
 }
-.cal-cell:hover { transform: scale(1.05); }
-.cal-day-num { font-size: 14px; margin-bottom: 2px; }
-.cal-cell.cal-other-month .cal-day-num { color: var(--text-secondary); opacity: 0.3; }
-.cal-cell.cal-today { border: 2px solid var(--color-primary); box-shadow: 0 0 0 2px var(--color-primary-bg); }
-.cal-cell.cal-checked { background: var(--color-success-bg); }
+.cal-cell:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+.cal-day-num { font-size: 14px; margin-bottom: 3px; font-weight: 500; }
+.cal-cell.cal-other-month .cal-day-num { color: var(--text-secondary); opacity: 0.25; }
+.cal-cell.cal-today { border: 2px solid var(--color-primary); box-shadow: 0 0 0 3px var(--color-primary-bg); }
+.cal-cell.cal-checked { background: var(--color-success-bg); border-color: rgba(34, 197, 94, 0.2); }
 
-.cal-legend { margin-top: 12px; display: flex; gap: 16px; align-items: center; justify-content: center; font-size: 13px; color: var(--text-secondary); }
+.cal-legend { margin-top: 16px; display: flex; gap: 20px; align-items: center; justify-content: center; font-size: 13px; color: var(--text-secondary); }
 .legend-dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 4px; }
-.legend-dot.checked { background: var(--color-success); }
+.legend-dot.checked { background: var(--color-success); box-shadow: 0 2px 6px rgba(34, 197, 94, 0.3); }
 .legend-dot.unchecked { background: var(--bg-secondary); border: 1px solid var(--border-light); }
 </style>

@@ -1,9 +1,8 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
-
-// Read server config for proxy target
 import fs from 'fs'
+
 const configPath = resolve(__dirname, 'config.json')
 const serverConfig = JSON.parse(fs.readFileSync(configPath, 'utf-8'))
 const gateHost = serverConfig.GateServer?.host || '127.0.0.1'
@@ -27,5 +26,8 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
+  },
+  build: {
+    outDir: 'dist',
   },
 })

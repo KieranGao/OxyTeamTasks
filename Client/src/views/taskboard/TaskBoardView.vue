@@ -130,13 +130,14 @@ onMounted(async () => { await loadUsers(); await loadTasks() })
 .header-row { display: flex; justify-content: space-between; align-items: flex-start; }
 .kanban-row { min-height: 400px; }
 .kanban-col {
-  border-radius: var(--radius-md);
-  padding: 14px;
+  border-radius: var(--radius-lg);
+  padding: 16px;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border-light);
   position: relative;
   overflow: hidden;
+  background: var(--bg-secondary);
 }
 .kanban-col::before {
   content: '';
@@ -144,31 +145,31 @@ onMounted(async () => { await loadUsers(); await loadTasks() })
   top: 0;
   left: 0;
   right: 0;
-  height: 3px;
-  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  height: 4px;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 .kanban-col:nth-child(1)::before { background: var(--color-info); }
 .kanban-col:nth-child(2)::before { background: var(--gradient-warning); }
 .kanban-col:nth-child(3)::before { background: var(--gradient-success); }
 
-.col-header { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; font-weight: 600; font-size: 15px; }
+.col-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; font-weight: 700; font-size: 15px; }
 .col-body { flex: 1; display: flex; flex-direction: column; gap: 10px; }
-.col-empty { text-align: center; color: var(--text-secondary); padding: 32px 0; font-size: 13px; }
+.col-empty { text-align: center; color: var(--text-secondary); padding: 40px 0; font-size: 13px; }
 
 .task-card {
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-  border-left: 3px solid transparent;
+  transition: all var(--transition-fast);
+  border-left: 3px solid var(--color-primary);
 }
 .task-card:hover {
   border-color: var(--color-primary);
-  transform: translateX(2px);
+  transform: translateX(3px);
   box-shadow: var(--shadow-md);
 }
 
 .task-title { font-weight: 600; margin-bottom: 8px; font-size: 14px; }
 .task-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
-.task-desc { font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; line-height: 1.4; }
+.task-desc { font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; line-height: 1.5; }
 .task-deadline { font-size: 12px; color: var(--text-secondary); }
 .task-creator { font-size: 12px; color: var(--text-secondary); margin-bottom: 4px; }
-.task-actions { display: flex; gap: 6px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border-light); }
+.task-actions { display: flex; gap: 6px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border-light); }
 </style>

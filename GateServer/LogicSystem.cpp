@@ -5,6 +5,7 @@
 #include "StatusGrpcClient.h"
 #include "TaskGrpcClient.h"
 #include "MySQLManager.h"
+#include "RedisManager.h"
 #include "Logger.h"
 
 void LogicSystem::registerGet(std::string url, HttpHandler handler) {
@@ -24,8 +25,6 @@ LogicSystem::LogicSystem() {
             beast::ostream(connection->resp_.body()) << "param " << cnt << ": " << key << " = " << value << "\r\n";
         }
     });
-
-    // ---- UserService endpoints (via gRPC to UMSServer) ----
 
     registerPost("/get_verify_code", [](std::shared_ptr<HttpConnection> connection) {
         auto body = beast::buffers_to_string(connection->req_.body().data());
@@ -66,6 +65,23 @@ LogicSystem::LogicSystem() {
         if(rsp.error() == 0) {
             jsonResp["user"] = jsonData["user"].asString();
             jsonResp["email"] = jsonData["email"].asString();
+
+            // 通知教练审核新注册用户
+            AsyncTaskPool::getInstance().post([username = jsonData["user"].asString(), email = jsonData["email"].asString()]() {
+                try {
+                    auto coachUids = MySQLManager::getInstance().getUsersByRole(2);
+                    std::string title = "新用户注册待审核: " + username;
+                    std::string content = "{\"username\":\"" + username + "\",\"email\":\"" + email + "\"}";
+                    for (int coachUid : coachUids) {
+                        MySQLManager::getInstance().insertMessage(coachUid, "user_register", title, content);
+                        // 未读消息+1
+                        RedisManager::getInstance().incr("unread:" + std::to_string(coachUid));
+                    }
+                    LOG_INFO("[Gate] Registration notification sent to {} coaches for user {}", coachUids.size(), username);
+                } catch (...) {
+                    LOG_ERROR("[Gate] Failed to send registration notification to coaches");
+                }
+            });
         }
         beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
     });
@@ -593,6 +609,94 @@ LogicSystem::LogicSystem() {
             records.append(rec);
         }
         jsonResp["records"] = records;
+        beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
+    });
+
+    registerPost("/msg_list", [](std::shared_ptr<HttpConnection> connection) {
+        auto body = beast::buffers_to_string(connection->req_.body().data());
+        connection->resp_.set(http::field::content_type, "application/json");
+        Json::Value jsonData, jsonResp;
+        Json::Reader reader;
+        if (!reader.parse(body, jsonData)) {
+            jsonResp["error"] = static_cast<int>(ErrorCodes::JSON_PARSE_ERROR);
+            beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
+            return;
+        }
+        int uid = jsonData["uid"].asInt();
+        int page = jsonData.get("page", 1).asInt();
+        int pageSize = jsonData.get("page_size", 20).asInt();
+
+        std::vector<MySQLDao::MessageRow> messages;
+        int total = 0;
+        MySQLManager::getInstance().listMessages(uid, page, pageSize, messages, total);
+
+        // 获取未读消息
+        std::string unread_str;
+        int unread_count = 0;
+        if (RedisManager::getInstance().get("unread:" + std::to_string(uid), unread_str)) {
+            try { unread_count = std::stoi(unread_str); } catch (...) {}
+        }
+
+        jsonResp["error"] = 0;
+        jsonResp["unread_count"] = unread_count;
+        jsonResp["total"] = total;
+        Json::Value arr(Json::arrayValue);
+        for (auto& m : messages) {
+            Json::Value item;
+            item["id"] = static_cast<Json::Int64>(m.id);
+            item["type"] = m.type;
+            item["title"] = m.title;
+            item["content"] = m.content;
+            item["is_read"] = m.is_read;
+            item["created_at"] = m.created_at;
+            arr.append(item);
+        }
+        jsonResp["messages"] = arr;
+        beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
+    });
+
+    registerPost("/msg_read", [](std::shared_ptr<HttpConnection> connection) {
+        auto body = beast::buffers_to_string(connection->req_.body().data());
+        connection->resp_.set(http::field::content_type, "application/json");
+        Json::Value jsonData, jsonResp;
+        Json::Reader reader;
+        if (!reader.parse(body, jsonData)) {
+            jsonResp["error"] = static_cast<int>(ErrorCodes::JSON_PARSE_ERROR);
+            beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
+            return;
+        }
+        int uid = jsonData["uid"].asInt();
+        std::vector<int64_t> ids;
+        if (jsonData.isMember("ids")) {
+            for (auto& v : jsonData["ids"]) ids.push_back(v.asInt64());
+        }
+        MySQLManager::getInstance().markMessagesRead(uid, ids);
+        // 将已选消息置为已读，空则为全部已读
+        if (ids.empty()) {
+            RedisManager::getInstance().setex("unread:" + std::to_string(uid), "0", 604800);
+        } else {
+            for (size_t i = 0; i < ids.size(); ++i)
+                RedisManager::getInstance().decr("unread:" + std::to_string(uid));
+        }
+        jsonResp["error"] = 0;
+        beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
+    });
+
+    registerPost("/msg_delete", [](std::shared_ptr<HttpConnection> connection) {
+        auto body = beast::buffers_to_string(connection->req_.body().data());
+        connection->resp_.set(http::field::content_type, "application/json");
+        Json::Value jsonData, jsonResp;
+        Json::Reader reader;
+        if (!reader.parse(body, jsonData)) {
+            jsonResp["error"] = static_cast<int>(ErrorCodes::JSON_PARSE_ERROR);
+            beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
+            return;
+        }
+        int uid = jsonData["uid"].asInt();
+        std::vector<int64_t> ids;
+        for (auto& v : jsonData["ids"]) ids.push_back(v.asInt64());
+        MySQLManager::getInstance().deleteMessages(uid, ids);
+        jsonResp["error"] = 0;
         beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
     });
 

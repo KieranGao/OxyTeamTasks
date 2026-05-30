@@ -43,6 +43,7 @@ StatusServiceImpl::StatusServiceImpl()
         PushServer server;
         server.host = g_config[name]["host"];
         server.port = g_config[name]["port"];
+        server.grpc_port = g_config[name]["gRPC_port"];
         server.name = g_config[name]["name"];
         server.id = idx;
         // 以 host:port 作为唯一标识
@@ -90,11 +91,27 @@ Status StatusServiceImpl::AllocatePushServer(ServerContext* context, const Alloc
     resp->set_error(static_cast<int>(ErrorCodes::SUCCESS));
     resp->set_host(server.host);
     resp->set_port(server.port);
+    // Check if old token exists before overwriting — if so, mark for kicking old session
+    std::string old_token;
+    std::string token_key = USER_TOKEN_PREFIX + std::to_string(req->uid());
+    bool has_old = RedisManager::getInstance().get(token_key, old_token);
+
     resp->set_token(generate_unique_string());
     if (!insertToken(req->uid(), resp->token())) {
         LOG_ERROR("[StatusServer] AllocatePushServer: Failed to persist token for uid={}, Redis may be down", req->uid());
     }
-    LOG_INFO("[StatusServer] Allocated {}:{} token={} for uid={}", server.host, server.port, resp->token(), req->uid());
+
+    // If old token existed and was different, set kick marker for PushServer to close old session
+    if (has_old && !old_token.empty() && old_token != resp->token()) {
+        std::string kick_key = "kick:" + std::to_string(req->uid());
+        RedisManager::getInstance().setex(kick_key, old_token, 60);
+        LOG_INFO("[StatusServer] Set kick marker for uid={}", req->uid());
+    }
+
+    // Store uid → PushServer node mapping for message routing (host:ws_port:grpc_port)
+    std::string node_key = "pushnode:" + std::to_string(req->uid());
+    RedisManager::getInstance().setex(node_key, server.host + ":" + server.port + ":" + server.grpc_port, 86400);
+    LOG_INFO("[StatusServer] Allocated {}:{} (gRPC:{}) token={} for uid={}", server.host, server.port, server.grpc_port, resp->token(), req->uid());
     return Status::OK;
 }
 
@@ -141,7 +158,9 @@ Status StatusServiceImpl::ReportDisconnect(ServerContext* context, const Disconn
 bool StatusServiceImpl::insertToken(int uid, std::string token) {
     std::string uid_str = std::to_string(uid);
     std::string token_key = USER_TOKEN_PREFIX + uid_str;
-    bool ok = RedisManager::getInstance().setex(token_key, token, 604800);
+    // TOKEN过期时间：一天
+    // 登陆后超过一天登录失效，需重新登陆
+    bool ok = RedisManager::getInstance().setex(token_key, token, 86400);
     LOG_DEBUG("[StatusServer] Token {} inserted for uid = {}!",token_key, uid_str);
     if (!ok) {
         LOG_ERROR("[StatusServer] insertToken FAILED for uid={}: Redis setex returned false", uid);
@@ -286,6 +305,38 @@ Status StatusServiceImpl::QueryServerStatus(ServerContext* context, const QueryS
         srv->set_connections(conns);
     }
 
+    resp->set_error(static_cast<int>(ErrorCodes::SUCCESS));
+    return Status::OK;
+}
+
+// ---- 查询用户所在推送节点 ----
+Status StatusServiceImpl::GetPushServerForUser(ServerContext* context, const GetPushServerForUserReq* req,
+                                                GetPushServerForUserRsp* resp) {
+    auto& redis = RedisManager::getInstance();
+    for (int i = 0; i < req->uids_size(); ++i) {
+        int uid = req->uids(i);
+        std::string node_key = "pushnode:" + std::to_string(uid);
+        std::string node_value;
+        auto* node = resp->add_nodes();
+        node->set_uid(uid);
+        if (redis.get(node_key, node_value) && !node_value.empty()) {
+            // Format: host:ws_port:grpc_port
+            auto colon1 = node_value.find(':');
+            auto colon2 = node_value.find(':', colon1 + 1);
+            if (colon1 != std::string::npos) {
+                node->set_host(node_value.substr(0, colon1));
+                if (colon2 != std::string::npos) {
+                    node->set_port(node_value.substr(colon1 + 1, colon2 - colon1 - 1));
+                    node->set_grpc_port(node_value.substr(colon2 + 1));
+                } else {
+                    node->set_port(node_value.substr(colon1 + 1));
+                }
+            }
+            node->set_online(true);
+        } else {
+            node->set_online(false);
+        }
+    }
     resp->set_error(static_cast<int>(ErrorCodes::SUCCESS));
     return Status::OK;
 }

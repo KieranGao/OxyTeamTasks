@@ -183,25 +183,27 @@ onMounted(loadTodos)
 
 <style scoped>
 .add-bar {
-  display: flex; gap: 8px; margin-bottom: 16px;
-  padding: 14px 16px;
+  display: flex; gap: 10px; margin-bottom: 20px;
+  padding: 16px 20px;
   background: var(--glass-bg);
   backdrop-filter: var(--glass-blur);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
 }
 .add-input { flex: 1; }
-.filter-bar { margin-bottom: 16px; }
+.filter-bar { margin-bottom: 20px; }
 .todo-list { display: flex; flex-direction: column; }
 .todo-item {
-  display: flex; align-items: center; gap: 10px;
-  padding: 12px 0;
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 12px;
   border-bottom: 1px solid var(--border-light);
-  transition: background var(--transition-fast);
+  transition: all var(--transition-fast);
+  border-radius: var(--radius-sm);
 }
 .todo-item:last-child { border-bottom: none; }
-.todo-item:hover { background: var(--color-primary-bg); border-radius: var(--radius-sm); }
-.todo-item.finished .todo-content { text-decoration: line-through; opacity: 0.4; }
-.todo-content { flex: 1; font-size: 14px; }
-.todo-deadline { font-size: 12px; color: var(--text-secondary); white-space: nowrap; }
+.todo-item:hover { background: var(--color-primary-bg); }
+.todo-item.finished .todo-content { text-decoration: line-through; opacity: 0.35; }
+.todo-content { flex: 1; font-size: 14px; line-height: 1.5; }
+.todo-deadline { font-size: 12px; color: var(--text-secondary); white-space: nowrap; background: var(--bg-primary); padding: 2px 8px; border-radius: var(--radius-sm); }
 </style>

@@ -43,6 +43,18 @@ bool MySQLManager::deleteTodo(int id, int uid) {
     return dao_->deleteTodo(id, uid);
 }
 
+int MySQLManager::getAssigneeStatus(int taskId, int uid) {
+    return dao_->getAssigneeStatus(taskId, uid);
+}
+
+std::vector<MySQLDao::DeadlineTask> MySQLManager::getDeadlineTasksToday() {
+    return dao_->getDeadlineTasksToday();
+}
+
+std::vector<int> MySQLManager::getUncheckedInUsersToday() {
+    return dao_->getUncheckedInUsersToday();
+}
+
 int MySQLManager::checkin(int uid) {
     return dao_->checkin(uid);
 }

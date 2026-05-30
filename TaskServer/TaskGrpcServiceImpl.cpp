@@ -1,6 +1,26 @@
 #include "TaskGrpcServiceImpl.h"
 #include "MySQLManager.h"
+#include "PushGrpcClient.h"
 #include "Logger.h"
+#include <thread>
+#include <sstream>
+
+// parse "1,3,5" assigned_to string into vector<int>
+static std::vector<int> parseAssignedTo(const std::string& assigned_to) {
+    std::vector<int> uids;
+    if (assigned_to.empty() || assigned_to == "0") return uids;
+    std::istringstream ss(assigned_to);
+    std::string token;
+    while (std::getline(ss, token, ',')) {
+        try { uids.push_back(std::stoi(token)); } catch (...) {}
+    }
+    return uids;
+}
+
+// build JSON payload for push messages
+static std::string buildPayload(int taskId, const std::string& title) {
+    return "{\"task_id\":" + std::to_string(taskId) + ",\"task_title\":\"" + title + "\"}";
+}
 
 TaskGrpcServiceImpl::TaskGrpcServiceImpl() {}
 
@@ -21,6 +41,16 @@ Status TaskGrpcServiceImpl::CreateTask(ServerContext* context, const CreateTaskR
     }
     resp->set_error(static_cast<int>(ErrorCodes::SUCCESS));
     resp->set_id(id);
+
+    // 异步通知
+    std::thread([assigned_to, title, id]() {
+        auto uids = parseAssignedTo(assigned_to);
+        std::string payload = buildPayload(id, title);
+        for (int assignee_uid : uids) {
+            PushGrpcClient::getInstance().pushToUser(assignee_uid, "task_new", "新任务指派: " + title, payload);
+        }
+    }).detach();
+
     return Status::OK;
 }
 
@@ -30,6 +60,11 @@ Status TaskGrpcServiceImpl::UpdateTask(ServerContext* context, const UpdateTaskR
 
     LOG_INFO("[Task] UpdateTask id={} uid={}", id, uid);
 
+    int old_assignee_status = -1;
+    if (uid > 0) {
+        old_assignee_status = MySQLManager::getInstance().getAssigneeStatus(id, uid);
+    }
+
     bool ok = MySQLManager::getInstance().updateTask(
         id, uid, req->title(), req->description(), req->status(),
         req->priority(), req->deadline(), req->assigned_to());
@@ -38,6 +73,30 @@ Status TaskGrpcServiceImpl::UpdateTask(ServerContext* context, const UpdateTaskR
         return Status::OK;
     }
     resp->set_error(static_cast<int>(ErrorCodes::SUCCESS));
+
+    int task_uid = req->uid();      // 0=global, >0=per-assignee
+    int status = req->status();
+    std::string assigned_to = req->assigned_to();
+    std::string title = req->title();
+    std::thread([id, task_uid, status, assigned_to, title, old_assignee_status]() {
+        std::string payload = buildPayload(id, title);
+        if (task_uid == 0) {
+            auto uids = parseAssignedTo(assigned_to);
+            for (int assignee_uid : uids) {
+                PushGrpcClient::getInstance().pushToUser(assignee_uid, "task_update", "任务更新: " + title, payload);
+            }
+        } else if (status == 2) {
+            // completed task → notify creator
+            TaskInfo taskInfo;
+            if (MySQLManager::getInstance().getTask(id, taskInfo) && taskInfo.uid > 0) {
+                PushGrpcClient::getInstance().pushToUser(taskInfo.uid, "task_done", "任务已完成: " + title, payload);
+            }
+        } else if (status == 1 && old_assignee_status == 2) {
+            // （打回操作）已完成 -> 进行中
+            PushGrpcClient::getInstance().pushToUser(task_uid, "task_update", "任务被打回: " + title, payload);
+        }
+    }).detach();
+
     return Status::OK;
 }
 

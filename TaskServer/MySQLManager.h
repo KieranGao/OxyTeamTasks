@@ -25,6 +25,10 @@ public:
     bool updateTodo(int id, int uid, const std::string& content, int priority,
                     const std::string& deadline, int is_finished);
     bool deleteTodo(int id, int uid);
+    int getAssigneeStatus(int taskId, int uid);
+
+    std::vector<MySQLDao::DeadlineTask> getDeadlineTasksToday();
+    std::vector<int> getUncheckedInUsersToday();
 
     int checkin(int uid);
     bool getCheckins(int uid, const std::string& date_from, const std::string& date_to,

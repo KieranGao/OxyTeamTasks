@@ -20,6 +20,7 @@ Config path: "/home/oxythecrack/Desktop/OxyTasks/PushServer/build/config.ini"
   password=123456
   port=6379
 [SelfServer]
+  gRPC_port=50056
   host=127.0.0.1
   name=PushServer1
   port=8890

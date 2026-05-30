@@ -159,3 +159,120 @@ bool MySQLDao::getUserInfo(int uid, UserInfo& userinfo) {
         return false;
     }
 }
+
+std::vector<int> MySQLDao::getUsersByRole(int role) {
+    auto connection = ConnectionGuard(*pool_, pool_->getConnection());
+    std::vector<int> uids;
+    try {
+        auto& sql_conn = connection.get()->getConn();
+        std::string sql = "SELECT uid FROM user WHERE role = ? AND status = 1";
+        std::unique_ptr<sql::PreparedStatement> pstmt(sql_conn->prepareStatement(sql));
+        pstmt->setInt(1, role);
+        std::unique_ptr<sql::ResultSet> res(pstmt->executeQuery());
+        while (res && res->next()) {
+            uids.push_back(res->getInt("uid"));
+        }
+    } catch (const sql::SQLException& exp) {
+        LOG_ERROR("SQLException in getUsersByRole: {}", exp.what());
+    }
+    return uids;
+}
+
+bool MySQLDao::listMessages(int uid, int page, int pageSize, std::vector<MessageRow>& messages, int& total) {
+    auto connection = ConnectionGuard(*pool_, pool_->getConnection());
+    try {
+        auto& sql_conn = connection.get()->getConn();
+        // 获取消息总数
+        {
+            std::string sql = "SELECT COUNT(*) AS cnt FROM messages WHERE uid = ?";
+            std::unique_ptr<sql::PreparedStatement> pstmt(sql_conn->prepareStatement(sql));
+            pstmt->setInt(1, uid);
+            std::unique_ptr<sql::ResultSet> res(pstmt->executeQuery());
+            if (res && res->next()) total = res->getInt("cnt");
+        }
+        // 页面信息
+        int offset = (page - 1) * pageSize;
+        std::string sql = "SELECT id, type, title, content, is_read, "
+                          "DATE_FORMAT(created_at,'%Y-%m-%d %H:%i:%s') AS created_at "
+                          "FROM messages WHERE uid = ? ORDER BY created_at DESC LIMIT ? OFFSET ?";
+        std::unique_ptr<sql::PreparedStatement> pstmt(sql_conn->prepareStatement(sql));
+        pstmt->setInt(1, uid);
+        pstmt->setInt(2, pageSize);
+        pstmt->setInt(3, offset);
+        std::unique_ptr<sql::ResultSet> res(pstmt->executeQuery());
+        while (res && res->next()) {
+            MessageRow row;
+            row.id = res->getInt64("id");
+            row.type = res->getString("type");
+            row.title = res->getString("title");
+            row.content = res->getString("content");
+            row.is_read = res->getInt("is_read");
+            row.created_at = res->getString("created_at");
+            messages.push_back(row);
+        }
+        return true;
+    } catch (const sql::SQLException& exp) {
+        LOG_ERROR("SQLException in listMessages: {}", exp.what());
+        return false;
+    }
+}
+
+bool MySQLDao::markMessagesRead(int uid, const std::vector<int64_t>& ids) {
+    auto connection = ConnectionGuard(*pool_, pool_->getConnection());
+    try {
+        auto& sql_conn = connection.get()->getConn();
+        if (ids.empty()) {
+            std::string sql = "UPDATE messages SET is_read = 1 WHERE uid = ? AND is_read = 0";
+            std::unique_ptr<sql::PreparedStatement> pstmt(sql_conn->prepareStatement(sql));
+            pstmt->setInt(1, uid);
+            pstmt->executeUpdate();
+        } else {
+            for (int64_t id : ids) {
+                std::string sql = "UPDATE messages SET is_read = 1 WHERE id = ? AND uid = ?";
+                std::unique_ptr<sql::PreparedStatement> pstmt(sql_conn->prepareStatement(sql));
+                pstmt->setInt64(1, id);
+                pstmt->setInt(2, uid);
+                pstmt->executeUpdate();
+            }
+        }
+        return true;
+    } catch (const sql::SQLException& exp) {
+        LOG_ERROR("SQLException in markMessagesRead: {}", exp.what());
+        return false;
+    }
+}
+
+bool MySQLDao::deleteMessages(int uid, const std::vector<int64_t>& ids) {
+    auto connection = ConnectionGuard(*pool_, pool_->getConnection());
+    try {
+        auto& sql_conn = connection.get()->getConn();
+        for (int64_t id : ids) {
+            std::string sql = "DELETE FROM messages WHERE id = ? AND uid = ?";
+            std::unique_ptr<sql::PreparedStatement> pstmt(sql_conn->prepareStatement(sql));
+            pstmt->setInt64(1, id);
+            pstmt->setInt(2, uid);
+            pstmt->executeUpdate();
+        }
+        return true;
+    } catch (const sql::SQLException& exp) {
+        LOG_ERROR("SQLException in deleteMessages: {}", exp.what());
+        return false;
+    }
+}
+
+bool MySQLDao::insertMessage(int uid, const std::string& type, const std::string& title, const std::string& content) {
+    auto connection = ConnectionGuard(*pool_, pool_->getConnection());
+    try {
+        auto& sql_conn = connection.get()->getConn();
+        std::string sql = "INSERT INTO messages (uid, type, title, content) VALUES (?, ?, ?, ?)";
+        std::unique_ptr<sql::PreparedStatement> pstmt(sql_conn->prepareStatement(sql));
+        pstmt->setInt(1, uid);
+        pstmt->setString(2, type);
+        pstmt->setString(3, title);
+        pstmt->setString(4, content);
+        return pstmt->executeUpdate() > 0;
+    } catch (const sql::SQLException& exp) {
+        LOG_ERROR("SQLException in insertMessage: {}", exp.what());
+        return false;
+    }
+}

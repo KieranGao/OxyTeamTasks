@@ -144,22 +144,23 @@ onUnmounted(() => {
 
 <style scoped>
 .monitor { padding: 0; }
-.page-header { margin-bottom: 20px; }
+.page-header { margin-bottom: 24px; }
 .page-header h2 { margin: 0 0 4px; font-size: 20px; }
 .subtitle { color: var(--text-secondary); font-size: 13px; margin: 0; }
-.section-card { margin-bottom: 20px; }
+.section-card { margin-bottom: 24px; }
 .card-header { display: flex; align-items: center; justify-content: space-between; }
 .card-title { font-weight: 600; }
 .auto-refresh { font-size: 12px; color: var(--text-secondary); }
 .log-filters { display: flex; align-items: center; }
 .server-card {
-  border-top: 3px solid var(--color-primary);
-  transition: transform var(--transition-fast);
+  border-top: 4px solid var(--color-primary);
+  transition: all var(--transition-fast);
+  overflow: hidden;
 }
-.server-card:hover { transform: translateY(-2px); }
-.server-card .server-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
-.server-card .server-name { font-weight: 600; font-size: 15px; }
-.server-info p { margin: 4px 0; font-size: 13px; color: var(--text-secondary); }
-.conn-count { font-size: 13px; color: var(--text-primary); margin: 4px 0; }
+.server-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.server-card .server-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.server-card .server-name { font-weight: 700; font-size: 15px; }
+.server-info p { margin: 5px 0; font-size: 13px; color: var(--text-secondary); }
+.conn-count { font-size: 13px; color: var(--text-primary); margin: 5px 0; font-weight: 600; }
 .heartbeat-time { font-size: 12px; color: var(--text-secondary); }
 </style>

@@ -97,8 +97,11 @@ async function handleLogin() {
 </script>
 
 <style scoped>
-.login-view {
-  width: 100%;
+.login-view { width: 100%; }
+
+.login-view :deep(.el-input__wrapper) {
+  border-radius: var(--radius-md) !important;
+  transition: all var(--transition-fast) !important;
 }
 
 .login-view :deep(.el-input__wrapper:focus-within) {
@@ -106,15 +109,17 @@ async function handleLogin() {
 }
 
 .login-view :deep(.el-button--large) {
-  height: 44px;
+  height: 46px;
   font-size: 15px;
   font-weight: 600;
   letter-spacing: 2px;
+  border-radius: var(--radius-md);
+  margin-top: 4px;
 }
 
 .login-footer {
   text-align: center;
-  margin-top: 12px;
+  margin-top: 16px;
   display: flex;
   justify-content: center;
   gap: 8px;
@@ -126,9 +131,7 @@ async function handleLogin() {
   transition: color var(--transition-fast);
 }
 
-.login-footer a:hover {
-  color: var(--color-primary);
-}
+.login-footer a:hover { color: var(--color-primary); }
 
 .login-footer .divider {
   font-size: 13px;

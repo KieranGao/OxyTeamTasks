@@ -1,8 +1,9 @@
 .vscode
 .claude
-Ori-Client
+
 GateServer/build
 PushServer/build
+PushServer2/build
 StatusServer/build
 TaskServer/build
 UMSServer/build
@@ -15,6 +16,10 @@ PushServer/message.pb.cc
 PushServer/message.pb.h
 PushServer/message.grpc.pb.cc
 PushServer/message.grpc.pb.h
+PushServer2/message.pb.cc
+PushServer2/message.pb.h
+PushServer2/message.grpc.pb.cc
+PushServer2/message.grpc.pb.h
 StatusServer/message.pb.cc
 StatusServer/message.pb.h
 StatusServer/message.grpc.pb.cc
@@ -32,9 +37,13 @@ MailerServer/message.pb.h
 MailerServer/message.grpc.pb.cc
 MailerServer/message.grpc.pb.h
 
+Client/node_modules
+MailerServer/node_modules
+
 server_logs
 GateServer/logs
 PushServer/logs
+PushServer2/logs
 StatusServer/logs
 TaskServer/logs
 UMSServer/logs

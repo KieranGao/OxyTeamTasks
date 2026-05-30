@@ -175,6 +175,7 @@ service StatusService {
   rpc ServerHeartbeat(HeartbeatReq) returns (HeartbeatRsp);                       // 服务心跳
   rpc QueryServerStatus(QueryServerStatusReq) returns (QueryServerStatusRsp);     // 查询服务状态
   rpc ReportDisconnect(DisconnectReq) returns (DisconnectRsp);                    // 上报断线（减连接数）
+  rpc GetPushServerForUser(GetPushServerForUserReq) returns (GetPushServerForUserRsp); // 查询用户所在推送节点
 }
 
 // --- 分配推送节点 ---
@@ -208,8 +209,8 @@ message LogEntry {
 }
 
 message ReportLogReq {
-  string service = 1;           // 服务名
-  repeated LogEntry entries = 2; // 日志条目列表
+  string service = 1;            // 服务名
+  repeated LogEntry entries = 2;  // 日志条目列表
 }
 
 message ReportLogRsp {
@@ -225,16 +226,16 @@ message QueryLogsReq {
 }
 
 message QueryLogsRsp {
-  int32 error = 1;              // 0成功
-  repeated LogEntry entries = 2; // 日志列表
+  int32 error = 1;               // 0成功
+  repeated LogEntry entries = 2;  // 日志列表
 }
 
 // --- 服务心跳 ---
 message HeartbeatReq {
-  string service = 1;    // 服务名
-  string host = 2;       // 服务IP
-  string port = 3;       // 服务端口
-  int64 timestamp = 4;   // 时间戳
+  string service = 1;   // 服务名
+  string host = 2;      // 服务IP
+  string port = 3;      // 服务端口
+  int64 timestamp = 4;  // 时间戳
 }
 
 message HeartbeatRsp {
@@ -243,21 +244,21 @@ message HeartbeatRsp {
 
 // --- 服务状态 ---
 message ServerInfo {
-  string service = 1;        // 服务名
-  string host = 2;           // IP
-  string port = 3;           // 端口
-  string status = 4;         // 状态: online/offline
-  int64 last_heartbeat = 5;  // 最后心跳时间
-  int32 connections = 6;     // 当前连接数（仅PushServer有效）
+  string service = 1;         // 服务名
+  string host = 2;            // IP
+  string port = 3;            // 端口
+  string status = 4;          // 状态: online/offline
+  int64 last_heartbeat = 5;   // 最后心跳时间
+  int32 connections = 6;      // 当前连接数（仅PushServer有效）
 }
 
 message QueryServerStatusReq {
-  int32 coach_uid = 1;  // 教练UID权限校验
+  int32 coach_uid = 1;  // 教练UID（权限校验）
 }
 
 message QueryServerStatusRsp {
-  int32 error = 1;                // 0成功
-  repeated ServerInfo servers = 2; // 服务器状态列表
+  int32 error = 1;                 // 0成功
+  repeated ServerInfo servers = 2;  // 服务器状态列表
 }
 
 // --- 断线上报 ---
@@ -269,10 +270,101 @@ message DisconnectRsp {
   int32 error = 1;  // 0成功
 }
 
+// --- 查询用户所在推送节点 ---
+message GetPushServerForUserReq {
+  repeated int32 uids = 1;  // 用户UID列表
+}
+
+message UserPushNode {
+  int32 uid = 1;       // 用户UID
+  string host = 2;     // PushServer IP
+  string port = 3;     // PushServer WebSocket端口
+  bool online = 4;     // 是否在线
+  string gRPC_port = 5; // PushServer gRPC端口（用于跨节点转发）
+}
+
+message GetPushServerForUserRsp {
+  int32 error = 1;                    // 0成功
+  repeated UserPushNode nodes = 2;    // 节点信息列表
+}
+
 // ==========================================
-// 任务管理服务（TaskServer）
+// 推送服务（PushServer）
 // ==========================================
 
+service PushService {
+  rpc PushToUser(PushToUserReq) returns (PushToUserRsp);           // 推送给指定用户
+  rpc PushToTeam(PushToTeamReq) returns (PushToTeamRsp);           // 推送给整个队伍
+  rpc GetMessages(GetMessagesReq) returns (GetMessagesRsp);        // 查询消息列表
+  rpc MarkRead(MarkReadReq) returns (MarkReadRsp);                 // 标记已读
+  rpc DeleteMessage(DeleteMessageReq) returns (DeleteMessageRsp);  // 删除消息
+}
+
+message PushToUserReq {
+  int32 uid = 1;        // 接收者UID
+  string msg_type = 2;  // 消息类型
+  string title = 3;     // 消息标题
+  string payload = 4;   // JSON附加数据
+}
+
+message PushToUserRsp {
+  int32 error = 1;    // 0成功
+  bool delivered = 2; // true=实时推送 false=已缓存
+}
+
+message PushToTeamReq {
+  int32 team_id = 1;      // 队伍ID
+  string msg_type = 2;    // 消息类型
+  string title = 3;       // 消息标题
+  string payload = 4;     // JSON附加数据
+  int32 exclude_uid = 5;  // 排除的UID
+}
+
+message PushToTeamRsp {
+  int32 error = 1;           // 0成功
+  int32 delivered_count = 2; // 实时推送成功数
+  int32 cached_count = 3;    // 缓存待拉取数
+}
+
+message GetMessagesReq {
+  int32 uid = 1;       // 用户UID
+  int32 page = 2;      // 页码
+  int32 page_size = 3; // 每页数量
+}
+
+message MessageItem {
+  int64 id = 1;          // 消息ID
+  string msg_type = 2;   // 消息类型
+  string title = 3;      // 标题
+  string content = 4;    // 正文
+  int32 is_read = 5;     // 0=未读 1=已读
+  string created_at = 6; // 创建时间
+}
+
+message GetMessagesRsp {
+  int32 error = 1;                       // 0成功
+  repeated MessageItem messages = 2;     // 消息列表
+  int32 unread_count = 3;               // 未读总数
+  int32 total = 4;                      // 总数
+}
+
+message MarkReadReq {
+  int32 uid = 1;          // 用户UID
+  repeated int64 ids = 2; // 消息ID列表
+}
+
+message MarkReadRsp {
+  int32 error = 1;  // 0成功
+}
+
+message DeleteMessageReq {
+  int32 uid = 1;          // 用户UID
+  repeated int64 ids = 2; // 消息ID列表
+}
+
+message DeleteMessageRsp {
+  int32 error = 1;  // 0成功
+}
 service TaskService {
   rpc CreateTask(CreateTaskReq) returns (CreateTaskRsp);    // 创建任务
   rpc UpdateTask(UpdateTaskReq) returns (UpdateTaskRsp);    // 更新任务

@@ -210,10 +210,13 @@ onMounted(fetchPending)
 
 <style scoped>
 .user-manage { padding: 0; }
-.page-header { margin-bottom: 20px; }
+.page-header { margin-bottom: 24px; }
 .page-header h2 { margin: 0 0 4px; font-size: 20px; }
 .subtitle { color: var(--text-secondary); font-size: 13px; margin: 0; }
-.section-card { margin-bottom: 20px; }
+.section-card { margin-bottom: 24px; }
 .card-header { display: flex; align-items: center; justify-content: space-between; }
 .card-title { font-weight: 600; }
+
+:deep(.el-tabs__item) { font-weight: 500; letter-spacing: 0.2px; }
+:deep(.el-tabs__active-bar) { background: var(--gradient-primary); height: 3px; border-radius: 2px; }
 </style>

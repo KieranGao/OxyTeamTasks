@@ -12,6 +12,14 @@ public:
     bool checkLogin(const std::string& email, const std::string& password, UserInfo& userinfo);
     bool updateTeamInfo(int uid, int belong_team_id);
     bool getUserInfo(int uid, UserInfo& userinfo);
+    std::vector<int> getUsersByRole(int role);
+
+    // Message CRUD
+    struct MessageRow { int64_t id; std::string type, title, content, created_at; int is_read; };
+    bool listMessages(int uid, int page, int pageSize, std::vector<MessageRow>& messages, int& total);
+    bool markMessagesRead(int uid, const std::vector<int64_t>& ids);
+    bool deleteMessages(int uid, const std::vector<int64_t>& ids);
+    bool insertMessage(int uid, const std::string& type, const std::string& title, const std::string& content);
 private:
     std::unique_ptr<MySQLConnectPool> pool_;
 };

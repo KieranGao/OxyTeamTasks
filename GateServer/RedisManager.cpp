@@ -279,6 +279,42 @@ bool RedisManager::existskey(const std::string& key) {
     return exists;
 }
 
+// 原子自增
+long RedisManager::incr(const std::string& key) {
+    auto connect = conn_pool_->getConnection();
+    if(connect == nullptr) return -1;
+    redisReply* reply = static_cast<redisReply*>(redisCommand(connect.get(), "INCR %s", key.c_str()));
+    conn_pool_->returnConnection(std::move(connect));
+    if (reply == nullptr || reply->type != REDIS_REPLY_INTEGER) { freeReplyObject(reply); return -1; }
+    long val = reply->integer;
+    freeReplyObject(reply);
+    return val;
+}
+
+bool RedisManager::setex(const std::string& key, const std::string& value, int seconds) {
+    auto connect = conn_pool_->getConnection();
+    if(connect == nullptr) return false;
+    redisReply* reply = static_cast<redisReply*>(redisCommand(connect.get(), "SETEX %s %d %s", key.c_str(), seconds, value.c_str()));
+    conn_pool_->returnConnection(std::move(connect));
+    if (reply == nullptr) { LOG_ERROR("Failed to execute SETEX command!"); return false; }
+    if (!(reply->type == REDIS_REPLY_STATUS && (strcmp(reply->str, "OK") == 0 || strcmp(reply->str, "ok") == 0))) {
+        freeReplyObject(reply); return false;
+    }
+    freeReplyObject(reply);
+    return true;
+}
+// 原子自减
+long RedisManager::decr(const std::string& key) {
+    auto connect = conn_pool_->getConnection();
+    if(connect == nullptr) return -1;
+    redisReply* reply = static_cast<redisReply*>(redisCommand(connect.get(), "DECR %s", key.c_str()));
+    conn_pool_->returnConnection(std::move(connect));
+    if (reply == nullptr || reply->type != REDIS_REPLY_INTEGER) { freeReplyObject(reply); return -1; }
+    long val = reply->integer;
+    freeReplyObject(reply);
+    return val;
+}
+
 void RedisManager::close() {
     conn_pool_->stop();
 }
