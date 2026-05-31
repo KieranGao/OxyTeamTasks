@@ -5,7 +5,15 @@
 #include "RedisManager.h"
 #include "MainServer.h"
 #include "Global.h"
+#include "boost/uuid/uuid.hpp"
+#include "boost/uuid/random_generator.hpp"
+#include "boost/uuid/uuid_io.hpp"
 #include "Logger.h"
+
+static std::string generate_lock_owner() {
+    boost::uuids::uuid uuid = boost::uuids::random_generator()();
+    return boost::uuids::to_string(uuid);
+}
 
 LogicSystem::LogicSystem() : is_running_(true) {
     registerCallBacks();
@@ -132,11 +140,10 @@ void LogicSystem::loginHandler(std::shared_ptr<Session> session, const std::stri
 
     // 若当前用户已经在线，需要将旧会话踢下线
 
+    // Atomic kick marker check: GET + DEL in one Lua call
     std::string uid_str = std::to_string(uid);
-    std::string kick_key = "kick:" + uid_str;
     std::string kick_val;
-    if (RedisManager::getInstance().get(kick_key, kick_val)) {
-        RedisManager::getInstance().del(kick_key);
+    if (RedisManager::getInstance().getAndDeleteKick(uid_str, kick_val)) {
         auto oldSession = session->getServer()->getSessionByUid(uid);
         if (oldSession) {
             LOG_INFO("[PushServer] Kicking old session for uid={}", uid);
@@ -151,8 +158,13 @@ void LogicSystem::loginHandler(std::shared_ptr<Session> session, const std::stri
 
     session->setUid(uid);
     session->getServer()->addUidSession(uid, session);
-    // 设置当前用户在线
-    RedisManager::getInstance().setex("online:" + uid_str, "1", 300);
+    // Set online status with distributed lock protection
+    std::string online_lock = "lock:online:" + uid_str;
+    std::string lock_owner = generate_lock_owner();
+    if (RedisManager::getInstance().acquireLockWithRetry(online_lock, lock_owner, 10)) {
+        RedisManager::getInstance().setex("online:" + uid_str, "1", 300);
+        RedisManager::getInstance().releaseLock(online_lock, lock_owner);
+    }
 
     std::string unread_str;
     long unread_count = 0;
