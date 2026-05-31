@@ -34,7 +34,7 @@ static std::string generate_lock_owner() {
     return boost::uuids::to_string(uuid);
 }
 
-// Helper: write message to MySQL and Redis, then try WebSocket push (local or cross-node)
+// 写入MySQL和Redis，然后尝试WebSocket推送（本地或跨节点）
 static bool pushMessageToUser(int uid, const std::string& msgType,
                               const std::string& title, const std::string& payload,
                               bool* delivered = nullptr) {
@@ -56,7 +56,7 @@ static bool pushMessageToUser(int uid, const std::string& msgType,
 
     std::string msg_json = msg.toStyledString();
 
-    // Atomic: LPUSH + LTRIM + EXPIRE + INCR, protected by distributed lock
+    // 原子操作: LPUSH + LTRIM + EXPIRE + INCR，分布式锁保护
     std::string lock_key = "lock:unread:" + uid_str;
     std::string owner = generate_lock_owner();
     if (RedisManager::getInstance().acquireLockWithRetry(lock_key, owner, 10)) {
@@ -171,7 +171,7 @@ Status PushGrpcServiceImpl::GetMessages(ServerContext* context, const GetMessage
 
     LOG_INFO("[Push] GetMessages uid={} page={} pageSize={}", uid, page, pageSize);
 
-    // Get unread count from Redis
+    // 从Redis获取未读计数
     std::string uid_str = std::to_string(uid);
     std::string unread_str;
     long unread_count = 0;
@@ -180,8 +180,7 @@ Status PushGrpcServiceImpl::GetMessages(ServerContext* context, const GetMessage
     }
     resp->set_unread_count(static_cast<int32_t>(unread_count));
 
-    // For now, return messages from Redis cache (limited to 50 recent)
-    // Full MySQL query will be added when MySQLDao is extended
+    // 目前从Redis缓存返回消息（最近50条），后续扩展MySQLDao后支持全量查询
     std::vector<std::string> cached;
     RedisManager::getInstance().lrange("msgs:" + uid_str, 0, 49, cached);
 
@@ -194,7 +193,7 @@ Status PushGrpcServiceImpl::GetMessages(ServerContext* context, const GetMessage
         Json::Reader reader;
         if (reader.parse(cached[i], msg)) {
             auto* item = resp->add_messages();
-            item->set_id(0);  // No real ID from Redis cache
+            item->set_id(0);  // Redis缓存无真实ID
             item->set_msg_type(msg.get("msg_type", "").asString());
             item->set_title(msg.get("title", "").asString());
             item->set_content(msg.get("payload", "").asString());
@@ -218,7 +217,7 @@ Status PushGrpcServiceImpl::MarkRead(ServerContext* context, const MarkReadReq* 
     // Update MySQL
     MySQLManager::getInstance().markMessagesRead(uid, ids);
 
-    // Update Redis unread count — protected by distributed lock
+    // 更新Redis未读计数，分布式锁保护
     std::string uid_str = std::to_string(uid);
     std::string lock_key = "lock:unread:" + uid_str;
     std::string owner = generate_lock_owner();

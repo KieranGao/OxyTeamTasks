@@ -140,7 +140,7 @@ void LogicSystem::loginHandler(std::shared_ptr<Session> session, const std::stri
 
     // 若当前用户已经在线，需要将旧会话踢下线
 
-    // Atomic kick marker check: GET + DEL in one Lua call
+    // 原子踢人标记检查: 单次Lua调用 GET + DEL
     std::string uid_str = std::to_string(uid);
     std::string kick_val;
     if (RedisManager::getInstance().getAndDeleteKick(uid_str, kick_val)) {
@@ -158,7 +158,7 @@ void LogicSystem::loginHandler(std::shared_ptr<Session> session, const std::stri
 
     session->setUid(uid);
     session->getServer()->addUidSession(uid, session);
-    // Set online status with distributed lock protection
+    // 设置在线状态，分布式锁保护
     std::string online_lock = "lock:online:" + uid_str;
     std::string lock_owner = generate_lock_owner();
     if (RedisManager::getInstance().acquireLockWithRetry(online_lock, lock_owner, 10)) {
