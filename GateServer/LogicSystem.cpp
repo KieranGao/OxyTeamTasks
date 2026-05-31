@@ -679,7 +679,7 @@ LogicSystem::LogicSystem() {
             for (auto& v : jsonData["ids"]) ids.push_back(v.asInt64());
         }
         MySQLManager::getInstance().markMessagesRead(uid, ids);
-        // Atomic mark-read with distributed lock protection
+        // 原子标记已读，分布式锁保护
         std::string uid_str = std::to_string(uid);
         std::string lock_key = "lock:unread:" + uid_str;
         std::string owner = generate_lock_owner();

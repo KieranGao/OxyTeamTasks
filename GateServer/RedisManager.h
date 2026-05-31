@@ -24,29 +24,25 @@ public:
     long incr(const std::string& key);
     long decr(const std::string& key);
 
-    // ============ Distributed Lock ============
-    // Acquire lock: SET key owner_id NX EX ttl
+    // 分布式锁
     bool acquireLock(const std::string& lock_key, const std::string& owner_id, int ttl_seconds = 30);
-    // Release lock: Lua script atomic compare+delete
     bool releaseLock(const std::string& lock_key, const std::string& owner_id);
-    // Acquire lock with exponential backoff retry
     bool acquireLockWithRetry(const std::string& lock_key, const std::string& owner_id,
                               int ttl_seconds = 30, int max_retries = 3, int base_delay_ms = 50);
 
-    // ============ Lua Script Execution ============
-    // Generic EVAL: returns integer result
+    // Lua 脚本执行
     long long evalScript(const std::string& lua_script,
                          const std::vector<std::string>& keys,
                          const std::vector<std::string>& args);
 
-    // Atomic message push: LPUSH + LTRIM + EXPIRE + INCR
+    // 原子消息推送: LPUSH + LTRIM + EXPIRE + INCR
     bool pushMessageAtomic(const std::string& uid_str, const std::string& msg_json,
                            int max_messages = 50, int ttl_seconds = 604800);
-    // Atomic mark-read: SETEX(0) for all, or DECR N times
+    // 原子标记已读: SETEX(0) 或 DECR N 次
     bool markReadAtomic(const std::string& uid_str, int decrement_count, int ttl_seconds = 604800);
-    // Atomic kick marker: GET + DEL
+    // 原子踢人标记: GET + DEL
     bool getAndDeleteKick(const std::string& uid_str, std::string& out_kick_value);
-    // Atomic log append: LPUSH + LTRIM + EXPIRE
+    // 原子日志追加: LPUSH + LTRIM + EXPIRE
     bool appendLogAtomic(const std::string& service_name, const std::string& log_json,
                          int max_entries = 500, int ttl_seconds = 604800);
 
