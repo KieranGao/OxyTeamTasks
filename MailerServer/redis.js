@@ -62,7 +62,7 @@ async function QueryRedis(key) {
  */
 async function SetRedisExpire(key, value, exptime){
     try{
-        // Atomic: SET key value EX exptime (single command)
+        // 原子操作: SET key value EX exptime
         await RedisCli.set(key, value, 'EX', exptime);
         return true;
     }catch(error){
