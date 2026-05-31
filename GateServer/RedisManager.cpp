@@ -1,6 +1,8 @@
 #include "RedisManager.h"
 #include "ConfigManager.h"
 #include "Logger.h"
+#include <thread>
+#include <chrono>
 
 RedisManager::RedisManager() {
     auto& config = ConfigManager::getInstance();
@@ -313,6 +315,197 @@ long RedisManager::decr(const std::string& key) {
     long val = reply->integer;
     freeReplyObject(reply);
     return val;
+}
+
+bool RedisManager::acquireLock(const std::string& lock_key, const std::string& owner_id, int ttl_seconds) {
+    auto connect = conn_pool_->getConnection();
+    if (connect == nullptr) return false;
+    redisReply* reply = static_cast<redisReply*>(redisCommand(connect.get(),
+        "SET %s %s NX EX %d", lock_key.c_str(), owner_id.c_str(), ttl_seconds));
+    conn_pool_->returnConnection(std::move(connect));
+    if (reply == nullptr) {
+        LOG_ERROR("Failed to execute SET NX EX for lock: {}", lock_key);
+        return false;
+    }
+    bool ok = (reply->type == REDIS_REPLY_STATUS && strcmp(reply->str, "OK") == 0);
+    freeReplyObject(reply);
+    if (ok) {
+        LOG_DEBUG("Lock acquired: {} owner={}", lock_key, owner_id);
+    }
+    return ok;
+}
+
+bool RedisManager::releaseLock(const std::string& lock_key, const std::string& owner_id) {
+    auto connect = conn_pool_->getConnection();
+    if (connect == nullptr) return false;
+    const char* lua = "if redis.call('GET',KEYS[1])==ARGV[1] then return redis.call('DEL',KEYS[1]) else return 0 end";
+    redisReply* reply = static_cast<redisReply*>(redisCommand(connect.get(),
+        "EVAL %s 1 %s %s", lua, lock_key.c_str(), owner_id.c_str()));
+    conn_pool_->returnConnection(std::move(connect));
+    if (reply == nullptr) {
+        LOG_ERROR("Failed to execute EVAL for releaseLock: {}", lock_key);
+        return false;
+    }
+    bool released = (reply->type == REDIS_REPLY_INTEGER && reply->integer == 1);
+    freeReplyObject(reply);
+    if (released) {
+        LOG_DEBUG("Lock released: {} owner={}", lock_key, owner_id);
+    }
+    return released;
+}
+
+bool RedisManager::acquireLockWithRetry(const std::string& lock_key, const std::string& owner_id,
+                                         int ttl_seconds, int max_retries, int base_delay_ms) {
+    for (int i = 0; i <= max_retries; ++i) {
+        if (acquireLock(lock_key, owner_id, ttl_seconds)) {
+            return true;
+        }
+        if (i < max_retries) {
+            int delay = base_delay_ms * (1 << i);
+            std::this_thread::sleep_for(std::chrono::milliseconds(delay));
+        }
+    }
+    LOG_WARN("Lock acquisition failed after {} retries: {}", max_retries, lock_key);
+    return false;
+}
+
+long long RedisManager::evalScript(const std::string& lua_script,
+                                    const std::vector<std::string>& keys,
+                                    const std::vector<std::string>& args) {
+    auto connect = conn_pool_->getConnection();
+    if (connect == nullptr) return -1;
+
+    std::vector<std::string> parts;
+    parts.push_back("EVAL");
+    parts.push_back(lua_script);
+    parts.push_back(std::to_string(keys.size()));
+    for (const auto& k : keys) parts.push_back(k);
+    for (const auto& a : args) parts.push_back(a);
+
+    std::vector<const char*> argv(parts.size());
+    std::vector<size_t> argvlen(parts.size());
+    for (size_t i = 0; i < parts.size(); ++i) {
+        argv[i] = parts[i].c_str();
+        argvlen[i] = parts[i].size();
+    }
+
+    redisReply* reply = static_cast<redisReply*>(redisCommandArgv(
+        connect.get(), static_cast<int>(parts.size()), argv.data(), argvlen.data()));
+    conn_pool_->returnConnection(std::move(connect));
+    if (reply == nullptr) {
+        LOG_ERROR("Failed to execute EVAL script");
+        return -1;
+    }
+    long long result = 0;
+    if (reply->type == REDIS_REPLY_INTEGER) {
+        result = reply->integer;
+    } else if (reply->type == REDIS_REPLY_STRING) {
+        try { result = std::stoll(reply->str); } catch (...) { result = -1; }
+    } else if (reply->type == REDIS_REPLY_NIL) {
+        result = 0;
+    }
+    freeReplyObject(reply);
+    return result;
+}
+
+bool RedisManager::pushMessageAtomic(const std::string& uid_str, const std::string& msg_json,
+                                      int max_messages, int ttl_seconds) {
+    std::string lua =
+        "local msg_key=KEYS[1] "
+        "local counter_key=KEYS[2] "
+        "local msg=ARGV[1] "
+        "local max_msgs=tonumber(ARGV[2]) "
+        "local ttl=tonumber(ARGV[3]) "
+        "redis.call('LPUSH',msg_key,msg) "
+        "redis.call('LTRIM',msg_key,0,max_msgs-1) "
+        "redis.call('EXPIRE',msg_key,ttl) "
+        "redis.call('INCR',counter_key) "
+        "return 1";
+    std::vector<std::string> keys = {"msgs:" + uid_str, "unread:" + uid_str};
+    std::vector<std::string> args = {msg_json, std::to_string(max_messages), std::to_string(ttl_seconds)};
+    long long result = evalScript(lua, keys, args);
+    if (result < 0) {
+        LOG_ERROR("pushMessageAtomic failed for uid={}", uid_str);
+        return false;
+    }
+    LOG_DEBUG("pushMessageAtomic success for uid={}", uid_str);
+    return true;
+}
+
+bool RedisManager::markReadAtomic(const std::string& uid_str, int decrement_count, int ttl_seconds) {
+    std::string lua;
+    if (decrement_count == 0) {
+        lua = "redis.call('SETEX',KEYS[1],ARGV[2],0) return 1";
+    } else {
+        lua = "local n=tonumber(ARGV[1]) for i=1,n do redis.call('DECR',KEYS[1]) end return 1";
+    }
+    std::vector<std::string> keys = {"unread:" + uid_str};
+    std::vector<std::string> args = {std::to_string(decrement_count), std::to_string(ttl_seconds)};
+    long long result = evalScript(lua, keys, args);
+    if (result < 0) {
+        LOG_ERROR("markReadAtomic failed for uid={}", uid_str);
+        return false;
+    }
+    LOG_DEBUG("markReadAtomic success for uid={} count={}", uid_str, decrement_count);
+    return true;
+}
+
+bool RedisManager::getAndDeleteKick(const std::string& uid_str, std::string& out_kick_value) {
+    std::string lua =
+        "local val=redis.call('GET',KEYS[1]) "
+        "if val then redis.call('DEL',KEYS[1]) end "
+        "return val";
+    std::vector<std::string> keys = {"kick:" + uid_str};
+    std::vector<std::string> args = {};
+
+    auto connect = conn_pool_->getConnection();
+    if (connect == nullptr) return false;
+
+    std::vector<std::string> parts = {"EVAL", lua, "1", "kick:" + uid_str};
+    std::vector<const char*> argv(parts.size());
+    std::vector<size_t> argvlen(parts.size());
+    for (size_t i = 0; i < parts.size(); ++i) {
+        argv[i] = parts[i].c_str();
+        argvlen[i] = parts[i].size();
+    }
+
+    redisReply* reply = static_cast<redisReply*>(redisCommandArgv(
+        connect.get(), static_cast<int>(parts.size()), argv.data(), argvlen.data()));
+    conn_pool_->returnConnection(std::move(connect));
+
+    if (reply == nullptr) {
+        LOG_ERROR("getAndDeleteKick EVAL failed for uid={}", uid_str);
+        return false;
+    }
+    if (reply->type == REDIS_REPLY_STRING) {
+        out_kick_value = std::string(reply->str, reply->len);
+        freeReplyObject(reply);
+        LOG_DEBUG("getAndDeleteKick: found kick marker for uid={}", uid_str);
+        return true;
+    }
+    freeReplyObject(reply);
+    return false;
+}
+
+bool RedisManager::appendLogAtomic(const std::string& service_name, const std::string& log_json,
+                                    int max_entries, int ttl_seconds) {
+    std::string lua =
+        "local key=KEYS[1] "
+        "local entry=ARGV[1] "
+        "local max_e=tonumber(ARGV[2]) "
+        "local ttl=tonumber(ARGV[3]) "
+        "redis.call('LPUSH',key,entry) "
+        "redis.call('LTRIM',key,0,max_e-1) "
+        "redis.call('EXPIRE',key,ttl) "
+        "return 1";
+    std::vector<std::string> keys = {"logs:" + service_name};
+    std::vector<std::string> args = {log_json, std::to_string(max_entries), std::to_string(ttl_seconds)};
+    long long result = evalScript(lua, keys, args);
+    if (result < 0) {
+        LOG_ERROR("appendLogAtomic failed for service={}", service_name);
+        return false;
+    }
+    return true;
 }
 
 void RedisManager::close() {
