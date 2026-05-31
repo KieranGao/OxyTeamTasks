@@ -1,228 +1,370 @@
-[中文](README.md) | [English](README_EN.md)
+<!-- AUTO-GENERATED -->
 
-# OxyTasks
+<div align="right">
 
-ACM 集训队分布式训练任务协同系统
+English · [中文](README-zh.md)
 
-![C++](https://img.shields.io/badge/C++17-00599C?style=flat&logo=cplusplus&logoColor=white)
-![Vue](https://img.shields.io/badge/Vue_3-4FC08D?style=flat&logo=vuedotjs&logoColor=white)
-![gRPC](https://img.shields.io/badge/gRPC-244c5a?style=flat&logo=grpc&logoColor=white)
-![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white)
-![Redis](https://img.shields.io/badge/Redis-DC382D?style=flat&logo=redis&logoColor=white)
+</div>
 
-## 系统架构
+<h1 align="center">OxyTeamTask</h1>
+<p align="center">
+  <strong>Distributed training task coordination system for teams</strong>
+  <br />
+  <em>Microservice Architecture · gRPC · WebSocket Push · Role-Based Access Control</em>
+</p>
 
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 320">
-  <defs>
-    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#606266"/>
-    </marker>
-  </defs>
+<p align="center">
+  <a href="#quick-start"><img src="https://img.shields.io/badge/Quick_Start-4CAF50?style=for-the-badge" alt="Quick Start" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License" /></a>
+</p>
 
-  <!-- Client -->
-  <rect x="20" y="120" width="120" height="60" rx="8" fill="#4A90D9"/>
-  <text x="80" y="145" text-anchor="middle" fill="white" font-size="14" font-weight="bold">Client</text>
-  <text x="80" y="165" text-anchor="middle" fill="white" font-size="11">Vue 3 SPA :5173</text>
+<p align="center">
+  <img src="https://img.shields.io/badge/C++17-00599C?style=flat&logo=cplusplus&logoColor=white" alt="C++17" />
+  <img src="https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white" alt="Node.js" />
+  <img src="https://img.shields.io/badge/Vue_3-4FC08D?style=flat&logo=vuedotjs&logoColor=white" alt="Vue 3" />
+  <img src="https://img.shields.io/badge/gRPC-244c5a?style=flat&logo=grpc&logoColor=white" alt="gRPC" />
+  <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white" alt="MySQL" />
+  <img src="https://img.shields.io/badge/Redis-DC382D?style=flat&logo=redis&logoColor=white" alt="Redis" />
+</p>
 
-  <!-- GateServer -->
-  <rect x="200" y="120" width="130" height="60" rx="8" fill="#E6A23C"/>
-  <text x="265" y="145" text-anchor="middle" fill="white" font-size="14" font-weight="bold">GateServer</text>
-  <text x="265" y="165" text-anchor="middle" fill="white" font-size="11">HTTP :8080</text>
+<p align="center">
+  <img src="https://img.shields.io/badge/Boost-00599C?style=flat&logo=boost&logoColor=white" alt="Boost" />
+  <img src="https://img.shields.io/badge/Protobuf-00599C?style=flat&logo=protobuf&logoColor=white" alt="Protobuf" />
+  <img src="https://img.shields.io/badge/WebSocket-010101?style=flat&logo=socket.io&logoColor=white" alt="WebSocket" />
+  <img src="https://img.shields.io/badge/Element_Plus-409EFF?style=flat&logo=element&logoColor=white" alt="Element Plus" />
+  <img src="https://img.shields.io/badge/Pinia-FAD847?style=flat&logo=vuedotjs&logoColor=black" alt="Pinia" />
+  <img src="https://img.shields.io/badge/CMake-064F8C?style=flat&logo=cmake&logoColor=white" alt="CMake" />
+</p>
 
-  <!-- UMSServer -->
-  <rect x="400" y="20" width="130" height="55" rx="8" fill="#67C23A"/>
-  <text x="465" y="43" text-anchor="middle" fill="white" font-size="13" font-weight="bold">UMSServer</text>
-  <text x="465" y="62" text-anchor="middle" fill="white" font-size="10">gRPC :50053</text>
+<p align="center">
+  <img src="https://img.shields.io/badge/Claude_Code-D97757?style=flat&logo=claude&logoColor=white" alt="Claude Code" />
+  <img src="https://img.shields.io/badge/GitHub_Copilot-000000?style=flat&logo=github&logoColor=white" alt="GitHub Copilot" />
+</p>
 
-  <!-- TaskServer -->
-  <rect x="400" y="90" width="130" height="55" rx="8" fill="#67C23A"/>
-  <text x="465" y="113" text-anchor="middle" fill="white" font-size="13" font-weight="bold">TaskServer</text>
-  <text x="465" y="132" text-anchor="middle" fill="white" font-size="10">gRPC :50054</text>
+---
 
-  <!-- StatusServer -->
-  <rect x="400" y="160" width="130" height="55" rx="8" fill="#67C23A"/>
-  <text x="465" y="183" text-anchor="middle" fill="white" font-size="13" font-weight="bold">StatusServer</text>
-  <text x="465" y="202" text-anchor="middle" fill="white" font-size="10">gRPC :50052</text>
+## Features
 
-  <!-- PushServer x2 -->
-  <rect x="400" y="230" width="60" height="55" rx="8" fill="#67C23A"/>
-  <text x="430" y="253" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Push</text>
-  <text x="430" y="272" text-anchor="middle" fill="white" font-size="9">WS:8890</text>
+| Feature | Description |
+|---|---|
+| **Microservice Architecture** | 6 independent services (5 C++ / 1 Node.js) communicating via gRPC, each with its own database access and connection pooling |
+| **Real-Time Push Notifications** | WebSocket-based push with cross-node forwarding, auto-reconnect, and offline message caching via Redis |
+| **Role-Based Access Control** | Three-tier roles (member, captain, coach) enforced at both frontend route guards and backend RPC handlers |
+| **Per-Assignee Task Tracking** | Independent status tracking per assignee on shared tasks, with batch SQL population and rollback support |
+| **Distributed Concurrency Safety** | Redis distributed locks with Lua atomic scripts for login tokens, message push, and unread counters |
+| **Load-Balanced Push Servers** | Segment tree algorithm for O(log n) PushServer allocation by connection count, with horizontal scaling support |
 
-  <rect x="470" y="230" width="60" height="55" rx="8" fill="#67C23A"/>
-  <text x="500" y="253" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Push2</text>
-  <text x="500" y="272" text-anchor="middle" fill="white" font-size="9">WS:8891</text>
+---
 
-  <!-- MailerServer -->
-  <rect x="590" y="20" width="100" height="55" rx="8" fill="#67C23A"/>
-  <text x="640" y="43" text-anchor="middle" fill="white" font-size="13" font-weight="bold">Mailer</text>
-  <text x="640" y="62" text-anchor="middle" fill="white" font-size="10">Node.js</text>
+## Quick Start
 
-  <!-- MySQL -->
-  <rect x="590" y="120" width="100" height="55" rx="8" fill="#909399"/>
-  <text x="640" y="143" text-anchor="middle" fill="white" font-size="13" font-weight="bold">MySQL</text>
-  <text x="640" y="162" text-anchor="middle" fill="white" font-size="10">8.0 :3306</text>
+### Prerequisites
 
-  <!-- Redis -->
-  <rect x="710" y="120" width="100" height="55" rx="8" fill="#909399"/>
-  <text x="760" y="143" text-anchor="middle" fill="white" font-size="13" font-weight="bold">Redis</text>
-  <text x="760" y="162" text-anchor="middle" fill="white" font-size="10">:6379</text>
+- C++17 compiler (GCC 9+ / Clang 10+)
+- CMake 3.16+
+- Node.js 18+
+- MySQL 8.0
+- Redis 6.0+
+- Boost, Protobuf, gRPC, hiredis, mysqlcppconn (system libraries)
 
-  <!-- Arrows: Client -> GateServer -->
-  <line x1="140" y1="150" x2="200" y2="150" stroke="#606266" stroke-width="2" marker-end="url(#arrowhead)"/>
-  <text x="170" y="143" text-anchor="middle" fill="#606266" font-size="9">HTTP</text>
-
-  <!-- GateServer -> services -->
-  <line x1="330" y1="135" x2="400" y2="50" stroke="#606266" stroke-width="2" marker-end="url(#arrowhead)"/>
-  <line x1="330" y1="145" x2="400" y2="115" stroke="#606266" stroke-width="2" marker-end="url(#arrowhead)"/>
-  <line x1="330" y1="155" x2="400" y2="185" stroke="#606266" stroke-width="2" marker-end="url(#arrowhead)"/>
-  <line x1="330" y1="165" x2="400" y2="255" stroke="#606266" stroke-width="2" marker-end="url(#arrowhead)"/>
-
-  <!-- Services -> Data -->
-  <line x1="530" y1="50" x2="590" y2="50" stroke="#606266" stroke-width="2" marker-end="url(#arrowhead)"/>
-  <line x1="530" y1="115" x2="590" y2="145" stroke="#606266" stroke-width="2" marker-end="url(#arrowhead)"/>
-  <line x1="530" y1="185" x2="590" y2="145" stroke="#606266" stroke-width="2" marker-end="url(#arrowhead)"/>
-  <line x1="690" y1="145" x2="710" y2="145" stroke="#606266" stroke-width="2" marker-end="url(#arrowhead)"/>
-</svg>
-
-## 功能特性
-
-- **用户管理**：注册（邮箱验证码）、登录、角色体系（队员/队长/教练）、教练审批、队伍分配
-- **任务管理**：多指派人任务、独立状态跟踪、优先级与截止日期、实时 WebSocket 推送通知
-- **TODO 清单**：个人待办事项、优先级排序、截止日期管理
-- **每日签到**：日历可视化、团队签到统计
-- **消息中心**：实时推送 + 离线缓存、未读角标、标记已读、多节点转发
-- **系统监控**：服务心跳检测、跨服务日志聚合、PushServer 连接数统计（教练专属）
-- **推送架构**：多 PushServer 负载均衡、SegmentTree 分配算法、跨节点 gRPC 转发、离线消息补推
-
-## 快速开始
-
-### 环境要求
-
-- **C++ 服务**：C++17, CMake 3.16+, Boost (system/filesystem), protobuf, gRPC, hiredis, MySQL Connector/C++, jsoncpp
-- **前端**：Node.js 18+, npm
-- **数据库**：MySQL 8.0, Redis 6+
-
-### 1. 初始化数据库
+### Install Dependencies
 
 ```bash
+# System packages (Ubuntu/Debian)
+sudo apt install libboost-all-dev libprotobuf-dev protobuf-compiler \
+  libgrpc++-dev protobuf-compiler-grpc libhiredis-dev libmysqlcppconn-dev
+
+# Frontend dependencies
+cd Client && npm install
+
+# MailerServer dependencies
+cd MailerServer && npm install
+```
+
+### Configure
+
+```bash
+# Initialize database
 mysql -u root -p < user.sql
 mysql -u root -p oxytasks < task.sql
 mysql -u root -p oxytasks < task_assignments.sql
 mysql -u root -p oxytasks < todo_list.sql
 mysql -u root -p oxytasks < messages.sql
+
+# Edit config.ini in each server directory with your MySQL/Redis credentials
+# Edit MailerServer/config.json with your SMTP credentials
+# Edit Client/config.json with your GateServer host/port
 ```
 
-### 2. 配置
-
-每个服务目录下的 `config.ini` 需配置 MySQL/Redis 连接信息。MailerServer 使用 `config.json`。
-
-### 3. 构建
+### Run
 
 ```bash
-# 构建所有 C++ 服务
+# Build all C++ servers
 ./build_all.sh
 
-# 安装前端依赖
-cd Client && npm install
-```
-
-### 4. 启动
-
-```bash
-# 启动所有服务（按依赖顺序）
+# Start all services (handles correct startup order)
 ./start_all.sh
 
-# 停止所有服务
-./stop_all.sh
+# Start frontend dev server
+cd Client && npm run dev
 ```
 
-启动顺序：StatusServer → UMSServer → TaskServer → PushServer → PushServer2 → GateServer
+---
 
-### 5. 访问
+## Usage
 
-- 前端开发服务器：`http://localhost:5173`（`cd Client && npm run dev`）
-- GateServer HTTP：`http://localhost:8080`
+### API Request (via GateServer)
 
-## 目录结构
+All frontend requests go through GateServer (HTTP POST → gRPC translation):
+
+```bash
+# Login
+curl -X POST http://localhost:8080/user_login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"user@example.com","password":"hashed_password"}'
+
+# List tasks
+curl -X POST http://localhost:8080/task_list \
+  -H "Content-Type: application/json" \
+  -d '{"uid":0,"status":-1,"assigned_to":"0"}'
+
+# Daily check-in
+curl -X POST http://localhost:8080/checkin \
+  -H "Content-Type: application/json" \
+  -d '{"uid":1}'
+```
+
+### Direct gRPC Call (bypass GateServer)
+
+```bash
+# List tasks directly via TaskServer
+grpcurl -plaintext -d '{"uid":1}' localhost:50054 message.TaskService/ListTasks
+```
+
+### WebSocket Push Client
+
+```javascript
+import { connectPushServer } from '@/utils/pushClient'
+
+// After login, connect to push server
+connectPushServer(host, port, uid, token)
+
+// Listen for real-time notifications
+onMessage('notify', (data) => { /* handle notification */ })
+onMessage('task_new', (data) => { /* handle new task */ })
+onMessage('kicked', (data) => { /* handle session kicked */ })
+```
+
+---
+
+## Architecture
+
+```mermaid
+graph LR
+    C[Client<br/>Vue 3 + Element Plus] -->|HTTP POST| G[GateServer<br/>Boost.Beast :8080]
+    G -->|gRPC| U[UMSServer<br/>:50053]
+    G -->|gRPC| T[TaskServer<br/>:50054]
+    G -->|gRPC| S[StatusServer<br/>:50052]
+    U -->|gRPC| M[MailerServer<br/>Node.js :50051]
+    T -->|gRPC| P1[PushServer1<br/>WS:8890 gRPC:50056]
+    T -->|gRPC| P2[PushServer2<br/>WS:8891 gRPC:50057]
+    P1 -->|gRPC| P2
+    P2 -->|gRPC| P1
+    C -->|WebSocket| P1
+    C -->|WebSocket| P2
+    U --> DB[(MySQL 8.0)]
+    T --> DB
+    G --> DB
+    P1 --> DB
+    P2 --> DB
+    G --> R[(Redis)]
+    U --> R
+    T --> R
+    S --> R
+    P1 --> R
+    P2 --> R
+    M --> R
+```
+
+**Startup order**: StatusServer → UMSServer → TaskServer → PushServer1 → PushServer2 → GateServer
+
+---
+
+## API
+
+All endpoints are `POST` via GateServer at `http://localhost:8080`. Responses use `{ "error": 0 }` for success.
+
+### Authentication
+
+| Endpoint | Description |
+|---|---|
+| `POST /get_verify_code` | Request email verification code |
+| `POST /user_register` | Register new user (requires verification code) |
+| `POST /user_login` | Login (returns uid, token, push server info) |
+| `POST /user_resetpass` | Reset password with verification code |
+
+### Tasks
+
+| Endpoint | Description |
+|---|---|
+| `POST /task_create` | Create task with assignees |
+| `POST /task_update` | Update task (uid=0 global, uid>0 per-assignee) |
+| `POST /task_delete` | Delete task |
+| `POST /task_get` | Get task with per-assignee statuses |
+| `POST /task_list` | List tasks with filters (uid, status, assigned_to) |
+
+### TODOs & Check-in
+
+| Endpoint | Description |
+|---|---|
+| `POST /todo_add` | Add TODO item (priority, deadline) |
+| `POST /todo_list` | List TODOs with filter |
+| `POST /todo_update` | Update TODO |
+| `POST /todo_delete` | Delete TODO |
+| `POST /checkin` | Daily check-in (error 3001 if already done) |
+| `POST /checkin_list` | List check-in records by date range |
+
+### Messages
+
+| Endpoint | Description |
+|---|---|
+| `POST /msg_list` | List messages with unread count |
+| `POST /msg_read` | Mark messages as read |
+| `POST /msg_delete` | Delete messages |
+
+### Administration (Coach only)
+
+| Endpoint | Description |
+|---|---|
+| `POST /user_list_pending` | List pending user registrations |
+| `POST /user_approve` | Approve user (set role + team) |
+| `POST /user_reject` | Reject user registration |
+| `POST /user_set_role` | Change user role/team |
+| `POST /user_list_all` | List all active users |
+| `POST /user_update_team` | Update user team assignment |
+| `POST /monitor/query_logs` | Query service logs |
+| `POST /monitor/server_status` | Query server health status |
+
+---
+
+## Project Structure
 
 ```
 OxyTasks/
-├── GateServer/          # HTTP 网关，前端请求唯一入口 (C++17, Boost.Beast)
-├── UMSServer/           # 用户管理服务 (注册/登录/角色/审批)
-├── TaskServer/          # 任务/TODO/签到服务
-├── StatusServer/        # 状态调度服务 (推送分配/心跳/日志聚合)
-├── PushServer/          # WebSocket 推送节点 1 (Boost.Asio)
-├── PushServer2/         # WebSocket 推送节点 2
-├── MailerServer/        # 邮件服务 (Node.js, nodemailer)
-├── Client/              # Vue 3 前端 SPA
-├── jsoncpp/             # JSON 解析库源码
-├── docs/                # 设计文档与调试记录
-├── build_all.sh         # 一键构建所有 C++ 服务
-├── start_all.sh         # 一键启动所有服务
-├── stop_all.sh          # 一键停止所有服务
-├── clear_logs.sh        # 清理日志
-├── user.sql             # 用户表结构
-├── task.sql             # 任务表结构
-├── task_assignments.sql # 任务分配表结构
-├── todo_list.sql        # TODO 表结构
-└── messages.sql         # 消息表结构
+├── GateServer/          # HTTP gateway (Boost.Beast), translates JSON→gRPC
+│   ├── config.ini       # Server port, downstream service addresses, DB/Redis
+│   ├── message.proto    # Protobuf service definitions
+│   ├── LogicSystem.cpp  # HTTP route registration and handler logic
+│   └── ...              # GrpcClients, MySQL/Redis pools, Logger
+├── UMSServer/           # User Management Service (gRPC :50053)
+│   └── UMSGrpcServiceImpl.cpp  # Register, Login, ResetPass, admin RPCs
+├── TaskServer/          # Task/Todo/Checkin Service (gRPC :50054)
+│   └── TaskGrpcServiceImpl.cpp # CRUD tasks, TODOs, check-ins, reminders
+├── StatusServer/        # Service registry, load balancer, log aggregator (:50052)
+│   └── SegmentTree.cpp  # O(log n) PushServer allocation algorithm
+├── PushServer/          # WebSocket push + gRPC (:8890 WS, :50056 gRPC)
+│   └── PushGrpcServiceImpl.cpp # PushToUser/Team, message persistence
+├── PushServer2/         # Second PushServer instance (:8891 WS, :50057 gRPC)
+├── MailerServer/        # Email verification service (Node.js, gRPC :50051)
+│   ├── server.js        # gRPC server entry point
+│   └── email.js         # Nodemailer SMTP transport
+├── Client/              # Vue 3 SPA frontend
+│   ├── src/views/       # 14 view components (auth, dashboard, taskboard, etc.)
+│   ├── src/stores/      # Pinia stores (user auth, app theme)
+│   ├── src/api/         # Axios API layer
+│   └── src/utils/       # WebSocket client, SHA-256 crypto
+├── jsoncpp/             # Vendored jsoncpp library
+├── docs/                # Debug logs, design specs
+├── *.sql                # Database schema files
+├── build_all.sh         # Build all C++ servers
+├── start_all.sh         # Start services in correct order
+└── stop_all.sh          # Graceful shutdown
 ```
 
-## 技术栈
+---
 
-### 后端
+## Tech Stack
 
-| 组件 | 技术 |
+### Frontend
+
+| Technology | Purpose |
 |---|---|
-| HTTP 网关 | C++17, Boost.Beast, Boost.Asio |
-| RPC 通信 | gRPC, Protocol Buffers |
-| 数据库 | MySQL 8.0, MySQL Connector/C++ |
-| 缓存 | Redis 6+, hiredis |
-| JSON 解析 | jsoncpp |
-| 邮件服务 | Node.js, @grpc/grpc-js, nodemailer, ioredis |
-| 日志 | 自定义 Logger（文件 + 缓冲刷新） |
+| Vue 3 (Composition API) | UI framework with `<script setup>` syntax |
+| Vue Router 4 | Hash-based routing for Electron compatibility |
+| Pinia | State management (user auth, app theme, persisted to localStorage) |
+| Element Plus | UI component library with auto-imported icons |
+| Axios | HTTP client with auth header injection |
+| Vite 5 | Build tool with dev proxy to GateServer |
 
-### 前端
+### Backend (C++)
 
-| 组件 | 技术 |
+| Technology | Purpose |
 |---|---|
-| 框架 | Vue 3 (Composition API, `<script setup>`) |
-| 状态管理 | Pinia (持久化至 localStorage) |
-| UI 组件 | Element Plus, @element-plus/icons-vue |
-| HTTP 请求 | Axios (自动附加 Authorization/X-User-Id) |
-| 路由 | Vue Router 4 (Hash 模式) |
-| 构建工具 | Vite 5 |
-| 推送客户端 | WebSocket (自动重连) |
+| C++17 | Core language for 5 microservices |
+| Boost.Beast / Asio | HTTP server (GateServer) and WebSocket server (PushServer) |
+| gRPC + Protobuf | Inter-service communication (35 RPC methods across 5 services) |
+| hiredis | Redis client for caching, distributed locks, session management |
+| MySQL Connector/C++ | Database access with connection pooling |
+| jsoncpp (vendored) | JSON parsing for HTTP request/response |
 
-## API 规范
+### Backend (Node.js)
 
-- 所有接口均为 `POST`
-- 路径格式：`/<模块>_<动作>`（如 `/task_create`、`/todo_update`）
-- 返回格式：`{ "error": 0, ... }`，`error=0` 表示成功
-- 认证：`Authorization: Bearer <token>` + `X-User-Id` 请求头
-
-### 接口列表
-
-| 模块 | 接口 |
+| Technology | Purpose |
 |---|---|
-| 用户 | `/get_verify_code` `/user_register` `/user_resetpass` `/user_login` `/user_list_pending` `/user_approve` `/user_reject` `/user_set_role` `/user_list_all` |
-| 任务 | `/task_create` `/task_update` `/task_delete` `/task_get` `/task_list` |
-| TODO | `/todo_add` `/todo_list` `/todo_update` `/todo_delete` |
-| 签到 | `/checkin` `/checkin_list` |
-| 消息 | `/msg_list` `/msg_read` `/msg_delete` |
-| 监控 | `/monitor/query_logs` `/monitor/server_status` |
+| @grpc/grpc-js | gRPC server for MailerService |
+| Nodemailer | SMTP email delivery (verification codes) |
+| ioredis | Redis client for code storage |
 
-## 贡献
+### Infrastructure
 
-欢迎贡献！请遵循以下步骤：
+| Technology | Purpose |
+|---|---|
+| MySQL 8.0 | Persistent storage (users, tasks, TODOs, check-ins, messages) |
+| Redis 6.0+ | Session tokens, distributed locks, message cache, unread counters, log aggregation |
+| CMake | Build system for all C++ servers |
 
-1. Fork 本仓库
-2. 创建特性分支 (`git checkout -b feature/amazing-feature`)
-3. 提交更改 (`git commit -m 'feat: add amazing feature'`)
-4. 推送到分支 (`git push origin feature/amazing-feature`)
-5. 创建 Pull Request
+---
+
+## Configuration
+
+Each C++ server has a `config.ini` with the following sections:
+
+| Section | Key Settings | Description |
+|---|---|---|
+| `[ServerName]` | host, port | This server's listen address |
+| `[MySQL]` | host, port, user, password, dbName, poolSize | Database connection pool |
+| `[Redis]` | host, port, password, poolSize | Redis connection pool |
+| `[Log]` | level, flushInterval | Logging configuration |
+| `[StatusServer]` | host, port | StatusServer address (for heartbeats) |
+
+MailerServer uses `config.json` with SMTP, MySQL, and Redis credentials.
+
+Client uses `config.json` at project root for GateServer host/port.
+
+---
+
+## Role System
+
+| Role | Level | Capabilities |
+|---|---|---|
+| **Member** | 0 | View/complete assigned tasks, personal TODOs, daily check-in |
+| **Captain** | 1 | Member + create tasks, manage team, view team progress |
+| **Coach** | 2 | Captain + approve users, manage all teams, system monitoring |
+
+New users register with `status=pending` and must be approved by a coach before they can log in.
+
+---
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing`)
+3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing`)
+5. Open a Pull Request
+
+---
 
 ## License
 
-本项目采用 [MIT](LICENSE) 协议。
+[MIT](LICENSE)
