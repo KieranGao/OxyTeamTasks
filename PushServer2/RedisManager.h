@@ -31,6 +31,32 @@ public:
     bool hset(const std::string& key, const std::string& field, const std::string& value);
     bool hset(const char* key, const char* field, const char* value, size_t hvaluelen);
     std::string hget(const std::string &key, const std::string &field);
+    // ============ Distributed Lock ============
+    // Acquire lock: SET key owner_id NX EX ttl
+    bool acquireLock(const std::string& lock_key, const std::string& owner_id, int ttl_seconds = 30);
+    // Release lock: Lua script atomic compare+delete
+    bool releaseLock(const std::string& lock_key, const std::string& owner_id);
+    // Acquire lock with exponential backoff retry
+    bool acquireLockWithRetry(const std::string& lock_key, const std::string& owner_id,
+                              int ttl_seconds = 30, int max_retries = 3, int base_delay_ms = 50);
+
+    // ============ Lua Script Execution ============
+    // Generic EVAL: returns integer result
+    long long evalScript(const std::string& lua_script,
+                         const std::vector<std::string>& keys,
+                         const std::vector<std::string>& args);
+
+    // Atomic message push: LPUSH + LTRIM + EXPIRE + INCR
+    bool pushMessageAtomic(const std::string& uid_str, const std::string& msg_json,
+                           int max_messages = 50, int ttl_seconds = 604800);
+    // Atomic mark-read: SETEX(0) for all, or DECR N times
+    bool markReadAtomic(const std::string& uid_str, int decrement_count, int ttl_seconds = 604800);
+    // Atomic kick marker: GET + DEL
+    bool getAndDeleteKick(const std::string& uid_str, std::string& out_kick_value);
+    // Atomic log append: LPUSH + LTRIM + EXPIRE
+    bool appendLogAtomic(const std::string& service_name, const std::string& log_json,
+                         int max_entries = 500, int ttl_seconds = 604800);
+
     void close();
 private:
     RedisManager();
