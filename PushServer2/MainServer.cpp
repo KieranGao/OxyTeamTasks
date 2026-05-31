@@ -4,6 +4,14 @@
 #include "Logger.h"
 #include "StatusGrpcClient.h"
 #include "RedisManager.h"
+#include "boost/uuid/uuid.hpp"
+#include "boost/uuid/random_generator.hpp"
+#include "boost/uuid/uuid_io.hpp"
+
+static std::string generate_lock_owner() {
+    boost::uuids::uuid uuid = boost::uuids::random_generator()();
+    return boost::uuids::to_string(uuid);
+}
 
 MainServer::MainServer(boost::asio::io_context& io_context, short port, const std::string& server_name)
     : io_context_(io_context), port_(port), server_name_(server_name), acceptor_(io_context, tcp::endpoint(tcp::v4(), port)) {
@@ -61,7 +69,20 @@ void MainServer::clearSession(std::string uuid) {
     // 再清除redis中的在线状态
     if (uid > 0) {
         removeUidSession(uid);
-        RedisManager::getInstance().del("online:" + std::to_string(uid));
+        // Delete online status with distributed lock protection
+        std::string uid_str = std::to_string(uid);
+        std::string lock_key = "lock:online:" + uid_str;
+        std::string owner = generate_lock_owner();
+        if (RedisManager::getInstance().acquireLockWithRetry(lock_key, owner, 10)) {
+            // Only delete if this node still owns the online status
+            std::string current_node;
+            if (RedisManager::getInstance().get("pushnode:" + uid_str, current_node)) {
+                if (current_node.find(server_name_) != std::string::npos) {
+                    RedisManager::getInstance().del("online:" + uid_str);
+                }
+            }
+            RedisManager::getInstance().releaseLock(lock_key, owner);
+        }
     }
     LOG_DEBUG("[PushServer] session cleared: uuid={} uid={}", uuid, uid);
     std::string name = server_name_;
