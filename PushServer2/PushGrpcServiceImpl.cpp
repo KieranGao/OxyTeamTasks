@@ -7,6 +7,9 @@
 #include "ConfigManager.h"
 #include "RPCConnectPool.h"
 #include <json/json.h>
+#include "boost/uuid/uuid.hpp"
+#include "boost/uuid/random_generator.hpp"
+#include "boost/uuid/uuid_io.hpp"
 
 static MainServer* g_main_server = nullptr;
 static std::string g_grpc_port;  // 本节点 gRPC 端口
@@ -24,6 +27,11 @@ static bool parseNodeValue(const std::string& val, std::string& host, std::strin
     ws_port = val.substr(c1 + 1, c2 - c1 - 1);
     grpc_port = val.substr(c2 + 1);
     return !host.empty() && !grpc_port.empty();
+}
+
+static std::string generate_lock_owner() {
+    boost::uuids::uuid uuid = boost::uuids::random_generator()();
+    return boost::uuids::to_string(uuid);
 }
 
 // Helper: write message to MySQL and Redis, then try WebSocket push (local or cross-node)
@@ -48,10 +56,15 @@ static bool pushMessageToUser(int uid, const std::string& msgType,
 
     std::string msg_json = msg.toStyledString();
 
-    RedisManager::getInstance().lpush("msgs:" + uid_str, msg_json);
-    RedisManager::getInstance().ltrim("msgs:" + uid_str, 0, 49);
-    RedisManager::getInstance().expire("msgs:" + uid_str, 604800);
-    RedisManager::getInstance().incr("unread:" + uid_str);
+    // Atomic: LPUSH + LTRIM + EXPIRE + INCR, protected by distributed lock
+    std::string lock_key = "lock:unread:" + uid_str;
+    std::string owner = generate_lock_owner();
+    if (RedisManager::getInstance().acquireLockWithRetry(lock_key, owner, 10)) {
+        RedisManager::getInstance().pushMessageAtomic(uid_str, msg_json);
+        RedisManager::getInstance().releaseLock(lock_key, owner);
+    } else {
+        LOG_ERROR("[Push] Failed to acquire unread lock for pushMessage uid={}", uid_str);
+    }
 
     // 3. Try local WebSocket push
     if (g_main_server) {
@@ -205,14 +218,16 @@ Status PushGrpcServiceImpl::MarkRead(ServerContext* context, const MarkReadReq* 
     // Update MySQL
     MySQLManager::getInstance().markMessagesRead(uid, ids);
 
-    // Update Redis unread count
+    // Update Redis unread count — protected by distributed lock
     std::string uid_str = std::to_string(uid);
-    if (ids.empty()) {
-        RedisManager::getInstance().setex("unread:" + uid_str, "0", 604800);
+    std::string lock_key = "lock:unread:" + uid_str;
+    std::string owner = generate_lock_owner();
+    if (RedisManager::getInstance().acquireLockWithRetry(lock_key, owner, 10)) {
+        int decrement_count = ids.empty() ? 0 : static_cast<int>(ids.size());
+        RedisManager::getInstance().markReadAtomic(uid_str, decrement_count);
+        RedisManager::getInstance().releaseLock(lock_key, owner);
     } else {
-        for (size_t i = 0; i < ids.size(); ++i) {
-            RedisManager::getInstance().decr("unread:" + uid_str);
-        }
+        LOG_ERROR("[Push] Failed to acquire unread lock for MarkRead uid={}", uid);
     }
 
     resp->set_error(0);
