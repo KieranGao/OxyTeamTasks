@@ -98,7 +98,6 @@ std::string RedisManager::lrange(const std::string& key, int start, int stop) {
         if (reply) freeReplyObject(reply);
         return "";
     }
-    // Build a JSON array string from the Redis array results
     std::string result = "[";
     for (size_t i = 0; i < reply->elements; ++i) {
         if (i > 0) result += ",";

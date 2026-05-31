@@ -91,7 +91,6 @@ Status StatusServiceImpl::AllocatePushServer(ServerContext* context, const Alloc
     resp->set_error(static_cast<int>(ErrorCodes::SUCCESS));
     resp->set_host(server.host);
     resp->set_port(server.port);
-    // Check if old token exists before overwriting — if so, mark for kicking old session
     std::string uid_str = std::to_string(req->uid());
     std::string lock_key = "lock:login:" + uid_str;
     std::string owner = generate_unique_string();
@@ -102,7 +101,7 @@ Status StatusServiceImpl::AllocatePushServer(ServerContext* context, const Alloc
         return Status::OK;
     }
 
-    // Critical section: token read-write-kick
+    // 临界区: token 读写踢
     std::string old_token;
     std::string token_key = USER_TOKEN_PREFIX + uid_str;
     bool has_old = RedisManager::getInstance().get(token_key, old_token);
@@ -115,7 +114,7 @@ Status StatusServiceImpl::AllocatePushServer(ServerContext* context, const Alloc
         return Status::OK;
     }
 
-    // If old token existed and was different, set kick marker for PushServer to close old session
+    // 若旧token存在且不同，设置踢人标记通知PushServer关闭旧会话
     if (has_old && !old_token.empty() && old_token != resp->token()) {
         std::string kick_key = "kick:" + uid_str;
         RedisManager::getInstance().setex(kick_key, old_token, 60);
@@ -124,7 +123,7 @@ Status StatusServiceImpl::AllocatePushServer(ServerContext* context, const Alloc
 
     RedisManager::getInstance().releaseLock(lock_key, owner);
 
-    // Store uid → PushServer node mapping for message routing (host:ws_port:grpc_port)
+    // 存储 uid → PushServer 节点映射，用于消息路由 (host:ws_port:grpc_port)
     std::string node_key = "pushnode:" + std::to_string(req->uid());
     RedisManager::getInstance().setex(node_key, server.host + ":" + server.port + ":" + server.grpc_port, 86400);
     LOG_INFO("[StatusServer] Allocated {}:{} (gRPC:{}) token={} for uid={}", server.host, server.port, server.grpc_port, resp->token(), req->uid());
@@ -334,7 +333,6 @@ Status StatusServiceImpl::GetPushServerForUser(ServerContext* context, const Get
         auto* node = resp->add_nodes();
         node->set_uid(uid);
         if (redis.get(node_key, node_value) && !node_value.empty()) {
-            // Format: host:ws_port:grpc_port
             auto colon1 = node_value.find(':');
             auto colon2 = node_value.find(':', colon1 + 1);
             if (colon1 != std::string::npos) {
