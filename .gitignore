@@ -50,6 +50,6 @@ UMSServer/logs
 docs
 *.md
 !README.md
-!README-zh.md
+!README-en.md
 !LICENSE
 

@@ -2,20 +2,20 @@
 
 <div align="right">
 
-English · [中文](README-zh.md)
+[English](README-en.md) · 中文
 
 </div>
 
 <h1 align="center">OxyTeamTask</h1>
 <p align="center">
-  <strong>Distributed training task coordination system for teams</strong>
+  <strong>训练团队分布式训练任务协同管理系统</strong>
   <br />
-  <em>Microservice Architecture · gRPC · WebSocket Push · Role-Based Access Control</em>
+  <em>微服务架构 · gRPC 通信 · WebSocket 实时推送 · 角色权限控制</em>
 </p>
 
 <p align="center">
-  <a href="#quick-start"><img src="https://img.shields.io/badge/Quick_Start-4CAF50?style=for-the-badge" alt="Quick Start" /></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License" /></a>
+  <a href="#快速开始"><img src="https://img.shields.io/badge/快速开始-4CAF50?style=for-the-badge" alt="快速开始" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/许可证-MIT-yellow?style=for-the-badge" alt="许可证" /></a>
 </p>
 
 <p align="center">
@@ -43,129 +43,129 @@ English · [中文](README-zh.md)
 
 ---
 
-## Features
+## 功能特性
 
-| Feature | Description |
+| 功能 | 描述 |
 |---|---|
-| **Microservice Architecture** | 6 independent services (5 C++ / 1 Node.js) communicating via gRPC, each with its own database access and connection pooling |
-| **Real-Time Push Notifications** | WebSocket-based push with cross-node forwarding, auto-reconnect, and offline message caching via Redis |
-| **Role-Based Access Control** | Three-tier roles (member, captain, coach) enforced at both frontend route guards and backend RPC handlers |
-| **Per-Assignee Task Tracking** | Independent status tracking per assignee on shared tasks, with batch SQL population and rollback support |
-| **Distributed Concurrency Safety** | Redis distributed locks with Lua atomic scripts for login tokens, message push, and unread counters |
-| **Load-Balanced Push Servers** | Segment tree algorithm for O(log n) PushServer allocation by connection count, with horizontal scaling support |
+| **微服务架构** | 6 个独立服务（5 个 C++ / 1 个 Node.js）通过 gRPC 通信，各自拥有独立的数据库访问和连接池 |
+| **实时推送通知** | 基于 WebSocket 的消息推送，支持跨节点转发、自动重连和 Redis 离线消息缓存 |
+| **角色权限控制** | 三级角色（队员、队长、教练），在前端路由守卫和后端 RPC 处理器双重强制执行 |
+| **独立任务追踪** | 共享任务的每个执行人独立状态追踪，支持批量 SQL 查询和状态回退 |
+| **分布式并发安全** | Redis 分布式锁配合 Lua 原子脚本，保障登录令牌、消息推送和未读计数的一致性 |
+| **负载均衡推送服务器** | 基于线段树算法的 O(log n) PushServer 分配，按连接数均衡，支持水平扩展 |
 
 ---
 
-## Quick Start
+## 快速开始
 
-### Prerequisites
+### 环境要求
 
-- C++17 compiler (GCC 9+ / Clang 10+)
+- C++17 编译器（GCC 9+ / Clang 10+）
 - CMake 3.16+
 - Node.js 18+
 - MySQL 8.0
 - Redis 6.0+
-- Boost, Protobuf, gRPC, hiredis, mysqlcppconn (system libraries)
+- Boost、Protobuf、gRPC、hiredis、mysqlcppconn（系统库）
 
-### Install Dependencies
+### 安装依赖
 
 ```bash
-# System packages (Ubuntu/Debian)
+# 系统包（Ubuntu/Debian）
 sudo apt install libboost-all-dev libprotobuf-dev protobuf-compiler \
   libgrpc++-dev protobuf-compiler-grpc libhiredis-dev libmysqlcppconn-dev
 
-# Frontend dependencies
+# 前端依赖
 cd Client && npm install
 
-# MailerServer dependencies
+# 邮件服务依赖
 cd MailerServer && npm install
 ```
 
-### Configure
+### 配置
 
 ```bash
-# Initialize database
+# 初始化数据库
 mysql -u root -p < user.sql
 mysql -u root -p oxytasks < task.sql
 mysql -u root -p oxytasks < task_assignments.sql
 mysql -u root -p oxytasks < todo_list.sql
 mysql -u root -p oxytasks < messages.sql
 
-# Edit config.ini in each server directory with your MySQL/Redis credentials
-# Edit MailerServer/config.json with your SMTP credentials
-# Edit Client/config.json with your GateServer host/port
+# 编辑各服务器目录下的 config.ini，配置 MySQL/Redis 连接信息
+# 编辑 MailerServer/config.json，配置 SMTP 邮件发送凭证
+# 编辑 Client/config.json，配置 GateServer 主机和端口
 ```
 
-### Run
+### 启动
 
 ```bash
-# Build all C++ servers
+# 构建所有 C++ 服务器
 ./build_all.sh
 
-# Start all services (handles correct startup order)
+# 按正确顺序启动所有服务
 ./start_all.sh
 
-# Start frontend dev server
+# 启动前端开发服务器
 cd Client && npm run dev
 ```
 
 ---
 
-## Usage
+## 使用方法
 
-### API Request (via GateServer)
+### API 请求（通过 GateServer）
 
-All frontend requests go through GateServer (HTTP POST → gRPC translation):
+所有前端请求通过 GateServer 转发（HTTP POST → gRPC 翻译）：
 
 ```bash
-# Login
+# 登录
 curl -X POST http://localhost:8080/user_login \
   -H "Content-Type: application/json" \
   -d '{"email":"user@example.com","password":"hashed_password"}'
 
-# List tasks
+# 获取任务列表
 curl -X POST http://localhost:8080/task_list \
   -H "Content-Type: application/json" \
   -d '{"uid":0,"status":-1,"assigned_to":"0"}'
 
-# Daily check-in
+# 每日打卡
 curl -X POST http://localhost:8080/checkin \
   -H "Content-Type: application/json" \
   -d '{"uid":1}'
 ```
 
-### Direct gRPC Call (bypass GateServer)
+### 直接 gRPC 调用（绕过 GateServer）
 
 ```bash
-# List tasks directly via TaskServer
+# 直接通过 TaskServer 查询任务
 grpcurl -plaintext -d '{"uid":1}' localhost:50054 message.TaskService/ListTasks
 ```
 
-### WebSocket Push Client
+### WebSocket 推送客户端
 
 ```javascript
 import { connectPushServer } from '@/utils/pushClient'
 
-// After login, connect to push server
+// 登录后连接推送服务器
 connectPushServer(host, port, uid, token)
 
-// Listen for real-time notifications
-onMessage('notify', (data) => { /* handle notification */ })
-onMessage('task_new', (data) => { /* handle new task */ })
-onMessage('kicked', (data) => { /* handle session kicked */ })
+// 监听实时通知
+onMessage('notify', (data) => { /* 处理通知 */ })
+onMessage('task_new', (data) => { /* 处理新任务 */ })
+onMessage('kicked', (data) => { /* 处理会话踢出 */ })
 ```
 
 ---
 
-## Architecture
+## 架构
 
 ```mermaid
 graph LR
-    C[Client<br/>Vue 3 + Element Plus] -->|HTTP POST| G[GateServer<br/>Boost.Beast :8080]
-    G -->|gRPC| U[UMSServer<br/>:50053]
-    G -->|gRPC| T[TaskServer<br/>:50054]
-    G -->|gRPC| S[StatusServer<br/>:50052]
-    U -->|gRPC| M[MailerServer<br/>Node.js :50051]
+    C[客户端<br/>Vue 3 + Element Plus] -->|HTTP POST| G[GateServer<br/>Boost.Beast :8080]
+    G -->|gRPC| U[UMSServer<br/>用户管理 :50053]
+    G -->|gRPC| T[TaskServer<br/>任务管理 :50054]
+    G -->|gRPC| S[StatusServer<br/>状态管理 :50052]
+    U -->|gRPC| M[MailerServer<br/>邮件服务 Node.js :50051]
     T -->|gRPC| P1[PushServer1<br/>WS:8890 gRPC:50056]
     T -->|gRPC| P2[PushServer2<br/>WS:8891 gRPC:50057]
     P1 -->|gRPC| P2
@@ -186,185 +186,185 @@ graph LR
     M --> R
 ```
 
-**Startup order**: StatusServer → UMSServer → TaskServer → PushServer1 → PushServer2 → GateServer
+**启动顺序**：StatusServer → UMSServer → TaskServer → PushServer1 → PushServer2 → GateServer
 
 ---
 
-## API
+## API 接口
 
-All endpoints are `POST` via GateServer at `http://localhost:8080`. Responses use `{ "error": 0 }` for success.
+所有接口均为 `POST` 请求，通过 `http://localhost:8080` 的 GateServer 转发。成功响应格式为 `{ "error": 0 }`。
 
-### Authentication
+### 认证相关
 
-| Endpoint | Description |
+| 接口 | 说明 |
 |---|---|
-| `POST /get_verify_code` | Request email verification code |
-| `POST /user_register` | Register new user (requires verification code) |
-| `POST /user_login` | Login (returns uid, token, push server info) |
-| `POST /user_resetpass` | Reset password with verification code |
+| `POST /get_verify_code` | 请求邮箱验证码 |
+| `POST /user_register` | 用户注册（需要验证码） |
+| `POST /user_login` | 用户登录（返回 uid、token、推送服务器信息） |
+| `POST /user_resetpass` | 通过验证码重置密码 |
 
-### Tasks
+### 任务管理
 
-| Endpoint | Description |
+| 接口 | 说明 |
 |---|---|
-| `POST /task_create` | Create task with assignees |
-| `POST /task_update` | Update task (uid=0 global, uid>0 per-assignee) |
-| `POST /task_delete` | Delete task |
-| `POST /task_get` | Get task with per-assignee statuses |
-| `POST /task_list` | List tasks with filters (uid, status, assigned_to) |
+| `POST /task_create` | 创建任务并分配执行人 |
+| `POST /task_update` | 更新任务（uid=0 全局更新，uid>0 更新指定执行人状态） |
+| `POST /task_delete` | 删除任务 |
+| `POST /task_get` | 获取任务详情（含各执行人状态） |
+| `POST /task_list` | 按条件筛选任务列表 |
 
-### TODOs & Check-in
+### 待办与打卡
 
-| Endpoint | Description |
+| 接口 | 说明 |
 |---|---|
-| `POST /todo_add` | Add TODO item (priority, deadline) |
-| `POST /todo_list` | List TODOs with filter |
-| `POST /todo_update` | Update TODO |
-| `POST /todo_delete` | Delete TODO |
-| `POST /checkin` | Daily check-in (error 3001 if already done) |
-| `POST /checkin_list` | List check-in records by date range |
+| `POST /todo_add` | 添加待办事项（支持优先级、截止日期） |
+| `POST /todo_list` | 获取待办列表 |
+| `POST /todo_update` | 更新待办事项 |
+| `POST /todo_delete` | 删除待办事项 |
+| `POST /checkin` | 每日打卡（已打卡返回错误码 3001） |
+| `POST /checkin_list` | 按日期范围查询打卡记录 |
 
-### Messages
+### 消息管理
 
-| Endpoint | Description |
+| 接口 | 说明 |
 |---|---|
-| `POST /msg_list` | List messages with unread count |
-| `POST /msg_read` | Mark messages as read |
-| `POST /msg_delete` | Delete messages |
+| `POST /msg_list` | 获取消息列表（含未读数） |
+| `POST /msg_read` | 标记消息已读 |
+| `POST /msg_delete` | 删除消息 |
 
-### Administration (Coach only)
+### 管理功能（仅教练）
 
-| Endpoint | Description |
+| 接口 | 说明 |
 |---|---|
-| `POST /user_list_pending` | List pending user registrations |
-| `POST /user_approve` | Approve user (set role + team) |
-| `POST /user_reject` | Reject user registration |
-| `POST /user_set_role` | Change user role/team |
-| `POST /user_list_all` | List all active users |
-| `POST /user_update_team` | Update user team assignment |
-| `POST /monitor/query_logs` | Query service logs |
-| `POST /monitor/server_status` | Query server health status |
+| `POST /user_list_pending` | 查看待审批用户列表 |
+| `POST /user_approve` | 审批通过用户（设置角色和队伍） |
+| `POST /user_reject` | 拒绝用户注册 |
+| `POST /user_set_role` | 修改用户角色/队伍 |
+| `POST /user_list_all` | 查看所有活跃用户 |
+| `POST /user_update_team` | 更新用户队伍归属 |
+| `POST /monitor/query_logs` | 查询服务日志 |
+| `POST /monitor/server_status` | 查询服务器健康状态 |
 
 ---
 
-## Project Structure
+## 项目结构
 
 ```
 OxyTasks/
-├── GateServer/          # HTTP gateway (Boost.Beast), translates JSON→gRPC
-│   ├── config.ini       # Server port, downstream service addresses, DB/Redis
-│   ├── message.proto    # Protobuf service definitions
-│   ├── LogicSystem.cpp  # HTTP route registration and handler logic
-│   └── ...              # GrpcClients, MySQL/Redis pools, Logger
-├── UMSServer/           # User Management Service (gRPC :50053)
-│   └── UMSGrpcServiceImpl.cpp  # Register, Login, ResetPass, admin RPCs
-├── TaskServer/          # Task/Todo/Checkin Service (gRPC :50054)
-│   └── TaskGrpcServiceImpl.cpp # CRUD tasks, TODOs, check-ins, reminders
-├── StatusServer/        # Service registry, load balancer, log aggregator (:50052)
-│   └── SegmentTree.cpp  # O(log n) PushServer allocation algorithm
-├── PushServer/          # WebSocket push + gRPC (:8890 WS, :50056 gRPC)
-│   └── PushGrpcServiceImpl.cpp # PushToUser/Team, message persistence
-├── PushServer2/         # Second PushServer instance (:8891 WS, :50057 gRPC)
-├── MailerServer/        # Email verification service (Node.js, gRPC :50051)
-│   ├── server.js        # gRPC server entry point
-│   └── email.js         # Nodemailer SMTP transport
-├── Client/              # Vue 3 SPA frontend
-│   ├── src/views/       # 14 view components (auth, dashboard, taskboard, etc.)
-│   ├── src/stores/      # Pinia stores (user auth, app theme)
-│   ├── src/api/         # Axios API layer
-│   └── src/utils/       # WebSocket client, SHA-256 crypto
-├── jsoncpp/             # Vendored jsoncpp library
-├── docs/                # Debug logs, design specs
-├── *.sql                # Database schema files
-├── build_all.sh         # Build all C++ servers
-├── start_all.sh         # Start services in correct order
-└── stop_all.sh          # Graceful shutdown
+├── GateServer/          # HTTP 网关（Boost.Beast），JSON→gRPC 协议翻译
+│   ├── config.ini       # 服务端口、下游服务地址、数据库/Redis 配置
+│   ├── message.proto    # Protobuf 服务定义
+│   ├── LogicSystem.cpp  # HTTP 路由注册和请求处理逻辑
+│   └── ...              # GrpcClient、MySQL/Redis 连接池、日志模块
+├── UMSServer/           # 用户管理服务（gRPC :50053）
+│   └── UMSGrpcServiceImpl.cpp  # 注册、登录、密码重置、管理员操作
+├── TaskServer/          # 任务/待办/打卡服务（gRPC :50054）
+│   └── TaskGrpcServiceImpl.cpp # 任务增删改查、待办管理、打卡、定时提醒
+├── StatusServer/        # 服务注册中心、负载均衡、日志聚合（:50052）
+│   └── SegmentTree.cpp  # O(log n) PushServer 分配线段树算法
+├── PushServer/          # WebSocket 推送 + gRPC（:8890 WS, :50056 gRPC）
+│   └── PushGrpcServiceImpl.cpp # 消息推送、消息持久化
+├── PushServer2/         # 第二个 PushServer 实例（:8891 WS, :50057 gRPC）
+├── MailerServer/        # 邮件验证服务（Node.js, gRPC :50051）
+│   ├── server.js        # gRPC 服务入口
+│   └── email.js         # Nodemailer SMTP 邮件发送
+├── Client/              # Vue 3 单页应用前端
+│   ├── src/views/       # 14 个视图组件（认证、工作台、任务看板等）
+│   ├── src/stores/      # Pinia 状态管理（用户认证、应用主题）
+│   ├── src/api/         # Axios API 封装层
+│   └── src/utils/       # WebSocket 客户端、SHA-256 加密工具
+├── jsoncpp/             # 内嵌的 jsoncpp 库
+├── docs/                # 调试日志、设计文档
+├── *.sql                # 数据库建表脚本
+├── build_all.sh         # 一键构建所有 C++ 服务器
+├── start_all.sh         # 按正确顺序启动服务
+└── stop_all.sh          # 优雅停止所有服务
 ```
 
 ---
 
-## Tech Stack
+## 技术栈
 
-### Frontend
+### 前端
 
-| Technology | Purpose |
+| 技术 | 用途 |
 |---|---|
-| Vue 3 (Composition API) | UI framework with `<script setup>` syntax |
-| Vue Router 4 | Hash-based routing for Electron compatibility |
-| Pinia | State management (user auth, app theme, persisted to localStorage) |
-| Element Plus | UI component library with auto-imported icons |
-| Axios | HTTP client with auth header injection |
-| Vite 5 | Build tool with dev proxy to GateServer |
+| Vue 3（Composition API） | UI 框架，使用 `<script setup>` 语法 |
+| Vue Router 4 | Hash 路由，兼容 Electron 打包 |
+| Pinia | 状态管理（用户认证、应用主题，持久化到 localStorage） |
+| Element Plus | UI 组件库，图标自动导入 |
+| Axios | HTTP 客户端，自动注入认证头 |
+| Vite 5 | 构建工具，开发服务器代理到 GateServer |
 
-### Backend (C++)
+### 后端（C++）
 
-| Technology | Purpose |
+| 技术 | 用途 |
 |---|---|
-| C++17 | Core language for 5 microservices |
-| Boost.Beast / Asio | HTTP server (GateServer) and WebSocket server (PushServer) |
-| gRPC + Protobuf | Inter-service communication (35 RPC methods across 5 services) |
-| hiredis | Redis client for caching, distributed locks, session management |
-| MySQL Connector/C++ | Database access with connection pooling |
-| jsoncpp (vendored) | JSON parsing for HTTP request/response |
+| C++17 | 5 个微服务的核心语言 |
+| Boost.Beast / Asio | HTTP 服务器（GateServer）和 WebSocket 服务器（PushServer） |
+| gRPC + Protobuf | 服务间通信（5 个服务共 35 个 RPC 方法） |
+| hiredis | Redis 客户端，用于缓存、分布式锁、会话管理 |
+| MySQL Connector/C++ | 数据库访问，带连接池 |
+| jsoncpp（内嵌） | HTTP 请求/响应的 JSON 解析 |
 
-### Backend (Node.js)
+### 后端（Node.js）
 
-| Technology | Purpose |
+| 技术 | 用途 |
 |---|---|
-| @grpc/grpc-js | gRPC server for MailerService |
-| Nodemailer | SMTP email delivery (verification codes) |
-| ioredis | Redis client for code storage |
+| @grpc/grpc-js | MailerService 的 gRPC 服务器 |
+| Nodemailer | SMTP 邮件发送（验证码） |
+| ioredis | Redis 客户端，用于验证码存储 |
 
-### Infrastructure
+### 基础设施
 
-| Technology | Purpose |
+| 技术 | 用途 |
 |---|---|
-| MySQL 8.0 | Persistent storage (users, tasks, TODOs, check-ins, messages) |
-| Redis 6.0+ | Session tokens, distributed locks, message cache, unread counters, log aggregation |
-| CMake | Build system for all C++ servers |
+| MySQL 8.0 | 持久化存储（用户、任务、待办、打卡、消息） |
+| Redis 6.0+ | 会话令牌、分布式锁、消息缓存、未读计数、日志聚合 |
+| CMake | 所有 C++ 服务器的构建系统 |
 
 ---
 
-## Configuration
+## 配置说明
 
-Each C++ server has a `config.ini` with the following sections:
+每个 C++ 服务器都有一个 `config.ini` 配置文件，包含以下配置段：
 
-| Section | Key Settings | Description |
+| 配置段 | 关键配置项 | 说明 |
 |---|---|---|
-| `[ServerName]` | host, port | This server's listen address |
-| `[MySQL]` | host, port, user, password, dbName, poolSize | Database connection pool |
-| `[Redis]` | host, port, password, poolSize | Redis connection pool |
-| `[Log]` | level, flushInterval | Logging configuration |
-| `[StatusServer]` | host, port | StatusServer address (for heartbeats) |
+| `[ServerName]` | host, port | 本服务器监听地址 |
+| `[MySQL]` | host, port, user, password, dbName, poolSize | 数据库连接池配置 |
+| `[Redis]` | host, port, password, poolSize | Redis 连接池配置 |
+| `[Log]` | level, flushInterval | 日志配置 |
+| `[StatusServer]` | host, port | StatusServer 地址（用于心跳上报） |
 
-MailerServer uses `config.json` with SMTP, MySQL, and Redis credentials.
+MailerServer 使用 `config.json` 配置 SMTP、MySQL 和 Redis 凭证。
 
-Client uses `config.json` at project root for GateServer host/port.
+Client 使用项目根目录的 `config.json` 配置 GateServer 主机和端口。
 
 ---
 
-## Role System
+## 角色系统
 
-| Role | Level | Capabilities |
+| 角色 | 等级 | 权限 |
 |---|---|---|
-| **Member** | 0 | View/complete assigned tasks, personal TODOs, daily check-in |
-| **Captain** | 1 | Member + create tasks, manage team, view team progress |
-| **Coach** | 2 | Captain + approve users, manage all teams, system monitoring |
+| **队员** | 0 | 查看/完成分配的任务、个人待办、每日打卡 |
+| **队长** | 1 | 队员权限 + 创建任务、管理队伍、查看队伍进度 |
+| **教练** | 2 | 队长权限 + 审批用户、管理所有队伍、系统监控 |
 
-New users register with `status=pending` and must be approved by a coach before they can log in.
-
----
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing`)
-3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing`)
-5. Open a Pull Request
+新注册用户状态为 `待审批`，需教练审批通过后方可登录。
 
 ---
 
-## License
+## 参与贡献
+
+1. Fork 本仓库
+2. 创建功能分支（`git checkout -b feature/amazing`）
+3. 提交更改（`git commit -m 'feat: add amazing feature'`）
+4. 推送到远程分支（`git push origin feature/amazing`）
+5. 创建 Pull Request
+
+---
+
+## 许可证
 
 [MIT](LICENSE)
