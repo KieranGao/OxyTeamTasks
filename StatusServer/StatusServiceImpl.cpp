@@ -92,21 +92,37 @@ Status StatusServiceImpl::AllocatePushServer(ServerContext* context, const Alloc
     resp->set_host(server.host);
     resp->set_port(server.port);
     // Check if old token exists before overwriting — if so, mark for kicking old session
+    std::string uid_str = std::to_string(req->uid());
+    std::string lock_key = "lock:login:" + uid_str;
+    std::string owner = generate_unique_string();
+
+    if (!RedisManager::getInstance().acquireLockWithRetry(lock_key, owner, 10)) {
+        LOG_ERROR("[StatusServer] AllocatePushServer: Failed to acquire login lock for uid={}", req->uid());
+        resp->set_error(static_cast<int>(ErrorCodes::RPC_ERROR));
+        return Status::OK;
+    }
+
+    // Critical section: token read-write-kick
     std::string old_token;
-    std::string token_key = USER_TOKEN_PREFIX + std::to_string(req->uid());
+    std::string token_key = USER_TOKEN_PREFIX + uid_str;
     bool has_old = RedisManager::getInstance().get(token_key, old_token);
 
     resp->set_token(generate_unique_string());
     if (!insertToken(req->uid(), resp->token())) {
         LOG_ERROR("[StatusServer] AllocatePushServer: Failed to persist token for uid={}, Redis may be down", req->uid());
+        RedisManager::getInstance().releaseLock(lock_key, owner);
+        resp->set_error(static_cast<int>(ErrorCodes::RPC_ERROR));
+        return Status::OK;
     }
 
     // If old token existed and was different, set kick marker for PushServer to close old session
     if (has_old && !old_token.empty() && old_token != resp->token()) {
-        std::string kick_key = "kick:" + std::to_string(req->uid());
+        std::string kick_key = "kick:" + uid_str;
         RedisManager::getInstance().setex(kick_key, old_token, 60);
         LOG_INFO("[StatusServer] Set kick marker for uid={}", req->uid());
     }
+
+    RedisManager::getInstance().releaseLock(lock_key, owner);
 
     // Store uid → PushServer node mapping for message routing (host:ws_port:grpc_port)
     std::string node_key = "pushnode:" + std::to_string(req->uid());
@@ -182,9 +198,7 @@ Status StatusServiceImpl::ReportLog(ServerContext* context, const ReportLogReq* 
             + "\",\"message\":\"" + jsonEscape(entry.message()) + "\",\"timestamp\":" + std::to_string(entry.timestamp()) + "}";
 
         auto& redis = RedisManager::getInstance();
-        redis.lpush(redis_key, json);
-        redis.ltrim(redis_key, 0, 499);
-        redis.expire(redis_key, 604800);
+        redis.appendLogAtomic(entry.service(), json);
     }
     resp->set_error(static_cast<int>(ErrorCodes::SUCCESS));
     return Status::OK;
