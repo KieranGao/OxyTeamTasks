@@ -6,7 +6,15 @@
 #include "TaskGrpcClient.h"
 #include "MySQLManager.h"
 #include "RedisManager.h"
+#include "boost/uuid/uuid.hpp"
+#include "boost/uuid/random_generator.hpp"
+#include "boost/uuid/uuid_io.hpp"
 #include "Logger.h"
+
+static std::string generate_lock_owner() {
+    boost::uuids::uuid uuid = boost::uuids::random_generator()();
+    return boost::uuids::to_string(uuid);
+}
 
 void LogicSystem::registerGet(std::string url, HttpHandler handler) {
     getHandlers_[url] = handler;
@@ -671,12 +679,16 @@ LogicSystem::LogicSystem() {
             for (auto& v : jsonData["ids"]) ids.push_back(v.asInt64());
         }
         MySQLManager::getInstance().markMessagesRead(uid, ids);
-        // 将已选消息置为已读，空则为全部已读
-        if (ids.empty()) {
-            RedisManager::getInstance().setex("unread:" + std::to_string(uid), "0", 604800);
+        // Atomic mark-read with distributed lock protection
+        std::string uid_str = std::to_string(uid);
+        std::string lock_key = "lock:unread:" + uid_str;
+        std::string owner = generate_lock_owner();
+        if (RedisManager::getInstance().acquireLockWithRetry(lock_key, owner, 10)) {
+            int decrement_count = ids.empty() ? 0 : static_cast<int>(ids.size());
+            RedisManager::getInstance().markReadAtomic(uid_str, decrement_count);
+            RedisManager::getInstance().releaseLock(lock_key, owner);
         } else {
-            for (size_t i = 0; i < ids.size(); ++i)
-                RedisManager::getInstance().decr("unread:" + std::to_string(uid));
+            LOG_ERROR("[Gate] Failed to acquire unread lock for markRead uid={}", uid);
         }
         jsonResp["error"] = 0;
         beast::ostream(connection->resp_.body()) << jsonResp.toStyledString();
