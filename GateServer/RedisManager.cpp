@@ -455,8 +455,6 @@ bool RedisManager::getAndDeleteKick(const std::string& uid_str, std::string& out
         "local val=redis.call('GET',KEYS[1]) "
         "if val then redis.call('DEL',KEYS[1]) end "
         "return val";
-    std::vector<std::string> keys = {"kick:" + uid_str};
-    std::vector<std::string> args = {};
 
     auto connect = conn_pool_->getConnection();
     if (connect == nullptr) return false;
