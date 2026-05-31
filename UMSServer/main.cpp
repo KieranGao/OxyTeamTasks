@@ -47,7 +47,6 @@ int main() {
     std::unique_ptr<grpc::Server> server(builder.BuildAndStart());
     LOG_INFO("UMSServer gRPC listening on {}", addr);
 
-    // Graceful shutdown via server->Wait() blocking
     server->Wait();
 
     hb_running = false;

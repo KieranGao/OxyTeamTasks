@@ -38,7 +38,7 @@ int MySQLDao::registerUser(const std::string& username, const std::string& email
         LOG_DEBUG("reg_user result code: {}", result);
         if (result != 0) return -1;  // 1=用户名重复 2=邮箱重复 -1=异常
 
-        // Registration succeeded — fetch the new uid
+        // 注册成功，则获取uid返回
         std::unique_ptr<sql::PreparedStatement> pstmt(sql_conn->prepareStatement("SELECT uid FROM user WHERE email = ? LIMIT 1"));
         pstmt->setString(1, email);
         std::unique_ptr<sql::ResultSet> uidRes(pstmt->executeQuery());

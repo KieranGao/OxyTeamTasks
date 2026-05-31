@@ -2,7 +2,7 @@
 
 # OxyTasks
 
-ACM 集训队分布式训练任务协同系统
+Distributed training task coordination system for ACM competitive programming teams
 
 ![C++](https://img.shields.io/badge/C++17-00599C?style=flat&logo=cplusplus&logoColor=white)
 ![Vue](https://img.shields.io/badge/Vue_3-4FC08D?style=flat&logo=vuedotjs&logoColor=white)
@@ -10,7 +10,7 @@ ACM 集训队分布式训练任务协同系统
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white)
 ![Redis](https://img.shields.io/badge/Redis-DC382D?style=flat&logo=redis&logoColor=white)
 
-## 系统架构
+## Architecture
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 320">
   <defs>
@@ -85,25 +85,25 @@ ACM 集训队分布式训练任务协同系统
   <line x1="690" y1="145" x2="710" y2="145" stroke="#606266" stroke-width="2" marker-end="url(#arrowhead)"/>
 </svg>
 
-## 功能特性
+## Features
 
-- **用户管理**：注册（邮箱验证码）、登录、角色体系（队员/队长/教练）、教练审批、队伍分配
-- **任务管理**：多指派人任务、独立状态跟踪、优先级与截止日期、实时 WebSocket 推送通知
-- **TODO 清单**：个人待办事项、优先级排序、截止日期管理
-- **每日签到**：日历可视化、团队签到统计
-- **消息中心**：实时推送 + 离线缓存、未读角标、标记已读、多节点转发
-- **系统监控**：服务心跳检测、跨服务日志聚合、PushServer 连接数统计（教练专属）
-- **推送架构**：多 PushServer 负载均衡、SegmentTree 分配算法、跨节点 gRPC 转发、离线消息补推
+- **User Management**: Registration (email verification), login, role system (member/captain/coach), coach approval, team assignment
+- **Task Management**: Multi-assignee tasks, independent status tracking, priority & deadlines, real-time WebSocket push notifications
+- **TODO List**: Personal to-do items, priority sorting, deadline management
+- **Daily Check-in**: Calendar visualization, team check-in statistics
+- **Message Center**: Real-time push + offline caching, unread badge, mark as read, cross-node forwarding
+- **System Monitoring**: Service heartbeat detection, cross-service log aggregation, PushServer connection stats (coach only)
+- **Push Architecture**: Multi-PushServer load balancing, SegmentTree allocation algorithm, cross-node gRPC forwarding, offline message catch-up
 
-## 快速开始
+## Quick Start
 
-### 环境要求
+### Prerequisites
 
-- **C++ 服务**：C++17, CMake 3.16+, Boost (system/filesystem), protobuf, gRPC, hiredis, MySQL Connector/C++, jsoncpp
-- **前端**：Node.js 18+, npm
-- **数据库**：MySQL 8.0, Redis 6+
+- **C++ Servers**: C++17, CMake 3.16+, Boost (system/filesystem), protobuf, gRPC, hiredis, MySQL Connector/C++, jsoncpp
+- **Frontend**: Node.js 18+, npm
+- **Database**: MySQL 8.0, Redis 6+
 
-### 1. 初始化数据库
+### 1. Initialize Database
 
 ```bash
 mysql -u root -p < user.sql
@@ -113,116 +113,116 @@ mysql -u root -p oxytasks < todo_list.sql
 mysql -u root -p oxytasks < messages.sql
 ```
 
-### 2. 配置
+### 2. Configure
 
-每个服务目录下的 `config.ini` 需配置 MySQL/Redis 连接信息。MailerServer 使用 `config.json`。
+Each server directory contains a `config.ini` (or `config.json` for MailerServer) where you set MySQL/Redis connection details.
 
-### 3. 构建
+### 3. Build
 
 ```bash
-# 构建所有 C++ 服务
+# Build all C++ servers
 ./build_all.sh
 
-# 安装前端依赖
+# Install frontend dependencies
 cd Client && npm install
 ```
 
-### 4. 启动
+### 4. Start
 
 ```bash
-# 启动所有服务（按依赖顺序）
+# Start all servers (in dependency order)
 ./start_all.sh
 
-# 停止所有服务
+# Stop all servers
 ./stop_all.sh
 ```
 
-启动顺序：StatusServer → UMSServer → TaskServer → PushServer → PushServer2 → GateServer
+Startup order: StatusServer -> UMSServer -> TaskServer -> PushServer -> PushServer2 -> GateServer
 
-### 5. 访问
+### 5. Access
 
-- 前端开发服务器：`http://localhost:5173`（`cd Client && npm run dev`）
-- GateServer HTTP：`http://localhost:8080`
+- Frontend dev server: `http://localhost:5173` (`cd Client && npm run dev`)
+- GateServer HTTP: `http://localhost:8080`
 
-## 目录结构
+## Directory Structure
 
 ```
 OxyTasks/
-├── GateServer/          # HTTP 网关，前端请求唯一入口 (C++17, Boost.Beast)
-├── UMSServer/           # 用户管理服务 (注册/登录/角色/审批)
-├── TaskServer/          # 任务/TODO/签到服务
-├── StatusServer/        # 状态调度服务 (推送分配/心跳/日志聚合)
-├── PushServer/          # WebSocket 推送节点 1 (Boost.Asio)
-├── PushServer2/         # WebSocket 推送节点 2
-├── MailerServer/        # 邮件服务 (Node.js, nodemailer)
-├── Client/              # Vue 3 前端 SPA
-├── jsoncpp/             # JSON 解析库源码
-├── docs/                # 设计文档与调试记录
-├── build_all.sh         # 一键构建所有 C++ 服务
-├── start_all.sh         # 一键启动所有服务
-├── stop_all.sh          # 一键停止所有服务
-├── clear_logs.sh        # 清理日志
-├── user.sql             # 用户表结构
-├── task.sql             # 任务表结构
-├── task_assignments.sql # 任务分配表结构
-├── todo_list.sql        # TODO 表结构
-└── messages.sql         # 消息表结构
+├── GateServer/          # HTTP gateway, single entry point for frontend (C++17, Boost.Beast)
+├── UMSServer/           # User management service (auth/roles/approval)
+├── TaskServer/          # Task/TODO/Check-in service
+├── StatusServer/        # Status scheduling service (push allocation/heartbeat/log aggregation)
+├── PushServer/          # WebSocket push node 1 (Boost.Asio)
+├── PushServer2/         # WebSocket push node 2
+├── MailerServer/        # Email service (Node.js, nodemailer)
+├── Client/              # Vue 3 SPA frontend
+├── jsoncpp/             # JSON parsing library source
+├── docs/                # Design documents and debug records
+├── build_all.sh         # Build all C++ servers at once
+├── start_all.sh         # Start all servers
+├── stop_all.sh          # Stop all servers
+├── clear_logs.sh        # Clear logs
+├── user.sql             # User table schema
+├── task.sql             # Task table schema
+├── task_assignments.sql # Task assignment table schema
+├── todo_list.sql        # TODO table schema
+└── messages.sql         # Message table schema
 ```
 
-## 技术栈
+## Tech Stack
 
-### 后端
+### Backend
 
-| 组件 | 技术 |
+| Component | Technology |
 |---|---|
-| HTTP 网关 | C++17, Boost.Beast, Boost.Asio |
-| RPC 通信 | gRPC, Protocol Buffers |
-| 数据库 | MySQL 8.0, MySQL Connector/C++ |
-| 缓存 | Redis 6+, hiredis |
-| JSON 解析 | jsoncpp |
-| 邮件服务 | Node.js, @grpc/grpc-js, nodemailer, ioredis |
-| 日志 | 自定义 Logger（文件 + 缓冲刷新） |
+| HTTP Gateway | C++17, Boost.Beast, Boost.Asio |
+| RPC | gRPC, Protocol Buffers |
+| Database | MySQL 8.0, MySQL Connector/C++ |
+| Cache | Redis 6+, hiredis |
+| JSON Parsing | jsoncpp |
+| Email Service | Node.js, @grpc/grpc-js, nodemailer, ioredis |
+| Logging | Custom Logger (file + buffered flush) |
 
-### 前端
+### Frontend
 
-| 组件 | 技术 |
+| Component | Technology |
 |---|---|
-| 框架 | Vue 3 (Composition API, `<script setup>`) |
-| 状态管理 | Pinia (持久化至 localStorage) |
-| UI 组件 | Element Plus, @element-plus/icons-vue |
-| HTTP 请求 | Axios (自动附加 Authorization/X-User-Id) |
-| 路由 | Vue Router 4 (Hash 模式) |
-| 构建工具 | Vite 5 |
-| 推送客户端 | WebSocket (自动重连) |
+| Framework | Vue 3 (Composition API, `<script setup>`) |
+| State Management | Pinia (persisted to localStorage) |
+| UI Components | Element Plus, @element-plus/icons-vue |
+| HTTP Client | Axios (auto-attaches Authorization/X-User-Id headers) |
+| Router | Vue Router 4 (Hash mode) |
+| Build Tool | Vite 5 |
+| Push Client | WebSocket (auto-reconnect) |
 
-## API 规范
+## API Specification
 
-- 所有接口均为 `POST`
-- 路径格式：`/<模块>_<动作>`（如 `/task_create`、`/todo_update`）
-- 返回格式：`{ "error": 0, ... }`，`error=0` 表示成功
-- 认证：`Authorization: Bearer <token>` + `X-User-Id` 请求头
+- All endpoints are `POST`
+- Path format: `/<module>_<action>` (e.g., `/task_create`, `/todo_update`)
+- Response format: `{ "error": 0, ... }`, `error=0` means success
+- Auth: `Authorization: Bearer <token>` + `X-User-Id` headers
 
-### 接口列表
+### Endpoints
 
-| 模块 | 接口 |
+| Module | Endpoints |
 |---|---|
-| 用户 | `/get_verify_code` `/user_register` `/user_resetpass` `/user_login` `/user_list_pending` `/user_approve` `/user_reject` `/user_set_role` `/user_list_all` |
-| 任务 | `/task_create` `/task_update` `/task_delete` `/task_get` `/task_list` |
+| User | `/get_verify_code` `/user_register` `/user_resetpass` `/user_login` `/user_list_pending` `/user_approve` `/user_reject` `/user_set_role` `/user_list_all` |
+| Task | `/task_create` `/task_update` `/task_delete` `/task_get` `/task_list` |
 | TODO | `/todo_add` `/todo_list` `/todo_update` `/todo_delete` |
-| 签到 | `/checkin` `/checkin_list` |
-| 消息 | `/msg_list` `/msg_read` `/msg_delete` |
-| 监控 | `/monitor/query_logs` `/monitor/server_status` |
+| Check-in | `/checkin` `/checkin_list` |
+| Message | `/msg_list` `/msg_read` `/msg_delete` |
+| Monitor | `/monitor/query_logs` `/monitor/server_status` |
 
-## 贡献
+## Contributing
 
-欢迎贡献！请遵循以下步骤：
+Contributions are welcome! Please follow these steps:
 
-1. Fork 本仓库
-2. 创建特性分支 (`git checkout -b feature/amazing-feature`)
-3. 提交更改 (`git commit -m 'feat: add amazing feature'`)
-4. 推送到分支 (`git push origin feature/amazing-feature`)
-5. 创建 Pull Request
+1. Fork this repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Create a Pull Request
 
 ## License
 
-本项目采用 [MIT](LICENSE) 协议。
+This project is licensed under the [MIT](LICENSE) License.

@@ -15,7 +15,7 @@ int main() {
     std::string gate_port_str = configManager["GateServer"]["port"];
     unsigned short gate_port = std::atoi(gate_port_str.c_str());
 
-    // Init Logger FIRST, then set callback BEFORE any LOG calls
+    // 因为是懒汉式单例，调用时才初始化
     Logger::getInstance();
 
     Logger::getInstance().setRemoteFlushCallback([](const std::vector<LogEntry>& batch) {

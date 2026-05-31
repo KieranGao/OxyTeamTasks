@@ -17,7 +17,6 @@ using grpc::Status;
 using message::MailerService;
 using message::StatusService;
 
-// Pool for MailerService clients (UMSServer → MailerServer)
 class MailerConnectPool {
 public:
     MailerConnectPool(size_t pool_size, std::string host, std::string port);
@@ -35,7 +34,6 @@ private:
     size_t pool_size_;
 };
 
-// Pool for StatusService clients (UMSServer → StatusServer)
 class StatusConnectPool {
 public:
     StatusConnectPool(size_t pool_size, std::string host, std::string port);

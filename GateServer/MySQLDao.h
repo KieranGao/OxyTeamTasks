@@ -14,7 +14,6 @@ public:
     bool getUserInfo(int uid, UserInfo& userinfo);
     std::vector<int> getUsersByRole(int role);
 
-    // Message CRUD
     struct MessageRow { int64_t id; std::string type, title, content, created_at; int is_read; };
     bool listMessages(int uid, int page, int pageSize, std::vector<MessageRow>& messages, int& total);
     bool markMessagesRead(int uid, const std::vector<int64_t>& ids);

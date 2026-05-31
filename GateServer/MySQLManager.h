@@ -15,7 +15,6 @@ public:
     bool getUserInfo(int uid, UserInfo& userinfo);
     std::vector<int> getUsersByRole(int role);
 
-    // Message CRUD
     bool listMessages(int uid, int page, int pageSize, std::vector<MySQLDao::MessageRow>& messages, int& total);
     bool markMessagesRead(int uid, const std::vector<int64_t>& ids);
     bool deleteMessages(int uid, const std::vector<int64_t>& ids);
