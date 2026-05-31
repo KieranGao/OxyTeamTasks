@@ -60,12 +60,10 @@ async function QueryRedis(key) {
  * @param {*} exptime 
  * @returns 
  */
-async function SetRedisExpire(key,value, exptime){
+async function SetRedisExpire(key, value, exptime){
     try{
-        // 设置键和值
-        await RedisCli.set(key,value)
-        // 设置过期时间（以秒为单位）
-        await RedisCli.expire(key, exptime);
+        // Atomic: SET key value EX exptime (single command)
+        await RedisCli.set(key, value, 'EX', exptime);
         return true;
     }catch(error){
         console.log('SetRedisExpire error is', error);
