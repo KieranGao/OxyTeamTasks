@@ -1,0 +1,142 @@
+{
+  "nodes": [
+    {
+      "id": "config:PushServer/CMakeLists.txt",
+      "type": "config",
+      "name": "CMakeLists.txt",
+      "filePath": "PushServer/CMakeLists.txt",
+      "summary": "PushServer 的 CMake 构建配置，定义 C++17 编译标准，链接 Boost、gRPC、Protobuf、hiredis、MySQL Connector/C++ 依赖，并通过 protoc 自动生成 message.proto 对应的 gRPC 代码。",
+      "tags": ["build-system", "configuration", "infrastructure", "cpp"],
+      "complexity": "moderate",
+      "languageNotes": "使用 add_custom_command 驱动 protoc + grpc_cpp_plugin 生成 .pb.h/.pb.cc 和 .grpc.pb.h/.grpc.pb.cc 文件，生成产物与源码同目录放置。"
+    },
+    {
+      "id": "config:PushServer/config.ini",
+      "type": "config",
+      "name": "config.ini",
+      "filePath": "PushServer/config.ini",
+      "summary": "PushServer 运行时配置文件，包含 GateServer、StatusServer、Redis、MySQL 连接参数，以及自身服务端口（WebSocket 8890、gRPC 50056）和日志设置。",
+      "tags": ["configuration", "runtime", "deployment", "database"],
+      "complexity": "simple",
+      "languageNotes": "INI 格式配置，各微服务连接参数分区段组织。SelfServer 段区分 WebSocket 端口（8890）和 gRPC 端口（50056）。"
+    },
+    {
+      "id": "schema:PushServer/message.proto",
+      "type": "schema",
+      "name": "message.proto",
+      "filePath": "PushServer/message.proto",
+      "summary": "项目全局 Protobuf/gRPC 接口定义文件，包含 UserService、MailerService、StatusService、PushService、TaskService 五个服务共 35 个 RPC 方法及 80 个 message 类型，涵盖用户管理、邮件发送、状态调度、消息推送、任务与打卡等全部业务接口。",
+      "tags": ["schema-definition", "api-schema", "grpc", "protobuf", "data-pipeline"],
+      "complexity": "complex",
+      "languageNotes": "proto3 语法，所有 RPC 均为一元调用（非流式）。message.proto 在各 C++ 服务器目录中独立维护且内容一致，便于各服务独立编译。TaskInfo 消息支持指派人独立状态（assignee_statuses），反映多指派人任务的复杂状态模型。"
+    },
+    {
+      "id": "endpoint:PushServer/message.proto:UserService",
+      "type": "endpoint",
+      "name": "UserService",
+      "filePath": "PushServer/message.proto",
+      "lineRange": [8, 19],
+      "summary": "用户管理 gRPC 服务，提供注册、登录、密码重置、验证码、用户审批、角色设置等 10 个 RPC 方法。",
+      "tags": ["api-schema", "user-management", "grpc", "authentication"],
+      "complexity": "complex"
+    },
+    {
+      "id": "endpoint:PushServer/message.proto:MailerService",
+      "type": "endpoint",
+      "name": "MailerService",
+      "filePath": "PushServer/message.proto",
+      "lineRange": [153, 155],
+      "summary": "邮件发送 gRPC 服务，提供单个 SendMail 方法用于向指定邮箱发送验证码。",
+      "tags": ["api-schema", "email", "grpc", "notification"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:PushServer/message.proto:StatusService",
+      "type": "endpoint",
+      "name": "StatusService",
+      "filePath": "PushServer/message.proto",
+      "lineRange": [170, 179],
+      "summary": "状态调度 gRPC 服务，提供推送节点分配、登录上报、日志采集与查询、服务心跳、连接状态管理等 8 个 RPC 方法。",
+      "tags": ["api-schema", "status-management", "grpc", "monitoring", "push-scheduling"],
+      "complexity": "complex"
+    },
+    {
+      "id": "endpoint:PushServer/message.proto:PushService",
+      "type": "endpoint",
+      "name": "PushService",
+      "filePath": "PushServer/message.proto",
+      "lineRange": [295, 301],
+      "summary": "消息推送 gRPC 服务，提供单用户推送、队伍推送、消息查询、已读标记、消息删除等 5 个 RPC 方法，支持实时投递与离线缓存。",
+      "tags": ["api-schema", "push-notification", "grpc", "websocket"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "endpoint:PushServer/message.proto:TaskService",
+      "type": "endpoint",
+      "name": "TaskService",
+      "filePath": "PushServer/message.proto",
+      "lineRange": [368, 380],
+      "summary": "任务管理 gRPC 服务，提供任务 CRUD、TODO 增删改查、每日打卡及打卡记录查询等 11 个 RPC 方法。",
+      "tags": ["api-schema", "task-management", "grpc", "todo", "checkin"],
+      "complexity": "complex"
+    }
+  ],
+  "edges": [
+    {
+      "source": "config:PushServer/CMakeLists.txt",
+      "target": "schema:PushServer/message.proto",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:PushServer/config.ini",
+      "target": "config:PushServer/CMakeLists.txt",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:PushServer/config.ini",
+      "target": "schema:PushServer/message.proto",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "schema:PushServer/message.proto",
+      "target": "endpoint:PushServer/message.proto:UserService",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:PushServer/message.proto",
+      "target": "endpoint:PushServer/message.proto:MailerService",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:PushServer/message.proto",
+      "target": "endpoint:PushServer/message.proto:StatusService",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:PushServer/message.proto",
+      "target": "endpoint:PushServer/message.proto:PushService",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:PushServer/message.proto",
+      "target": "endpoint:PushServer/message.proto:TaskService",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    }
+  ]
+}

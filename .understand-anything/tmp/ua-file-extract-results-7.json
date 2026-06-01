@@ -1,0 +1,558 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 5,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "Client/src/api/checkin.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 4,
+      "nonEmptyLines": 3,
+      "functions": [
+        {
+          "name": "doCheckin",
+          "startLine": 3,
+          "endLine": 3,
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "name": "getCheckins",
+          "startLine": 4,
+          "endLine": 4,
+          "params": [
+            "params"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "doCheckin",
+          "line": 3,
+          "isDefault": false
+        },
+        {
+          "name": "getCheckins",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "doCheckin",
+          "callee": "request.post",
+          "lineNumber": 3
+        },
+        {
+          "caller": "getCheckins",
+          "callee": "request.post",
+          "lineNumber": 4
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Client/src/api/message.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 5,
+      "nonEmptyLines": 4,
+      "functions": [
+        {
+          "name": "getMessages",
+          "startLine": 3,
+          "endLine": 3,
+          "params": [
+            "params"
+          ]
+        },
+        {
+          "name": "markRead",
+          "startLine": 4,
+          "endLine": 4,
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "name": "deleteMessage",
+          "startLine": 5,
+          "endLine": 5,
+          "params": [
+            "data"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "getMessages",
+          "line": 3,
+          "isDefault": false
+        },
+        {
+          "name": "markRead",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "deleteMessage",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getMessages",
+          "callee": "request.post",
+          "lineNumber": 3
+        },
+        {
+          "caller": "markRead",
+          "callee": "request.post",
+          "lineNumber": 4
+        },
+        {
+          "caller": "deleteMessage",
+          "callee": "request.post",
+          "lineNumber": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Client/src/api/request.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 55,
+      "nonEmptyLines": 51,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Client/src/api/task.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 11,
+      "nonEmptyLines": 10,
+      "functions": [
+        {
+          "name": "createTask",
+          "startLine": 3,
+          "endLine": 3,
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "name": "updateTask",
+          "startLine": 4,
+          "endLine": 4,
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "name": "deleteTask",
+          "startLine": 5,
+          "endLine": 5,
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "name": "getTask",
+          "startLine": 6,
+          "endLine": 6,
+          "params": [
+            "id"
+          ]
+        },
+        {
+          "name": "listTasks",
+          "startLine": 7,
+          "endLine": 7,
+          "params": [
+            "p"
+          ]
+        },
+        {
+          "name": "addTodo",
+          "startLine": 8,
+          "endLine": 8,
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "name": "updateTodo",
+          "startLine": 9,
+          "endLine": 9,
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "name": "deleteTodo",
+          "startLine": 10,
+          "endLine": 10,
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "name": "listTodo",
+          "startLine": 11,
+          "endLine": 11,
+          "params": [
+            "p"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "createTask",
+          "line": 3,
+          "isDefault": false
+        },
+        {
+          "name": "updateTask",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "deleteTask",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "getTask",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "listTasks",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "addTodo",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "updateTodo",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "deleteTodo",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "listTodo",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createTask",
+          "callee": "request.post",
+          "lineNumber": 3
+        },
+        {
+          "caller": "updateTask",
+          "callee": "request.post",
+          "lineNumber": 4
+        },
+        {
+          "caller": "deleteTask",
+          "callee": "request.post",
+          "lineNumber": 5
+        },
+        {
+          "caller": "getTask",
+          "callee": "request.post",
+          "lineNumber": 6
+        },
+        {
+          "caller": "listTasks",
+          "callee": "request.post",
+          "lineNumber": 7
+        },
+        {
+          "caller": "addTodo",
+          "callee": "request.post",
+          "lineNumber": 8
+        },
+        {
+          "caller": "updateTodo",
+          "callee": "request.post",
+          "lineNumber": 9
+        },
+        {
+          "caller": "deleteTodo",
+          "callee": "request.post",
+          "lineNumber": 10
+        },
+        {
+          "caller": "listTodo",
+          "callee": "request.post",
+          "lineNumber": 11
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 9,
+        "functionCount": 9,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Client/src/api/user.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 94,
+      "nonEmptyLines": 82,
+      "functions": [
+        {
+          "name": "getVerifyCode",
+          "startLine": 7,
+          "endLine": 9,
+          "params": [
+            "email"
+          ]
+        },
+        {
+          "name": "registerUser",
+          "startLine": 15,
+          "endLine": 17,
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "name": "resetPassword",
+          "startLine": 23,
+          "endLine": 25,
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "name": "loginUser",
+          "startLine": 31,
+          "endLine": 33,
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "name": "updateTeamInfo",
+          "startLine": 39,
+          "endLine": 41,
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "name": "listPendingUsers",
+          "startLine": 46,
+          "endLine": 48,
+          "params": []
+        },
+        {
+          "name": "approveUser",
+          "startLine": 54,
+          "endLine": 56,
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "name": "rejectUser",
+          "startLine": 62,
+          "endLine": 64,
+          "params": [
+            "uid"
+          ]
+        },
+        {
+          "name": "setUserRole",
+          "startLine": 70,
+          "endLine": 72,
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "name": "listAllUsers",
+          "startLine": 77,
+          "endLine": 79,
+          "params": []
+        },
+        {
+          "name": "queryLogs",
+          "startLine": 85,
+          "endLine": 87,
+          "params": [
+            "params"
+          ]
+        },
+        {
+          "name": "queryServerStatus",
+          "startLine": 92,
+          "endLine": 94,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "getVerifyCode",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "registerUser",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "resetPassword",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "loginUser",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "updateTeamInfo",
+          "line": 39,
+          "isDefault": false
+        },
+        {
+          "name": "listPendingUsers",
+          "line": 46,
+          "isDefault": false
+        },
+        {
+          "name": "approveUser",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "rejectUser",
+          "line": 62,
+          "isDefault": false
+        },
+        {
+          "name": "setUserRole",
+          "line": 70,
+          "isDefault": false
+        },
+        {
+          "name": "listAllUsers",
+          "line": 77,
+          "isDefault": false
+        },
+        {
+          "name": "queryLogs",
+          "line": 85,
+          "isDefault": false
+        },
+        {
+          "name": "queryServerStatus",
+          "line": 92,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getVerifyCode",
+          "callee": "request.post",
+          "lineNumber": 8
+        },
+        {
+          "caller": "registerUser",
+          "callee": "request.post",
+          "lineNumber": 16
+        },
+        {
+          "caller": "resetPassword",
+          "callee": "request.post",
+          "lineNumber": 24
+        },
+        {
+          "caller": "loginUser",
+          "callee": "request.post",
+          "lineNumber": 32
+        },
+        {
+          "caller": "updateTeamInfo",
+          "callee": "request.post",
+          "lineNumber": 40
+        },
+        {
+          "caller": "listPendingUsers",
+          "callee": "request.post",
+          "lineNumber": 47
+        },
+        {
+          "caller": "approveUser",
+          "callee": "request.post",
+          "lineNumber": 55
+        },
+        {
+          "caller": "rejectUser",
+          "callee": "request.post",
+          "lineNumber": 63
+        },
+        {
+          "caller": "setUserRole",
+          "callee": "request.post",
+          "lineNumber": 71
+        },
+        {
+          "caller": "listAllUsers",
+          "callee": "request.post",
+          "lineNumber": 78
+        },
+        {
+          "caller": "queryLogs",
+          "callee": "request.post",
+          "lineNumber": 86
+        },
+        {
+          "caller": "queryServerStatus",
+          "callee": "request.post",
+          "lineNumber": 93
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 12,
+        "functionCount": 12,
+        "classCount": 0
+      }
+    }
+  ]
+}

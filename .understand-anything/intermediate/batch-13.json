@@ -1,0 +1,134 @@
+{
+  "nodes": [
+    {
+      "id": "config:PushServer2/CMakeLists.txt",
+      "type": "config",
+      "name": "CMakeLists.txt",
+      "filePath": "PushServer2/CMakeLists.txt",
+      "summary": "PushServer2 的 CMake 构建配置文件，定义了 C++17 编译标准、Boost/gRPC/Protobuf/hiredis/MySQL 等外部依赖的查找与链接规则，并通过 protoc 自动生成 message.proto 对应的 gRPC C++ 桩代码。构建产物为 PushServer2 可执行文件。",
+      "tags": ["configuration", "build-system", "cmake", "protobuf-compilation"],
+      "complexity": "moderate",
+      "languageNotes": "使用 add_custom_command 调用 protoc 和 grpc_cpp_plugin 从 message.proto 生成 .pb.h/.pb.cc/.grpc.pb.h/.grpc.pb.cc，并在 POST_BUILD 阶段自动将 config.ini 拷贝到构建目录。"
+    },
+    {
+      "id": "config:PushServer2/config.ini",
+      "type": "config",
+      "name": "config.ini",
+      "filePath": "PushServer2/config.ini",
+      "summary": "PushServer2 的运行时配置文件，以 INI 格式定义了 GateServer、StatusServer、Redis、MySQL 的连接参数，以及自身服务的 WebSocket 端口（8891）和 gRPC 端口（50057），并配置了日志输出级别和路径。",
+      "tags": ["configuration", "runtime-config", "ini-format", "service-ports"],
+      "complexity": "simple"
+    },
+    {
+      "id": "schema:PushServer2/message.proto",
+      "type": "schema",
+      "name": "message.proto",
+      "filePath": "PushServer2/message.proto",
+      "summary": "PushServer2 目录下的 Protobuf/gRPC 统一接口定义文件，声明了整个 OxyTeamTask 系统的 5 个 gRPC 服务（UserService、MailerService、StatusService、PushService、TaskService）及 80 条消息类型，涵盖用户管理、邮件验证、状态监控、实时推送和任务/TODO/打卡等全部业务 RPC 接口。与 TaskServer/GateServer 等目录中的同名 proto 文件保持内容同步。",
+      "tags": ["schema-definition", "protobuf", "api-schema", "grpc-services"],
+      "complexity": "complex",
+      "languageNotes": "proto3 语法，package 为 message。消息字段均有中文注释说明语义和枚举值含义（如 error 码 0=成功、1001=JSON 解析错误、3001=今日已打卡等）。TaskInfo 包含 assignee_statuses 嵌套消息用于支持多指派人独立状态。"
+    },
+    {
+      "id": "endpoint:PushServer2/message.proto:UserService",
+      "type": "endpoint",
+      "name": "UserService",
+      "filePath": "PushServer2/message.proto",
+      "lineRange": [8, 19],
+      "summary": "用户管理 gRPC 服务，由 UMSServer 实现，提供 10 个 RPC 接口：用户注册、登录、重置密码、获取验证码、待审核用户列表、审批/拒绝用户、设置角色、列出全部用户、更新队伍信息。",
+      "tags": ["user-management", "grpc-service", "authentication", "role-based-access"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "endpoint:PushServer2/message.proto:MailerService",
+      "type": "endpoint",
+      "name": "MailerService",
+      "filePath": "PushServer2/message.proto",
+      "lineRange": [153, 155],
+      "summary": "邮件发送 gRPC 服务，由 MailerServer（Node.js）实现，提供单个 SendMail RPC 接口用于发送邮箱验证码。",
+      "tags": ["email", "grpc-service", "verification"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:PushServer2/message.proto:StatusService",
+      "type": "endpoint",
+      "name": "StatusService",
+      "filePath": "PushServer2/message.proto",
+      "lineRange": [170, 179],
+      "summary": "状态调度与监控 gRPC 服务，由 StatusServer 实现，提供 8 个 RPC 接口：为用户分配推送节点、上报登录事件、日志上报与查询、服务心跳上报、服务状态查询、断线上报、查询用户所在推送节点。",
+      "tags": ["status-monitoring", "grpc-service", "load-balancing", "logging"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "endpoint:PushServer2/message.proto:PushService",
+      "type": "endpoint",
+      "name": "PushService",
+      "filePath": "PushServer2/message.proto",
+      "lineRange": [295, 301],
+      "summary": "实时推送 gRPC 服务，由 PushServer 实现，提供 5 个 RPC 接口：向指定用户推送消息、向整个队伍推送消息、查询消息列表、标记消息已读、删除消息。支持实时投递与离线缓存两种模式。",
+      "tags": ["push-notification", "grpc-service", "websocket", "real-time"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "endpoint:PushServer2/message.proto:TaskService",
+      "type": "endpoint",
+      "name": "TaskService",
+      "filePath": "PushServer2/message.proto",
+      "lineRange": [368, 380],
+      "summary": "任务与打卡 gRPC 服务，由 TaskServer 实现，提供 11 个 RPC 接口：任务的增删改查与列表、TODO 的增删改查与列表、每日打卡及打卡记录查询。支持多指派人独立状态追踪。",
+      "tags": ["task-management", "grpc-service", "todo", "check-in"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "schema:PushServer2/message.proto",
+      "target": "endpoint:PushServer2/message.proto:UserService",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "schema:PushServer2/message.proto",
+      "target": "endpoint:PushServer2/message.proto:MailerService",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "schema:PushServer2/message.proto",
+      "target": "endpoint:PushServer2/message.proto:StatusService",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "schema:PushServer2/message.proto",
+      "target": "endpoint:PushServer2/message.proto:PushService",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "schema:PushServer2/message.proto",
+      "target": "endpoint:PushServer2/message.proto:TaskService",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "config:PushServer2/CMakeLists.txt",
+      "target": "config:PushServer2/config.ini",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:PushServer2/CMakeLists.txt",
+      "target": "schema:PushServer2/message.proto",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

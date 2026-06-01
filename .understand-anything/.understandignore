@@ -1,0 +1,69 @@
+# .understandignore — patterns for files/dirs to exclude from analysis
+# Syntax: same as .gitignore (globs, # comments, ! negation, trailing / for dirs)
+# Lines below are suggestions — uncomment to activate.
+# Use ! prefix to force-include something excluded by defaults.
+#
+# Built-in defaults (always excluded unless negated):
+#   node_modules/, .git/, dist/, build/, obj/, *.lock, *.min.js, etc.
+#
+# --- From .gitignore (uncomment to exclude) ---
+
+# .claude
+# GateServer/build
+# PushServer/build
+# PushServer2/build
+# StatusServer/build
+# TaskServer/build
+# UMSServer/build
+# GateServer/message.pb.cc
+# GateServer/message.pb.h
+# GateServer/message.grpc.pb.cc
+# GateServer/message.grpc.pb.h
+# PushServer/message.pb.cc
+# PushServer/message.pb.h
+# PushServer/message.grpc.pb.cc
+# PushServer/message.grpc.pb.h
+# PushServer2/message.pb.cc
+# PushServer2/message.pb.h
+# PushServer2/message.grpc.pb.cc
+# PushServer2/message.grpc.pb.h
+# StatusServer/message.pb.cc
+# StatusServer/message.pb.h
+# StatusServer/message.grpc.pb.cc
+# StatusServer/message.grpc.pb.h
+# TaskServer/message.pb.cc
+# TaskServer/message.pb.h
+# TaskServer/message.grpc.pb.cc
+# TaskServer/message.grpc.pb.h
+# UMSServer/message.pb.cc
+# UMSServer/message.pb.h
+# UMSServer/message.grpc.pb.cc
+# UMSServer/message.grpc.pb.h
+# MailerServer/message.pb.cc
+# MailerServer/message.pb.h
+# MailerServer/message.grpc.pb.cc
+# MailerServer/message.grpc.pb.h
+# Client/node_modules
+# MailerServer/node_modules
+# server_logs
+# GateServer/logs
+# PushServer/logs
+# PushServer2/logs
+# StatusServer/logs
+# TaskServer/logs
+# UMSServer/logs
+# docs
+# *.md
+# !README.md
+# !README-en.md
+# !LICENSE
+
+# --- Detected directories (uncomment to exclude) ---
+
+# docs/
+
+# --- Test file patterns (uncomment to exclude) ---
+
+# *.test.*
+# *.spec.*
+# *.snap

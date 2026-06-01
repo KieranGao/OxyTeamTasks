@@ -1,0 +1,26 @@
+{
+  "projectRoot": "/home/oxythecrack/Desktop/OxyTasks",
+  "batchFiles": [
+    {"path": "Client/src/api/checkin.js", "language": "javascript", "sizeLines": 4, "fileCategory": "code"},
+    {"path": "Client/src/api/message.js", "language": "javascript", "sizeLines": 5, "fileCategory": "code"},
+    {"path": "Client/src/api/request.js", "language": "javascript", "sizeLines": 55, "fileCategory": "code"},
+    {"path": "Client/src/api/task.js", "language": "javascript", "sizeLines": 11, "fileCategory": "code"},
+    {"path": "Client/src/api/user.js", "language": "javascript", "sizeLines": 94, "fileCategory": "code"}
+  ],
+  "batchImportData": {
+    "Client/src/api/checkin.js": [
+      "Client/src/api/request.js"
+    ],
+    "Client/src/api/message.js": [
+      "Client/src/api/request.js"
+    ],
+    "Client/src/api/request.js": [],
+    "Client/src/api/task.js": [
+      "Client/src/api/request.js"
+    ],
+    "Client/src/api/user.js": [
+      "Client/src/api/request.js"
+    ]
+  },
+  "neighborMap": {}
+}

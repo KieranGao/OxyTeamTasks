@@ -1,0 +1,3671 @@
+{
+  "schemaVersion": 1,
+  "algorithm": "louvain",
+  "totalFiles": 260,
+  "totalBatches": 21,
+  "exportsByPath": {
+    ".understand-anything/.understandignore": [],
+    "Client/src/api/checkin.js": [
+      "doCheckin",
+      "getCheckins"
+    ],
+    "Client/src/api/message.js": [
+      "getMessages",
+      "markRead",
+      "deleteMessage"
+    ],
+    "Client/src/api/request.js": [],
+    "Client/src/api/task.js": [
+      "createTask",
+      "updateTask",
+      "deleteTask",
+      "getTask",
+      "listTasks",
+      "addTodo",
+      "updateTodo",
+      "deleteTodo",
+      "listTodo"
+    ],
+    "Client/src/api/user.js": [
+      "getVerifyCode",
+      "registerUser",
+      "resetPassword",
+      "loginUser",
+      "updateTeamInfo",
+      "listPendingUsers",
+      "approveUser",
+      "rejectUser",
+      "setUserRole",
+      "listAllUsers",
+      "queryLogs",
+      "queryServerStatus"
+    ],
+    "Client/src/App.vue": [],
+    "Client/src/config/index.js": [
+      "API_BASE_URL"
+    ],
+    "Client/src/layout/AuthLayout.vue": [],
+    "Client/src/layout/MainLayout.vue": [],
+    "Client/src/main.js": [],
+    "Client/src/router/index.js": [],
+    "Client/src/stores/app.js": [
+      "useAppStore"
+    ],
+    "Client/src/stores/user.js": [
+      "useUserStore"
+    ],
+    "Client/src/utils/crypto.js": [
+      "sha256",
+      "sha256Sync"
+    ],
+    "Client/src/utils/pushClient.js": [
+      "connectPushServer",
+      "disconnect",
+      "sendMessage",
+      "onMessage",
+      "offMessage",
+      "isConnected"
+    ],
+    "Client/src/views/checkin/CheckinView.vue": [],
+    "Client/src/views/dashboard/DashboardView.vue": [],
+    "Client/src/views/login/LoginView.vue": [],
+    "Client/src/views/manage/AllTeamsInfoView.vue": [],
+    "Client/src/views/manage/MonitorView.vue": [],
+    "Client/src/views/manage/TaskManageView.vue": [],
+    "Client/src/views/manage/TeamProgressView.vue": [],
+    "Client/src/views/manage/UserManageView.vue": [],
+    "Client/src/views/messages/MessagesView.vue": [],
+    "Client/src/views/profile/ProfileView.vue": [],
+    "Client/src/views/register/RegisterView.vue": [],
+    "Client/src/views/reset/ResetPasswordView.vue": [],
+    "Client/src/views/taskboard/TaskBoardView.vue": [],
+    "Client/src/views/todolist/TodoListView.vue": [],
+    "Client/vite.config.js": [],
+    "GateServer/AsyncTaskPool.cpp": [
+      "AsyncTaskPool",
+      "~AsyncTaskPool",
+      "post",
+      "stop"
+    ],
+    "GateServer/AsyncTaskPool.h": [],
+    "GateServer/ConfigManager.cpp": [
+      "ConfigManager"
+    ],
+    "GateServer/ConfigManager.h": [],
+    "GateServer/Global.h": [],
+    "GateServer/HttpConnection.cpp": [
+      "HttpConnection",
+      "start",
+      "ToHex",
+      "FromHex",
+      "UrlEncode",
+      "UrlDecode",
+      "PreParseGetParam",
+      "authenticateRequest_",
+      "handleRequest_",
+      "makeResponse_",
+      "checkDeadline_"
+    ],
+    "GateServer/HttpConnection.h": [],
+    "GateServer/IOContextPool.cpp": [
+      "IOContextPool",
+      "~IOContextPool",
+      "stop"
+    ],
+    "GateServer/IOContextPool.h": [],
+    "GateServer/Logger.cpp": [
+      "Logger",
+      "stop",
+      "~Logger",
+      "setRemoteFlushCallback",
+      "timestamp",
+      "levelToString",
+      "rotateIfNeeded",
+      "writeToFile",
+      "log",
+      "flushLoop"
+    ],
+    "GateServer/Logger.h": [],
+    "GateServer/LogicSystem.cpp": [
+      "registerGet",
+      "registerPost",
+      "LogicSystem",
+      "handleGet",
+      "handlePost"
+    ],
+    "GateServer/LogicSystem.h": [],
+    "GateServer/main.cpp": [
+      "main"
+    ],
+    "GateServer/MainServer.cpp": [
+      "MainServer",
+      "start"
+    ],
+    "GateServer/MainServer.h": [],
+    "GateServer/MySQLConnectPool.cpp": [
+      "MySQLConnectPool",
+      "~MySQLConnectPool",
+      "checkLoop",
+      "stop",
+      "checkConnection",
+      "getConnection",
+      "returnConnection"
+    ],
+    "GateServer/MySQLConnectPool.h": [],
+    "GateServer/MySQLDao.cpp": [
+      "MySQLDao",
+      "~MySQLDao",
+      "registerUser",
+      "userResetpass",
+      "checkLogin",
+      "updateTeamInfo",
+      "getUserInfo",
+      "getUsersByRole",
+      "listMessages",
+      "markMessagesRead",
+      "deleteMessages",
+      "insertMessage"
+    ],
+    "GateServer/MySQLDao.h": [],
+    "GateServer/MySQLManager.cpp": [
+      "MySQLManager",
+      "registerUser",
+      "userResetpass",
+      "checkLogin",
+      "updateTeamInfo",
+      "getUserInfo",
+      "getUsersByRole",
+      "listMessages",
+      "markMessagesRead",
+      "deleteMessages",
+      "insertMessage"
+    ],
+    "GateServer/MySQLManager.h": [],
+    "GateServer/RedisConnectPool.cpp": [
+      "RedisConnectPool",
+      "~RedisConnectPool",
+      "getConnection",
+      "returnConnection",
+      "stop"
+    ],
+    "GateServer/RedisConnectPool.h": [],
+    "GateServer/RedisManager.cpp": [
+      "RedisManager",
+      "~RedisManager",
+      "get",
+      "set",
+      "auth",
+      "del",
+      "lpush",
+      "rpush",
+      "lpop",
+      "rpop",
+      "hset",
+      "hset",
+      "hget",
+      "existskey",
+      "incr",
+      "setex",
+      "decr",
+      "acquireLock",
+      "releaseLock",
+      "acquireLockWithRetry",
+      "evalScript",
+      "pushMessageAtomic",
+      "markReadAtomic",
+      "getAndDeleteKick",
+      "appendLogAtomic",
+      "close"
+    ],
+    "GateServer/RedisManager.h": [],
+    "GateServer/RPCConnectPool.cpp": [
+      "UserConnectPool",
+      "~UserConnectPool",
+      "getStub",
+      "returnStub",
+      "stop",
+      "StatusConnectPool",
+      "~StatusConnectPool",
+      "getStub",
+      "returnStub",
+      "stop",
+      "TaskConnectPool",
+      "~TaskConnectPool",
+      "getStub",
+      "returnStub",
+      "stop"
+    ],
+    "GateServer/RPCConnectPool.h": [],
+    "GateServer/Singleton.h": [],
+    "GateServer/StatusGrpcClient.cpp": [
+      "StatusGrpcClient",
+      "allocatePushServer",
+      "reportLogin",
+      "queryLogs",
+      "queryServerStatus",
+      "reportLog",
+      "heartbeat"
+    ],
+    "GateServer/StatusGrpcClient.h": [],
+    "GateServer/TaskGrpcClient.cpp": [
+      "TaskGrpcClient",
+      "createTask",
+      "updateTask",
+      "deleteTask",
+      "getTask",
+      "listTasks",
+      "addTodo",
+      "listTodo",
+      "deleteTodo",
+      "updateTodo",
+      "checkin",
+      "getCheckins"
+    ],
+    "GateServer/TaskGrpcClient.h": [],
+    "GateServer/UserGrpcClient.cpp": [
+      "UserGrpcClient",
+      "getVerifyCode",
+      "registerUser",
+      "login",
+      "resetPass",
+      "listPendingUsers",
+      "approveUser",
+      "rejectUser",
+      "setUserRole",
+      "listAllUsers",
+      "updateTeamInfo"
+    ],
+    "GateServer/UserGrpcClient.h": [],
+    "jsoncpp/include/json/allocator.h": [],
+    "jsoncpp/include/json/assertions.h": [],
+    "jsoncpp/include/json/config.h": [],
+    "jsoncpp/include/json/forwards.h": [],
+    "jsoncpp/include/json/json_features.h": [],
+    "jsoncpp/include/json/json.h": [],
+    "jsoncpp/include/json/reader.h": [],
+    "jsoncpp/include/json/value.h": [],
+    "jsoncpp/include/json/version.h": [],
+    "jsoncpp/include/json/writer.h": [],
+    "jsoncpp/src/lib_json/json_reader.cpp": [
+      "Features",
+      "all",
+      "strictMode",
+      "containsNewLine",
+      "Reader",
+      "Reader",
+      "parse",
+      "parse",
+      "parse",
+      "readValue",
+      "readTokenSkippingComments",
+      "readToken",
+      "skipSpaces",
+      "match",
+      "readComment",
+      "normalizeEOL",
+      "addComment",
+      "readCStyleComment",
+      "readCppStyleComment",
+      "readNumber",
+      "readString",
+      "readObject",
+      "readArray",
+      "decodeNumber",
+      "decodeNumber",
+      "decodeDouble",
+      "decodeDouble",
+      "decodeString",
+      "decodeString",
+      "decodeUnicodeCodePoint",
+      "decodeUnicodeEscapeSequence",
+      "addError",
+      "recoverFromError",
+      "addErrorAndRecover",
+      "getNextChar",
+      "getLocationLineAndColumn",
+      "getLocationLineAndColumn",
+      "getFormatedErrorMessages",
+      "getFormattedErrorMessages",
+      "getStructuredErrors",
+      "pushError",
+      "pushError",
+      "good",
+      "all",
+      "OurFeatures",
+      "all",
+      "parse",
+      "getFormattedErrorMessages",
+      "getStructuredErrors",
+      "OurReader",
+      "containsNewLine",
+      "OurReader",
+      "parse",
+      "readValue",
+      "readTokenSkippingComments",
+      "readToken",
+      "skipSpaces",
+      "skipBom",
+      "match",
+      "readComment",
+      "normalizeEOL",
+      "addComment",
+      "readCStyleComment",
+      "readCppStyleComment",
+      "readNumber",
+      "readString",
+      "readStringSingleQuote",
+      "readObject",
+      "readArray",
+      "decodeNumber",
+      "decodeNumber",
+      "decodeDouble",
+      "decodeDouble",
+      "decodeString",
+      "decodeString",
+      "decodeUnicodeCodePoint",
+      "decodeUnicodeEscapeSequence",
+      "addError",
+      "recoverFromError",
+      "addErrorAndRecover",
+      "getNextChar",
+      "getLocationLineAndColumn",
+      "getLocationLineAndColumn",
+      "getFormattedErrorMessages",
+      "getStructuredErrors",
+      "OurCharReader",
+      "OurCharReader",
+      "CharReaderBuilder",
+      "~CharReaderBuilder",
+      "validate",
+      "strictMode",
+      "setDefaults",
+      "ecma404Mode",
+      "getStructuredErrors",
+      "parse",
+      "parseFromStream"
+    ],
+    "jsoncpp/src/lib_json/json_tool.h": [],
+    "jsoncpp/src/lib_json/json_value.cpp": [
+      "decodePrefixedString",
+      "CZString::CZString",
+      "CZString::CZString",
+      "CZString::CZString",
+      "CZString::CZString",
+      "CZString::~CZString",
+      "CZString::swap",
+      "CZString::operator<",
+      "CZString::operator==",
+      "CZString::index",
+      "CZString::length",
+      "CZString::isStaticString",
+      "Value",
+      "Value",
+      "Value",
+      "Value",
+      "Value",
+      "Value",
+      "Value",
+      "Value",
+      "Value",
+      "Value",
+      "Value",
+      "~Value",
+      "swapPayload",
+      "copyPayload",
+      "swap",
+      "copy",
+      "type",
+      "compare",
+      "operator<",
+      "operator<=",
+      "operator>=",
+      "operator>",
+      "operator==",
+      "operator!=",
+      "getString",
+      "asString",
+      "asInt",
+      "asUInt",
+      "asLargestInt",
+      "asLargestUInt",
+      "asDouble",
+      "asFloat",
+      "asBool",
+      "isConvertibleTo",
+      "size",
+      "empty",
+      "clear",
+      "resize",
+      "initBasic",
+      "dupPayload",
+      "releasePayload",
+      "dupMeta",
+      "get",
+      "isValidIndex",
+      "insert",
+      "insert",
+      "get",
+      "removeMember",
+      "removeIndex",
+      "isMember",
+      "getMemberNames",
+      "isNull",
+      "isBool",
+      "isInt",
+      "isUInt",
+      "isInt64",
+      "isUInt64",
+      "isIntegral",
+      "isDouble",
+      "isNumeric",
+      "isString",
+      "isArray",
+      "isObject",
+      "Comments::Comments",
+      "Comments::Comments",
+      "Comments::has",
+      "Comments::get",
+      "Comments::set",
+      "setComment",
+      "hasComment",
+      "getComment",
+      "setOffsetStart",
+      "setOffsetLimit",
+      "getOffsetStart",
+      "getOffsetLimit",
+      "toStyledString",
+      "begin",
+      "end",
+      "begin",
+      "end",
+      "PathArgument",
+      "PathArgument",
+      "PathArgument",
+      "PathArgument",
+      "Path",
+      "makePath",
+      "addPathInArg",
+      "invalidPath",
+      "resolve"
+    ],
+    "jsoncpp/src/lib_json/json_valueiterator.inl": [],
+    "jsoncpp/src/lib_json/json_writer.cpp": [
+      "valueToString",
+      "valueToString",
+      "valueToString",
+      "valueToString",
+      "valueToString",
+      "valueToQuotedString",
+      "valueToQuotedString",
+      "~Writer",
+      "FastWriter",
+      "enableYAMLCompatibility",
+      "dropNullPlaceholders",
+      "omitEndingLineFeed",
+      "write",
+      "writeValue",
+      "StyledWriter",
+      "write",
+      "writeValue",
+      "writeArrayValue",
+      "isMultilineArray",
+      "pushValue",
+      "writeIndent",
+      "writeWithIndent",
+      "indent",
+      "unindent",
+      "writeCommentBeforeValue",
+      "writeCommentAfterValueOnSameLine",
+      "hasCommentForValue",
+      "StyledStreamWriter",
+      "write",
+      "writeValue",
+      "writeArrayValue",
+      "isMultilineArray",
+      "pushValue",
+      "writeIndent",
+      "writeWithIndent",
+      "indent",
+      "unindent",
+      "writeCommentBeforeValue",
+      "writeCommentAfterValueOnSameLine",
+      "hasCommentForValue",
+      "CommentStyle",
+      "write",
+      "BuiltStyledStreamWriter",
+      "BuiltStyledStreamWriter",
+      "write",
+      "writeValue",
+      "writeArrayValue",
+      "isMultilineArray",
+      "pushValue",
+      "writeIndent",
+      "writeWithIndent",
+      "indent",
+      "unindent",
+      "writeCommentBeforeValue",
+      "writeCommentAfterValueOnSameLine",
+      "hasCommentForValue",
+      "StreamWriter",
+      "~StreamWriter",
+      "Factory::~Factory",
+      "StreamWriterBuilder",
+      "~StreamWriterBuilder",
+      "validate",
+      "setDefaults",
+      "writeString"
+    ],
+    "MailerServer/config.js": [],
+    "MailerServer/const.js": [],
+    "MailerServer/email.js": [],
+    "MailerServer/proto.js": [],
+    "MailerServer/redis.js": [],
+    "MailerServer/server.js": [],
+    "PushServer/AsyncTaskPool.cpp": [
+      "AsyncTaskPool",
+      "~AsyncTaskPool",
+      "post",
+      "stop"
+    ],
+    "PushServer/AsyncTaskPool.h": [],
+    "PushServer/ConfigManager.cpp": [
+      "ConfigManager"
+    ],
+    "PushServer/ConfigManager.h": [],
+    "PushServer/Global.h": [],
+    "PushServer/IOContextPool.cpp": [
+      "IOContextPool",
+      "~IOContextPool",
+      "stop"
+    ],
+    "PushServer/IOContextPool.h": [],
+    "PushServer/Logger.cpp": [
+      "Logger",
+      "stop",
+      "~Logger",
+      "setRemoteFlushCallback",
+      "timestamp",
+      "levelToString",
+      "rotateIfNeeded",
+      "writeToFile",
+      "log",
+      "flushLoop"
+    ],
+    "PushServer/Logger.h": [],
+    "PushServer/LogicSystem.cpp": [
+      "LogicSystem",
+      "~LogicSystem",
+      "postMsgToQue",
+      "dealMsg",
+      "registerCallBacks",
+      "loginHandler"
+    ],
+    "PushServer/LogicSystem.h": [],
+    "PushServer/MainServer.cpp": [
+      "MainServer",
+      "doAccept",
+      "onAccept",
+      "stop",
+      "clearSession",
+      "addUidSession",
+      "removeUidSession",
+      "getSessionByUid"
+    ],
+    "PushServer/MainServer.h": [],
+    "PushServer/MySQLConnectPool.cpp": [
+      "MySQLConnectPool",
+      "~MySQLConnectPool",
+      "checkLoop",
+      "stop",
+      "checkConnection",
+      "getConnection",
+      "returnConnection"
+    ],
+    "PushServer/MySQLConnectPool.h": [],
+    "PushServer/MySQLDao.cpp": [
+      "MySQLDao",
+      "~MySQLDao",
+      "checkLogin",
+      "getUser",
+      "getUsersByTeam",
+      "insertMessage",
+      "markMessagesRead",
+      "deleteMessages"
+    ],
+    "PushServer/MySQLDao.h": [],
+    "PushServer/MySQLManager.cpp": [
+      "MySQLManager",
+      "checkLogin",
+      "getUser",
+      "getUsersByTeam",
+      "insertMessage",
+      "markMessagesRead",
+      "deleteMessages"
+    ],
+    "PushServer/MySQLManager.h": [],
+    "PushServer/PushGrpcServiceImpl.cpp": [
+      "setGlobalMainServer",
+      "setGlobalGrpcPort",
+      "PushToUser",
+      "PushToTeam",
+      "GetMessages",
+      "MarkRead",
+      "DeleteMessage"
+    ],
+    "PushServer/PushGrpcServiceImpl.h": [],
+    "PushServer/PushServerMain.cpp": [
+      "main"
+    ],
+    "PushServer/RedisConnectPool.cpp": [
+      "RedisConnectPool",
+      "~RedisConnectPool",
+      "getConnection",
+      "returnConnection",
+      "stop"
+    ],
+    "PushServer/RedisConnectPool.h": [],
+    "PushServer/RedisManager.cpp": [
+      "RedisManager",
+      "~RedisManager",
+      "get",
+      "set",
+      "auth",
+      "del",
+      "lpush",
+      "rpush",
+      "lpop",
+      "rpop",
+      "hset",
+      "hset",
+      "hget",
+      "existskey",
+      "setex",
+      "expire",
+      "incr",
+      "decr",
+      "ltrim",
+      "lrange",
+      "acquireLock",
+      "releaseLock",
+      "acquireLockWithRetry",
+      "evalScript",
+      "pushMessageAtomic",
+      "markReadAtomic",
+      "getAndDeleteKick",
+      "appendLogAtomic",
+      "close"
+    ],
+    "PushServer/RedisManager.h": [],
+    "PushServer/RPCConnectPool.cpp": [
+      "StatusConnectPool",
+      "~StatusConnectPool",
+      "getStub",
+      "returnStub",
+      "stop",
+      "PushConnectPool",
+      "~PushConnectPool",
+      "getStub",
+      "returnStub",
+      "stop",
+      "getStub",
+      "returnStub",
+      "stop"
+    ],
+    "PushServer/RPCConnectPool.h": [],
+    "PushServer/Session.cpp": [
+      "Session",
+      "start",
+      "send",
+      "close",
+      "sharedSelf",
+      "doRead",
+      "onRead",
+      "doWriteLocked",
+      "onWrite"
+    ],
+    "PushServer/Session.h": [],
+    "PushServer/Singleton.h": [],
+    "PushServer/StatusGrpcClient.cpp": [
+      "StatusGrpcClient",
+      "reportLogin",
+      "reportLog",
+      "heartbeat",
+      "reportDisconnect"
+    ],
+    "PushServer/StatusGrpcClient.h": [],
+    "PushServer2/AsyncTaskPool.cpp": [
+      "AsyncTaskPool",
+      "~AsyncTaskPool",
+      "post",
+      "stop"
+    ],
+    "PushServer2/AsyncTaskPool.h": [],
+    "PushServer2/ConfigManager.cpp": [
+      "ConfigManager"
+    ],
+    "PushServer2/ConfigManager.h": [],
+    "PushServer2/Global.h": [],
+    "PushServer2/IOContextPool.cpp": [
+      "IOContextPool",
+      "~IOContextPool",
+      "stop"
+    ],
+    "PushServer2/IOContextPool.h": [],
+    "PushServer2/Logger.cpp": [
+      "Logger",
+      "stop",
+      "~Logger",
+      "setRemoteFlushCallback",
+      "timestamp",
+      "levelToString",
+      "rotateIfNeeded",
+      "writeToFile",
+      "log",
+      "flushLoop"
+    ],
+    "PushServer2/Logger.h": [],
+    "PushServer2/LogicSystem.cpp": [
+      "LogicSystem",
+      "~LogicSystem",
+      "postMsgToQue",
+      "dealMsg",
+      "registerCallBacks",
+      "loginHandler"
+    ],
+    "PushServer2/LogicSystem.h": [],
+    "PushServer2/MainServer.cpp": [
+      "MainServer",
+      "doAccept",
+      "onAccept",
+      "stop",
+      "clearSession",
+      "addUidSession",
+      "removeUidSession",
+      "getSessionByUid"
+    ],
+    "PushServer2/MainServer.h": [],
+    "PushServer2/MySQLConnectPool.cpp": [
+      "MySQLConnectPool",
+      "~MySQLConnectPool",
+      "checkLoop",
+      "stop",
+      "checkConnection",
+      "getConnection",
+      "returnConnection"
+    ],
+    "PushServer2/MySQLConnectPool.h": [],
+    "PushServer2/MySQLDao.cpp": [
+      "MySQLDao",
+      "~MySQLDao",
+      "checkLogin",
+      "getUser",
+      "getUsersByTeam",
+      "insertMessage",
+      "markMessagesRead",
+      "deleteMessages"
+    ],
+    "PushServer2/MySQLDao.h": [],
+    "PushServer2/MySQLManager.cpp": [
+      "MySQLManager",
+      "checkLogin",
+      "getUser",
+      "getUsersByTeam",
+      "insertMessage",
+      "markMessagesRead",
+      "deleteMessages"
+    ],
+    "PushServer2/MySQLManager.h": [],
+    "PushServer2/PushGrpcServiceImpl.cpp": [
+      "setGlobalMainServer",
+      "setGlobalGrpcPort",
+      "PushToUser",
+      "PushToTeam",
+      "GetMessages",
+      "MarkRead",
+      "DeleteMessage"
+    ],
+    "PushServer2/PushGrpcServiceImpl.h": [],
+    "PushServer2/PushServerMain.cpp": [
+      "main"
+    ],
+    "PushServer2/RedisConnectPool.cpp": [
+      "RedisConnectPool",
+      "~RedisConnectPool",
+      "getConnection",
+      "returnConnection",
+      "stop"
+    ],
+    "PushServer2/RedisConnectPool.h": [],
+    "PushServer2/RedisManager.cpp": [
+      "RedisManager",
+      "~RedisManager",
+      "get",
+      "set",
+      "auth",
+      "del",
+      "lpush",
+      "rpush",
+      "lpop",
+      "rpop",
+      "hset",
+      "hset",
+      "hget",
+      "existskey",
+      "setex",
+      "expire",
+      "incr",
+      "decr",
+      "ltrim",
+      "lrange",
+      "acquireLock",
+      "releaseLock",
+      "acquireLockWithRetry",
+      "evalScript",
+      "pushMessageAtomic",
+      "markReadAtomic",
+      "getAndDeleteKick",
+      "appendLogAtomic",
+      "close"
+    ],
+    "PushServer2/RedisManager.h": [],
+    "PushServer2/RPCConnectPool.cpp": [
+      "StatusConnectPool",
+      "~StatusConnectPool",
+      "getStub",
+      "returnStub",
+      "stop",
+      "PushConnectPool",
+      "~PushConnectPool",
+      "getStub",
+      "returnStub",
+      "stop",
+      "getStub",
+      "returnStub",
+      "stop"
+    ],
+    "PushServer2/RPCConnectPool.h": [],
+    "PushServer2/Session.cpp": [
+      "Session",
+      "start",
+      "send",
+      "close",
+      "sharedSelf",
+      "doRead",
+      "onRead",
+      "doWriteLocked",
+      "onWrite"
+    ],
+    "PushServer2/Session.h": [],
+    "PushServer2/Singleton.h": [],
+    "PushServer2/StatusGrpcClient.cpp": [
+      "StatusGrpcClient",
+      "reportLogin",
+      "reportLog",
+      "heartbeat",
+      "reportDisconnect"
+    ],
+    "PushServer2/StatusGrpcClient.h": [],
+    "StatusServer/ConfigManager.cpp": [
+      "ConfigManager"
+    ],
+    "StatusServer/ConfigManager.h": [],
+    "StatusServer/Global.h": [],
+    "StatusServer/Logger.cpp": [
+      "Logger",
+      "getFlushInterval",
+      "stop",
+      "~Logger",
+      "setRemoteFlushCallback",
+      "timestamp",
+      "levelToString",
+      "rotateIfNeeded",
+      "writeToFile",
+      "log",
+      "flushLoop"
+    ],
+    "StatusServer/Logger.h": [],
+    "StatusServer/RedisConnectPool.cpp": [
+      "RedisConnectPool",
+      "~RedisConnectPool",
+      "getConnection",
+      "returnConnection",
+      "stop"
+    ],
+    "StatusServer/RedisConnectPool.h": [],
+    "StatusServer/RedisManager.cpp": [
+      "RedisManager",
+      "~RedisManager",
+      "get",
+      "set",
+      "setex",
+      "expire",
+      "lrange",
+      "lrangeVec",
+      "ltrim",
+      "auth",
+      "del",
+      "lpush",
+      "rpush",
+      "lpop",
+      "rpop",
+      "hset",
+      "hset",
+      "hget",
+      "existskey",
+      "keys",
+      "acquireLock",
+      "releaseLock",
+      "acquireLockWithRetry",
+      "evalScript",
+      "pushMessageAtomic",
+      "markReadAtomic",
+      "getAndDeleteKick",
+      "appendLogAtomic",
+      "close"
+    ],
+    "StatusServer/RedisManager.h": [],
+    "StatusServer/RPCConnectPool.cpp": [
+      "StatusConnectPool",
+      "~StatusConnectPool",
+      "getStub",
+      "returnStub",
+      "stop"
+    ],
+    "StatusServer/RPCConnectPool.h": [],
+    "StatusServer/SegmentTree.cpp": [
+      "SegmentTree",
+      "build",
+      "push_up",
+      "updateVal",
+      "queryMin",
+      "queryMinidx",
+      "updateVal",
+      "queryMin",
+      "queryMinidx",
+      "getVal"
+    ],
+    "StatusServer/SegmentTree.h": [],
+    "StatusServer/Singleton.h": [],
+    "StatusServer/StatusGrpcClient.cpp": [
+      "StatusGrpcClient",
+      "allocatePushServer"
+    ],
+    "StatusServer/StatusGrpcClient.h": [],
+    "StatusServer/StatusServer.cpp": [
+      "RunServer",
+      "main"
+    ],
+    "StatusServer/StatusServiceImpl.cpp": [
+      "generate_unique_string",
+      "StatusServiceImpl",
+      "returnServer",
+      "AllocatePushServer",
+      "ReportLogin",
+      "ReportDisconnect",
+      "insertToken",
+      "ReportLog",
+      "QueryLogs",
+      "ServerHeartbeat",
+      "QueryServerStatus",
+      "GetPushServerForUser"
+    ],
+    "StatusServer/StatusServiceImpl.h": [],
+    "TaskServer/ConfigManager.cpp": [
+      "ConfigManager"
+    ],
+    "TaskServer/ConfigManager.h": [],
+    "TaskServer/Global.h": [],
+    "TaskServer/Logger.cpp": [
+      "Logger",
+      "stop",
+      "~Logger",
+      "setRemoteFlushCallback",
+      "timestamp",
+      "levelToString",
+      "rotateIfNeeded",
+      "writeToFile",
+      "log",
+      "flushLoop"
+    ],
+    "TaskServer/Logger.h": [],
+    "TaskServer/MySQLConnectPool.cpp": [
+      "MySQLConnectPool",
+      "~MySQLConnectPool",
+      "checkLoop",
+      "stop",
+      "checkConnection",
+      "getConnection",
+      "returnConnection"
+    ],
+    "TaskServer/MySQLConnectPool.h": [],
+    "TaskServer/MySQLDao.cpp": [
+      "MySQLDao",
+      "~MySQLDao",
+      "createTask",
+      "updateTask",
+      "deleteTask",
+      "getTask",
+      "listTasks",
+      "addTodo",
+      "listTodo",
+      "updateTodo",
+      "deleteTodo",
+      "getAssigneeStatus",
+      "getDeadlineTasksToday",
+      "getUncheckedInUsersToday",
+      "checkin",
+      "getCheckins"
+    ],
+    "TaskServer/MySQLDao.h": [],
+    "TaskServer/MySQLManager.cpp": [
+      "MySQLManager",
+      "createTask",
+      "updateTask",
+      "deleteTask",
+      "getTask",
+      "listTasks",
+      "addTodo",
+      "listTodo",
+      "updateTodo",
+      "deleteTodo",
+      "getAssigneeStatus",
+      "getDeadlineTasksToday",
+      "getUncheckedInUsersToday",
+      "checkin",
+      "getCheckins"
+    ],
+    "TaskServer/MySQLManager.h": [],
+    "TaskServer/PushGrpcClient.cpp": [
+      "PushGrpcClient",
+      "pushToUser",
+      "pushToTeam"
+    ],
+    "TaskServer/PushGrpcClient.h": [],
+    "TaskServer/RedisConnectPool.cpp": [
+      "RedisConnectPool",
+      "~RedisConnectPool",
+      "getConnection",
+      "returnConnection",
+      "stop"
+    ],
+    "TaskServer/RedisConnectPool.h": [],
+    "TaskServer/RedisManager.cpp": [
+      "RedisManager",
+      "~RedisManager",
+      "get",
+      "set",
+      "setex",
+      "auth",
+      "del",
+      "lpush",
+      "rpush",
+      "lpop",
+      "rpop",
+      "hset",
+      "hset",
+      "hget",
+      "existskey",
+      "acquireLock",
+      "releaseLock",
+      "acquireLockWithRetry",
+      "evalScript",
+      "pushMessageAtomic",
+      "markReadAtomic",
+      "getAndDeleteKick",
+      "appendLogAtomic",
+      "close"
+    ],
+    "TaskServer/RedisManager.h": [],
+    "TaskServer/RPCConnectPool.cpp": [
+      "StatusConnectPool",
+      "~StatusConnectPool",
+      "getStub",
+      "returnStub",
+      "stop",
+      "PushConnectPool",
+      "~PushConnectPool",
+      "getStub",
+      "returnStub",
+      "stop"
+    ],
+    "TaskServer/RPCConnectPool.h": [],
+    "TaskServer/Singleton.h": [],
+    "TaskServer/StatusGrpcClient.cpp": [
+      "StatusGrpcClient",
+      "reportLog",
+      "heartbeat"
+    ],
+    "TaskServer/StatusGrpcClient.h": [],
+    "TaskServer/TaskGrpcServiceImpl.cpp": [
+      "TaskGrpcServiceImpl",
+      "CreateTask",
+      "UpdateTask",
+      "DeleteTask",
+      "GetTask",
+      "ListTasks",
+      "AddTodo",
+      "ListTodo",
+      "UpdateTodo",
+      "DeleteTodo",
+      "Checkin",
+      "GetCheckins"
+    ],
+    "TaskServer/TaskGrpcServiceImpl.h": [],
+    "TaskServer/TaskServer.cpp": [
+      "RunServer",
+      "main"
+    ],
+    "UMSServer/ConfigManager.cpp": [
+      "ConfigManager"
+    ],
+    "UMSServer/ConfigManager.h": [],
+    "UMSServer/Global.h": [],
+    "UMSServer/Logger.cpp": [
+      "Logger",
+      "stop",
+      "~Logger",
+      "setRemoteFlushCallback",
+      "timestamp",
+      "levelToString",
+      "rotateIfNeeded",
+      "writeToFile",
+      "log",
+      "flushLoop"
+    ],
+    "UMSServer/Logger.h": [],
+    "UMSServer/MailerGrpcClient.cpp": [
+      "MailerGrpcClient",
+      "sendMail"
+    ],
+    "UMSServer/MailerGrpcClient.h": [],
+    "UMSServer/main.cpp": [
+      "main"
+    ],
+    "UMSServer/MySQLConnectPool.cpp": [
+      "MySQLConnectPool",
+      "~MySQLConnectPool",
+      "checkLoop",
+      "stop",
+      "checkConnection",
+      "getConnection",
+      "returnConnection"
+    ],
+    "UMSServer/MySQLConnectPool.h": [],
+    "UMSServer/MySQLDao.cpp": [
+      "MySQLDao",
+      "~MySQLDao",
+      "registerUser",
+      "userResetpass",
+      "checkLogin",
+      "updateTeamInfo",
+      "updateUserTeam",
+      "listPendingUsers",
+      "approveUser",
+      "rejectUser",
+      "setUserRole",
+      "listAllUsers"
+    ],
+    "UMSServer/MySQLDao.h": [],
+    "UMSServer/MySQLManager.cpp": [
+      "MySQLManager",
+      "registerUser",
+      "userResetpass",
+      "checkLogin",
+      "updateTeamInfo",
+      "updateUserTeam",
+      "listPendingUsers",
+      "approveUser",
+      "rejectUser",
+      "setUserRole",
+      "listAllUsers"
+    ],
+    "UMSServer/MySQLManager.h": [],
+    "UMSServer/RedisConnectPool.cpp": [
+      "RedisConnectPool",
+      "~RedisConnectPool",
+      "getConnection",
+      "returnConnection",
+      "stop"
+    ],
+    "UMSServer/RedisConnectPool.h": [],
+    "UMSServer/RedisManager.cpp": [
+      "RedisManager",
+      "~RedisManager",
+      "get",
+      "set",
+      "setex",
+      "auth",
+      "del",
+      "lpush",
+      "rpush",
+      "lpop",
+      "rpop",
+      "hset",
+      "hset",
+      "hget",
+      "existskey",
+      "acquireLock",
+      "releaseLock",
+      "acquireLockWithRetry",
+      "evalScript",
+      "pushMessageAtomic",
+      "markReadAtomic",
+      "getAndDeleteKick",
+      "appendLogAtomic",
+      "close"
+    ],
+    "UMSServer/RedisManager.h": [],
+    "UMSServer/RPCConnectPool.cpp": [
+      "MailerConnectPool",
+      "~MailerConnectPool",
+      "getStub",
+      "returnStub",
+      "stop",
+      "StatusConnectPool",
+      "~StatusConnectPool",
+      "getStub",
+      "returnStub",
+      "stop"
+    ],
+    "UMSServer/RPCConnectPool.h": [],
+    "UMSServer/Singleton.h": [],
+    "UMSServer/StatusGrpcClient.cpp": [
+      "StatusGrpcClient",
+      "reportLog",
+      "heartbeat"
+    ],
+    "UMSServer/StatusGrpcClient.h": [],
+    "UMSServer/UMSGrpcServiceImpl.cpp": [
+      "UMSGrpcServiceImpl",
+      "GetVerifyCode",
+      "Register",
+      "Login",
+      "ResetPass",
+      "ListPendingUsers",
+      "ApproveUser",
+      "RejectUser",
+      "SetUserRole",
+      "ListAllUsers",
+      "UpdateTeamInfo"
+    ],
+    "UMSServer/UMSGrpcServiceImpl.h": []
+  },
+  "batches": [
+    {
+      "batchIndex": 1,
+      "files": [
+        {
+          "path": "GateServer/AsyncTaskPool.cpp",
+          "language": "cpp",
+          "sizeLines": 32,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/AsyncTaskPool.h",
+          "language": "c",
+          "sizeLines": 26,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/ConfigManager.cpp",
+          "language": "cpp",
+          "sizeLines": 35,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/ConfigManager.h",
+          "language": "c",
+          "sizeLines": 39,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/Global.h",
+          "language": "c",
+          "sizeLines": 76,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/HttpConnection.cpp",
+          "language": "cpp",
+          "sizeLines": 246,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/HttpConnection.h",
+          "language": "c",
+          "sizeLines": 42,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/IOContextPool.cpp",
+          "language": "cpp",
+          "sizeLines": 49,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/IOContextPool.h",
+          "language": "c",
+          "sizeLines": 25,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/Logger.cpp",
+          "language": "cpp",
+          "sizeLines": 146,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/Logger.h",
+          "language": "c",
+          "sizeLines": 94,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/LogicSystem.cpp",
+          "language": "cpp",
+          "sizeLines": 748,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/LogicSystem.h",
+          "language": "c",
+          "sizeLines": 30,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/MainServer.cpp",
+          "language": "cpp",
+          "sizeLines": 32,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/MainServer.h",
+          "language": "c",
+          "sizeLines": 21,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/MySQLConnectPool.cpp",
+          "language": "cpp",
+          "sizeLines": 97,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/MySQLConnectPool.h",
+          "language": "c",
+          "sizeLines": 78,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/MySQLDao.cpp",
+          "language": "cpp",
+          "sizeLines": 277,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/MySQLDao.h",
+          "language": "c",
+          "sizeLines": 26,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/MySQLManager.cpp",
+          "language": "cpp",
+          "sizeLines": 47,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/MySQLManager.h",
+          "language": "c",
+          "sizeLines": 28,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/RPCConnectPool.cpp",
+          "language": "cpp",
+          "sizeLines": 124,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/RPCConnectPool.h",
+          "language": "c",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/RedisConnectPool.cpp",
+          "language": "cpp",
+          "sizeLines": 68,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/RedisConnectPool.h",
+          "language": "c",
+          "sizeLines": 40,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/RedisManager.cpp",
+          "language": "cpp",
+          "sizeLines": 510,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/RedisManager.h",
+          "language": "c",
+          "sizeLines": 89,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/StatusGrpcClient.cpp",
+          "language": "cpp",
+          "sizeLines": 110,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/StatusGrpcClient.h",
+          "language": "c",
+          "sizeLines": 43,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/TaskGrpcClient.cpp",
+          "language": "cpp",
+          "sizeLines": 201,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/TaskGrpcClient.h",
+          "language": "c",
+          "sizeLines": 62,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/UserGrpcClient.cpp",
+          "language": "cpp",
+          "sizeLines": 164,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/UserGrpcClient.h",
+          "language": "c",
+          "sizeLines": 55,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/main.cpp",
+          "language": "cpp",
+          "sizeLines": 77,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "GateServer/AsyncTaskPool.cpp": [
+          "GateServer/AsyncTaskPool.h"
+        ],
+        "GateServer/AsyncTaskPool.h": [],
+        "GateServer/ConfigManager.cpp": [
+          "GateServer/ConfigManager.h"
+        ],
+        "GateServer/ConfigManager.h": [],
+        "GateServer/Global.h": [],
+        "GateServer/HttpConnection.cpp": [
+          "GateServer/HttpConnection.h",
+          "GateServer/Logger.h",
+          "GateServer/RedisManager.h"
+        ],
+        "GateServer/HttpConnection.h": [],
+        "GateServer/IOContextPool.cpp": [
+          "GateServer/IOContextPool.h",
+          "GateServer/Logger.h"
+        ],
+        "GateServer/IOContextPool.h": [],
+        "GateServer/Logger.cpp": [
+          "GateServer/ConfigManager.h",
+          "GateServer/Logger.h"
+        ],
+        "GateServer/Logger.h": [],
+        "GateServer/LogicSystem.cpp": [
+          "GateServer/AsyncTaskPool.h",
+          "GateServer/HttpConnection.h",
+          "GateServer/Logger.h",
+          "GateServer/LogicSystem.h",
+          "GateServer/MySQLManager.h",
+          "GateServer/RedisManager.h",
+          "GateServer/StatusGrpcClient.h",
+          "GateServer/TaskGrpcClient.h",
+          "GateServer/UserGrpcClient.h"
+        ],
+        "GateServer/LogicSystem.h": [],
+        "GateServer/MainServer.cpp": [
+          "GateServer/IOContextPool.h",
+          "GateServer/Logger.h",
+          "GateServer/MainServer.h"
+        ],
+        "GateServer/MainServer.h": [],
+        "GateServer/MySQLConnectPool.cpp": [
+          "GateServer/Logger.h",
+          "GateServer/MySQLConnectPool.h"
+        ],
+        "GateServer/MySQLConnectPool.h": [],
+        "GateServer/MySQLDao.cpp": [
+          "GateServer/ConfigManager.h",
+          "GateServer/Logger.h",
+          "GateServer/MySQLDao.h"
+        ],
+        "GateServer/MySQLDao.h": [],
+        "GateServer/MySQLManager.cpp": [
+          "GateServer/MySQLManager.h"
+        ],
+        "GateServer/MySQLManager.h": [],
+        "GateServer/RPCConnectPool.cpp": [
+          "GateServer/Logger.h",
+          "GateServer/RPCConnectPool.h"
+        ],
+        "GateServer/RPCConnectPool.h": [],
+        "GateServer/RedisConnectPool.cpp": [
+          "GateServer/Logger.h",
+          "GateServer/RedisConnectPool.h"
+        ],
+        "GateServer/RedisConnectPool.h": [],
+        "GateServer/RedisManager.cpp": [
+          "GateServer/ConfigManager.h",
+          "GateServer/Logger.h",
+          "GateServer/RedisManager.h"
+        ],
+        "GateServer/RedisManager.h": [],
+        "GateServer/StatusGrpcClient.cpp": [
+          "GateServer/Logger.h",
+          "GateServer/StatusGrpcClient.h"
+        ],
+        "GateServer/StatusGrpcClient.h": [],
+        "GateServer/TaskGrpcClient.cpp": [
+          "GateServer/Logger.h",
+          "GateServer/TaskGrpcClient.h"
+        ],
+        "GateServer/TaskGrpcClient.h": [],
+        "GateServer/UserGrpcClient.cpp": [
+          "GateServer/Logger.h",
+          "GateServer/UserGrpcClient.h"
+        ],
+        "GateServer/UserGrpcClient.h": [],
+        "GateServer/main.cpp": [
+          "GateServer/AsyncTaskPool.h",
+          "GateServer/ConfigManager.h",
+          "GateServer/Global.h",
+          "GateServer/Logger.h",
+          "GateServer/MainServer.h",
+          "GateServer/RedisManager.h",
+          "GateServer/StatusGrpcClient.h"
+        ]
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 2,
+      "files": [
+        {
+          "path": "PushServer/AsyncTaskPool.cpp",
+          "language": "cpp",
+          "sizeLines": 31,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/AsyncTaskPool.h",
+          "language": "c",
+          "sizeLines": 26,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/ConfigManager.cpp",
+          "language": "cpp",
+          "sizeLines": 35,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/ConfigManager.h",
+          "language": "c",
+          "sizeLines": 39,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/Global.h",
+          "language": "c",
+          "sizeLines": 65,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/IOContextPool.cpp",
+          "language": "cpp",
+          "sizeLines": 49,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/IOContextPool.h",
+          "language": "c",
+          "sizeLines": 26,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/Logger.cpp",
+          "language": "cpp",
+          "sizeLines": 146,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/Logger.h",
+          "language": "c",
+          "sizeLines": 94,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/LogicSystem.cpp",
+          "language": "cpp",
+          "sizeLines": 192,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/LogicSystem.h",
+          "language": "c",
+          "sizeLines": 46,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/MainServer.cpp",
+          "language": "cpp",
+          "sizeLines": 118,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/MainServer.h",
+          "language": "c",
+          "sizeLines": 38,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/MySQLConnectPool.cpp",
+          "language": "cpp",
+          "sizeLines": 96,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/MySQLConnectPool.h",
+          "language": "c",
+          "sizeLines": 78,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/MySQLDao.cpp",
+          "language": "cpp",
+          "sizeLines": 156,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/MySQLDao.h",
+          "language": "c",
+          "sizeLines": 22,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/MySQLManager.cpp",
+          "language": "cpp",
+          "sizeLines": 29,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/MySQLManager.h",
+          "language": "c",
+          "sizeLines": 26,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/PushGrpcServiceImpl.cpp",
+          "language": "cpp",
+          "sizeLines": 249,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/PushGrpcServiceImpl.h",
+          "language": "c",
+          "sizeLines": 40,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/PushServerMain.cpp",
+          "language": "cpp",
+          "sizeLines": 103,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/RPCConnectPool.cpp",
+          "language": "cpp",
+          "sizeLines": 123,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/RPCConnectPool.h",
+          "language": "c",
+          "sizeLines": 71,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/RedisConnectPool.cpp",
+          "language": "cpp",
+          "sizeLines": 67,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/RedisConnectPool.h",
+          "language": "c",
+          "sizeLines": 40,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/RedisManager.cpp",
+          "language": "cpp",
+          "sizeLines": 542,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/RedisManager.h",
+          "language": "c",
+          "sizeLines": 92,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/Session.cpp",
+          "language": "cpp",
+          "sizeLines": 91,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/Session.h",
+          "language": "c",
+          "sizeLines": 49,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/StatusGrpcClient.cpp",
+          "language": "cpp",
+          "sizeLines": 79,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/StatusGrpcClient.h",
+          "language": "c",
+          "sizeLines": 37,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "PushServer/AsyncTaskPool.cpp": [
+          "PushServer/AsyncTaskPool.h"
+        ],
+        "PushServer/AsyncTaskPool.h": [],
+        "PushServer/ConfigManager.cpp": [
+          "PushServer/ConfigManager.h"
+        ],
+        "PushServer/ConfigManager.h": [],
+        "PushServer/Global.h": [],
+        "PushServer/IOContextPool.cpp": [
+          "PushServer/IOContextPool.h",
+          "PushServer/Logger.h"
+        ],
+        "PushServer/IOContextPool.h": [],
+        "PushServer/Logger.cpp": [
+          "PushServer/ConfigManager.h",
+          "PushServer/Logger.h"
+        ],
+        "PushServer/Logger.h": [],
+        "PushServer/LogicSystem.cpp": [
+          "PushServer/AsyncTaskPool.h",
+          "PushServer/Global.h",
+          "PushServer/Logger.h",
+          "PushServer/LogicSystem.h",
+          "PushServer/MainServer.h",
+          "PushServer/MySQLManager.h",
+          "PushServer/RedisManager.h",
+          "PushServer/StatusGrpcClient.h"
+        ],
+        "PushServer/LogicSystem.h": [],
+        "PushServer/MainServer.cpp": [
+          "PushServer/AsyncTaskPool.h",
+          "PushServer/Logger.h",
+          "PushServer/MainServer.h",
+          "PushServer/RedisManager.h",
+          "PushServer/StatusGrpcClient.h"
+        ],
+        "PushServer/MainServer.h": [],
+        "PushServer/MySQLConnectPool.cpp": [
+          "PushServer/Logger.h",
+          "PushServer/MySQLConnectPool.h"
+        ],
+        "PushServer/MySQLConnectPool.h": [],
+        "PushServer/MySQLDao.cpp": [
+          "PushServer/ConfigManager.h",
+          "PushServer/Global.h",
+          "PushServer/Logger.h",
+          "PushServer/MySQLDao.h"
+        ],
+        "PushServer/MySQLDao.h": [],
+        "PushServer/MySQLManager.cpp": [
+          "PushServer/MySQLManager.h"
+        ],
+        "PushServer/MySQLManager.h": [],
+        "PushServer/PushGrpcServiceImpl.cpp": [
+          "PushServer/AsyncTaskPool.h",
+          "PushServer/ConfigManager.h",
+          "PushServer/Logger.h",
+          "PushServer/MainServer.h",
+          "PushServer/MySQLManager.h",
+          "PushServer/PushGrpcServiceImpl.h",
+          "PushServer/RedisManager.h",
+          "PushServer/RPCConnectPool.h"
+        ],
+        "PushServer/PushGrpcServiceImpl.h": [],
+        "PushServer/PushServerMain.cpp": [
+          "PushServer/AsyncTaskPool.h",
+          "PushServer/ConfigManager.h",
+          "PushServer/IOContextPool.h",
+          "PushServer/Logger.h",
+          "PushServer/LogicSystem.h",
+          "PushServer/MainServer.h",
+          "PushServer/PushGrpcServiceImpl.h",
+          "PushServer/RPCConnectPool.h",
+          "PushServer/StatusGrpcClient.h"
+        ],
+        "PushServer/RPCConnectPool.cpp": [
+          "PushServer/Logger.h",
+          "PushServer/RPCConnectPool.h"
+        ],
+        "PushServer/RPCConnectPool.h": [],
+        "PushServer/RedisConnectPool.cpp": [
+          "PushServer/Logger.h",
+          "PushServer/RedisConnectPool.h"
+        ],
+        "PushServer/RedisConnectPool.h": [],
+        "PushServer/RedisManager.cpp": [
+          "PushServer/ConfigManager.h",
+          "PushServer/Logger.h",
+          "PushServer/RedisManager.h"
+        ],
+        "PushServer/RedisManager.h": [],
+        "PushServer/Session.cpp": [
+          "PushServer/Logger.h",
+          "PushServer/LogicSystem.h",
+          "PushServer/MainServer.h",
+          "PushServer/Session.h"
+        ],
+        "PushServer/Session.h": [],
+        "PushServer/StatusGrpcClient.cpp": [
+          "PushServer/Logger.h",
+          "PushServer/StatusGrpcClient.h"
+        ],
+        "PushServer/StatusGrpcClient.h": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 3,
+      "files": [
+        {
+          "path": "PushServer2/AsyncTaskPool.cpp",
+          "language": "cpp",
+          "sizeLines": 31,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/AsyncTaskPool.h",
+          "language": "c",
+          "sizeLines": 26,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/ConfigManager.cpp",
+          "language": "cpp",
+          "sizeLines": 35,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/ConfigManager.h",
+          "language": "c",
+          "sizeLines": 39,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/Global.h",
+          "language": "c",
+          "sizeLines": 65,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/IOContextPool.cpp",
+          "language": "cpp",
+          "sizeLines": 49,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/IOContextPool.h",
+          "language": "c",
+          "sizeLines": 26,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/Logger.cpp",
+          "language": "cpp",
+          "sizeLines": 146,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/Logger.h",
+          "language": "c",
+          "sizeLines": 94,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/LogicSystem.cpp",
+          "language": "cpp",
+          "sizeLines": 192,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/LogicSystem.h",
+          "language": "c",
+          "sizeLines": 46,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/MainServer.cpp",
+          "language": "cpp",
+          "sizeLines": 118,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/MainServer.h",
+          "language": "c",
+          "sizeLines": 38,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/MySQLConnectPool.cpp",
+          "language": "cpp",
+          "sizeLines": 96,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/MySQLConnectPool.h",
+          "language": "c",
+          "sizeLines": 78,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/MySQLDao.cpp",
+          "language": "cpp",
+          "sizeLines": 156,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/MySQLDao.h",
+          "language": "c",
+          "sizeLines": 22,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/MySQLManager.cpp",
+          "language": "cpp",
+          "sizeLines": 29,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/MySQLManager.h",
+          "language": "c",
+          "sizeLines": 26,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/PushGrpcServiceImpl.cpp",
+          "language": "cpp",
+          "sizeLines": 248,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/PushGrpcServiceImpl.h",
+          "language": "c",
+          "sizeLines": 40,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/PushServerMain.cpp",
+          "language": "cpp",
+          "sizeLines": 103,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/RPCConnectPool.cpp",
+          "language": "cpp",
+          "sizeLines": 123,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/RPCConnectPool.h",
+          "language": "c",
+          "sizeLines": 71,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/RedisConnectPool.cpp",
+          "language": "cpp",
+          "sizeLines": 67,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/RedisConnectPool.h",
+          "language": "c",
+          "sizeLines": 40,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/RedisManager.cpp",
+          "language": "cpp",
+          "sizeLines": 544,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/RedisManager.h",
+          "language": "c",
+          "sizeLines": 92,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/Session.cpp",
+          "language": "cpp",
+          "sizeLines": 91,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/Session.h",
+          "language": "c",
+          "sizeLines": 49,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/StatusGrpcClient.cpp",
+          "language": "cpp",
+          "sizeLines": 79,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/StatusGrpcClient.h",
+          "language": "c",
+          "sizeLines": 37,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "PushServer2/AsyncTaskPool.cpp": [
+          "PushServer2/AsyncTaskPool.h"
+        ],
+        "PushServer2/AsyncTaskPool.h": [],
+        "PushServer2/ConfigManager.cpp": [
+          "PushServer2/ConfigManager.h"
+        ],
+        "PushServer2/ConfigManager.h": [],
+        "PushServer2/Global.h": [],
+        "PushServer2/IOContextPool.cpp": [
+          "PushServer2/IOContextPool.h",
+          "PushServer2/Logger.h"
+        ],
+        "PushServer2/IOContextPool.h": [],
+        "PushServer2/Logger.cpp": [
+          "PushServer2/ConfigManager.h",
+          "PushServer2/Logger.h"
+        ],
+        "PushServer2/Logger.h": [],
+        "PushServer2/LogicSystem.cpp": [
+          "PushServer2/AsyncTaskPool.h",
+          "PushServer2/Global.h",
+          "PushServer2/Logger.h",
+          "PushServer2/LogicSystem.h",
+          "PushServer2/MainServer.h",
+          "PushServer2/MySQLManager.h",
+          "PushServer2/RedisManager.h",
+          "PushServer2/StatusGrpcClient.h"
+        ],
+        "PushServer2/LogicSystem.h": [],
+        "PushServer2/MainServer.cpp": [
+          "PushServer2/AsyncTaskPool.h",
+          "PushServer2/Logger.h",
+          "PushServer2/MainServer.h",
+          "PushServer2/RedisManager.h",
+          "PushServer2/StatusGrpcClient.h"
+        ],
+        "PushServer2/MainServer.h": [],
+        "PushServer2/MySQLConnectPool.cpp": [
+          "PushServer2/Logger.h",
+          "PushServer2/MySQLConnectPool.h"
+        ],
+        "PushServer2/MySQLConnectPool.h": [],
+        "PushServer2/MySQLDao.cpp": [
+          "PushServer2/ConfigManager.h",
+          "PushServer2/Global.h",
+          "PushServer2/Logger.h",
+          "PushServer2/MySQLDao.h"
+        ],
+        "PushServer2/MySQLDao.h": [],
+        "PushServer2/MySQLManager.cpp": [
+          "PushServer2/MySQLManager.h"
+        ],
+        "PushServer2/MySQLManager.h": [],
+        "PushServer2/PushGrpcServiceImpl.cpp": [
+          "PushServer2/AsyncTaskPool.h",
+          "PushServer2/ConfigManager.h",
+          "PushServer2/Logger.h",
+          "PushServer2/MainServer.h",
+          "PushServer2/MySQLManager.h",
+          "PushServer2/PushGrpcServiceImpl.h",
+          "PushServer2/RedisManager.h",
+          "PushServer2/RPCConnectPool.h"
+        ],
+        "PushServer2/PushGrpcServiceImpl.h": [],
+        "PushServer2/PushServerMain.cpp": [
+          "PushServer2/AsyncTaskPool.h",
+          "PushServer2/ConfigManager.h",
+          "PushServer2/IOContextPool.h",
+          "PushServer2/Logger.h",
+          "PushServer2/LogicSystem.h",
+          "PushServer2/MainServer.h",
+          "PushServer2/PushGrpcServiceImpl.h",
+          "PushServer2/RPCConnectPool.h",
+          "PushServer2/StatusGrpcClient.h"
+        ],
+        "PushServer2/RPCConnectPool.cpp": [
+          "PushServer2/Logger.h",
+          "PushServer2/RPCConnectPool.h"
+        ],
+        "PushServer2/RPCConnectPool.h": [],
+        "PushServer2/RedisConnectPool.cpp": [
+          "PushServer2/Logger.h",
+          "PushServer2/RedisConnectPool.h"
+        ],
+        "PushServer2/RedisConnectPool.h": [],
+        "PushServer2/RedisManager.cpp": [
+          "PushServer2/ConfigManager.h",
+          "PushServer2/Logger.h",
+          "PushServer2/RedisManager.h"
+        ],
+        "PushServer2/RedisManager.h": [],
+        "PushServer2/Session.cpp": [
+          "PushServer2/Logger.h",
+          "PushServer2/LogicSystem.h",
+          "PushServer2/MainServer.h",
+          "PushServer2/Session.h"
+        ],
+        "PushServer2/Session.h": [],
+        "PushServer2/StatusGrpcClient.cpp": [
+          "PushServer2/Logger.h",
+          "PushServer2/StatusGrpcClient.h"
+        ],
+        "PushServer2/StatusGrpcClient.h": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 4,
+      "files": [
+        {
+          "path": "TaskServer/ConfigManager.cpp",
+          "language": "cpp",
+          "sizeLines": 35,
+          "fileCategory": "code"
+        },
+        {
+          "path": "TaskServer/ConfigManager.h",
+          "language": "c",
+          "sizeLines": 40,
+          "fileCategory": "code"
+        },
+        {
+          "path": "TaskServer/Global.h",
+          "language": "c",
+          "sizeLines": 71,
+          "fileCategory": "code"
+        },
+        {
+          "path": "TaskServer/Logger.cpp",
+          "language": "cpp",
+          "sizeLines": 146,
+          "fileCategory": "code"
+        },
+        {
+          "path": "TaskServer/Logger.h",
+          "language": "c",
+          "sizeLines": 94,
+          "fileCategory": "code"
+        },
+        {
+          "path": "TaskServer/MySQLConnectPool.cpp",
+          "language": "cpp",
+          "sizeLines": 96,
+          "fileCategory": "code"
+        },
+        {
+          "path": "TaskServer/MySQLConnectPool.h",
+          "language": "c",
+          "sizeLines": 78,
+          "fileCategory": "code"
+        },
+        {
+          "path": "TaskServer/MySQLDao.cpp",
+          "language": "cpp",
+          "sizeLines": 478,
+          "fileCategory": "code"
+        },
+        {
+          "path": "TaskServer/MySQLDao.h",
+          "language": "c",
+          "sizeLines": 41,
+          "fileCategory": "code"
+        },
+        {
+          "path": "TaskServer/MySQLManager.cpp",
+          "language": "cpp",
+          "sizeLines": 65,
+          "fileCategory": "code"
+        },
+        {
+          "path": "TaskServer/MySQLManager.h",
+          "language": "c",
+          "sizeLines": 42,
+          "fileCategory": "code"
+        },
+        {
+          "path": "TaskServer/PushGrpcClient.cpp",
+          "language": "cpp",
+          "sizeLines": 49,
+          "fileCategory": "code"
+        },
+        {
+          "path": "TaskServer/PushGrpcClient.h",
+          "language": "c",
+          "sizeLines": 33,
+          "fileCategory": "code"
+        },
+        {
+          "path": "TaskServer/RPCConnectPool.cpp",
+          "language": "cpp",
+          "sizeLines": 69,
+          "fileCategory": "code"
+        },
+        {
+          "path": "TaskServer/RPCConnectPool.h",
+          "language": "c",
+          "sizeLines": 54,
+          "fileCategory": "code"
+        },
+        {
+          "path": "TaskServer/RedisConnectPool.cpp",
+          "language": "cpp",
+          "sizeLines": 68,
+          "fileCategory": "code"
+        },
+        {
+          "path": "TaskServer/RedisConnectPool.h",
+          "language": "c",
+          "sizeLines": 40,
+          "fileCategory": "code"
+        },
+        {
+          "path": "TaskServer/RedisManager.cpp",
+          "language": "cpp",
+          "sizeLines": 493,
+          "fileCategory": "code"
+        },
+        {
+          "path": "TaskServer/RedisManager.h",
+          "language": "c",
+          "sizeLines": 87,
+          "fileCategory": "code"
+        },
+        {
+          "path": "TaskServer/StatusGrpcClient.cpp",
+          "language": "cpp",
+          "sizeLines": 34,
+          "fileCategory": "code"
+        },
+        {
+          "path": "TaskServer/StatusGrpcClient.h",
+          "language": "c",
+          "sizeLines": 32,
+          "fileCategory": "code"
+        },
+        {
+          "path": "TaskServer/TaskGrpcServiceImpl.cpp",
+          "language": "cpp",
+          "sizeLines": 301,
+          "fileCategory": "code"
+        },
+        {
+          "path": "TaskServer/TaskGrpcServiceImpl.h",
+          "language": "c",
+          "sizeLines": 53,
+          "fileCategory": "code"
+        },
+        {
+          "path": "TaskServer/TaskServer.cpp",
+          "language": "cpp",
+          "sizeLines": 124,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "TaskServer/ConfigManager.cpp": [
+          "TaskServer/ConfigManager.h"
+        ],
+        "TaskServer/ConfigManager.h": [],
+        "TaskServer/Global.h": [],
+        "TaskServer/Logger.cpp": [
+          "TaskServer/ConfigManager.h",
+          "TaskServer/Logger.h"
+        ],
+        "TaskServer/Logger.h": [],
+        "TaskServer/MySQLConnectPool.cpp": [
+          "TaskServer/Logger.h",
+          "TaskServer/MySQLConnectPool.h"
+        ],
+        "TaskServer/MySQLConnectPool.h": [],
+        "TaskServer/MySQLDao.cpp": [
+          "TaskServer/ConfigManager.h",
+          "TaskServer/Logger.h",
+          "TaskServer/MySQLDao.h"
+        ],
+        "TaskServer/MySQLDao.h": [],
+        "TaskServer/MySQLManager.cpp": [
+          "TaskServer/MySQLManager.h"
+        ],
+        "TaskServer/MySQLManager.h": [],
+        "TaskServer/PushGrpcClient.cpp": [
+          "TaskServer/Logger.h",
+          "TaskServer/PushGrpcClient.h"
+        ],
+        "TaskServer/PushGrpcClient.h": [],
+        "TaskServer/RPCConnectPool.cpp": [
+          "TaskServer/Logger.h",
+          "TaskServer/RPCConnectPool.h"
+        ],
+        "TaskServer/RPCConnectPool.h": [],
+        "TaskServer/RedisConnectPool.cpp": [
+          "TaskServer/Logger.h",
+          "TaskServer/RedisConnectPool.h"
+        ],
+        "TaskServer/RedisConnectPool.h": [],
+        "TaskServer/RedisManager.cpp": [
+          "TaskServer/ConfigManager.h",
+          "TaskServer/Logger.h",
+          "TaskServer/RedisManager.h"
+        ],
+        "TaskServer/RedisManager.h": [],
+        "TaskServer/StatusGrpcClient.cpp": [
+          "TaskServer/StatusGrpcClient.h"
+        ],
+        "TaskServer/StatusGrpcClient.h": [],
+        "TaskServer/TaskGrpcServiceImpl.cpp": [
+          "TaskServer/Logger.h",
+          "TaskServer/MySQLManager.h",
+          "TaskServer/PushGrpcClient.h",
+          "TaskServer/TaskGrpcServiceImpl.h"
+        ],
+        "TaskServer/TaskGrpcServiceImpl.h": [],
+        "TaskServer/TaskServer.cpp": [
+          "TaskServer/ConfigManager.h",
+          "TaskServer/Global.h",
+          "TaskServer/Logger.h",
+          "TaskServer/MySQLManager.h",
+          "TaskServer/PushGrpcClient.h",
+          "TaskServer/StatusGrpcClient.h",
+          "TaskServer/TaskGrpcServiceImpl.h"
+        ]
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 5,
+      "files": [
+        {
+          "path": "UMSServer/ConfigManager.cpp",
+          "language": "cpp",
+          "sizeLines": 35,
+          "fileCategory": "code"
+        },
+        {
+          "path": "UMSServer/ConfigManager.h",
+          "language": "c",
+          "sizeLines": 39,
+          "fileCategory": "code"
+        },
+        {
+          "path": "UMSServer/Logger.cpp",
+          "language": "cpp",
+          "sizeLines": 146,
+          "fileCategory": "code"
+        },
+        {
+          "path": "UMSServer/Logger.h",
+          "language": "c",
+          "sizeLines": 94,
+          "fileCategory": "code"
+        },
+        {
+          "path": "UMSServer/MailerGrpcClient.cpp",
+          "language": "cpp",
+          "sizeLines": 25,
+          "fileCategory": "code"
+        },
+        {
+          "path": "UMSServer/MailerGrpcClient.h",
+          "language": "c",
+          "sizeLines": 28,
+          "fileCategory": "code"
+        },
+        {
+          "path": "UMSServer/MySQLConnectPool.cpp",
+          "language": "cpp",
+          "sizeLines": 96,
+          "fileCategory": "code"
+        },
+        {
+          "path": "UMSServer/MySQLConnectPool.h",
+          "language": "c",
+          "sizeLines": 78,
+          "fileCategory": "code"
+        },
+        {
+          "path": "UMSServer/MySQLDao.cpp",
+          "language": "cpp",
+          "sizeLines": 280,
+          "fileCategory": "code"
+        },
+        {
+          "path": "UMSServer/MySQLDao.h",
+          "language": "c",
+          "sizeLines": 24,
+          "fileCategory": "code"
+        },
+        {
+          "path": "UMSServer/MySQLManager.cpp",
+          "language": "cpp",
+          "sizeLines": 47,
+          "fileCategory": "code"
+        },
+        {
+          "path": "UMSServer/MySQLManager.h",
+          "language": "c",
+          "sizeLines": 27,
+          "fileCategory": "code"
+        },
+        {
+          "path": "UMSServer/RPCConnectPool.cpp",
+          "language": "cpp",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "UMSServer/RPCConnectPool.h",
+          "language": "c",
+          "sizeLines": 54,
+          "fileCategory": "code"
+        },
+        {
+          "path": "UMSServer/RedisConnectPool.cpp",
+          "language": "cpp",
+          "sizeLines": 68,
+          "fileCategory": "code"
+        },
+        {
+          "path": "UMSServer/RedisConnectPool.h",
+          "language": "c",
+          "sizeLines": 40,
+          "fileCategory": "code"
+        },
+        {
+          "path": "UMSServer/RedisManager.cpp",
+          "language": "cpp",
+          "sizeLines": 493,
+          "fileCategory": "code"
+        },
+        {
+          "path": "UMSServer/RedisManager.h",
+          "language": "c",
+          "sizeLines": 86,
+          "fileCategory": "code"
+        },
+        {
+          "path": "UMSServer/StatusGrpcClient.cpp",
+          "language": "cpp",
+          "sizeLines": 34,
+          "fileCategory": "code"
+        },
+        {
+          "path": "UMSServer/StatusGrpcClient.h",
+          "language": "c",
+          "sizeLines": 31,
+          "fileCategory": "code"
+        },
+        {
+          "path": "UMSServer/UMSGrpcServiceImpl.cpp",
+          "language": "cpp",
+          "sizeLines": 209,
+          "fileCategory": "code"
+        },
+        {
+          "path": "UMSServer/UMSGrpcServiceImpl.h",
+          "language": "c",
+          "sizeLines": 50,
+          "fileCategory": "code"
+        },
+        {
+          "path": "UMSServer/main.cpp",
+          "language": "cpp",
+          "sizeLines": 55,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "UMSServer/ConfigManager.cpp": [
+          "UMSServer/ConfigManager.h"
+        ],
+        "UMSServer/ConfigManager.h": [],
+        "UMSServer/Logger.cpp": [
+          "UMSServer/ConfigManager.h",
+          "UMSServer/Logger.h"
+        ],
+        "UMSServer/Logger.h": [],
+        "UMSServer/MailerGrpcClient.cpp": [
+          "UMSServer/Logger.h",
+          "UMSServer/MailerGrpcClient.h"
+        ],
+        "UMSServer/MailerGrpcClient.h": [],
+        "UMSServer/MySQLConnectPool.cpp": [
+          "UMSServer/Logger.h",
+          "UMSServer/MySQLConnectPool.h"
+        ],
+        "UMSServer/MySQLConnectPool.h": [],
+        "UMSServer/MySQLDao.cpp": [
+          "UMSServer/ConfigManager.h",
+          "UMSServer/Logger.h",
+          "UMSServer/MySQLDao.h"
+        ],
+        "UMSServer/MySQLDao.h": [],
+        "UMSServer/MySQLManager.cpp": [
+          "UMSServer/MySQLManager.h"
+        ],
+        "UMSServer/MySQLManager.h": [],
+        "UMSServer/RPCConnectPool.cpp": [
+          "UMSServer/Logger.h",
+          "UMSServer/RPCConnectPool.h"
+        ],
+        "UMSServer/RPCConnectPool.h": [],
+        "UMSServer/RedisConnectPool.cpp": [
+          "UMSServer/Logger.h",
+          "UMSServer/RedisConnectPool.h"
+        ],
+        "UMSServer/RedisConnectPool.h": [],
+        "UMSServer/RedisManager.cpp": [
+          "UMSServer/ConfigManager.h",
+          "UMSServer/Logger.h",
+          "UMSServer/RedisManager.h"
+        ],
+        "UMSServer/RedisManager.h": [],
+        "UMSServer/StatusGrpcClient.cpp": [
+          "UMSServer/StatusGrpcClient.h"
+        ],
+        "UMSServer/StatusGrpcClient.h": [],
+        "UMSServer/UMSGrpcServiceImpl.cpp": [
+          "UMSServer/Logger.h",
+          "UMSServer/MailerGrpcClient.h",
+          "UMSServer/MySQLManager.h",
+          "UMSServer/RedisManager.h",
+          "UMSServer/UMSGrpcServiceImpl.h"
+        ],
+        "UMSServer/UMSGrpcServiceImpl.h": [],
+        "UMSServer/main.cpp": [
+          "UMSServer/ConfigManager.h",
+          "UMSServer/Logger.h",
+          "UMSServer/StatusGrpcClient.h",
+          "UMSServer/UMSGrpcServiceImpl.h"
+        ]
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 6,
+      "files": [
+        {
+          "path": "StatusServer/ConfigManager.cpp",
+          "language": "cpp",
+          "sizeLines": 35,
+          "fileCategory": "code"
+        },
+        {
+          "path": "StatusServer/ConfigManager.h",
+          "language": "c",
+          "sizeLines": 34,
+          "fileCategory": "code"
+        },
+        {
+          "path": "StatusServer/Global.h",
+          "language": "c",
+          "sizeLines": 65,
+          "fileCategory": "code"
+        },
+        {
+          "path": "StatusServer/Logger.cpp",
+          "language": "cpp",
+          "sizeLines": 147,
+          "fileCategory": "code"
+        },
+        {
+          "path": "StatusServer/Logger.h",
+          "language": "c",
+          "sizeLines": 93,
+          "fileCategory": "code"
+        },
+        {
+          "path": "StatusServer/RPCConnectPool.cpp",
+          "language": "cpp",
+          "sizeLines": 48,
+          "fileCategory": "code"
+        },
+        {
+          "path": "StatusServer/RPCConnectPool.h",
+          "language": "c",
+          "sizeLines": 39,
+          "fileCategory": "code"
+        },
+        {
+          "path": "StatusServer/RedisConnectPool.cpp",
+          "language": "cpp",
+          "sizeLines": 67,
+          "fileCategory": "code"
+        },
+        {
+          "path": "StatusServer/RedisConnectPool.h",
+          "language": "c",
+          "sizeLines": 40,
+          "fileCategory": "code"
+        },
+        {
+          "path": "StatusServer/RedisManager.cpp",
+          "language": "cpp",
+          "sizeLines": 570,
+          "fileCategory": "code"
+        },
+        {
+          "path": "StatusServer/RedisManager.h",
+          "language": "c",
+          "sizeLines": 99,
+          "fileCategory": "code"
+        },
+        {
+          "path": "StatusServer/StatusServer.cpp",
+          "language": "cpp",
+          "sizeLines": 98,
+          "fileCategory": "code"
+        },
+        {
+          "path": "StatusServer/StatusServiceImpl.cpp",
+          "language": "cpp",
+          "sizeLines": 354,
+          "fileCategory": "code"
+        },
+        {
+          "path": "StatusServer/StatusServiceImpl.h",
+          "language": "c",
+          "sizeLines": 96,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "StatusServer/ConfigManager.cpp": [
+          "StatusServer/ConfigManager.h"
+        ],
+        "StatusServer/ConfigManager.h": [],
+        "StatusServer/Global.h": [],
+        "StatusServer/Logger.cpp": [
+          "StatusServer/ConfigManager.h",
+          "StatusServer/Logger.h"
+        ],
+        "StatusServer/Logger.h": [],
+        "StatusServer/RPCConnectPool.cpp": [
+          "StatusServer/Logger.h",
+          "StatusServer/RPCConnectPool.h"
+        ],
+        "StatusServer/RPCConnectPool.h": [],
+        "StatusServer/RedisConnectPool.cpp": [
+          "StatusServer/Logger.h",
+          "StatusServer/RedisConnectPool.h"
+        ],
+        "StatusServer/RedisConnectPool.h": [],
+        "StatusServer/RedisManager.cpp": [
+          "StatusServer/ConfigManager.h",
+          "StatusServer/Logger.h",
+          "StatusServer/RedisManager.h"
+        ],
+        "StatusServer/RedisManager.h": [],
+        "StatusServer/StatusServer.cpp": [
+          "StatusServer/ConfigManager.h",
+          "StatusServer/Global.h",
+          "StatusServer/Logger.h",
+          "StatusServer/RedisManager.h",
+          "StatusServer/StatusServiceImpl.h"
+        ],
+        "StatusServer/StatusServiceImpl.cpp": [
+          "StatusServer/ConfigManager.h",
+          "StatusServer/Logger.h",
+          "StatusServer/RedisManager.h",
+          "StatusServer/StatusServiceImpl.h"
+        ],
+        "StatusServer/StatusServiceImpl.h": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 7,
+      "files": [
+        {
+          "path": "MailerServer/config.js",
+          "language": "javascript",
+          "sizeLines": 13,
+          "fileCategory": "code"
+        },
+        {
+          "path": "MailerServer/const.js",
+          "language": "javascript",
+          "sizeLines": 9,
+          "fileCategory": "code"
+        },
+        {
+          "path": "MailerServer/email.js",
+          "language": "javascript",
+          "sizeLines": 58,
+          "fileCategory": "code"
+        },
+        {
+          "path": "MailerServer/proto.js",
+          "language": "javascript",
+          "sizeLines": 18,
+          "fileCategory": "code"
+        },
+        {
+          "path": "MailerServer/redis.js",
+          "language": "javascript",
+          "sizeLines": 78,
+          "fileCategory": "code"
+        },
+        {
+          "path": "MailerServer/server.js",
+          "language": "javascript",
+          "sizeLines": 58,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "MailerServer/config.js": [],
+        "MailerServer/const.js": [],
+        "MailerServer/email.js": [
+          "MailerServer/config.js"
+        ],
+        "MailerServer/proto.js": [],
+        "MailerServer/redis.js": [
+          "MailerServer/config.js"
+        ],
+        "MailerServer/server.js": [
+          "MailerServer/const.js",
+          "MailerServer/email.js",
+          "MailerServer/proto.js"
+        ]
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 8,
+      "files": [
+        {
+          "path": "Client/src/api/checkin.js",
+          "language": "javascript",
+          "sizeLines": 4,
+          "fileCategory": "code"
+        },
+        {
+          "path": "Client/src/api/message.js",
+          "language": "javascript",
+          "sizeLines": 5,
+          "fileCategory": "code"
+        },
+        {
+          "path": "Client/src/api/request.js",
+          "language": "javascript",
+          "sizeLines": 55,
+          "fileCategory": "code"
+        },
+        {
+          "path": "Client/src/api/task.js",
+          "language": "javascript",
+          "sizeLines": 11,
+          "fileCategory": "code"
+        },
+        {
+          "path": "Client/src/api/user.js",
+          "language": "javascript",
+          "sizeLines": 94,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "Client/src/api/checkin.js": [
+          "Client/src/api/request.js"
+        ],
+        "Client/src/api/message.js": [
+          "Client/src/api/request.js"
+        ],
+        "Client/src/api/request.js": [],
+        "Client/src/api/task.js": [
+          "Client/src/api/request.js"
+        ],
+        "Client/src/api/user.js": [
+          "Client/src/api/request.js"
+        ]
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 9,
+      "files": [
+        {
+          "path": "Client/src/App.vue",
+          "language": "vue",
+          "sizeLines": 9,
+          "fileCategory": "code"
+        },
+        {
+          "path": "Client/src/main.js",
+          "language": "javascript",
+          "sizeLines": 25,
+          "fileCategory": "code"
+        },
+        {
+          "path": "Client/src/router/index.js",
+          "language": "javascript",
+          "sizeLines": 130,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "Client/src/App.vue": [],
+        "Client/src/main.js": [
+          "Client/src/App.vue",
+          "Client/src/router/index.js",
+          "Client/src/styles/global.css",
+          "Client/src/styles/variables.css"
+        ],
+        "Client/src/router/index.js": []
+      },
+      "neighborMap": {
+        "Client/src/main.js": [
+          {
+            "path": "Client/src/styles/global.css",
+            "batchIndex": 19,
+            "symbols": []
+          },
+          {
+            "path": "Client/src/styles/variables.css",
+            "batchIndex": 19,
+            "symbols": []
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 10,
+      "files": [
+        {
+          "path": "Client/config.json",
+          "language": "json",
+          "sizeLines": 29,
+          "fileCategory": "config"
+        },
+        {
+          "path": "Client/index.html",
+          "language": "html",
+          "sizeLines": 16,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "Client/package.json",
+          "language": "json",
+          "sizeLines": 24,
+          "fileCategory": "config"
+        }
+      ],
+      "batchImportData": {
+        "Client/config.json": [],
+        "Client/index.html": [],
+        "Client/package.json": []
+      },
+      "neighborMap": {
+        "Client/config.json": [
+          {
+            "path": "Client/src/config/index.js",
+            "batchIndex": 19,
+            "symbols": [
+              "API_BASE_URL"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 11,
+      "files": [
+        {
+          "path": "GateServer/CMakeLists.txt",
+          "language": "txt",
+          "sizeLines": 118,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "GateServer/config.ini",
+          "language": "config",
+          "sizeLines": 29,
+          "fileCategory": "config"
+        },
+        {
+          "path": "GateServer/message.proto",
+          "language": "protobuf",
+          "sizeLines": 550,
+          "fileCategory": "data"
+        }
+      ],
+      "batchImportData": {
+        "GateServer/CMakeLists.txt": [],
+        "GateServer/config.ini": [],
+        "GateServer/message.proto": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 12,
+      "files": [
+        {
+          "path": "MailerServer/config.json",
+          "language": "json",
+          "sizeLines": 19,
+          "fileCategory": "config"
+        },
+        {
+          "path": "MailerServer/message.proto",
+          "language": "protobuf",
+          "sizeLines": 550,
+          "fileCategory": "data"
+        },
+        {
+          "path": "MailerServer/package.json",
+          "language": "json",
+          "sizeLines": 18,
+          "fileCategory": "config"
+        }
+      ],
+      "batchImportData": {
+        "MailerServer/config.json": [],
+        "MailerServer/message.proto": [],
+        "MailerServer/package.json": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 13,
+      "files": [
+        {
+          "path": "PushServer/CMakeLists.txt",
+          "language": "txt",
+          "sizeLines": 117,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "PushServer/config.ini",
+          "language": "config",
+          "sizeLines": 27,
+          "fileCategory": "config"
+        },
+        {
+          "path": "PushServer/message.proto",
+          "language": "protobuf",
+          "sizeLines": 550,
+          "fileCategory": "data"
+        }
+      ],
+      "batchImportData": {
+        "PushServer/CMakeLists.txt": [],
+        "PushServer/config.ini": [],
+        "PushServer/message.proto": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 14,
+      "files": [
+        {
+          "path": "PushServer2/CMakeLists.txt",
+          "language": "txt",
+          "sizeLines": 117,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "PushServer2/config.ini",
+          "language": "config",
+          "sizeLines": 27,
+          "fileCategory": "config"
+        },
+        {
+          "path": "PushServer2/message.proto",
+          "language": "protobuf",
+          "sizeLines": 550,
+          "fileCategory": "data"
+        }
+      ],
+      "batchImportData": {
+        "PushServer2/CMakeLists.txt": [],
+        "PushServer2/config.ini": [],
+        "PushServer2/message.proto": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 15,
+      "files": [
+        {
+          "path": "README-en.md",
+          "language": "markdown",
+          "sizeLines": 370,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "README.md",
+          "language": "markdown",
+          "sizeLines": 370,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "build_all.sh",
+          "language": "shell",
+          "sizeLines": 50,
+          "fileCategory": "script"
+        },
+        {
+          "path": "clear_logs.sh",
+          "language": "shell",
+          "sizeLines": 40,
+          "fileCategory": "script"
+        },
+        {
+          "path": "messages.sql",
+          "language": "sql",
+          "sizeLines": 11,
+          "fileCategory": "data"
+        },
+        {
+          "path": "start_all.sh",
+          "language": "shell",
+          "sizeLines": 81,
+          "fileCategory": "script"
+        },
+        {
+          "path": "stop_all.sh",
+          "language": "shell",
+          "sizeLines": 31,
+          "fileCategory": "script"
+        },
+        {
+          "path": "task.sql",
+          "language": "sql",
+          "sizeLines": 41,
+          "fileCategory": "data"
+        },
+        {
+          "path": "task_assignments.sql",
+          "language": "sql",
+          "sizeLines": 32,
+          "fileCategory": "data"
+        },
+        {
+          "path": "todo_list.sql",
+          "language": "sql",
+          "sizeLines": 35,
+          "fileCategory": "data"
+        },
+        {
+          "path": "user.sql",
+          "language": "sql",
+          "sizeLines": 38,
+          "fileCategory": "data"
+        }
+      ],
+      "batchImportData": {
+        "README-en.md": [],
+        "README.md": [],
+        "build_all.sh": [],
+        "clear_logs.sh": [],
+        "messages.sql": [],
+        "start_all.sh": [],
+        "stop_all.sh": [],
+        "task.sql": [],
+        "task_assignments.sql": [],
+        "todo_list.sql": [],
+        "user.sql": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 16,
+      "files": [
+        {
+          "path": "StatusServer/CMakeLists.txt",
+          "language": "txt",
+          "sizeLines": 104,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "StatusServer/config.ini",
+          "language": "config",
+          "sizeLines": 41,
+          "fileCategory": "config"
+        },
+        {
+          "path": "StatusServer/message.proto",
+          "language": "protobuf",
+          "sizeLines": 550,
+          "fileCategory": "data"
+        }
+      ],
+      "batchImportData": {
+        "StatusServer/CMakeLists.txt": [],
+        "StatusServer/config.ini": [],
+        "StatusServer/message.proto": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 17,
+      "files": [
+        {
+          "path": "TaskServer/CMakeLists.txt",
+          "language": "txt",
+          "sizeLines": 89,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "TaskServer/config.ini",
+          "language": "config",
+          "sizeLines": 24,
+          "fileCategory": "config"
+        },
+        {
+          "path": "TaskServer/message.proto",
+          "language": "protobuf",
+          "sizeLines": 550,
+          "fileCategory": "data"
+        }
+      ],
+      "batchImportData": {
+        "TaskServer/CMakeLists.txt": [],
+        "TaskServer/config.ini": [],
+        "TaskServer/message.proto": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 18,
+      "files": [
+        {
+          "path": "UMSServer/CMakeLists.txt",
+          "language": "txt",
+          "sizeLines": 86,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "UMSServer/config.ini",
+          "language": "config",
+          "sizeLines": 25,
+          "fileCategory": "config"
+        },
+        {
+          "path": "UMSServer/message.proto",
+          "language": "protobuf",
+          "sizeLines": 550,
+          "fileCategory": "data"
+        }
+      ],
+      "batchImportData": {
+        "UMSServer/CMakeLists.txt": [],
+        "UMSServer/config.ini": [],
+        "UMSServer/message.proto": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 19,
+      "files": [
+        {
+          "path": ".understand-anything/.understandignore",
+          "language": "unknown",
+          "sizeLines": 69,
+          "fileCategory": "code"
+        },
+        {
+          "path": ".understand-anything/config.json",
+          "language": "json",
+          "sizeLines": 1,
+          "fileCategory": "config"
+        },
+        {
+          "path": "Client/src/config/index.js",
+          "language": "javascript",
+          "sizeLines": 16,
+          "fileCategory": "code"
+        },
+        {
+          "path": "Client/src/layout/AuthLayout.vue",
+          "language": "vue",
+          "sizeLines": 106,
+          "fileCategory": "code"
+        },
+        {
+          "path": "Client/src/layout/MainLayout.vue",
+          "language": "vue",
+          "sizeLines": 585,
+          "fileCategory": "code"
+        },
+        {
+          "path": "Client/src/stores/app.js",
+          "language": "javascript",
+          "sizeLines": 49,
+          "fileCategory": "code"
+        },
+        {
+          "path": "Client/src/stores/user.js",
+          "language": "javascript",
+          "sizeLines": 164,
+          "fileCategory": "code"
+        },
+        {
+          "path": "Client/src/styles/global.css",
+          "language": "css",
+          "sizeLines": 238,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "Client/src/styles/variables.css",
+          "language": "css",
+          "sizeLines": 154,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "Client/src/utils/crypto.js",
+          "language": "javascript",
+          "sizeLines": 41,
+          "fileCategory": "code"
+        },
+        {
+          "path": "Client/src/utils/pushClient.js",
+          "language": "javascript",
+          "sizeLines": 235,
+          "fileCategory": "code"
+        },
+        {
+          "path": "Client/src/views/checkin/CheckinView.vue",
+          "language": "vue",
+          "sizeLines": 215,
+          "fileCategory": "code"
+        },
+        {
+          "path": "Client/src/views/dashboard/DashboardView.vue",
+          "language": "vue",
+          "sizeLines": 437,
+          "fileCategory": "code"
+        },
+        {
+          "path": "Client/src/views/login/LoginView.vue",
+          "language": "vue",
+          "sizeLines": 140,
+          "fileCategory": "code"
+        },
+        {
+          "path": "Client/src/views/manage/AllTeamsInfoView.vue",
+          "language": "vue",
+          "sizeLines": 119,
+          "fileCategory": "code"
+        },
+        {
+          "path": "Client/src/views/manage/MonitorView.vue",
+          "language": "vue",
+          "sizeLines": 166,
+          "fileCategory": "code"
+        },
+        {
+          "path": "Client/src/views/manage/TaskManageView.vue",
+          "language": "vue",
+          "sizeLines": 445,
+          "fileCategory": "code"
+        },
+        {
+          "path": "Client/src/views/manage/TeamProgressView.vue",
+          "language": "vue",
+          "sizeLines": 459,
+          "fileCategory": "code"
+        },
+        {
+          "path": "Client/src/views/manage/UserManageView.vue",
+          "language": "vue",
+          "sizeLines": 222,
+          "fileCategory": "code"
+        },
+        {
+          "path": "Client/src/views/messages/MessagesView.vue",
+          "language": "vue",
+          "sizeLines": 144,
+          "fileCategory": "code"
+        },
+        {
+          "path": "Client/src/views/profile/ProfileView.vue",
+          "language": "vue",
+          "sizeLines": 384,
+          "fileCategory": "code"
+        },
+        {
+          "path": "Client/src/views/register/RegisterView.vue",
+          "language": "vue",
+          "sizeLines": 242,
+          "fileCategory": "code"
+        },
+        {
+          "path": "Client/src/views/reset/ResetPasswordView.vue",
+          "language": "vue",
+          "sizeLines": 302,
+          "fileCategory": "code"
+        },
+        {
+          "path": "Client/src/views/taskboard/TaskBoardView.vue",
+          "language": "vue",
+          "sizeLines": 175,
+          "fileCategory": "code"
+        },
+        {
+          "path": "Client/src/views/todolist/TodoListView.vue",
+          "language": "vue",
+          "sizeLines": 209,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        ".understand-anything/.understandignore": [],
+        ".understand-anything/config.json": [],
+        "Client/src/config/index.js": [
+          "Client/config.json"
+        ],
+        "Client/src/layout/AuthLayout.vue": [],
+        "Client/src/layout/MainLayout.vue": [],
+        "Client/src/stores/app.js": [],
+        "Client/src/stores/user.js": [],
+        "Client/src/styles/global.css": [],
+        "Client/src/styles/variables.css": [],
+        "Client/src/utils/crypto.js": [],
+        "Client/src/utils/pushClient.js": [],
+        "Client/src/views/checkin/CheckinView.vue": [],
+        "Client/src/views/dashboard/DashboardView.vue": [],
+        "Client/src/views/login/LoginView.vue": [],
+        "Client/src/views/manage/AllTeamsInfoView.vue": [],
+        "Client/src/views/manage/MonitorView.vue": [],
+        "Client/src/views/manage/TaskManageView.vue": [],
+        "Client/src/views/manage/TeamProgressView.vue": [],
+        "Client/src/views/manage/UserManageView.vue": [],
+        "Client/src/views/messages/MessagesView.vue": [],
+        "Client/src/views/profile/ProfileView.vue": [],
+        "Client/src/views/register/RegisterView.vue": [],
+        "Client/src/views/reset/ResetPasswordView.vue": [],
+        "Client/src/views/taskboard/TaskBoardView.vue": [],
+        "Client/src/views/todolist/TodoListView.vue": []
+      },
+      "neighborMap": {
+        "Client/src/config/index.js": [
+          {
+            "path": "Client/config.json",
+            "batchIndex": 10,
+            "symbols": []
+          }
+        ],
+        "Client/src/styles/global.css": [
+          {
+            "path": "Client/src/main.js",
+            "batchIndex": 9,
+            "symbols": []
+          }
+        ],
+        "Client/src/styles/variables.css": [
+          {
+            "path": "Client/src/main.js",
+            "batchIndex": 9,
+            "symbols": []
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 20,
+      "files": [
+        {
+          "path": "Client/vite.config.js",
+          "language": "javascript",
+          "sizeLines": 33,
+          "fileCategory": "code"
+        },
+        {
+          "path": "GateServer/Singleton.h",
+          "language": "c",
+          "sizeLines": 30,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jsoncpp/include/json/allocator.h",
+          "language": "c",
+          "sizeLines": 100,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jsoncpp/include/json/assertions.h",
+          "language": "c",
+          "sizeLines": 61,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jsoncpp/include/json/config.h",
+          "language": "c",
+          "sizeLines": 150,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jsoncpp/include/json/forwards.h",
+          "language": "c",
+          "sizeLines": 43,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jsoncpp/include/json/json_features.h",
+          "language": "c",
+          "sizeLines": 62,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jsoncpp/include/json/json.h",
+          "language": "c",
+          "sizeLines": 15,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jsoncpp/include/json/reader.h",
+          "language": "c",
+          "sizeLines": 440,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jsoncpp/include/json/value.h",
+          "language": "c",
+          "sizeLines": 1043,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jsoncpp/include/json/version.h",
+          "language": "c",
+          "sizeLines": 27,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jsoncpp/include/json/writer.h",
+          "language": "c",
+          "sizeLines": 368,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jsoncpp/src/lib_json/json_reader.cpp",
+          "language": "cpp",
+          "sizeLines": 2012,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jsoncpp/src/lib_json/json_tool.h",
+          "language": "c",
+          "sizeLines": 138,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jsoncpp/src/lib_json/json_value.cpp",
+          "language": "cpp",
+          "sizeLines": 1777,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jsoncpp/src/lib_json/json_valueiterator.inl",
+          "language": "inl",
+          "sizeLines": 156,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jsoncpp/src/lib_json/json_writer.cpp",
+          "language": "cpp",
+          "sizeLines": 1201,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer/Singleton.h",
+          "language": "c",
+          "sizeLines": 18,
+          "fileCategory": "code"
+        },
+        {
+          "path": "PushServer2/Singleton.h",
+          "language": "c",
+          "sizeLines": 18,
+          "fileCategory": "code"
+        },
+        {
+          "path": "StatusServer/SegmentTree.cpp",
+          "language": "cpp",
+          "sizeLines": 76,
+          "fileCategory": "code"
+        },
+        {
+          "path": "StatusServer/SegmentTree.h",
+          "language": "c",
+          "sizeLines": 34,
+          "fileCategory": "code"
+        },
+        {
+          "path": "StatusServer/Singleton.h",
+          "language": "c",
+          "sizeLines": 23,
+          "fileCategory": "code"
+        },
+        {
+          "path": "StatusServer/StatusGrpcClient.cpp",
+          "language": "cpp",
+          "sizeLines": 24,
+          "fileCategory": "code"
+        },
+        {
+          "path": "StatusServer/StatusGrpcClient.h",
+          "language": "c",
+          "sizeLines": 28,
+          "fileCategory": "code"
+        },
+        {
+          "path": "TaskServer/Singleton.h",
+          "language": "c",
+          "sizeLines": 24,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "Client/vite.config.js": [],
+        "GateServer/Singleton.h": [],
+        "jsoncpp/include/json/allocator.h": [],
+        "jsoncpp/include/json/assertions.h": [],
+        "jsoncpp/include/json/config.h": [],
+        "jsoncpp/include/json/forwards.h": [],
+        "jsoncpp/include/json/json_features.h": [],
+        "jsoncpp/include/json/json.h": [],
+        "jsoncpp/include/json/reader.h": [],
+        "jsoncpp/include/json/value.h": [],
+        "jsoncpp/include/json/version.h": [],
+        "jsoncpp/include/json/writer.h": [],
+        "jsoncpp/src/lib_json/json_reader.cpp": [],
+        "jsoncpp/src/lib_json/json_tool.h": [],
+        "jsoncpp/src/lib_json/json_value.cpp": [],
+        "jsoncpp/src/lib_json/json_valueiterator.inl": [],
+        "jsoncpp/src/lib_json/json_writer.cpp": [],
+        "PushServer/Singleton.h": [],
+        "PushServer2/Singleton.h": [],
+        "StatusServer/SegmentTree.cpp": [
+          "StatusServer/SegmentTree.h"
+        ],
+        "StatusServer/SegmentTree.h": [],
+        "StatusServer/Singleton.h": [],
+        "StatusServer/StatusGrpcClient.cpp": [
+          "StatusServer/StatusGrpcClient.h"
+        ],
+        "StatusServer/StatusGrpcClient.h": [],
+        "TaskServer/Singleton.h": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 21,
+      "files": [
+        {
+          "path": "UMSServer/Global.h",
+          "language": "c",
+          "sizeLines": 53,
+          "fileCategory": "code"
+        },
+        {
+          "path": "UMSServer/Singleton.h",
+          "language": "c",
+          "sizeLines": 30,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "UMSServer/Global.h": [],
+        "UMSServer/Singleton.h": []
+      },
+      "neighborMap": {}
+    }
+  ]
+}

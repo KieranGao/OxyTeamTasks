@@ -1,0 +1,309 @@
+{
+  "batchImportData": {
+    "GateServer/AsyncTaskPool.cpp": [
+      "GateServer/AsyncTaskPool.h"
+    ],
+    "GateServer/AsyncTaskPool.h": [],
+    "GateServer/ConfigManager.cpp": [
+      "GateServer/ConfigManager.h"
+    ],
+    "GateServer/ConfigManager.h": [],
+    "GateServer/Global.h": [],
+    "GateServer/HttpConnection.cpp": [
+      "GateServer/HttpConnection.h",
+      "GateServer/Logger.h",
+      "GateServer/RedisManager.h"
+    ],
+    "GateServer/HttpConnection.h": [],
+    "GateServer/IOContextPool.cpp": [
+      "GateServer/IOContextPool.h",
+      "GateServer/Logger.h"
+    ],
+    "GateServer/IOContextPool.h": [],
+    "GateServer/Logger.cpp": [
+      "GateServer/ConfigManager.h",
+      "GateServer/Logger.h"
+    ],
+    "GateServer/Logger.h": [],
+    "GateServer/LogicSystem.cpp": [
+      "GateServer/AsyncTaskPool.h",
+      "GateServer/HttpConnection.h",
+      "GateServer/Logger.h",
+      "GateServer/LogicSystem.h",
+      "GateServer/MySQLManager.h",
+      "GateServer/RedisManager.h",
+      "GateServer/StatusGrpcClient.h",
+      "GateServer/TaskGrpcClient.h",
+      "GateServer/UserGrpcClient.h"
+    ],
+    "GateServer/LogicSystem.h": [],
+    "GateServer/MainServer.cpp": [
+      "GateServer/IOContextPool.h",
+      "GateServer/Logger.h",
+      "GateServer/MainServer.h"
+    ],
+    "GateServer/MainServer.h": [],
+    "GateServer/MySQLConnectPool.cpp": [
+      "GateServer/Logger.h",
+      "GateServer/MySQLConnectPool.h"
+    ],
+    "GateServer/MySQLConnectPool.h": [],
+    "GateServer/MySQLDao.cpp": [
+      "GateServer/ConfigManager.h",
+      "GateServer/Logger.h",
+      "GateServer/MySQLDao.h"
+    ],
+    "GateServer/MySQLDao.h": [],
+    "GateServer/MySQLManager.cpp": [
+      "GateServer/MySQLManager.h"
+    ],
+    "GateServer/MySQLManager.h": [],
+    "GateServer/RPCConnectPool.cpp": [
+      "GateServer/Logger.h",
+      "GateServer/RPCConnectPool.h"
+    ],
+    "GateServer/RPCConnectPool.h": [],
+    "GateServer/RedisConnectPool.cpp": [
+      "GateServer/Logger.h",
+      "GateServer/RedisConnectPool.h"
+    ],
+    "GateServer/RedisConnectPool.h": [],
+    "GateServer/RedisManager.cpp": [
+      "GateServer/ConfigManager.h",
+      "GateServer/Logger.h",
+      "GateServer/RedisManager.h"
+    ],
+    "GateServer/RedisManager.h": [],
+    "GateServer/StatusGrpcClient.cpp": [
+      "GateServer/Logger.h",
+      "GateServer/StatusGrpcClient.h"
+    ],
+    "GateServer/StatusGrpcClient.h": [],
+    "GateServer/TaskGrpcClient.cpp": [
+      "GateServer/Logger.h",
+      "GateServer/TaskGrpcClient.h"
+    ],
+    "GateServer/TaskGrpcClient.h": [],
+    "GateServer/UserGrpcClient.cpp": [
+      "GateServer/Logger.h",
+      "GateServer/UserGrpcClient.h"
+    ],
+    "GateServer/UserGrpcClient.h": [],
+    "GateServer/main.cpp": [
+      "GateServer/AsyncTaskPool.h",
+      "GateServer/ConfigManager.h",
+      "GateServer/Global.h",
+      "GateServer/Logger.h",
+      "GateServer/MainServer.h",
+      "GateServer/RedisManager.h",
+      "GateServer/StatusGrpcClient.h"
+    ]
+  },
+  "neighborMap": {},
+  "files": [
+    {
+      "path": "GateServer/AsyncTaskPool.cpp",
+      "language": "cpp",
+      "sizeLines": 32,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/AsyncTaskPool.h",
+      "language": "c",
+      "sizeLines": 26,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/ConfigManager.cpp",
+      "language": "cpp",
+      "sizeLines": 35,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/ConfigManager.h",
+      "language": "c",
+      "sizeLines": 39,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/Global.h",
+      "language": "c",
+      "sizeLines": 76,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/HttpConnection.cpp",
+      "language": "cpp",
+      "sizeLines": 246,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/HttpConnection.h",
+      "language": "c",
+      "sizeLines": 42,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/IOContextPool.cpp",
+      "language": "cpp",
+      "sizeLines": 49,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/IOContextPool.h",
+      "language": "c",
+      "sizeLines": 25,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/Logger.cpp",
+      "language": "cpp",
+      "sizeLines": 146,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/Logger.h",
+      "language": "c",
+      "sizeLines": 94,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/LogicSystem.cpp",
+      "language": "cpp",
+      "sizeLines": 748,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/LogicSystem.h",
+      "language": "c",
+      "sizeLines": 30,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/MainServer.cpp",
+      "language": "cpp",
+      "sizeLines": 32,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/MainServer.h",
+      "language": "c",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/MySQLConnectPool.cpp",
+      "language": "cpp",
+      "sizeLines": 97,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/MySQLConnectPool.h",
+      "language": "c",
+      "sizeLines": 78,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/MySQLDao.cpp",
+      "language": "cpp",
+      "sizeLines": 277,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/MySQLDao.h",
+      "language": "c",
+      "sizeLines": 26,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/MySQLManager.cpp",
+      "language": "cpp",
+      "sizeLines": 47,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/MySQLManager.h",
+      "language": "c",
+      "sizeLines": 28,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/RPCConnectPool.cpp",
+      "language": "cpp",
+      "sizeLines": 124,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/RPCConnectPool.h",
+      "language": "c",
+      "sizeLines": 75,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/RedisConnectPool.cpp",
+      "language": "cpp",
+      "sizeLines": 68,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/RedisConnectPool.h",
+      "language": "c",
+      "sizeLines": 40,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/RedisManager.cpp",
+      "language": "cpp",
+      "sizeLines": 510,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/RedisManager.h",
+      "language": "c",
+      "sizeLines": 89,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/StatusGrpcClient.cpp",
+      "language": "cpp",
+      "sizeLines": 110,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/StatusGrpcClient.h",
+      "language": "c",
+      "sizeLines": 43,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/TaskGrpcClient.cpp",
+      "language": "cpp",
+      "sizeLines": 201,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/TaskGrpcClient.h",
+      "language": "c",
+      "sizeLines": 62,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/UserGrpcClient.cpp",
+      "language": "cpp",
+      "sizeLines": 164,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/UserGrpcClient.h",
+      "language": "c",
+      "sizeLines": 55,
+      "fileCategory": "code"
+    },
+    {
+      "path": "GateServer/main.cpp",
+      "language": "cpp",
+      "sizeLines": 77,
+      "fileCategory": "code"
+    }
+  ]
+}

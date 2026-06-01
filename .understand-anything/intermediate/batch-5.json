@@ -1,0 +1,1107 @@
+{
+  "nodes": [
+    {
+      "id": "file:StatusServer/ConfigManager.cpp",
+      "type": "file",
+      "name": "ConfigManager.cpp",
+      "filePath": "StatusServer/ConfigManager.cpp",
+      "summary": "配置管理器实现，使用 Boost.PropertyTree 解析 INI 配置文件，为 StatusServer 提供所有配置项的读取能力。",
+      "tags": ["singleton", "configuration", "service"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:StatusServer/ConfigManager.h",
+      "type": "file",
+      "name": "ConfigManager.h",
+      "filePath": "StatusServer/ConfigManager.h",
+      "summary": "ConfigManager 单例类头文件，声明配置管理接口，提供线程安全的键值对存储和 INI 文件解析能力。",
+      "tags": ["singleton", "configuration", "type-definition"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:StatusServer/Global.h",
+      "type": "file",
+      "name": "Global.h",
+      "filePath": "StatusServer/Global.h",
+      "summary": "全局工具头文件，定义 Defer RAII 辅助类和 jsonEscape 字符串转义函数，供 StatusServer 各模块复用。",
+      "tags": ["utility", "type-definition", "shared"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:StatusServer/Logger.cpp",
+      "type": "file",
+      "name": "Logger.cpp",
+      "filePath": "StatusServer/Logger.cpp",
+      "summary": "异步日志系统实现，支持按日期自动轮转日志文件、多级日志输出、后台刷新线程和远程日志回调，所有日志操作线程安全。",
+      "tags": ["service", "logging", "infrastructure"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:StatusServer/Logger.h",
+      "type": "file",
+      "name": "Logger.h",
+      "filePath": "StatusServer/Logger.h",
+      "summary": "Logger 单例类头文件，声明日志级别枚举、日志接口和 LOG_DEBUG/LOG_INFO/LOG_WARN/LOG_ERROR 便捷宏，含 format_string 模板。",
+      "tags": ["service", "logging", "type-definition"],
+      "complexity": "moderate",
+      "languageNotes": "使用可变参数模板实现 printf 风格的 format_string，编译期类型安全。"
+    },
+    {
+      "id": "file:StatusServer/RPCConnectPool.cpp",
+      "type": "file",
+      "name": "RPCConnectPool.cpp",
+      "filePath": "StatusServer/RPCConnectPool.cpp",
+      "summary": "gRPC 连接池实现，管理 StatusService 的 stub 对象生命周期，支持带超时的获取和归还操作，连接销毁时记录 Redis 日志。",
+      "tags": ["service", "connection-pool", "grpc"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:StatusServer/RPCConnectPool.h",
+      "type": "file",
+      "name": "RPCConnectPool.h",
+      "filePath": "StatusServer/RPCConnectPool.h",
+      "summary": "StatusConnectPool 类头文件，声明 gRPC 连接池接口，基于条件变量实现线程安全的 stub 复用。",
+      "tags": ["service", "connection-pool", "type-definition"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:StatusServer/RedisConnectPool.cpp",
+      "type": "file",
+      "name": "RedisConnectPool.cpp",
+      "filePath": "StatusServer/RedisConnectPool.cpp",
+      "summary": "Redis 连接池实现，初始化时批量创建连接并验证密码，支持带超时的连接获取、归还和安全关闭。",
+      "tags": ["service", "connection-pool", "redis"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:StatusServer/RedisConnectPool.h",
+      "type": "file",
+      "name": "RedisConnectPool.h",
+      "filePath": "StatusServer/RedisConnectPool.h",
+      "summary": "RedisConnectPool 类头文件，声明 Redis 连接池接口，包含 RedisContextDeleter 自定义删除器用于 RAII 管理。",
+      "tags": ["service", "connection-pool", "type-definition"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:StatusServer/RedisManager.cpp",
+      "type": "file",
+      "name": "RedisManager.cpp",
+      "filePath": "StatusServer/RedisManager.cpp",
+      "summary": "Redis 管理器核心实现，封装完整的 Redis 操作（string/list/hash/keys），实现分布式锁（带重试）、Lua 脚本执行引擎和原子化消息推送/已读标记/踢人检测/日志追加操作。",
+      "tags": ["singleton", "service", "redis", "distributed-lock"],
+      "complexity": "complex",
+      "languageNotes": "大量使用 Lua 脚本（evalScript）保证复合操作的原子性，是整个分布式状态管理的核心。"
+    },
+    {
+      "id": "file:StatusServer/RedisManager.h",
+      "type": "file",
+      "name": "RedisManager.h",
+      "filePath": "StatusServer/RedisManager.h",
+      "summary": "RedisManager 单例类头文件，声明所有 Redis 操作接口，包含分布式锁、Lua 脚本执行和原子化消息管理方法。",
+      "tags": ["singleton", "service", "type-definition", "redis"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:StatusServer/StatusServer.cpp",
+      "type": "file",
+      "name": "StatusServer.cpp",
+      "filePath": "StatusServer/StatusServer.cpp",
+      "summary": "StatusServer 服务入口，初始化日志和 Redis，向 Redis 注册启动日志，创建 gRPC 服务器监听指定端口，实现优雅停机和信号处理。",
+      "tags": ["entry-point", "service", "grpc"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:StatusServer/StatusServiceImpl.cpp",
+      "type": "file",
+      "name": "StatusServiceImpl.cpp",
+      "filePath": "StatusServer/StatusServiceImpl.cpp",
+      "summary": "StatusService gRPC 服务实现，管理 PushServer 分配（基于线段树负载均衡）、用户登录/断连状态上报、分布式锁保护的 token 管理、远程日志收集与查询、服务器心跳监控和 PushServer 路由查询。",
+      "tags": ["service", "grpc", "api-handler", "load-balancing"],
+      "complexity": "complex",
+      "languageNotes": "使用线段树（SegmentTree）实现 PushServer 负载均衡分配，分布式锁保证 token 分配的并发安全。"
+    },
+    {
+      "id": "file:StatusServer/StatusServiceImpl.h",
+      "type": "file",
+      "name": "StatusServiceImpl.h",
+      "filePath": "StatusServer/StatusServiceImpl.h",
+      "summary": "StatusServiceImpl 类头文件，声明 gRPC 服务接口，包含 PushServer 信息结构体、线段树指针和服务器列表等成员变量。",
+      "tags": ["service", "type-definition", "grpc"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/ConfigManager.cpp:ConfigManager",
+      "type": "function",
+      "name": "ConfigManager",
+      "filePath": "StatusServer/ConfigManager.cpp",
+      "lineRange": [3, 35],
+      "summary": "构造函数，使用 Boost.PropertyTree 解析 INI 配置文件，读取 Redis 和 gRPC 连接参数等配置项到内存 map。",
+      "tags": ["constructor", "configuration", "initialization"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/Logger.cpp:Logger",
+      "type": "function",
+      "name": "Logger",
+      "filePath": "StatusServer/Logger.cpp",
+      "lineRange": [7, 32],
+      "summary": "构造函数，从 ConfigManager 读取日志目录、刷新间隔和远程回调配置，创建日志目录，打开日志文件，启动后台刷新线程。",
+      "tags": ["constructor", "initialization", "logging"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/Logger.cpp:timestamp",
+      "type": "function",
+      "name": "timestamp",
+      "filePath": "StatusServer/Logger.cpp",
+      "lineRange": [54, 65],
+      "summary": "生成精确到毫秒的时间戳字符串，格式为 YYYY-MM-DD HH:MM:SS.mmm，用于日志行前缀。",
+      "tags": ["utility", "formatting", "time"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:StatusServer/Logger.cpp:rotateIfNeeded",
+      "type": "function",
+      "name": "rotateIfNeeded",
+      "filePath": "StatusServer/Logger.cpp",
+      "lineRange": [77, 91],
+      "summary": "按日期检查是否需要轮转日志文件，关闭旧文件并以新日期后缀打开新文件。",
+      "tags": ["logging", "file-management"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:StatusServer/Logger.cpp:log",
+      "type": "function",
+      "name": "log",
+      "filePath": "StatusServer/Logger.cpp",
+      "lineRange": [101, 118],
+      "summary": "核心日志方法，格式化日志行（时间戳+级别+消息），写入本地文件，同时将日志推入后台缓冲队列供异步刷新。",
+      "tags": ["logging", "core", "thread-safe"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/Logger.cpp:flushLoop",
+      "type": "function",
+      "name": "flushLoop",
+      "filePath": "StatusServer/Logger.cpp",
+      "lineRange": [120, 147],
+      "summary": "后台刷新线程主循环，定期交换缓冲队列，批量调用远程日志回调函数发送日志到 StatusServer。",
+      "tags": ["logging", "async", "background-thread"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/RPCConnectPool.cpp:getStub",
+      "type": "function",
+      "name": "getStub",
+      "filePath": "StatusServer/RPCConnectPool.cpp",
+      "lineRange": [20, 31],
+      "summary": "从连接池获取 gRPC stub，带 5 秒超时等待，池空时返回 nullptr。",
+      "tags": ["connection-pool", "grpc", "thread-safe"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:StatusServer/RedisConnectPool.cpp:RedisConnectPool",
+      "type": "function",
+      "name": "RedisConnectPool",
+      "filePath": "StatusServer/RedisConnectPool.cpp",
+      "lineRange": [5, 30],
+      "summary": "构造函数，批量创建 Redis 连接，验证密码，测试 PING/PONG 握手，失败时释放连接并记录错误。",
+      "tags": ["constructor", "initialization", "redis", "connection-pool"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/RedisConnectPool.cpp:getConnection",
+      "type": "function",
+      "name": "getConnection",
+      "filePath": "StatusServer/RedisConnectPool.cpp",
+      "lineRange": [37, 51],
+      "summary": "从连接池获取 Redis 连接，带 500ms 超时等待，记录连接池剩余大小。",
+      "tags": ["connection-pool", "redis", "thread-safe"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:StatusServer/RedisManager.cpp:RedisManager",
+      "type": "function",
+      "name": "RedisManager",
+      "filePath": "StatusServer/RedisManager.cpp",
+      "lineRange": [7, 14],
+      "summary": "构造函数，从 ConfigManager 读取 Redis 配置，创建 RedisConnectPool 连接池实例。",
+      "tags": ["constructor", "initialization", "redis"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:StatusServer/RedisManager.cpp:get",
+      "type": "function",
+      "name": "get",
+      "filePath": "StatusServer/RedisManager.cpp",
+      "lineRange": [21, 41],
+      "summary": "执行 Redis GET 命令获取字符串值，连接池管理，reply 类型安全检查和错误处理。",
+      "tags": ["redis", "data-access"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/RedisManager.cpp:set",
+      "type": "function",
+      "name": "set",
+      "filePath": "StatusServer/RedisManager.cpp",
+      "lineRange": [43, 64],
+      "summary": "执行 Redis SET 命令写入键值对，验证返回值 OK，失败时记录错误日志。",
+      "tags": ["redis", "data-access"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/RedisManager.cpp:setex",
+      "type": "function",
+      "name": "setex",
+      "filePath": "StatusServer/RedisManager.cpp",
+      "lineRange": [66, 79],
+      "summary": "执行 Redis SETEX 命令写入带过期时间的键值对，用于 token 等临时数据存储。",
+      "tags": ["redis", "data-access", "ttl"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/RedisManager.cpp:expire",
+      "type": "function",
+      "name": "expire",
+      "filePath": "StatusServer/RedisManager.cpp",
+      "lineRange": [81, 90],
+      "summary": "执行 Redis EXPIRE 命令为已有 key 设置过期时间（秒）。",
+      "tags": ["redis", "data-access", "ttl"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:StatusServer/RedisManager.cpp:lrange",
+      "type": "function",
+      "name": "lrange",
+      "filePath": "StatusServer/RedisManager.cpp",
+      "lineRange": [92, 110],
+      "summary": "执行 Redis LRANGE 命令获取列表指定范围的元素，返回 JSON 字符串。",
+      "tags": ["redis", "data-access", "list"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/RedisManager.cpp:lrangeVec",
+      "type": "function",
+      "name": "lrangeVec",
+      "filePath": "StatusServer/RedisManager.cpp",
+      "lineRange": [112, 128],
+      "summary": "执行 Redis LRANGE 命令，返回 std::vector<string> 而非 JSON，供内部使用。",
+      "tags": ["redis", "data-access", "list"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/RedisManager.cpp:ltrim",
+      "type": "function",
+      "name": "ltrim",
+      "filePath": "StatusServer/RedisManager.cpp",
+      "lineRange": [130, 139],
+      "summary": "执行 Redis LTRIM 命令裁剪列表到指定范围，用于限制日志条目数量。",
+      "tags": ["redis", "data-access", "list"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:StatusServer/RedisManager.cpp:auth",
+      "type": "function",
+      "name": "auth",
+      "filePath": "StatusServer/RedisManager.cpp",
+      "lineRange": [141, 162],
+      "summary": "执行 Redis AUTH 命令进行密码认证，验证返回值 OK/PONG，处理 ERR 前缀错误。",
+      "tags": ["redis", "authentication"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/RedisManager.cpp:del",
+      "type": "function",
+      "name": "del",
+      "filePath": "StatusServer/RedisManager.cpp",
+      "lineRange": [164, 183],
+      "summary": "执行 Redis DEL 命令删除指定 key，验证返回整数值。",
+      "tags": ["redis", "data-access"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/RedisManager.cpp:lpush",
+      "type": "function",
+      "name": "lpush",
+      "filePath": "StatusServer/RedisManager.cpp",
+      "lineRange": [185, 204],
+      "summary": "执行 Redis LPUSH 命令将元素插入列表头部，验证返回整数值。",
+      "tags": ["redis", "data-access", "list"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/RedisManager.cpp:rpush",
+      "type": "function",
+      "name": "rpush",
+      "filePath": "StatusServer/RedisManager.cpp",
+      "lineRange": [206, 226],
+      "summary": "执行 Redis RPUSH 命令将元素追加到列表尾部，验证返回整数值。",
+      "tags": ["redis", "data-access", "list"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/RedisManager.cpp:lpop",
+      "type": "function",
+      "name": "lpop",
+      "filePath": "StatusServer/RedisManager.cpp",
+      "lineRange": [228, 248],
+      "summary": "执行 Redis LPOP 命令弹出列表头部元素，处理 nil（空列表）情况。",
+      "tags": ["redis", "data-access", "list"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/RedisManager.cpp:rpop",
+      "type": "function",
+      "name": "rpop",
+      "filePath": "StatusServer/RedisManager.cpp",
+      "lineRange": [250, 270],
+      "summary": "执行 Redis RPOP 命令弹出列表尾部元素，处理 nil（空列表）情况。",
+      "tags": ["redis", "data-access", "list"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/RedisManager.cpp:hset",
+      "type": "function",
+      "name": "hset",
+      "filePath": "StatusServer/RedisManager.cpp",
+      "lineRange": [272, 287],
+      "summary": "执行 Redis HSET 命令设置哈希表字段值（字符串版本）。",
+      "tags": ["redis", "data-access", "hash"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/RedisManager.cpp:hset_binary",
+      "type": "function",
+      "name": "hset",
+      "filePath": "StatusServer/RedisManager.cpp",
+      "lineRange": [288, 314],
+      "summary": "执行 Redis HSET 命令设置哈希表字段值（二进制安全版本，使用 redisCommandArgv 避免转义问题）。",
+      "tags": ["redis", "data-access", "hash", "binary-safe"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/RedisManager.cpp:hget",
+      "type": "function",
+      "name": "hget",
+      "filePath": "StatusServer/RedisManager.cpp",
+      "lineRange": [316, 341],
+      "summary": "执行 Redis HGET 命令获取哈希表字段值，使用 redisCommandArgv 实现二进制安全读取。",
+      "tags": ["redis", "data-access", "hash"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/RedisManager.cpp:existskey",
+      "type": "function",
+      "name": "existskey",
+      "filePath": "StatusServer/RedisManager.cpp",
+      "lineRange": [343, 358],
+      "summary": "执行 Redis EXISTS 命令检查 key 是否存在，返回布尔值。",
+      "tags": ["redis", "data-access"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:StatusServer/RedisManager.cpp:keys",
+      "type": "function",
+      "name": "keys",
+      "filePath": "StatusServer/RedisManager.cpp",
+      "lineRange": [360, 378],
+      "summary": "执行 Redis KEYS 命令按模式匹配查找所有符合条件的 key，返回字符串列表。",
+      "tags": ["redis", "data-access", "pattern-matching"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/RedisManager.cpp:acquireLock",
+      "type": "function",
+      "name": "acquireLock",
+      "filePath": "StatusServer/RedisManager.cpp",
+      "lineRange": [380, 396],
+      "summary": "使用 Redis SET NX EX 实现分布式锁获取，验证 owner_id 一致性，用于并发安全的资源分配。",
+      "tags": ["redis", "distributed-lock", "concurrency"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/RedisManager.cpp:releaseLock",
+      "type": "function",
+      "name": "releaseLock",
+      "filePath": "StatusServer/RedisManager.cpp",
+      "lineRange": [398, 415],
+      "summary": "使用 Redis DEL 释放分布式锁，先验证 owner_id 确保只有持锁者能释放。",
+      "tags": ["redis", "distributed-lock", "concurrency"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/RedisManager.cpp:acquireLockWithRetry",
+      "type": "function",
+      "name": "acquireLockWithRetry",
+      "filePath": "StatusServer/RedisManager.cpp",
+      "lineRange": [417, 430],
+      "summary": "带指数退避重试的分布式锁获取，最多重试 max_retries 次，每次等待时间翻倍。",
+      "tags": ["redis", "distributed-lock", "retry", "concurrency"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/RedisManager.cpp:evalScript",
+      "type": "function",
+      "name": "evalScript",
+      "filePath": "StatusServer/RedisManager.cpp",
+      "lineRange": [432, 469],
+      "summary": "通用 Lua 脚本执行引擎，支持 KEYS 和 ARGV 参数，返回值自动类型推断（integer/string/vector），是原子操作的基础。",
+      "tags": ["redis", "lua", "atomic", "core"],
+      "complexity": "complex",
+      "languageNotes": "使用 redisCommandArgv 构造 EVAL 命令，避免字符串转义问题；返回值根据 redisReply 类型自动转换。"
+    },
+    {
+      "id": "function:StatusServer/RedisManager.cpp:pushMessageAtomic",
+      "type": "function",
+      "name": "pushMessageAtomic",
+      "filePath": "StatusServer/RedisManager.cpp",
+      "lineRange": [471, 493],
+      "summary": "通过 Lua 脚本原子地向用户消息队列推送消息，同时维护未读计数和队列长度上限，用于 WebSocket 推送系统。",
+      "tags": ["redis", "atomic", "message-queue", "lua"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/RedisManager.cpp:markReadAtomic",
+      "type": "function",
+      "name": "markReadAtomic",
+      "filePath": "StatusServer/RedisManager.cpp",
+      "lineRange": [495, 511],
+      "summary": "通过 Lua 脚本原子地递减用户未读消息计数，用于消息已读确认。",
+      "tags": ["redis", "atomic", "message-queue", "lua"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/RedisManager.cpp:getAndDeleteKick",
+      "type": "function",
+      "name": "getAndDeleteKick",
+      "filePath": "StatusServer/RedisManager.cpp",
+      "lineRange": [513, 546],
+      "summary": "通过 Lua 脚本原子地获取并删除用户的踢人标记，实现同账号新登录时踢掉旧设备的逻辑。",
+      "tags": ["redis", "atomic", "session-management", "lua"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/RedisManager.cpp:appendLogAtomic",
+      "type": "function",
+      "name": "appendLogAtomic",
+      "filePath": "StatusServer/RedisManager.cpp",
+      "lineRange": [548, 567],
+      "summary": "通过 Lua 脚本原子地追加服务日志条目到 Redis 列表，自动维护最大条目数限制（LTRIM），用于集中式日志收集。",
+      "tags": ["redis", "atomic", "logging", "lua"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/StatusServer.cpp:RunServer",
+      "type": "function",
+      "name": "RunServer",
+      "filePath": "StatusServer/StatusServer.cpp",
+      "lineRange": [21, 88],
+      "summary": "服务器启动主函数，初始化日志系统（含远程回调），向 Redis 注册启动日志，构建 gRPC 服务器并注册 StatusService，设置信号处理实现优雅停机。",
+      "tags": ["entry-point", "initialization", "grpc", "signal-handling"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:StatusServer/StatusServer.cpp:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "StatusServer/StatusServer.cpp",
+      "lineRange": [90, 98],
+      "summary": "程序入口，调用 RunServer 启动 gRPC 服务，捕获顶层异常并记录错误。",
+      "tags": ["entry-point"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:StatusServer/StatusServiceImpl.cpp:StatusServiceImpl",
+      "type": "function",
+      "name": "StatusServiceImpl",
+      "filePath": "StatusServer/StatusServiceImpl.cpp",
+      "lineRange": [19, 54],
+      "summary": "构造函数，从配置文件解析 PushServer 列表，初始化线段树用于负载均衡，配置默认 PushServer 地址。",
+      "tags": ["constructor", "initialization", "load-balancing"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:StatusServer/StatusServiceImpl.cpp:AllocatePushServer",
+      "type": "function",
+      "name": "AllocatePushServer",
+      "filePath": "StatusServer/StatusServiceImpl.cpp",
+      "lineRange": [87, 131],
+      "summary": "gRPC 接口：为用户分配 PushServer，使用分布式锁保证并发安全，通过线段树选择负载最低的服务器，生成 token 并存入 Redis，同时维护用户到服务器的映射。",
+      "tags": ["grpc", "api-handler", "distributed-lock", "load-balancing"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:StatusServer/StatusServiceImpl.cpp:ReportLogin",
+      "type": "function",
+      "name": "ReportLogin",
+      "filePath": "StatusServer/StatusServiceImpl.cpp",
+      "lineRange": [133, 154],
+      "summary": "gRPC 接口：处理用户登录上报，验证 Redis 中的 token 是否匹配，确保登录请求的合法性。",
+      "tags": ["grpc", "api-handler", "authentication"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/StatusServiceImpl.cpp:ReportDisconnect",
+      "type": "function",
+      "name": "ReportDisconnect",
+      "filePath": "StatusServer/StatusServiceImpl.cpp",
+      "lineRange": [158, 171],
+      "summary": "gRPC 接口：处理用户断连上报，归还 PushServer 资源到线段树，更新服务器负载。",
+      "tags": ["grpc", "api-handler", "resource-management"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:StatusServer/StatusServiceImpl.cpp:QueryLogs",
+      "type": "function",
+      "name": "QueryLogs",
+      "filePath": "StatusServer/StatusServiceImpl.cpp",
+      "lineRange": [208, 262],
+      "summary": "gRPC 接口：查询集中式日志，支持按服务名过滤和数量限制，从 Redis 列表读取 JSON 格式日志条目并解析返回。",
+      "tags": ["grpc", "api-handler", "logging", "query"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:StatusServer/StatusServiceImpl.cpp:ServerHeartbeat",
+      "type": "function",
+      "name": "ServerHeartbeat",
+      "filePath": "StatusServer/StatusServiceImpl.cpp",
+      "lineRange": [266, 278],
+      "summary": "gRPC 接口：处理服务器心跳上报，更新内存中对应服务器的最后心跳时间戳，用于存活检测。",
+      "tags": ["grpc", "api-handler", "health-check"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:StatusServer/StatusServiceImpl.cpp:QueryServerStatus",
+      "type": "function",
+      "name": "QueryServerStatus",
+      "filePath": "StatusServer/StatusServiceImpl.cpp",
+      "lineRange": [281, 323],
+      "summary": "gRPC 接口：查询所有服务器状态，返回服务名、地址、在线状态、最后心跳时间和当前连接数（从线段树读取）。",
+      "tags": ["grpc", "api-handler", "monitoring"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:StatusServer/StatusServiceImpl.cpp:GetPushServerForUser",
+      "type": "function",
+      "name": "GetPushServerForUser",
+      "filePath": "StatusServer/StatusServiceImpl.cpp",
+      "lineRange": [326, 354],
+      "summary": "gRPC 接口：批量查询用户对应的 PushServer 地址，从 Redis 读取用户-服务器映射，返回 WebSocket 端口、gRPC 端口和在线状态。",
+      "tags": ["grpc", "api-handler", "routing"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:StatusServer/ConfigManager.cpp",
+      "target": "file:StatusServer/ConfigManager.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:StatusServer/Logger.cpp",
+      "target": "file:StatusServer/ConfigManager.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:StatusServer/Logger.cpp",
+      "target": "file:StatusServer/Logger.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:StatusServer/RPCConnectPool.cpp",
+      "target": "file:StatusServer/Logger.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:StatusServer/RPCConnectPool.cpp",
+      "target": "file:StatusServer/RPCConnectPool.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:StatusServer/RedisConnectPool.cpp",
+      "target": "file:StatusServer/Logger.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:StatusServer/RedisConnectPool.cpp",
+      "target": "file:StatusServer/RedisConnectPool.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "file:StatusServer/ConfigManager.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "file:StatusServer/Logger.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "file:StatusServer/RedisManager.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:StatusServer/StatusServer.cpp",
+      "target": "file:StatusServer/ConfigManager.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:StatusServer/StatusServer.cpp",
+      "target": "file:StatusServer/Global.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:StatusServer/StatusServer.cpp",
+      "target": "file:StatusServer/Logger.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:StatusServer/StatusServer.cpp",
+      "target": "file:StatusServer/RedisManager.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:StatusServer/StatusServer.cpp",
+      "target": "file:StatusServer/StatusServiceImpl.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:StatusServer/StatusServiceImpl.cpp",
+      "target": "file:StatusServer/ConfigManager.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:StatusServer/StatusServiceImpl.cpp",
+      "target": "file:StatusServer/Logger.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:StatusServer/StatusServiceImpl.cpp",
+      "target": "file:StatusServer/RedisManager.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:StatusServer/StatusServiceImpl.cpp",
+      "target": "file:StatusServer/StatusServiceImpl.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:StatusServer/ConfigManager.cpp",
+      "target": "function:StatusServer/ConfigManager.cpp:ConfigManager",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/Logger.cpp",
+      "target": "function:StatusServer/Logger.cpp:Logger",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/Logger.cpp",
+      "target": "function:StatusServer/Logger.cpp:timestamp",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/Logger.cpp",
+      "target": "function:StatusServer/Logger.cpp:rotateIfNeeded",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/Logger.cpp",
+      "target": "function:StatusServer/Logger.cpp:log",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/Logger.cpp",
+      "target": "function:StatusServer/Logger.cpp:flushLoop",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RPCConnectPool.cpp",
+      "target": "function:StatusServer/RPCConnectPool.cpp:getStub",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RedisConnectPool.cpp",
+      "target": "function:StatusServer/RedisConnectPool.cpp:RedisConnectPool",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RedisConnectPool.cpp",
+      "target": "function:StatusServer/RedisConnectPool.cpp:getConnection",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "function:StatusServer/RedisManager.cpp:RedisManager",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "function:StatusServer/RedisManager.cpp:get",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "function:StatusServer/RedisManager.cpp:set",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "function:StatusServer/RedisManager.cpp:setex",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "function:StatusServer/RedisManager.cpp:expire",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "function:StatusServer/RedisManager.cpp:lrange",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "function:StatusServer/RedisManager.cpp:lrangeVec",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "function:StatusServer/RedisManager.cpp:ltrim",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "function:StatusServer/RedisManager.cpp:auth",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "function:StatusServer/RedisManager.cpp:del",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "function:StatusServer/RedisManager.cpp:lpush",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "function:StatusServer/RedisManager.cpp:rpush",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "function:StatusServer/RedisManager.cpp:lpop",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "function:StatusServer/RedisManager.cpp:rpop",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "function:StatusServer/RedisManager.cpp:hset",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "function:StatusServer/RedisManager.cpp:hset_binary",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "function:StatusServer/RedisManager.cpp:hget",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "function:StatusServer/RedisManager.cpp:existskey",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "function:StatusServer/RedisManager.cpp:keys",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "function:StatusServer/RedisManager.cpp:acquireLock",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "function:StatusServer/RedisManager.cpp:releaseLock",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "function:StatusServer/RedisManager.cpp:acquireLockWithRetry",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "function:StatusServer/RedisManager.cpp:evalScript",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "function:StatusServer/RedisManager.cpp:pushMessageAtomic",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "function:StatusServer/RedisManager.cpp:markReadAtomic",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "function:StatusServer/RedisManager.cpp:getAndDeleteKick",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/RedisManager.cpp",
+      "target": "function:StatusServer/RedisManager.cpp:appendLogAtomic",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/StatusServer.cpp",
+      "target": "function:StatusServer/StatusServer.cpp:RunServer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/StatusServer.cpp",
+      "target": "function:StatusServer/StatusServer.cpp:main",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/StatusServiceImpl.cpp",
+      "target": "function:StatusServer/StatusServiceImpl.cpp:StatusServiceImpl",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/StatusServiceImpl.cpp",
+      "target": "function:StatusServer/StatusServiceImpl.cpp:AllocatePushServer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/StatusServiceImpl.cpp",
+      "target": "function:StatusServer/StatusServiceImpl.cpp:ReportLogin",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/StatusServiceImpl.cpp",
+      "target": "function:StatusServer/StatusServiceImpl.cpp:ReportDisconnect",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/StatusServiceImpl.cpp",
+      "target": "function:StatusServer/StatusServiceImpl.cpp:QueryLogs",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/StatusServiceImpl.cpp",
+      "target": "function:StatusServer/StatusServiceImpl.cpp:ServerHeartbeat",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/StatusServiceImpl.cpp",
+      "target": "function:StatusServer/StatusServiceImpl.cpp:QueryServerStatus",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:StatusServer/StatusServiceImpl.cpp",
+      "target": "function:StatusServer/StatusServiceImpl.cpp:GetPushServerForUser",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "function:StatusServer/StatusServer.cpp:main",
+      "target": "function:StatusServer/StatusServer.cpp:RunServer",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:StatusServer/StatusServer.cpp:RunServer",
+      "target": "file:StatusServer/ConfigManager.h",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:StatusServer/StatusServer.cpp:RunServer",
+      "target": "file:StatusServer/Logger.h",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:StatusServer/StatusServer.cpp:RunServer",
+      "target": "file:StatusServer/RedisManager.h",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:StatusServer/StatusServiceImpl.cpp:AllocatePushServer",
+      "target": "file:StatusServer/RedisManager.h",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:StatusServer/StatusServiceImpl.cpp:ReportLogin",
+      "target": "file:StatusServer/RedisManager.h",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:StatusServer/StatusServiceImpl.cpp:QueryLogs",
+      "target": "file:StatusServer/RedisManager.h",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:StatusServer/StatusServiceImpl.cpp:GetPushServerForUser",
+      "target": "file:StatusServer/RedisManager.h",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

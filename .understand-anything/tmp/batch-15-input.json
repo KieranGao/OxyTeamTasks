@@ -1,0 +1,28 @@
+{
+  "batchImportData": {
+    "StatusServer/CMakeLists.txt": [],
+    "StatusServer/config.ini": [],
+    "StatusServer/message.proto": []
+  },
+  "neighborMap": {},
+  "files": [
+    {
+      "path": "StatusServer/CMakeLists.txt",
+      "language": "txt",
+      "sizeLines": 104,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "StatusServer/config.ini",
+      "language": "config",
+      "sizeLines": 41,
+      "fileCategory": "config"
+    },
+    {
+      "path": "StatusServer/message.proto",
+      "language": "protobuf",
+      "sizeLines": 550,
+      "fileCategory": "data"
+    }
+  ]
+}

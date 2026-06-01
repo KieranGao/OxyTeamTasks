@@ -1,0 +1,28 @@
+{
+  "batchImportData": {
+    "GateServer/CMakeLists.txt": [],
+    "GateServer/config.ini": [],
+    "GateServer/message.proto": []
+  },
+  "neighborMap": {},
+  "files": [
+    {
+      "path": "GateServer/CMakeLists.txt",
+      "language": "txt",
+      "sizeLines": 118,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "GateServer/config.ini",
+      "language": "config",
+      "sizeLines": 29,
+      "fileCategory": "config"
+    },
+    {
+      "path": "GateServer/message.proto",
+      "language": "protobuf",
+      "sizeLines": 550,
+      "fileCategory": "data"
+    }
+  ]
+}

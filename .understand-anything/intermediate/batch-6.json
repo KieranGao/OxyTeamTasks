@@ -1,0 +1,229 @@
+{
+  "nodes": [
+    {
+      "id": "file:MailerServer/config.js",
+      "type": "file",
+      "name": "config.js",
+      "filePath": "MailerServer/config.js",
+      "summary": "从 config.json 读取并导出邮件、MySQL、Redis 连接凭据以及验证码前缀常量，供 MailerServer 各模块使用。",
+      "tags": ["configuration", "utility", "credentials"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:MailerServer/const.js",
+      "type": "file",
+      "name": "const.js",
+      "filePath": "MailerServer/const.js",
+      "summary": "定义错误码常量（Success、RedisError、Exception）和验证码键前缀 code_，供 gRPC 响应构造使用。",
+      "tags": ["type-definition", "constants", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:MailerServer/email.js",
+      "type": "file",
+      "name": "email.js",
+      "filePath": "MailerServer/email.js",
+      "summary": "基于 nodemailer 封装的 SMTP 邮件发送模块，使用 163 邮箱作为发送方，提供 SendMail 异步函数和 SMTP 连接测试功能。模块加载时自动验证 SMTP 连接。",
+      "tags": ["utility", "email-notification", "service"],
+      "complexity": "simple",
+      "languageNotes": "使用 Promise 封装 nodemailer 的回调式 sendMail API，模块加载时调用 testConnection() 验证 SMTP 连通性。"
+    },
+    {
+      "id": "function:MailerServer/email.js:SendMail",
+      "type": "function",
+      "name": "SendMail",
+      "filePath": "MailerServer/email.js",
+      "lineRange": [29, 42],
+      "summary": "发送邮件的异步函数，接收邮件选项参数，返回 Promise，成功时 resolve 响应信息，失败时 reject 错误。",
+      "tags": ["email-notification", "async", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:MailerServer/proto.js",
+      "type": "file",
+      "name": "proto.js",
+      "filePath": "MailerServer/proto.js",
+      "summary": "gRPC Protobuf 加载模块，同步加载同目录下的 message.proto 并导出 protoDescriptor，供服务端注册 RPC 处理器使用。",
+      "tags": ["protobuf", "grpc", "configuration"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:MailerServer/redis.js",
+      "type": "file",
+      "name": "redis.js",
+      "filePath": "MailerServer/redis.js",
+      "summary": "基于 ioredis 的 Redis 客户端封装模块，提供键值查询（GetRedis）、存在性检查（QueryRedis）、带过期时间的写入（SetRedisExpire）和连接关闭功能，用于存储验证码等临时数据。",
+      "tags": ["cache", "database", "service"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:MailerServer/redis.js:GetRedis",
+      "type": "function",
+      "name": "GetRedis",
+      "filePath": "MailerServer/redis.js",
+      "lineRange": [22, 35],
+      "summary": "根据 key 从 Redis 获取 value，键不存在时返回 null，异常时捕获错误并返回 null。",
+      "tags": ["cache", "async", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:MailerServer/redis.js:QueryRedis",
+      "type": "function",
+      "name": "QueryRedis",
+      "filePath": "MailerServer/redis.js",
+      "lineRange": [41, 55],
+      "summary": "检查 Redis 中是否存在指定 key，存在时返回 1，不存在或异常时返回 null。",
+      "tags": ["cache", "async", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:MailerServer/redis.js:SetRedisExpire",
+      "type": "function",
+      "name": "SetRedisExpire",
+      "filePath": "MailerServer/redis.js",
+      "lineRange": [63, 72],
+      "summary": "向 Redis 写入 key-value 并设置过期时间（秒），用于存储验证码等有时效性的数据。",
+      "tags": ["cache", "async", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:MailerServer/server.js",
+      "type": "file",
+      "name": "server.js",
+      "filePath": "MailerServer/server.js",
+      "summary": "MailerServer 的主入口和 gRPC 服务端，监听 50051 端口注册 MailerService.SendMail 处理器，接收 UMSServer 转发的验证码邮件发送请求，并每 10 秒向 StatusServer 发送心跳。",
+      "tags": ["entry-point", "grpc", "service"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:MailerServer/server.js:SendMail",
+      "type": "function",
+      "name": "SendMail",
+      "filePath": "MailerServer/server.js",
+      "lineRange": [7, 32],
+      "summary": "gRPC SendMail 处理器，接收邮件地址和验证码，调用 email 模块发送验证邮件，成功返回 Success 错误码，失败返回 Exception 错误码。",
+      "tags": ["grpc-handler", "email-notification", "async"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:MailerServer/server.js:sendHeartbeat",
+      "type": "function",
+      "name": "sendHeartbeat",
+      "filePath": "MailerServer/server.js",
+      "lineRange": [34, 44],
+      "summary": "向 StatusServer（50052 端口）发送 ServerHeartbeat gRPC 调用，上报 MailerServer 的服务状态和时间戳。",
+      "tags": ["heartbeat", "grpc", "monitoring"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:MailerServer/server.js:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "MailerServer/server.js",
+      "lineRange": [46, 56],
+      "summary": "启动 gRPC 服务器，注册 MailerService 并绑定 127.0.0.1:50051，启动后立即发送心跳并设置 10 秒间隔定时心跳。",
+      "tags": ["entry-point", "grpc", "service"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:MailerServer/email.js",
+      "target": "file:MailerServer/config.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:MailerServer/redis.js",
+      "target": "file:MailerServer/config.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:MailerServer/server.js",
+      "target": "file:MailerServer/const.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:MailerServer/server.js",
+      "target": "file:MailerServer/email.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:MailerServer/server.js",
+      "target": "file:MailerServer/proto.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:MailerServer/email.js",
+      "target": "function:MailerServer/email.js:SendMail",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:MailerServer/redis.js",
+      "target": "function:MailerServer/redis.js:GetRedis",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:MailerServer/redis.js",
+      "target": "function:MailerServer/redis.js:QueryRedis",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:MailerServer/redis.js",
+      "target": "function:MailerServer/redis.js:SetRedisExpire",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:MailerServer/server.js",
+      "target": "function:MailerServer/server.js:SendMail",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:MailerServer/server.js",
+      "target": "function:MailerServer/server.js:sendHeartbeat",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:MailerServer/server.js",
+      "target": "function:MailerServer/server.js:main",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:MailerServer/email.js",
+      "target": "function:MailerServer/email.js:SendMail",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:MailerServer/server.js",
+      "target": "function:MailerServer/email.js:SendMail",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

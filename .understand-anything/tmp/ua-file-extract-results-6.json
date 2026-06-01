@@ -1,0 +1,344 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 6,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "MailerServer/config.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 14,
+      "nonEmptyLines": 11,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "MailerServer/const.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 7,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "MailerServer/email.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 59,
+      "nonEmptyLines": 51,
+      "functions": [
+        {
+          "name": "SendMail",
+          "startLine": 29,
+          "endLine": 42,
+          "params": [
+            "mailOptions_"
+          ]
+        },
+        {
+          "name": "testConnection",
+          "startLine": 45,
+          "endLine": 52,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "SendMail",
+          "callee": "transport.sendMail",
+          "lineNumber": 31
+        },
+        {
+          "caller": "SendMail",
+          "callee": "console.log",
+          "lineNumber": 33
+        },
+        {
+          "caller": "SendMail",
+          "callee": "reject",
+          "lineNumber": 34
+        },
+        {
+          "caller": "SendMail",
+          "callee": "console.log",
+          "lineNumber": 36
+        },
+        {
+          "caller": "SendMail",
+          "callee": "resolve",
+          "lineNumber": 37
+        },
+        {
+          "caller": "testConnection",
+          "callee": "transport.verify",
+          "lineNumber": 47
+        },
+        {
+          "caller": "testConnection",
+          "callee": "console.log",
+          "lineNumber": 48
+        },
+        {
+          "caller": "testConnection",
+          "callee": "console.error",
+          "lineNumber": 50
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "MailerServer/proto.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 16,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "MailerServer/redis.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 79,
+      "nonEmptyLines": 78,
+      "functions": [
+        {
+          "name": "GetRedis",
+          "startLine": 22,
+          "endLine": 35,
+          "params": [
+            "key"
+          ]
+        },
+        {
+          "name": "QueryRedis",
+          "startLine": 41,
+          "endLine": 55,
+          "params": [
+            "key"
+          ]
+        },
+        {
+          "name": "SetRedisExpire",
+          "startLine": 63,
+          "endLine": 72,
+          "params": [
+            "key",
+            "value",
+            "exptime"
+          ]
+        },
+        {
+          "name": "Quit",
+          "startLine": 76,
+          "endLine": 78,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "GetRedis",
+          "callee": "RedisCli.get",
+          "lineNumber": 24
+        },
+        {
+          "caller": "GetRedis",
+          "callee": "console.log",
+          "lineNumber": 26
+        },
+        {
+          "caller": "GetRedis",
+          "callee": "console.log",
+          "lineNumber": 29
+        },
+        {
+          "caller": "GetRedis",
+          "callee": "console.log",
+          "lineNumber": 32
+        },
+        {
+          "caller": "QueryRedis",
+          "callee": "RedisCli.exists",
+          "lineNumber": 43
+        },
+        {
+          "caller": "QueryRedis",
+          "callee": "console.log",
+          "lineNumber": 46
+        },
+        {
+          "caller": "QueryRedis",
+          "callee": "console.log",
+          "lineNumber": 49
+        },
+        {
+          "caller": "QueryRedis",
+          "callee": "console.log",
+          "lineNumber": 52
+        },
+        {
+          "caller": "SetRedisExpire",
+          "callee": "RedisCli.set",
+          "lineNumber": 66
+        },
+        {
+          "caller": "SetRedisExpire",
+          "callee": "console.log",
+          "lineNumber": 69
+        },
+        {
+          "caller": "Quit",
+          "callee": "RedisCli.quit",
+          "lineNumber": 77
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "MailerServer/server.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 58,
+      "nonEmptyLines": 50,
+      "functions": [
+        {
+          "name": "SendMail",
+          "startLine": 7,
+          "endLine": 32,
+          "params": [
+            "call",
+            "callback"
+          ]
+        },
+        {
+          "name": "sendHeartbeat",
+          "startLine": 34,
+          "endLine": 44,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 46,
+          "endLine": 56,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "SendMail",
+          "callee": "console.log",
+          "lineNumber": 8
+        },
+        {
+          "caller": "SendMail",
+          "callee": "emailModule.SendMail",
+          "lineNumber": 20
+        },
+        {
+          "caller": "SendMail",
+          "callee": "console.log",
+          "lineNumber": 21
+        },
+        {
+          "caller": "SendMail",
+          "callee": "callback",
+          "lineNumber": 23
+        },
+        {
+          "caller": "SendMail",
+          "callee": "console.log",
+          "lineNumber": 27
+        },
+        {
+          "caller": "SendMail",
+          "callee": "callback",
+          "lineNumber": 28
+        },
+        {
+          "caller": "sendHeartbeat",
+          "callee": "grpc.credentials.createInsecure",
+          "lineNumber": 35
+        },
+        {
+          "caller": "sendHeartbeat",
+          "callee": "client.ServerHeartbeat",
+          "lineNumber": 36
+        },
+        {
+          "caller": "sendHeartbeat",
+          "callee": "Math.floor",
+          "lineNumber": 40
+        },
+        {
+          "caller": "sendHeartbeat",
+          "callee": "Date.now",
+          "lineNumber": 40
+        },
+        {
+          "caller": "sendHeartbeat",
+          "callee": "console.log",
+          "lineNumber": 42
+        },
+        {
+          "caller": "main",
+          "callee": "server.addService",
+          "lineNumber": 48
+        },
+        {
+          "caller": "main",
+          "callee": "server.bindAsync",
+          "lineNumber": 50
+        },
+        {
+          "caller": "main",
+          "callee": "grpc.ServerCredentials.createInsecure",
+          "lineNumber": 50
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 51
+        },
+        {
+          "caller": "main",
+          "callee": "sendHeartbeat",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "setInterval",
+          "lineNumber": 54
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    }
+  ]
+}

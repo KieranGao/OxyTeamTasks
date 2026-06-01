@@ -1,0 +1,161 @@
+{
+  "nodes": [
+    {
+      "id": "file:UMSServer/MailerGrpcClient.cpp",
+      "type": "file",
+      "name": "MailerGrpcClient.cpp",
+      "filePath": "UMSServer/MailerGrpcClient.cpp",
+      "summary": "邮件服务 gRPC 客户端实现，通过 MailerConnectPool 管理连接，提供 sendMail 方法发送验证码邮件。",
+      "tags": ["grpc-client", "email", "verification", "rpc"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:UMSServer/MailerGrpcClient.h",
+      "type": "file",
+      "name": "MailerGrpcClient.h",
+      "filePath": "UMSServer/MailerGrpcClient.h",
+      "summary": "邮件服务 gRPC 客户端单例头文件，声明 sendMail 方法，内部持有 MailerConnectPool。",
+      "tags": ["grpc-client", "singleton", "type-definition"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:UMSServer/UMSGrpcServiceImpl.cpp",
+      "type": "file",
+      "name": "UMSGrpcServiceImpl.cpp",
+      "filePath": "UMSServer/UMSGrpcServiceImpl.cpp",
+      "summary": "用户管理 gRPC 服务实现，包含验证码获取、用户注册、登录、密码重置、待审批用户管理、角色设置和团队信息更新等全部业务逻辑。",
+      "tags": ["grpc-service", "user-management", "authentication", "api-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:UMSServer/UMSGrpcServiceImpl.h",
+      "type": "file",
+      "name": "UMSGrpcServiceImpl.h",
+      "filePath": "UMSServer/UMSGrpcServiceImpl.h",
+      "summary": "UMS gRPC 服务实现头文件，定义 UMSGrpcServiceImpl 类继承 UserService::Service，声明 10 个 RPC 方法。",
+      "tags": ["grpc-service", "type-definition", "api-interface"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:UMSServer/main.cpp",
+      "type": "file",
+      "name": "main.cpp",
+      "filePath": "UMSServer/main.cpp",
+      "summary": "UMSServer 程序入口，初始化配置、日志和远程日志上报回调，启动心跳线程，构建并启动 gRPC 服务器监听请求。",
+      "tags": ["entry-point", "server-startup", "grpc", "heartbeat"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:UMSServer/MailerGrpcClient.cpp:sendMail",
+      "type": "function",
+      "name": "MailerGrpcClient::sendMail",
+      "filePath": "UMSServer/MailerGrpcClient.cpp",
+      "lineRange": [11, 25],
+      "summary": "发送验证邮件，从连接池获取 MailerService Stub，调用 SendMail RPC，失败时记录错误并设置错误码。",
+      "tags": ["grpc-client", "email", "rpc-call"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:UMSServer/UMSGrpcServiceImpl.cpp:GetVerifyCode",
+      "type": "function",
+      "name": "UMSGrpcServiceImpl::GetVerifyCode",
+      "filePath": "UMSServer/UMSGrpcServiceImpl.cpp",
+      "lineRange": [11, 45],
+      "summary": "获取邮箱验证码 RPC 实现，生成 6 位随机验证码存入 Redis（带 TTL），通过 MailerGrpcClient 发送邮件，支持频率限制。",
+      "tags": ["grpc-service", "verification", "email", "redis-cache"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:UMSServer/UMSGrpcServiceImpl.cpp:Register",
+      "type": "function",
+      "name": "UMSGrpcServiceImpl::Register",
+      "filePath": "UMSServer/UMSGrpcServiceImpl.cpp",
+      "lineRange": [48, 76],
+      "summary": "用户注册 RPC 实现，验证 Redis 中的验证码，调用 MySQLManager 注册用户，注册成功后删除验证码。",
+      "tags": ["grpc-service", "user-registration", "verification", "database"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:UMSServer/UMSGrpcServiceImpl.cpp:Login",
+      "type": "function",
+      "name": "UMSGrpcServiceImpl::Login",
+      "filePath": "UMSServer/UMSGrpcServiceImpl.cpp",
+      "lineRange": [79, 106],
+      "summary": "用户登录 RPC 实现，调用 MySQLManager 验证邮箱和密码，返回用户信息（uid、role、team），区分未审批用户。",
+      "tags": ["grpc-service", "login", "authentication", "database"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:UMSServer/UMSGrpcServiceImpl.cpp:ListPendingUsers",
+      "type": "function",
+      "name": "UMSGrpcServiceImpl::ListPendingUsers",
+      "filePath": "UMSServer/UMSGrpcServiceImpl.cpp",
+      "lineRange": [136, 155],
+      "summary": "查询待审批用户列表 RPC 实现，调用 MySQLManager 获取 status=0 的用户并填充响应。",
+      "tags": ["grpc-service", "admin", "user-management"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:UMSServer/UMSGrpcServiceImpl.cpp:ListAllUsers",
+      "type": "function",
+      "name": "UMSGrpcServiceImpl::ListAllUsers",
+      "filePath": "UMSServer/UMSGrpcServiceImpl.cpp",
+      "lineRange": [181, 201],
+      "summary": "查询全部用户列表 RPC 实现，调用 MySQLManager 获取所有用户信息并填充响应。",
+      "tags": ["grpc-service", "admin", "user-management"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:UMSServer/main.cpp:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "UMSServer/main.cpp",
+      "lineRange": [11, 55],
+      "summary": "程序入口函数，初始化 ConfigManager 和 Logger，设置远程日志上报回调，启动心跳线程（10 秒间隔），构建 gRPC 服务器并阻塞等待请求。",
+      "tags": ["entry-point", "initialization", "server-startup"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:UMSServer/MailerGrpcClient.h:MailerGrpcClient",
+      "type": "class",
+      "name": "MailerGrpcClient",
+      "filePath": "UMSServer/MailerGrpcClient.h",
+      "lineRange": [19, 26],
+      "summary": "邮件服务 gRPC 客户端单例类，提供 sendMail 方法发送验证邮件，内部持有 MailerConnectPool 管理连接。",
+      "tags": ["grpc-client", "singleton", "email"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:UMSServer/UMSGrpcServiceImpl.h:UMSGrpcServiceImpl",
+      "type": "class",
+      "name": "UMSGrpcServiceImpl",
+      "filePath": "UMSServer/UMSGrpcServiceImpl.h",
+      "lineRange": [35, 48],
+      "summary": "用户管理 gRPC 服务实现类，继承 UserService::Service，实现注册、登录、验证码、密码重置、用户审批、角色管理等 10 个 RPC 方法。",
+      "tags": ["grpc-service", "user-management", "api-handler"],
+      "complexity": "complex"
+    }
+  ],
+  "edges": [
+    {"source": "file:UMSServer/MailerGrpcClient.cpp", "target": "file:UMSServer/Logger.h", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:UMSServer/MailerGrpcClient.cpp", "target": "file:UMSServer/MailerGrpcClient.h", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:UMSServer/UMSGrpcServiceImpl.cpp", "target": "file:UMSServer/Logger.h", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:UMSServer/UMSGrpcServiceImpl.cpp", "target": "file:UMSServer/MailerGrpcClient.h", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:UMSServer/UMSGrpcServiceImpl.cpp", "target": "file:UMSServer/MySQLManager.h", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:UMSServer/UMSGrpcServiceImpl.cpp", "target": "file:UMSServer/RedisManager.h", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:UMSServer/UMSGrpcServiceImpl.cpp", "target": "file:UMSServer/UMSGrpcServiceImpl.h", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:UMSServer/main.cpp", "target": "file:UMSServer/ConfigManager.h", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:UMSServer/main.cpp", "target": "file:UMSServer/Logger.h", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:UMSServer/main.cpp", "target": "file:UMSServer/StatusGrpcClient.h", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:UMSServer/main.cpp", "target": "file:UMSServer/UMSGrpcServiceImpl.h", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:UMSServer/MailerGrpcClient.cpp", "target": "function:UMSServer/MailerGrpcClient.cpp:sendMail", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:UMSServer/MailerGrpcClient.cpp", "target": "class:UMSServer/MailerGrpcClient.h:MailerGrpcClient", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:UMSServer/UMSGrpcServiceImpl.cpp", "target": "function:UMSServer/UMSGrpcServiceImpl.cpp:GetVerifyCode", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:UMSServer/UMSGrpcServiceImpl.cpp", "target": "function:UMSServer/UMSGrpcServiceImpl.cpp:Register", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:UMSServer/UMSGrpcServiceImpl.cpp", "target": "function:UMSServer/UMSGrpcServiceImpl.cpp:Login", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:UMSServer/UMSGrpcServiceImpl.cpp", "target": "function:UMSServer/UMSGrpcServiceImpl.cpp:ListPendingUsers", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:UMSServer/UMSGrpcServiceImpl.cpp", "target": "function:UMSServer/UMSGrpcServiceImpl.cpp:ListAllUsers", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:UMSServer/UMSGrpcServiceImpl.cpp", "target": "class:UMSServer/UMSGrpcServiceImpl.h:UMSGrpcServiceImpl", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:UMSServer/main.cpp", "target": "function:UMSServer/main.cpp:main", "type": "contains", "direction": "forward", "weight": 1.0}
+  ]
+}

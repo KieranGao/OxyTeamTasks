@@ -1,0 +1,303 @@
+{
+  "batchImportData": {
+    "PushServer2/AsyncTaskPool.cpp": [
+      "PushServer2/AsyncTaskPool.h"
+    ],
+    "PushServer2/AsyncTaskPool.h": [],
+    "PushServer2/ConfigManager.cpp": [
+      "PushServer2/ConfigManager.h"
+    ],
+    "PushServer2/ConfigManager.h": [],
+    "PushServer2/Global.h": [],
+    "PushServer2/IOContextPool.cpp": [
+      "PushServer2/IOContextPool.h",
+      "PushServer2/Logger.h"
+    ],
+    "PushServer2/IOContextPool.h": [],
+    "PushServer2/Logger.cpp": [
+      "PushServer2/ConfigManager.h",
+      "PushServer2/Logger.h"
+    ],
+    "PushServer2/Logger.h": [],
+    "PushServer2/LogicSystem.cpp": [
+      "PushServer2/AsyncTaskPool.h",
+      "PushServer2/Global.h",
+      "PushServer2/Logger.h",
+      "PushServer2/LogicSystem.h",
+      "PushServer2/MainServer.h",
+      "PushServer2/MySQLManager.h",
+      "PushServer2/RedisManager.h",
+      "PushServer2/StatusGrpcClient.h"
+    ],
+    "PushServer2/LogicSystem.h": [],
+    "PushServer2/MainServer.cpp": [
+      "PushServer2/AsyncTaskPool.h",
+      "PushServer2/Logger.h",
+      "PushServer2/MainServer.h",
+      "PushServer2/RedisManager.h",
+      "PushServer2/StatusGrpcClient.h"
+    ],
+    "PushServer2/MainServer.h": [],
+    "PushServer2/MySQLConnectPool.cpp": [
+      "PushServer2/Logger.h",
+      "PushServer2/MySQLConnectPool.h"
+    ],
+    "PushServer2/MySQLConnectPool.h": [],
+    "PushServer2/MySQLDao.cpp": [
+      "PushServer2/ConfigManager.h",
+      "PushServer2/Global.h",
+      "PushServer2/Logger.h",
+      "PushServer2/MySQLDao.h"
+    ],
+    "PushServer2/MySQLDao.h": [],
+    "PushServer2/MySQLManager.cpp": [
+      "PushServer2/MySQLManager.h"
+    ],
+    "PushServer2/MySQLManager.h": [],
+    "PushServer2/PushGrpcServiceImpl.cpp": [
+      "PushServer2/AsyncTaskPool.h",
+      "PushServer2/ConfigManager.h",
+      "PushServer2/Logger.h",
+      "PushServer2/MainServer.h",
+      "PushServer2/MySQLManager.h",
+      "PushServer2/PushGrpcServiceImpl.h",
+      "PushServer2/RedisManager.h",
+      "PushServer2/RPCConnectPool.h"
+    ],
+    "PushServer2/PushGrpcServiceImpl.h": [],
+    "PushServer2/PushServerMain.cpp": [
+      "PushServer2/AsyncTaskPool.h",
+      "PushServer2/ConfigManager.h",
+      "PushServer2/IOContextPool.h",
+      "PushServer2/Logger.h",
+      "PushServer2/LogicSystem.h",
+      "PushServer2/MainServer.h",
+      "PushServer2/PushGrpcServiceImpl.h",
+      "PushServer2/RPCConnectPool.h",
+      "PushServer2/StatusGrpcClient.h"
+    ],
+    "PushServer2/RPCConnectPool.cpp": [
+      "PushServer2/Logger.h",
+      "PushServer2/RPCConnectPool.h"
+    ],
+    "PushServer2/RPCConnectPool.h": [],
+    "PushServer2/RedisConnectPool.cpp": [
+      "PushServer2/Logger.h",
+      "PushServer2/RedisConnectPool.h"
+    ],
+    "PushServer2/RedisConnectPool.h": [],
+    "PushServer2/RedisManager.cpp": [
+      "PushServer2/ConfigManager.h",
+      "PushServer2/Logger.h",
+      "PushServer2/RedisManager.h"
+    ],
+    "PushServer2/RedisManager.h": [],
+    "PushServer2/Session.cpp": [
+      "PushServer2/Logger.h",
+      "PushServer2/LogicSystem.h",
+      "PushServer2/MainServer.h",
+      "PushServer2/Session.h"
+    ],
+    "PushServer2/Session.h": [],
+    "PushServer2/StatusGrpcClient.cpp": [
+      "PushServer2/Logger.h",
+      "PushServer2/StatusGrpcClient.h"
+    ],
+    "PushServer2/StatusGrpcClient.h": []
+  },
+  "neighborMap": {},
+  "files": [
+    {
+      "path": "PushServer2/AsyncTaskPool.cpp",
+      "language": "cpp",
+      "sizeLines": 31,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/AsyncTaskPool.h",
+      "language": "c",
+      "sizeLines": 26,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/ConfigManager.cpp",
+      "language": "cpp",
+      "sizeLines": 35,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/ConfigManager.h",
+      "language": "c",
+      "sizeLines": 39,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/Global.h",
+      "language": "c",
+      "sizeLines": 65,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/IOContextPool.cpp",
+      "language": "cpp",
+      "sizeLines": 49,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/IOContextPool.h",
+      "language": "c",
+      "sizeLines": 26,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/Logger.cpp",
+      "language": "cpp",
+      "sizeLines": 146,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/Logger.h",
+      "language": "c",
+      "sizeLines": 94,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/LogicSystem.cpp",
+      "language": "cpp",
+      "sizeLines": 192,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/LogicSystem.h",
+      "language": "c",
+      "sizeLines": 46,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/MainServer.cpp",
+      "language": "cpp",
+      "sizeLines": 118,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/MainServer.h",
+      "language": "c",
+      "sizeLines": 38,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/MySQLConnectPool.cpp",
+      "language": "cpp",
+      "sizeLines": 96,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/MySQLConnectPool.h",
+      "language": "c",
+      "sizeLines": 78,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/MySQLDao.cpp",
+      "language": "cpp",
+      "sizeLines": 156,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/MySQLDao.h",
+      "language": "c",
+      "sizeLines": 22,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/MySQLManager.cpp",
+      "language": "cpp",
+      "sizeLines": 29,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/MySQLManager.h",
+      "language": "c",
+      "sizeLines": 26,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/PushGrpcServiceImpl.cpp",
+      "language": "cpp",
+      "sizeLines": 248,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/PushGrpcServiceImpl.h",
+      "language": "c",
+      "sizeLines": 40,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/PushServerMain.cpp",
+      "language": "cpp",
+      "sizeLines": 103,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/RPCConnectPool.cpp",
+      "language": "cpp",
+      "sizeLines": 123,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/RPCConnectPool.h",
+      "language": "c",
+      "sizeLines": 71,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/RedisConnectPool.cpp",
+      "language": "cpp",
+      "sizeLines": 67,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/RedisConnectPool.h",
+      "language": "c",
+      "sizeLines": 40,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/RedisManager.cpp",
+      "language": "cpp",
+      "sizeLines": 544,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/RedisManager.h",
+      "language": "c",
+      "sizeLines": 92,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/Session.cpp",
+      "language": "cpp",
+      "sizeLines": 91,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/Session.h",
+      "language": "c",
+      "sizeLines": 49,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/StatusGrpcClient.cpp",
+      "language": "cpp",
+      "sizeLines": 79,
+      "fileCategory": "code"
+    },
+    {
+      "path": "PushServer2/StatusGrpcClient.h",
+      "language": "c",
+      "sizeLines": 37,
+      "fileCategory": "code"
+    }
+  ]
+}

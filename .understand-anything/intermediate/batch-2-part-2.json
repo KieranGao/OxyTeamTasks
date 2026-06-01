@@ -1,0 +1,1310 @@
+{
+  "nodes": [
+    {
+      "id": "file:PushServer2/MySQLDao.cpp",
+      "type": "file",
+      "name": "MySQLDao.cpp",
+      "filePath": "PushServer2/MySQLDao.cpp",
+      "summary": "MySQL \u6570\u636e\u8bbf\u95ee\u5c42\u5b9e\u73b0\uff0c\u63d0\u4f9b\u7528\u6237\u767b\u5f55\u9a8c\u8bc1\u3001\u7528\u6237\u4fe1\u606f\u67e5\u8be2\u3001\u56e2\u961f\u6210\u5458\u67e5\u8be2\u3001\u6d88\u606f\u63d2\u5165/\u6807\u8bb0\u5df2\u8bfb/\u5220\u9664\u7b49\u6570\u636e\u5e93\u64cd\u4f5c\u3002",
+      "tags": [
+        "\u6570\u636e\u8bbf\u95ee",
+        "MySQL",
+        "\u7528\u6237\u7ba1\u7406",
+        "\u6d88\u606f\u7ba1\u7406"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:PushServer2/MySQLDao.h",
+      "type": "file",
+      "name": "MySQLDao.h",
+      "filePath": "PushServer2/MySQLDao.h",
+      "summary": "MySQLDao \u5934\u6587\u4ef6\uff0c\u5b9a\u4e49\u6570\u636e\u8bbf\u95ee\u5bf9\u8c61\u63a5\u53e3\uff0c\u5305\u542b\u7528\u6237\u67e5\u8be2\u548c\u6d88\u606f\u7ba1\u7406\u65b9\u6cd5\u58f0\u660e\u3002",
+      "tags": [
+        "\u6570\u636e\u8bbf\u95ee",
+        "MySQL",
+        "\u5934\u6587\u4ef6"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/MySQLManager.cpp",
+      "type": "file",
+      "name": "MySQLManager.cpp",
+      "filePath": "PushServer2/MySQLManager.cpp",
+      "summary": "MySQL \u7ba1\u7406\u5668\u5b9e\u73b0\uff0c\u4f5c\u4e3a MySQLDao \u7684\u5355\u4f8b\u8584\u5c01\u88c5\u5c42\uff0c\u59d4\u6258\u6240\u6709\u6570\u636e\u5e93\u64cd\u4f5c\u5230 DAO\u3002",
+      "tags": [
+        "\u5355\u4f8b\u5c01\u88c5",
+        "MySQL",
+        "\u59d4\u6258\u6a21\u5f0f"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/MySQLManager.h",
+      "type": "file",
+      "name": "MySQLManager.h",
+      "filePath": "PushServer2/MySQLManager.h",
+      "summary": "MySQLManager \u5355\u4f8b\u5934\u6587\u4ef6\uff0c\u5c01\u88c5 MySQLDao \u4e3a\u5168\u5c40\u5355\u4f8b\u8bbf\u95ee\u63a5\u53e3\u3002",
+      "tags": [
+        "\u5355\u4f8b",
+        "MySQL",
+        "\u5934\u6587\u4ef6"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/PushGrpcServiceImpl.cpp",
+      "type": "file",
+      "name": "PushGrpcServiceImpl.cpp",
+      "filePath": "PushServer2/PushGrpcServiceImpl.cpp",
+      "summary": "Push \u670d\u52a1 gRPC \u5b9e\u73b0\uff0c\u5305\u542b\u6838\u5fc3\u63a8\u9001\u903b\u8f91\uff1a\u672c\u5730 WebSocket \u63a8\u9001\u3001\u8de8\u8282\u70b9 gRPC \u8f6c\u53d1\u3001\u6d88\u606f\u6301\u4e45\u5316\uff08MySQL+Redis\uff09\u3001\u56e2\u961f\u6279\u91cf\u63a8\u9001\u3001\u6d88\u606f\u67e5\u8be2\u548c\u5df2\u8bfb\u6807\u8bb0\u3002",
+      "tags": [
+        "gRPC\u670d\u52a1",
+        "\u6d88\u606f\u63a8\u9001",
+        "\u8de8\u8282\u70b9\u8f6c\u53d1",
+        "\u5206\u5e03\u5f0f"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:PushServer2/PushGrpcServiceImpl.h",
+      "type": "file",
+      "name": "PushGrpcServiceImpl.h",
+      "filePath": "PushServer2/PushGrpcServiceImpl.h",
+      "summary": "PushGrpcServiceImpl \u5934\u6587\u4ef6\uff0c\u5b9a\u4e49 gRPC PushService \u7684 5 \u4e2a RPC \u65b9\u6cd5\u63a5\u53e3\u548c\u5168\u5c40\u8bbe\u7f6e\u51fd\u6570\u3002",
+      "tags": [
+        "gRPC\u670d\u52a1",
+        "Protobuf",
+        "\u5934\u6587\u4ef6"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/PushServerMain.cpp",
+      "type": "file",
+      "name": "PushServerMain.cpp",
+      "filePath": "PushServer2/PushServerMain.cpp",
+      "summary": "PushServer \u5165\u53e3\u6587\u4ef6\uff0c\u521d\u59cb\u5316\u6240\u6709\u670d\u52a1\u7ec4\u4ef6\uff08ConfigManager\u3001Logger\u3001AsyncTaskPool\u3001IOContextPool\uff09\uff0c\u542f\u52a8 WebSocket \u670d\u52a1\u5668\u548c gRPC \u670d\u52a1\u5668\uff0c\u7ba1\u7406\u5fc3\u8df3\u7ebf\u7a0b\u548c\u4f18\u96c5\u5173\u95ed\u3002",
+      "tags": [
+        "\u5165\u53e3\u70b9",
+        "\u670d\u52a1\u7f16\u6392",
+        "\u4f18\u96c5\u5173\u95ed"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:PushServer2/RPCConnectPool.cpp",
+      "type": "file",
+      "name": "RPCConnectPool.cpp",
+      "filePath": "PushServer2/RPCConnectPool.cpp",
+      "summary": "gRPC \u8fde\u63a5\u6c60\u5b9e\u73b0\uff0c\u5305\u542b StatusConnectPool\uff08\u8fde\u63a5 StatusServer\uff09\u548c PushConnectPool\uff08\u8de8\u8282\u70b9\u63a8\u9001\uff09\uff0c\u4ee5\u53ca PushNodeManager \u5355\u4f8b\u7ba1\u7406\u591a\u8282\u70b9\u8fde\u63a5\u6c60\u3002",
+      "tags": [
+        "\u8fde\u63a5\u6c60",
+        "gRPC",
+        "\u8de8\u8282\u70b9\u901a\u4fe1"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:PushServer2/RPCConnectPool.h",
+      "type": "file",
+      "name": "RPCConnectPool.h",
+      "filePath": "PushServer2/RPCConnectPool.h",
+      "summary": "RPC \u8fde\u63a5\u6c60\u5934\u6587\u4ef6\uff0c\u5b9a\u4e49 StatusConnectPool\u3001PushConnectPool \u548c PushNodeManager \u4e09\u4e2a\u8fde\u63a5\u6c60\u7c7b\u3002",
+      "tags": [
+        "\u8fde\u63a5\u6c60",
+        "gRPC",
+        "\u5934\u6587\u4ef6"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/RedisConnectPool.cpp",
+      "type": "file",
+      "name": "RedisConnectPool.cpp",
+      "filePath": "PushServer2/RedisConnectPool.cpp",
+      "summary": "Redis \u8fde\u63a5\u6c60\u5b9e\u73b0\uff0c\u7ba1\u7406 hiredis \u8fde\u63a5\u7684\u521b\u5efa\u3001\u8ba4\u8bc1\u3001\u8d85\u65f6\u83b7\u53d6\u548c\u5f52\u8fd8\u3002",
+      "tags": [
+        "\u8fde\u63a5\u6c60",
+        "Redis",
+        "hiredis"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/RedisConnectPool.h",
+      "type": "file",
+      "name": "RedisConnectPool.h",
+      "filePath": "PushServer2/RedisConnectPool.h",
+      "summary": "Redis \u8fde\u63a5\u6c60\u5934\u6587\u4ef6\uff0c\u5b9a\u4e49\u81ea\u5b9a\u4e49\u5220\u9664\u5668 redisDel \u548c redisPtr \u7c7b\u578b\u522b\u540d\uff0c\u4ee5\u53ca RedisConnectPool \u7c7b\u3002",
+      "tags": [
+        "\u8fde\u63a5\u6c60",
+        "Redis",
+        "\u81ea\u5b9a\u4e49\u5220\u9664\u5668"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/RedisManager.cpp",
+      "type": "file",
+      "name": "RedisManager.cpp",
+      "filePath": "PushServer2/RedisManager.cpp",
+      "summary": "Redis \u7ba1\u7406\u5668\u5b9e\u73b0\uff0c\u5c01\u88c5\u5b8c\u6574\u7684 Redis \u64cd\u4f5c\u96c6\uff1a\u57fa\u672c\u8bfb\u5199\u3001\u5217\u8868/\u54c8\u5e0c\u64cd\u4f5c\u3001\u5206\u5e03\u5f0f\u9501\uff08SET NX EX + Lua \u91ca\u653e\uff09\u3001Lua \u811a\u672c\u6267\u884c\u3001\u539f\u5b50\u6d88\u606f\u63a8\u9001\u548c\u5df2\u8bfb\u6807\u8bb0\u3002",
+      "tags": [
+        "Redis\u7ba1\u7406",
+        "\u5206\u5e03\u5f0f\u9501",
+        "Lua\u811a\u672c",
+        "\u539f\u5b50\u64cd\u4f5c"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:PushServer2/RedisManager.h",
+      "type": "file",
+      "name": "RedisManager.h",
+      "filePath": "PushServer2/RedisManager.h",
+      "summary": "RedisManager \u5355\u4f8b\u5934\u6587\u4ef6\uff0c\u5b9a\u4e49\u5b8c\u6574\u7684 Redis \u64cd\u4f5c\u63a5\u53e3\uff0c\u5305\u62ec\u57fa\u672c\u547d\u4ee4\u3001\u5206\u5e03\u5f0f\u9501\u3001Lua \u811a\u672c\u548c\u539f\u5b50\u4e1a\u52a1\u64cd\u4f5c\u3002",
+      "tags": [
+        "Redis\u7ba1\u7406",
+        "\u5355\u4f8b",
+        "\u5206\u5e03\u5f0f\u9501"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/Session.cpp",
+      "type": "file",
+      "name": "Session.cpp",
+      "filePath": "PushServer2/Session.cpp",
+      "summary": "WebSocket \u4f1a\u8bdd\u5b9e\u73b0\uff0c\u7ba1\u7406\u5355\u4e2a\u5ba2\u6237\u7aef\u8fde\u63a5\u7684\u5f02\u6b65\u8bfb\u5199\uff0c\u4f7f\u7528\u6d88\u606f\u961f\u5217\u9632\u6b62\u5e76\u53d1\u5199\u51b2\u7a81\uff0c\u63a5\u6536\u5230\u7684\u6d88\u606f\u8f6c\u53d1\u5230 LogicSystem \u5904\u7406\u3002",
+      "tags": [
+        "WebSocket",
+        "\u4f1a\u8bdd\u7ba1\u7406",
+        "\u5f02\u6b65\u8bfb\u5199"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/Session.h",
+      "type": "file",
+      "name": "Session.h",
+      "filePath": "PushServer2/Session.h",
+      "summary": "Session \u5934\u6587\u4ef6\uff0c\u5b9a\u4e49 WebSocket \u4f1a\u8bdd\u7c7b\uff0c\u5305\u542b websocket \u6d41\u3001\u8bfb\u5199\u7f13\u51b2\u533a\u3001UUID\u3001uid \u548c\u6d88\u606f\u53d1\u9001\u961f\u5217\u3002",
+      "tags": [
+        "WebSocket",
+        "\u4f1a\u8bdd\u7ba1\u7406",
+        "\u5934\u6587\u4ef6"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/StatusGrpcClient.cpp",
+      "type": "file",
+      "name": "StatusGrpcClient.cpp",
+      "filePath": "PushServer2/StatusGrpcClient.cpp",
+      "summary": "StatusServer gRPC \u5ba2\u6237\u7aef\u5b9e\u73b0\uff0c\u63d0\u4f9b\u767b\u5f55\u4e0a\u62a5\u3001\u65e5\u5fd7\u4e0a\u62a5\u3001\u5fc3\u8df3\u548c\u65ad\u5f00\u901a\u77e5\u56db\u4e2a RPC \u8c03\u7528\u65b9\u6cd5\u3002",
+      "tags": [
+        "gRPC\u5ba2\u6237\u7aef",
+        "\u72b6\u6001\u4e0a\u62a5",
+        "\u5fc3\u8df3"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/StatusGrpcClient.h",
+      "type": "file",
+      "name": "StatusGrpcClient.h",
+      "filePath": "PushServer2/StatusGrpcClient.h",
+      "summary": "StatusGrpcClient \u5355\u4f8b\u5934\u6587\u4ef6\uff0c\u5b9a\u4e49\u4e0e StatusServer \u901a\u4fe1\u7684 gRPC \u5ba2\u6237\u7aef\u63a5\u53e3\u3002",
+      "tags": [
+        "gRPC\u5ba2\u6237\u7aef",
+        "\u5355\u4f8b",
+        "\u5934\u6587\u4ef6"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/MySQLDao.cpp:getUser",
+      "type": "function",
+      "name": "MySQLDao::getUser",
+      "filePath": "PushServer2/MySQLDao.cpp",
+      "lineRange": [
+        51,
+        77
+      ],
+      "summary": "\u6839\u636e uid \u67e5\u8be2\u7528\u6237\u4fe1\u606f\uff08\u7528\u6237\u540d\u3001\u90ae\u7bb1\u3001\u89d2\u8272\u3001\u6240\u5c5e\u961f\u957f/\u56e2\u961f\uff09\uff0c\u4f7f\u7528\u9884\u7f16\u8bd1\u8bed\u53e5\u9632\u6b62 SQL \u6ce8\u5165\u3002",
+      "tags": [
+        "\u7528\u6237\u67e5\u8be2",
+        "\u9884\u7f16\u8bd1\u8bed\u53e5"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/MySQLDao.cpp:getUsersByTeam",
+      "type": "function",
+      "name": "MySQLDao::getUsersByTeam",
+      "filePath": "PushServer2/MySQLDao.cpp",
+      "lineRange": [
+        79,
+        95
+      ],
+      "summary": "\u67e5\u8be2\u6307\u5b9a\u56e2\u961f\u4e2d\u6240\u6709\u5df2\u5ba1\u6279\u7528\u6237\uff08status=1\uff09\u7684 uid \u5217\u8868\uff0c\u7528\u4e8e\u56e2\u961f\u6d88\u606f\u63a8\u9001\u3002",
+      "tags": [
+        "\u56e2\u961f\u67e5\u8be2",
+        "\u6279\u91cf\u67e5\u8be2"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/MySQLDao.cpp:insertMessage",
+      "type": "function",
+      "name": "MySQLDao::insertMessage",
+      "filePath": "PushServer2/MySQLDao.cpp",
+      "lineRange": [
+        97,
+        112
+      ],
+      "summary": "\u5411 messages \u8868\u63d2\u5165\u4e00\u6761\u6d88\u606f\u8bb0\u5f55\uff08uid\u3001\u7c7b\u578b\u3001\u6807\u9898\u3001\u5185\u5bb9\uff09\u3002",
+      "tags": [
+        "\u6d88\u606f\u63d2\u5165",
+        "\u6301\u4e45\u5316"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/MySQLDao.cpp:markMessagesRead",
+      "type": "function",
+      "name": "MySQLDao::markMessagesRead",
+      "filePath": "PushServer2/MySQLDao.cpp",
+      "lineRange": [
+        114,
+        139
+      ],
+      "summary": "\u6807\u8bb0\u6d88\u606f\u4e3a\u5df2\u8bfb\uff0c\u652f\u6301\u5168\u90e8\u6807\u8bb0\uff08ids \u4e3a\u7a7a\uff09\u6216\u6309\u6307\u5b9a id \u5217\u8868\u90e8\u5206\u6807\u8bb0\u3002",
+      "tags": [
+        "\u6d88\u606f\u5df2\u8bfb",
+        "\u6279\u91cf\u66f4\u65b0"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/MySQLDao.cpp:deleteMessages",
+      "type": "function",
+      "name": "MySQLDao::deleteMessages",
+      "filePath": "PushServer2/MySQLDao.cpp",
+      "lineRange": [
+        141,
+        157
+      ],
+      "summary": "\u6309 id \u5217\u8868\u5220\u9664\u6307\u5b9a\u7528\u6237\u7684\u6d88\u606f\u8bb0\u5f55\uff0c\u9010\u6761\u6267\u884c DELETE \u8bed\u53e5\u3002",
+      "tags": [
+        "\u6d88\u606f\u5220\u9664",
+        "\u6279\u91cf\u64cd\u4f5c"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/PushGrpcServiceImpl.cpp:pushMessageToUser",
+      "type": "function",
+      "name": "pushMessageToUser",
+      "filePath": "PushServer2/PushGrpcServiceImpl.cpp",
+      "lineRange": [
+        38,
+        118
+      ],
+      "summary": "\u6838\u5fc3\u6d88\u606f\u63a8\u9001\u903b\u8f91\uff1a\u5199\u5165 MySQL \u6301\u4e45\u5316\u3001Redis \u539f\u5b50\u7f13\u5b58\uff08LPUSH+LTRIM+EXPIRE+INCR\uff09\u3001\u5c1d\u8bd5\u672c\u5730 WebSocket \u63a8\u9001\uff0c\u5931\u8d25\u65f6\u901a\u8fc7\u8de8\u8282\u70b9 gRPC \u8f6c\u53d1\u5230\u76ee\u6807 PushServer\u3002",
+      "tags": [
+        "\u6d88\u606f\u63a8\u9001",
+        "\u8de8\u8282\u70b9\u8f6c\u53d1",
+        "\u5206\u5e03\u5f0f"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:PushServer2/PushGrpcServiceImpl.cpp:PushToUser",
+      "type": "function",
+      "name": "PushGrpcServiceImpl::PushToUser",
+      "filePath": "PushServer2/PushGrpcServiceImpl.cpp",
+      "lineRange": [
+        120,
+        135
+      ],
+      "summary": "gRPC \u63a5\u53e3\uff1a\u5411\u5355\u4e2a\u7528\u6237\u63a8\u9001\u6d88\u606f\uff0c\u8c03\u7528 pushMessageToUser \u5e76\u8fd4\u56de\u6295\u9012\u72b6\u6001\u3002",
+      "tags": [
+        "gRPC\u63a5\u53e3",
+        "\u5355\u7528\u6237\u63a8\u9001"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/PushGrpcServiceImpl.cpp:PushToTeam",
+      "type": "function",
+      "name": "PushGrpcServiceImpl::PushToTeam",
+      "filePath": "PushServer2/PushGrpcServiceImpl.cpp",
+      "lineRange": [
+        137,
+        163
+      ],
+      "summary": "gRPC \u63a5\u53e3\uff1a\u5411\u56e2\u961f\u6240\u6709\u6210\u5458\u63a8\u9001\u6d88\u606f\uff0c\u67e5\u8be2\u56e2\u961f\u6210\u5458\u5217\u8868\u540e\u9010\u4e2a\u8c03\u7528 pushMessageToUser\uff0c\u652f\u6301\u6392\u9664\u6307\u5b9a\u7528\u6237\u3002",
+      "tags": [
+        "gRPC\u63a5\u53e3",
+        "\u56e2\u961f\u63a8\u9001",
+        "\u6279\u91cf\u64cd\u4f5c"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/PushGrpcServiceImpl.cpp:GetMessages",
+      "type": "function",
+      "name": "PushGrpcServiceImpl::GetMessages",
+      "filePath": "PushServer2/PushGrpcServiceImpl.cpp",
+      "lineRange": [
+        165,
+        207
+      ],
+      "summary": "gRPC \u63a5\u53e3\uff1a\u5206\u9875\u83b7\u53d6\u7528\u6237\u6d88\u606f\uff0c\u4ece Redis \u7f13\u5b58\u8bfb\u53d6\u6700\u8fd1\u6d88\u606f\uff0c\u540c\u65f6\u8fd4\u56de\u672a\u8bfb\u8ba1\u6570\u3002",
+      "tags": [
+        "gRPC\u63a5\u53e3",
+        "\u6d88\u606f\u67e5\u8be2",
+        "\u5206\u9875"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/PushGrpcServiceImpl.cpp:MarkRead",
+      "type": "function",
+      "name": "PushGrpcServiceImpl::MarkRead",
+      "filePath": "PushServer2/PushGrpcServiceImpl.cpp",
+      "lineRange": [
+        209,
+        234
+      ],
+      "summary": "gRPC \u63a5\u53e3\uff1a\u6807\u8bb0\u6d88\u606f\u5df2\u8bfb\uff0c\u66f4\u65b0 MySQL \u6301\u4e45\u5316\u72b6\u6001\u5e76\u539f\u5b50\u9012\u51cf Redis \u672a\u8bfb\u8ba1\u6570\uff08\u5206\u5e03\u5f0f\u9501\u4fdd\u62a4\uff09\u3002",
+      "tags": [
+        "gRPC\u63a5\u53e3",
+        "\u5df2\u8bfb\u6807\u8bb0",
+        "\u5206\u5e03\u5f0f\u9501"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/PushGrpcServiceImpl.cpp:DeleteMessage",
+      "type": "function",
+      "name": "PushGrpcServiceImpl::DeleteMessage",
+      "filePath": "PushServer2/PushGrpcServiceImpl.cpp",
+      "lineRange": [
+        236,
+        248
+      ],
+      "summary": "gRPC \u63a5\u53e3\uff1a\u6309 id \u5217\u8868\u5220\u9664\u7528\u6237\u6d88\u606f\u3002",
+      "tags": [
+        "gRPC\u63a5\u53e3",
+        "\u6d88\u606f\u5220\u9664"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/Session.cpp:send",
+      "type": "function",
+      "name": "Session::send",
+      "filePath": "PushServer2/Session.cpp",
+      "lineRange": [
+        21,
+        32
+      ],
+      "summary": "\u7ebf\u7a0b\u5b89\u5168\u7684\u6d88\u606f\u53d1\u9001\u65b9\u6cd5\uff0c\u4f7f\u7528\u6d88\u606f\u961f\u5217\u548c\u4e92\u65a5\u9501\u9632\u6b62\u5e76\u53d1\u5199\u51b2\u7a81\uff0c\u961f\u5217\u6ee1\u65f6\u4e22\u5f03\u6d88\u606f\u3002",
+      "tags": [
+        "\u6d88\u606f\u53d1\u9001",
+        "\u7ebf\u7a0b\u5b89\u5168",
+        "\u961f\u5217"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/Session.cpp:onRead",
+      "type": "function",
+      "name": "Session::onRead",
+      "filePath": "PushServer2/Session.cpp",
+      "lineRange": [
+        53,
+        67
+      ],
+      "summary": "WebSocket \u8bfb\u53d6\u5b8c\u6210\u56de\u8c03\uff0c\u89e3\u6790\u6d88\u606f\u540e\u8f6c\u53d1\u5230 LogicSystem \u6d88\u606f\u961f\u5217\uff0c\u51fa\u9519\u65f6\u5173\u95ed\u4f1a\u8bdd\u5e76\u6e05\u7406\u3002",
+      "tags": [
+        "\u6d88\u606f\u63a5\u6536",
+        "\u56de\u8c03\u5904\u7406"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/RedisManager.cpp:get",
+      "type": "function",
+      "name": "RedisManager::get",
+      "filePath": "PushServer2/RedisManager.cpp",
+      "lineRange": [
+        21,
+        41
+      ],
+      "summary": "\u4ece\u8fde\u63a5\u6c60\u83b7\u53d6\u8fde\u63a5\u6267\u884c Redis GET \u547d\u4ee4\uff0c\u6210\u529f\u65f6\u5c06\u503c\u5199\u5165\u8f93\u51fa\u53c2\u6570\u3002",
+      "tags": [
+        "Redis\u64cd\u4f5c",
+        "GET\u547d\u4ee4"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/RedisManager.cpp:set",
+      "type": "function",
+      "name": "RedisManager::set",
+      "filePath": "PushServer2/RedisManager.cpp",
+      "lineRange": [
+        43,
+        64
+      ],
+      "summary": "\u4ece\u8fde\u63a5\u6c60\u83b7\u53d6\u8fde\u63a5\u6267\u884c Redis SET \u547d\u4ee4\uff0c\u9a8c\u8bc1\u8fd4\u56de\u72b6\u6001\u4e3a OK\u3002",
+      "tags": [
+        "Redis\u64cd\u4f5c",
+        "SET\u547d\u4ee4"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/RedisManager.cpp:del",
+      "type": "function",
+      "name": "RedisManager::del",
+      "filePath": "PushServer2/RedisManager.cpp",
+      "lineRange": [
+        89,
+        108
+      ],
+      "summary": "\u6267\u884c Redis DEL \u547d\u4ee4\u5220\u9664\u6307\u5b9a key\uff0c\u9a8c\u8bc1\u8fd4\u56de\u6574\u6570\u5927\u4e8e 0\u3002",
+      "tags": [
+        "Redis\u64cd\u4f5c",
+        "DEL\u547d\u4ee4"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/RedisManager.cpp:lpush",
+      "type": "function",
+      "name": "RedisManager::lpush",
+      "filePath": "PushServer2/RedisManager.cpp",
+      "lineRange": [
+        110,
+        129
+      ],
+      "summary": "\u6267\u884c Redis LPUSH \u547d\u4ee4\uff0c\u5c06\u503c\u63d2\u5165\u5217\u8868\u5934\u90e8\u3002",
+      "tags": [
+        "Redis\u64cd\u4f5c",
+        "\u5217\u8868\u64cd\u4f5c"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/RedisManager.cpp:lrange",
+      "type": "function",
+      "name": "RedisManager::lrange",
+      "filePath": "PushServer2/RedisManager.cpp",
+      "lineRange": [
+        341,
+        352
+      ],
+      "summary": "\u6267\u884c Redis LRANGE \u547d\u4ee4\uff0c\u83b7\u53d6\u5217\u8868\u6307\u5b9a\u8303\u56f4\u7684\u5143\u7d20\u5b58\u5165 vector\u3002",
+      "tags": [
+        "Redis\u64cd\u4f5c",
+        "\u5217\u8868\u64cd\u4f5c"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/RedisManager.cpp:hset",
+      "type": "function",
+      "name": "RedisManager::hset",
+      "filePath": "PushServer2/RedisManager.cpp",
+      "lineRange": [
+        196,
+        211
+      ],
+      "summary": "\u6267\u884c Redis HSET \u547d\u4ee4\uff0c\u8bbe\u7f6e\u54c8\u5e0c\u8868\u4e2d\u6307\u5b9a field \u7684\u503c\u3002",
+      "tags": [
+        "Redis\u64cd\u4f5c",
+        "\u54c8\u5e0c\u64cd\u4f5c"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/RedisManager.cpp:hget",
+      "type": "function",
+      "name": "RedisManager::hget",
+      "filePath": "PushServer2/RedisManager.cpp",
+      "lineRange": [
+        240,
+        265
+      ],
+      "summary": "\u6267\u884c Redis HGET \u547d\u4ee4\uff0c\u4f7f\u7528 redisCommandArgv \u83b7\u53d6\u54c8\u5e0c\u8868\u4e2d\u6307\u5b9a field \u7684\u503c\u3002",
+      "tags": [
+        "Redis\u64cd\u4f5c",
+        "\u54c8\u5e0c\u64cd\u4f5c"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/RedisManager.cpp:acquireLock",
+      "type": "function",
+      "name": "RedisManager::acquireLock",
+      "filePath": "PushServer2/RedisManager.cpp",
+      "lineRange": [
+        354,
+        370
+      ],
+      "summary": "\u4f7f\u7528 SET NX EX \u547d\u4ee4\u5b9e\u73b0\u5206\u5e03\u5f0f\u9501\u83b7\u53d6\uff0c\u8bbe\u7f6e key \u4e0d\u5b58\u5728\u65f6\u624d\u8bbe\u7f6e\u5e76\u9644\u5e26 TTL\u3002",
+      "tags": [
+        "\u5206\u5e03\u5f0f\u9501",
+        "SET NX EX"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/RedisManager.cpp:releaseLock",
+      "type": "function",
+      "name": "RedisManager::releaseLock",
+      "filePath": "PushServer2/RedisManager.cpp",
+      "lineRange": [
+        372,
+        389
+      ],
+      "summary": "\u4f7f\u7528 Lua \u811a\u672c\u539f\u5b50\u91ca\u653e\u5206\u5e03\u5f0f\u9501\uff1a\u9a8c\u8bc1 owner_id \u5339\u914d\u540e\u624d\u5220\u9664 key\uff0c\u9632\u6b62\u8bef\u91ca\u653e\u4ed6\u4eba\u9501\u3002",
+      "tags": [
+        "\u5206\u5e03\u5f0f\u9501",
+        "Lua\u811a\u672c",
+        "\u539f\u5b50\u91ca\u653e"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/RedisManager.cpp:acquireLockWithRetry",
+      "type": "function",
+      "name": "RedisManager::acquireLockWithRetry",
+      "filePath": "PushServer2/RedisManager.cpp",
+      "lineRange": [
+        391,
+        404
+      ],
+      "summary": "\u5e26\u6307\u6570\u9000\u907f\u91cd\u8bd5\u7684\u5206\u5e03\u5f0f\u9501\u83b7\u53d6\uff0c\u6700\u591a\u91cd\u8bd5\u6307\u5b9a\u6b21\u6570\uff0c\u6bcf\u6b21\u7b49\u5f85\u65f6\u95f4\u7ffb\u500d\u3002",
+      "tags": [
+        "\u5206\u5e03\u5f0f\u9501",
+        "\u6307\u6570\u9000\u907f",
+        "\u91cd\u8bd5\u673a\u5236"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/RedisManager.cpp:evalScript",
+      "type": "function",
+      "name": "RedisManager::evalScript",
+      "filePath": "PushServer2/RedisManager.cpp",
+      "lineRange": [
+        406,
+        443
+      ],
+      "summary": "\u901a\u7528 Lua \u811a\u672c\u6267\u884c\u65b9\u6cd5\uff0c\u4f7f\u7528 redisCommandArgv \u6784\u5efa EVAL \u547d\u4ee4\uff0c\u652f\u6301\u591a\u4e2a key \u548c arg \u53c2\u6570\u3002",
+      "tags": [
+        "Lua\u811a\u672c",
+        "EVAL\u547d\u4ee4"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/RedisManager.cpp:pushMessageAtomic",
+      "type": "function",
+      "name": "RedisManager::pushMessageAtomic",
+      "filePath": "PushServer2/RedisManager.cpp",
+      "lineRange": [
+        445,
+        467
+      ],
+      "summary": "\u539f\u5b50\u6d88\u606f\u7f13\u5b58\u64cd\u4f5c\uff1a\u901a\u8fc7 Lua \u811a\u672c\u4e00\u6b21\u6027\u6267\u884c LPUSH + LTRIM + EXPIRE + INCR\uff0c\u4fdd\u8bc1\u6d88\u606f\u5165\u961f\u548c\u672a\u8bfb\u8ba1\u6570\u9012\u589e\u7684\u539f\u5b50\u6027\u3002",
+      "tags": [
+        "\u539f\u5b50\u64cd\u4f5c",
+        "Lua\u811a\u672c",
+        "\u6d88\u606f\u7f13\u5b58"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/RedisManager.cpp:markReadAtomic",
+      "type": "function",
+      "name": "RedisManager::markReadAtomic",
+      "filePath": "PushServer2/RedisManager.cpp",
+      "lineRange": [
+        469,
+        485
+      ],
+      "summary": "\u539f\u5b50\u6807\u8bb0\u5df2\u8bfb\u64cd\u4f5c\uff1a\u5168\u90e8\u5df2\u8bfb\u65f6 SETEX \u7f6e\u96f6\uff0c\u90e8\u5206\u5df2\u8bfb\u65f6\u901a\u8fc7 Lua \u5faa\u73af DECR \u9012\u51cf\u672a\u8bfb\u8ba1\u6570\u3002",
+      "tags": [
+        "\u539f\u5b50\u64cd\u4f5c",
+        "Lua\u811a\u672c",
+        "\u5df2\u8bfb\u6807\u8bb0"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/RedisManager.cpp:getAndDeleteKick",
+      "type": "function",
+      "name": "RedisManager::getAndDeleteKick",
+      "filePath": "PushServer2/RedisManager.cpp",
+      "lineRange": [
+        487,
+        520
+      ],
+      "summary": "\u539f\u5b50\u8e22\u4eba\u6807\u8bb0\u68c0\u67e5\uff1a\u901a\u8fc7 Lua \u811a\u672c GET + DEL \u8bfb\u53d6\u5e76\u5220\u9664 kick \u6807\u8bb0\uff0c\u7528\u4e8e\u540c\u8d26\u53f7\u65b0\u767b\u5f55\u65f6\u8e22\u6389\u65e7\u8bbe\u5907\u3002",
+      "tags": [
+        "\u539f\u5b50\u64cd\u4f5c",
+        "Lua\u811a\u672c",
+        "\u4f1a\u8bdd\u8e22\u51fa"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/RedisManager.cpp:appendLogAtomic",
+      "type": "function",
+      "name": "RedisManager::appendLogAtomic",
+      "filePath": "PushServer2/RedisManager.cpp",
+      "lineRange": [
+        522,
+        541
+      ],
+      "summary": "\u539f\u5b50\u65e5\u5fd7\u8ffd\u52a0\u64cd\u4f5c\uff1a\u901a\u8fc7 Lua \u811a\u672c LPUSH + LTRIM + EXPIRE\uff0c\u9650\u5236\u65e5\u5fd7\u6761\u6570\u5e76\u81ea\u52a8\u8fc7\u671f\u3002",
+      "tags": [
+        "\u539f\u5b50\u64cd\u4f5c",
+        "Lua\u811a\u672c",
+        "\u65e5\u5fd7\u7f13\u5b58"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/StatusGrpcClient.cpp:reportLogin",
+      "type": "function",
+      "name": "StatusGrpcClient::reportLogin",
+      "filePath": "PushServer2/StatusGrpcClient.cpp",
+      "lineRange": [
+        16,
+        32
+      ],
+      "summary": "\u5411 StatusServer \u4e0a\u62a5\u7528\u6237\u767b\u5f55\u4e8b\u4ef6\uff08uid + token\uff09\uff0c\u7528\u4e8e token \u9a8c\u8bc1\u548c\u5728\u7ebf\u72b6\u6001\u6ce8\u518c\u3002",
+      "tags": [
+        "gRPC\u8c03\u7528",
+        "\u767b\u5f55\u4e0a\u62a5"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/StatusGrpcClient.cpp:heartbeat",
+      "type": "function",
+      "name": "StatusGrpcClient::heartbeat",
+      "filePath": "PushServer2/StatusGrpcClient.cpp",
+      "lineRange": [
+        44,
+        59
+      ],
+      "summary": "\u5411 StatusServer \u53d1\u9001\u5fc3\u8df3\u5305\uff0c\u643a\u5e26\u670d\u52a1\u540d\u3001\u4e3b\u673a\u3001\u7aef\u53e3\u548c\u65f6\u95f4\u6233\uff0c\u7528\u4e8e\u5b58\u6d3b\u68c0\u6d4b\u3002",
+      "tags": [
+        "gRPC\u8c03\u7528",
+        "\u5fc3\u8df3"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/StatusGrpcClient.cpp:reportDisconnect",
+      "type": "function",
+      "name": "StatusGrpcClient::reportDisconnect",
+      "filePath": "PushServer2/StatusGrpcClient.cpp",
+      "lineRange": [
+        61,
+        79
+      ],
+      "summary": "\u5411 StatusServer \u4e0a\u62a5\u65ad\u5f00\u8fde\u63a5\u4e8b\u4ef6\uff0c\u7528\u4e8e\u6e05\u7406\u5728\u7ebf\u72b6\u6001\u3002",
+      "tags": [
+        "gRPC\u8c03\u7528",
+        "\u65ad\u5f00\u4e0a\u62a5"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:PushServer2/PushGrpcServiceImpl.h:PushGrpcServiceImpl",
+      "type": "class",
+      "name": "PushGrpcServiceImpl",
+      "filePath": "PushServer2/PushGrpcServiceImpl.h",
+      "lineRange": [
+        27,
+        34
+      ],
+      "summary": "Push \u670d\u52a1 gRPC \u5b9e\u73b0\u7c7b\uff0c\u7ee7\u627f PushService::Service\uff0c\u5b9e\u73b0 PushToUser\u3001PushToTeam\u3001GetMessages\u3001MarkRead\u3001DeleteMessage \u4e94\u4e2a RPC \u65b9\u6cd5\u3002",
+      "tags": [
+        "gRPC\u670d\u52a1",
+        "\u6d88\u606f\u63a8\u9001",
+        "Protobuf"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:PushServer2/RPCConnectPool.h:PushNodeManager",
+      "type": "class",
+      "name": "PushNodeManager",
+      "filePath": "PushServer2/RPCConnectPool.h",
+      "lineRange": [
+        59,
+        69
+      ],
+      "summary": "\u8de8\u8282\u70b9\u63a8\u9001\u8fde\u63a5\u7ba1\u7406\u5668\u5355\u4f8b\uff0c\u7ef4\u62a4\u5230\u591a\u4e2a PushServer \u8282\u70b9\u7684 gRPC \u8fde\u63a5\u6c60\u6620\u5c04\u3002",
+      "tags": [
+        "\u5355\u4f8b",
+        "\u8fde\u63a5\u6c60\u7ba1\u7406",
+        "\u8de8\u8282\u70b9"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:PushServer2/RedisManager.h:RedisManager",
+      "type": "class",
+      "name": "RedisManager",
+      "filePath": "PushServer2/RedisManager.h",
+      "lineRange": [
+        8,
+        60
+      ],
+      "summary": "Redis \u7ba1\u7406\u5668\u5355\u4f8b\uff0c\u5c01\u88c5\u5b8c\u6574\u7684 Redis \u64cd\u4f5c\u96c6\uff0c\u5305\u62ec\u57fa\u672c\u547d\u4ee4\u3001\u5206\u5e03\u5f0f\u9501\u3001Lua \u811a\u672c\u6267\u884c\u548c\u539f\u5b50\u4e1a\u52a1\u64cd\u4f5c\uff08\u6d88\u606f\u63a8\u9001\u3001\u5df2\u8bfb\u6807\u8bb0\u3001\u8e22\u4eba\u6807\u8bb0\u3001\u65e5\u5fd7\u8ffd\u52a0\uff09\u3002",
+      "tags": [
+        "\u5355\u4f8b",
+        "Redis\u7ba1\u7406",
+        "\u5206\u5e03\u5f0f\u9501",
+        "Lua\u811a\u672c"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:PushServer2/Session.h:Session",
+      "type": "class",
+      "name": "Session",
+      "filePath": "PushServer2/Session.h",
+      "lineRange": [
+        17,
+        47
+      ],
+      "summary": "WebSocket \u4f1a\u8bdd\u7c7b\uff0c\u7ee7\u627f enable_shared_from_this\uff0c\u7ba1\u7406\u5355\u4e2a\u5ba2\u6237\u7aef\u7684 WebSocket \u8fde\u63a5\u751f\u547d\u5468\u671f\u3001\u5f02\u6b65\u8bfb\u5199\u548c\u6d88\u606f\u961f\u5217\u3002",
+      "tags": [
+        "WebSocket",
+        "\u4f1a\u8bdd\u7ba1\u7406",
+        "\u5f02\u6b65IO"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:PushServer2/MySQLDao.cpp",
+      "target": "file:PushServer2/ConfigManager.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/MySQLDao.cpp",
+      "target": "file:PushServer2/Global.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/MySQLDao.cpp",
+      "target": "file:PushServer2/Logger.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/MySQLDao.cpp",
+      "target": "file:PushServer2/MySQLDao.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/MySQLManager.cpp",
+      "target": "file:PushServer2/MySQLManager.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/PushGrpcServiceImpl.cpp",
+      "target": "file:PushServer2/AsyncTaskPool.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/PushGrpcServiceImpl.cpp",
+      "target": "file:PushServer2/ConfigManager.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/PushGrpcServiceImpl.cpp",
+      "target": "file:PushServer2/Logger.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/PushGrpcServiceImpl.cpp",
+      "target": "file:PushServer2/MainServer.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/PushGrpcServiceImpl.cpp",
+      "target": "file:PushServer2/MySQLManager.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/PushGrpcServiceImpl.cpp",
+      "target": "file:PushServer2/PushGrpcServiceImpl.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/PushGrpcServiceImpl.cpp",
+      "target": "file:PushServer2/RedisManager.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/PushGrpcServiceImpl.cpp",
+      "target": "file:PushServer2/RPCConnectPool.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/PushServerMain.cpp",
+      "target": "file:PushServer2/AsyncTaskPool.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/PushServerMain.cpp",
+      "target": "file:PushServer2/ConfigManager.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/PushServerMain.cpp",
+      "target": "file:PushServer2/IOContextPool.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/PushServerMain.cpp",
+      "target": "file:PushServer2/Logger.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/PushServerMain.cpp",
+      "target": "file:PushServer2/LogicSystem.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/PushServerMain.cpp",
+      "target": "file:PushServer2/MainServer.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/PushServerMain.cpp",
+      "target": "file:PushServer2/PushGrpcServiceImpl.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/PushServerMain.cpp",
+      "target": "file:PushServer2/RPCConnectPool.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/PushServerMain.cpp",
+      "target": "file:PushServer2/StatusGrpcClient.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/RPCConnectPool.cpp",
+      "target": "file:PushServer2/Logger.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/RPCConnectPool.cpp",
+      "target": "file:PushServer2/RPCConnectPool.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/RedisConnectPool.cpp",
+      "target": "file:PushServer2/Logger.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/RedisConnectPool.cpp",
+      "target": "file:PushServer2/RedisConnectPool.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/RedisManager.cpp",
+      "target": "file:PushServer2/ConfigManager.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/RedisManager.cpp",
+      "target": "file:PushServer2/Logger.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/RedisManager.cpp",
+      "target": "file:PushServer2/RedisManager.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/Session.cpp",
+      "target": "file:PushServer2/Logger.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/Session.cpp",
+      "target": "file:PushServer2/LogicSystem.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/Session.cpp",
+      "target": "file:PushServer2/MainServer.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/Session.cpp",
+      "target": "file:PushServer2/Session.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/StatusGrpcClient.cpp",
+      "target": "file:PushServer2/Logger.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/StatusGrpcClient.cpp",
+      "target": "file:PushServer2/StatusGrpcClient.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/PushGrpcServiceImpl.cpp",
+      "target": "class:PushServer2/PushGrpcServiceImpl.h:PushGrpcServiceImpl",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/RedisManager.cpp",
+      "target": "class:PushServer2/RedisManager.h:RedisManager",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/Session.cpp",
+      "target": "class:PushServer2/Session.h:Session",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/RPCConnectPool.cpp",
+      "target": "class:PushServer2/RPCConnectPool.h:PushNodeManager",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/MySQLDao.cpp",
+      "target": "file:PushServer2/MySQLDao.cpp:getUser",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/MySQLDao.cpp",
+      "target": "file:PushServer2/MySQLDao.cpp:getUsersByTeam",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/MySQLDao.cpp",
+      "target": "file:PushServer2/MySQLDao.cpp:insertMessage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/MySQLDao.cpp",
+      "target": "file:PushServer2/MySQLDao.cpp:markMessagesRead",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/MySQLDao.cpp",
+      "target": "file:PushServer2/MySQLDao.cpp:deleteMessages",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/PushGrpcServiceImpl.cpp",
+      "target": "file:PushServer2/PushGrpcServiceImpl.cpp:pushMessageToUser",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/PushGrpcServiceImpl.cpp",
+      "target": "file:PushServer2/PushGrpcServiceImpl.cpp:PushToUser",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/PushGrpcServiceImpl.cpp",
+      "target": "file:PushServer2/PushGrpcServiceImpl.cpp:PushToTeam",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/PushGrpcServiceImpl.cpp",
+      "target": "file:PushServer2/PushGrpcServiceImpl.cpp:GetMessages",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/PushGrpcServiceImpl.cpp",
+      "target": "file:PushServer2/PushGrpcServiceImpl.cpp:MarkRead",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/PushGrpcServiceImpl.cpp",
+      "target": "file:PushServer2/PushGrpcServiceImpl.cpp:DeleteMessage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/Session.cpp",
+      "target": "file:PushServer2/Session.cpp:send",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/Session.cpp",
+      "target": "file:PushServer2/Session.cpp:onRead",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/RedisManager.cpp",
+      "target": "file:PushServer2/RedisManager.cpp:get",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/RedisManager.cpp",
+      "target": "file:PushServer2/RedisManager.cpp:set",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/RedisManager.cpp",
+      "target": "file:PushServer2/RedisManager.cpp:del",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/RedisManager.cpp",
+      "target": "file:PushServer2/RedisManager.cpp:lpush",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/RedisManager.cpp",
+      "target": "file:PushServer2/RedisManager.cpp:lrange",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/RedisManager.cpp",
+      "target": "file:PushServer2/RedisManager.cpp:hset",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/RedisManager.cpp",
+      "target": "file:PushServer2/RedisManager.cpp:hget",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/RedisManager.cpp",
+      "target": "file:PushServer2/RedisManager.cpp:acquireLock",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/RedisManager.cpp",
+      "target": "file:PushServer2/RedisManager.cpp:releaseLock",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/RedisManager.cpp",
+      "target": "file:PushServer2/RedisManager.cpp:acquireLockWithRetry",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/RedisManager.cpp",
+      "target": "file:PushServer2/RedisManager.cpp:evalScript",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/RedisManager.cpp",
+      "target": "file:PushServer2/RedisManager.cpp:pushMessageAtomic",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/RedisManager.cpp",
+      "target": "file:PushServer2/RedisManager.cpp:markReadAtomic",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/RedisManager.cpp",
+      "target": "file:PushServer2/RedisManager.cpp:getAndDeleteKick",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/RedisManager.cpp",
+      "target": "file:PushServer2/RedisManager.cpp:appendLogAtomic",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/StatusGrpcClient.cpp",
+      "target": "file:PushServer2/StatusGrpcClient.cpp:reportLogin",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/StatusGrpcClient.cpp",
+      "target": "file:PushServer2/StatusGrpcClient.cpp:heartbeat",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/StatusGrpcClient.cpp",
+      "target": "file:PushServer2/StatusGrpcClient.cpp:reportDisconnect",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/PushGrpcServiceImpl.h",
+      "target": "class:PushServer2/PushGrpcServiceImpl.h:PushGrpcServiceImpl",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:PushServer2/RedisManager.h",
+      "target": "class:PushServer2/RedisManager.h:RedisManager",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

@@ -1,0 +1,7584 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 32,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "PushServer/AsyncTaskPool.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 31,
+      "nonEmptyLines": 27,
+      "functions": [
+        {
+          "name": "AsyncTaskPool",
+          "startLine": 3,
+          "endLine": 15,
+          "params": [
+            "thread_count"
+          ]
+        },
+        {
+          "name": "~AsyncTaskPool",
+          "startLine": 17,
+          "endLine": 19,
+          "params": []
+        },
+        {
+          "name": "post",
+          "startLine": 21,
+          "endLine": 23,
+          "params": [
+            "task"
+          ]
+        },
+        {
+          "name": "stop",
+          "startLine": 25,
+          "endLine": 31,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AsyncTaskPool",
+          "line": 3,
+          "isDefault": false
+        },
+        {
+          "name": "~AsyncTaskPool",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "post",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "stop",
+          "line": 25,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "AsyncTaskPool",
+          "callee": "boost::asio::make_work_guard",
+          "lineNumber": 4
+        },
+        {
+          "caller": "AsyncTaskPool",
+          "callee": "std::thread::hardware_concurrency",
+          "lineNumber": 7
+        },
+        {
+          "caller": "AsyncTaskPool",
+          "callee": "emplace_back",
+          "lineNumber": 11
+        },
+        {
+          "caller": "AsyncTaskPool",
+          "callee": "run",
+          "lineNumber": 12
+        },
+        {
+          "caller": "~AsyncTaskPool",
+          "callee": "stop",
+          "lineNumber": 18
+        },
+        {
+          "caller": "post",
+          "callee": "boost::asio::post",
+          "lineNumber": 22
+        },
+        {
+          "caller": "post",
+          "callee": "std::move",
+          "lineNumber": 22
+        },
+        {
+          "caller": "stop",
+          "callee": "reset",
+          "lineNumber": 26
+        },
+        {
+          "caller": "stop",
+          "callee": "stop",
+          "lineNumber": 27
+        },
+        {
+          "caller": "stop",
+          "callee": "joinable",
+          "lineNumber": 29
+        },
+        {
+          "caller": "stop",
+          "callee": "join",
+          "lineNumber": 29
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/AsyncTaskPool.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 26,
+      "nonEmptyLines": 21,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/ConfigManager.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 35,
+      "nonEmptyLines": 28,
+      "functions": [
+        {
+          "name": "ConfigManager",
+          "startLine": 3,
+          "endLine": 35,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ConfigManager",
+          "line": 3,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ConfigManager",
+          "callee": "boost::filesystem::current_path",
+          "lineNumber": 4
+        },
+        {
+          "caller": "ConfigManager",
+          "callee": "boost::property_tree::read_ini",
+          "lineNumber": 10
+        },
+        {
+          "caller": "ConfigManager",
+          "callee": "string",
+          "lineNumber": 10
+        },
+        {
+          "caller": "ConfigManager",
+          "callee": "get_value<std::string>",
+          "lineNumber": 18
+        },
+        {
+          "caller": "ConfigManager",
+          "callee": "what",
+          "lineNumber": 33
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/ConfigManager.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 40,
+      "nonEmptyLines": 33,
+      "callGraph": [
+        {
+          "caller": "operator[]",
+          "callee": "find",
+          "lineNumber": 17
+        },
+        {
+          "caller": "operator[]",
+          "callee": "end",
+          "lineNumber": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/Global.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 65,
+      "nonEmptyLines": 56,
+      "callGraph": [
+        {
+          "caller": "~Defer",
+          "callee": "func_",
+          "lineNumber": 60
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/IOContextPool.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 50,
+      "nonEmptyLines": 45,
+      "functions": [
+        {
+          "name": "IOContextPool",
+          "startLine": 7,
+          "endLine": 24,
+          "params": [
+            "pool_size"
+          ]
+        },
+        {
+          "name": "~IOContextPool",
+          "startLine": 26,
+          "endLine": 30,
+          "params": []
+        },
+        {
+          "name": "stop",
+          "startLine": 39,
+          "endLine": 50,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "IOContextPool",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "~IOContextPool",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "stop",
+          "line": 39,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "IOContextPool",
+          "callee": "std::make_shared<IOContext>",
+          "lineNumber": 12
+        },
+        {
+          "caller": "IOContextPool",
+          "callee": "std::make_unique<Work>",
+          "lineNumber": 16
+        },
+        {
+          "caller": "IOContextPool",
+          "callee": "boost::asio::make_work_guard",
+          "lineNumber": 16
+        },
+        {
+          "caller": "IOContextPool",
+          "callee": "emplace_back",
+          "lineNumber": 20
+        },
+        {
+          "caller": "IOContextPool",
+          "callee": "run",
+          "lineNumber": 21
+        },
+        {
+          "caller": "~IOContextPool",
+          "callee": "stop",
+          "lineNumber": 28
+        },
+        {
+          "caller": "~IOContextPool",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 29
+        },
+        {
+          "caller": "stop",
+          "callee": "stop",
+          "lineNumber": 41
+        },
+        {
+          "caller": "stop",
+          "callee": "context",
+          "lineNumber": 41
+        },
+        {
+          "caller": "stop",
+          "callee": "get_executor",
+          "lineNumber": 41
+        },
+        {
+          "caller": "stop",
+          "callee": "reset",
+          "lineNumber": 42
+        },
+        {
+          "caller": "stop",
+          "callee": "joinable",
+          "lineNumber": 46
+        },
+        {
+          "caller": "stop",
+          "callee": "join",
+          "lineNumber": 47
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/IOContextPool.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 27,
+      "nonEmptyLines": 24,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/Logger.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 146,
+      "nonEmptyLines": 127,
+      "functions": [
+        {
+          "name": "Logger",
+          "startLine": 7,
+          "endLine": 36,
+          "params": []
+        },
+        {
+          "name": "stop",
+          "startLine": 38,
+          "endLine": 43,
+          "params": []
+        },
+        {
+          "name": "~Logger",
+          "startLine": 45,
+          "endLine": 47,
+          "params": []
+        },
+        {
+          "name": "setRemoteFlushCallback",
+          "startLine": 49,
+          "endLine": 51,
+          "params": [
+            "cb"
+          ]
+        },
+        {
+          "name": "timestamp",
+          "startLine": 53,
+          "endLine": 64,
+          "params": []
+        },
+        {
+          "name": "levelToString",
+          "startLine": 66,
+          "endLine": 74,
+          "params": [
+            "level"
+          ]
+        },
+        {
+          "name": "rotateIfNeeded",
+          "startLine": 76,
+          "endLine": 90,
+          "params": []
+        },
+        {
+          "name": "writeToFile",
+          "startLine": 92,
+          "endLine": 98,
+          "params": [
+            "line"
+          ]
+        },
+        {
+          "name": "log",
+          "startLine": 100,
+          "endLine": 117,
+          "params": [
+            "level",
+            "msg"
+          ]
+        },
+        {
+          "name": "flushLoop",
+          "startLine": 119,
+          "endLine": 146,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Logger",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "stop",
+          "line": 38,
+          "isDefault": false
+        },
+        {
+          "name": "~Logger",
+          "line": 45,
+          "isDefault": false
+        },
+        {
+          "name": "setRemoteFlushCallback",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "timestamp",
+          "line": 53,
+          "isDefault": false
+        },
+        {
+          "name": "levelToString",
+          "line": 66,
+          "isDefault": false
+        },
+        {
+          "name": "rotateIfNeeded",
+          "line": 76,
+          "isDefault": false
+        },
+        {
+          "name": "writeToFile",
+          "line": 92,
+          "isDefault": false
+        },
+        {
+          "name": "log",
+          "line": 100,
+          "isDefault": false
+        },
+        {
+          "name": "flushLoop",
+          "line": 119,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "Logger",
+          "callee": "ConfigManager::getInstance",
+          "lineNumber": 8
+        },
+        {
+          "caller": "Logger",
+          "callee": "empty",
+          "lineNumber": 13
+        },
+        {
+          "caller": "Logger",
+          "callee": "std::stoi",
+          "lineNumber": 13
+        },
+        {
+          "caller": "Logger",
+          "callee": "empty",
+          "lineNumber": 15
+        },
+        {
+          "caller": "Logger",
+          "callee": "std::stoi",
+          "lineNumber": 15
+        },
+        {
+          "caller": "Logger",
+          "callee": "empty",
+          "lineNumber": 17
+        },
+        {
+          "caller": "Logger",
+          "callee": "empty",
+          "lineNumber": 18
+        },
+        {
+          "caller": "Logger",
+          "callee": "mkdir",
+          "lineNumber": 25
+        },
+        {
+          "caller": "Logger",
+          "callee": "c_str",
+          "lineNumber": 25
+        },
+        {
+          "caller": "Logger",
+          "callee": "rotateIfNeeded",
+          "lineNumber": 29
+        },
+        {
+          "caller": "Logger",
+          "callee": "is_open",
+          "lineNumber": 30
+        },
+        {
+          "caller": "Logger",
+          "callee": "open",
+          "lineNumber": 31
+        },
+        {
+          "caller": "Logger",
+          "callee": "std::thread",
+          "lineNumber": 35
+        },
+        {
+          "caller": "stop",
+          "callee": "joinable",
+          "lineNumber": 40
+        },
+        {
+          "caller": "stop",
+          "callee": "join",
+          "lineNumber": 40
+        },
+        {
+          "caller": "stop",
+          "callee": "is_open",
+          "lineNumber": 42
+        },
+        {
+          "caller": "stop",
+          "callee": "close",
+          "lineNumber": 42
+        },
+        {
+          "caller": "~Logger",
+          "callee": "stop",
+          "lineNumber": 46
+        },
+        {
+          "caller": "setRemoteFlushCallback",
+          "callee": "std::move",
+          "lineNumber": 50
+        },
+        {
+          "caller": "timestamp",
+          "callee": "std::chrono::system_clock::now",
+          "lineNumber": 54
+        },
+        {
+          "caller": "timestamp",
+          "callee": "std::chrono::system_clock::to_time_t",
+          "lineNumber": 55
+        },
+        {
+          "caller": "timestamp",
+          "callee": "std::chrono::duration_cast<std::chrono::milliseconds>",
+          "lineNumber": 56
+        },
+        {
+          "caller": "timestamp",
+          "callee": "time_since_epoch",
+          "lineNumber": 56
+        },
+        {
+          "caller": "timestamp",
+          "callee": "localtime_r",
+          "lineNumber": 58
+        },
+        {
+          "caller": "timestamp",
+          "callee": "snprintf",
+          "lineNumber": 60
+        },
+        {
+          "caller": "timestamp",
+          "callee": "count",
+          "lineNumber": 62
+        },
+        {
+          "caller": "rotateIfNeeded",
+          "callee": "std::chrono::system_clock::now",
+          "lineNumber": 77
+        },
+        {
+          "caller": "rotateIfNeeded",
+          "callee": "std::chrono::system_clock::to_time_t",
+          "lineNumber": 78
+        },
+        {
+          "caller": "rotateIfNeeded",
+          "callee": "localtime_r",
+          "lineNumber": 80
+        },
+        {
+          "caller": "rotateIfNeeded",
+          "callee": "snprintf",
+          "lineNumber": 82
+        },
+        {
+          "caller": "rotateIfNeeded",
+          "callee": "is_open",
+          "lineNumber": 85
+        },
+        {
+          "caller": "rotateIfNeeded",
+          "callee": "close",
+          "lineNumber": 85
+        },
+        {
+          "caller": "rotateIfNeeded",
+          "callee": "open",
+          "lineNumber": 88
+        },
+        {
+          "caller": "writeToFile",
+          "callee": "rotateIfNeeded",
+          "lineNumber": 93
+        },
+        {
+          "caller": "writeToFile",
+          "callee": "is_open",
+          "lineNumber": 94
+        },
+        {
+          "caller": "writeToFile",
+          "callee": "flush",
+          "lineNumber": 96
+        },
+        {
+          "caller": "log",
+          "callee": "timestamp",
+          "lineNumber": 103
+        },
+        {
+          "caller": "log",
+          "callee": "levelToString",
+          "lineNumber": 103
+        },
+        {
+          "caller": "log",
+          "callee": "writeToFile",
+          "lineNumber": 106
+        },
+        {
+          "caller": "log",
+          "callee": "std::chrono::system_clock::now",
+          "lineNumber": 110
+        },
+        {
+          "caller": "log",
+          "callee": "count",
+          "lineNumber": 111
+        },
+        {
+          "caller": "log",
+          "callee": "std::chrono::duration_cast<std::chrono::seconds>",
+          "lineNumber": 111
+        },
+        {
+          "caller": "log",
+          "callee": "time_since_epoch",
+          "lineNumber": 111
+        },
+        {
+          "caller": "log",
+          "callee": "size",
+          "lineNumber": 113
+        },
+        {
+          "caller": "log",
+          "callee": "push_back",
+          "lineNumber": 114
+        },
+        {
+          "caller": "flushLoop",
+          "callee": "std::this_thread::sleep_for",
+          "lineNumber": 122
+        },
+        {
+          "caller": "flushLoop",
+          "callee": "std::chrono::milliseconds",
+          "lineNumber": 122
+        },
+        {
+          "caller": "flushLoop",
+          "callee": "empty",
+          "lineNumber": 129
+        },
+        {
+          "caller": "flushLoop",
+          "callee": "swap",
+          "lineNumber": 130
+        },
+        {
+          "caller": "flushLoop",
+          "callee": "empty",
+          "lineNumber": 133
+        },
+        {
+          "caller": "flushLoop",
+          "callee": "remote_flush_",
+          "lineNumber": 134
+        },
+        {
+          "caller": "flushLoop",
+          "callee": "empty",
+          "lineNumber": 141
+        },
+        {
+          "caller": "flushLoop",
+          "callee": "swap",
+          "lineNumber": 141
+        },
+        {
+          "caller": "flushLoop",
+          "callee": "empty",
+          "lineNumber": 143
+        },
+        {
+          "caller": "flushLoop",
+          "callee": "remote_flush_",
+          "lineNumber": 144
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 10,
+        "functionCount": 10,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/Logger.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 94,
+      "nonEmptyLines": 82,
+      "callGraph": [
+        {
+          "caller": "format_string",
+          "callee": "find",
+          "lineNumber": 26
+        },
+        {
+          "caller": "format_string",
+          "callee": "substr",
+          "lineNumber": 28
+        },
+        {
+          "caller": "format_string",
+          "callee": "replace_one",
+          "lineNumber": 33
+        },
+        {
+          "caller": "format_string",
+          "callee": "std::forward<Args>",
+          "lineNumber": 33
+        },
+        {
+          "caller": "format_string",
+          "callee": "substr",
+          "lineNumber": 34
+        },
+        {
+          "caller": "format_string",
+          "callee": "str",
+          "lineNumber": 35
+        },
+        {
+          "caller": "debug",
+          "callee": "log",
+          "lineNumber": 50
+        },
+        {
+          "caller": "debug",
+          "callee": "format_string",
+          "lineNumber": 50
+        },
+        {
+          "caller": "debug",
+          "callee": "std::forward<Args>",
+          "lineNumber": 50
+        },
+        {
+          "caller": "info",
+          "callee": "log",
+          "lineNumber": 52
+        },
+        {
+          "caller": "info",
+          "callee": "format_string",
+          "lineNumber": 52
+        },
+        {
+          "caller": "info",
+          "callee": "std::forward<Args>",
+          "lineNumber": 52
+        },
+        {
+          "caller": "warn",
+          "callee": "log",
+          "lineNumber": 54
+        },
+        {
+          "caller": "warn",
+          "callee": "format_string",
+          "lineNumber": 54
+        },
+        {
+          "caller": "warn",
+          "callee": "std::forward<Args>",
+          "lineNumber": 54
+        },
+        {
+          "caller": "error",
+          "callee": "log",
+          "lineNumber": 56
+        },
+        {
+          "caller": "error",
+          "callee": "format_string",
+          "lineNumber": 56
+        },
+        {
+          "caller": "error",
+          "callee": "std::forward<Args>",
+          "lineNumber": 56
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/LogicSystem.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 192,
+      "nonEmptyLines": 175,
+      "functions": [
+        {
+          "name": "generate_lock_owner",
+          "startLine": 13,
+          "endLine": 16,
+          "params": []
+        },
+        {
+          "name": "LogicSystem",
+          "startLine": 18,
+          "endLine": 25,
+          "params": []
+        },
+        {
+          "name": "~LogicSystem",
+          "startLine": 27,
+          "endLine": 33,
+          "params": []
+        },
+        {
+          "name": "postMsgToQue",
+          "startLine": 35,
+          "endLine": 42,
+          "params": [
+            "session",
+            "msg_data"
+          ]
+        },
+        {
+          "name": "dealMsg",
+          "startLine": 44,
+          "endLine": 75,
+          "params": []
+        },
+        {
+          "name": "registerCallBacks",
+          "startLine": 77,
+          "endLine": 80,
+          "params": []
+        },
+        {
+          "name": "loginHandler",
+          "startLine": 82,
+          "endLine": 192,
+          "params": [
+            "session",
+            "msg_data"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "LogicSystem",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "~LogicSystem",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "postMsgToQue",
+          "line": 35,
+          "isDefault": false
+        },
+        {
+          "name": "dealMsg",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "registerCallBacks",
+          "line": 77,
+          "isDefault": false
+        },
+        {
+          "name": "loginHandler",
+          "line": 82,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "generate_lock_owner",
+          "callee": "boost::uuids::random_generator()",
+          "lineNumber": 14
+        },
+        {
+          "caller": "generate_lock_owner",
+          "callee": "boost::uuids::random_generator",
+          "lineNumber": 14
+        },
+        {
+          "caller": "generate_lock_owner",
+          "callee": "boost::uuids::to_string",
+          "lineNumber": 15
+        },
+        {
+          "caller": "LogicSystem",
+          "callee": "registerCallBacks",
+          "lineNumber": 19
+        },
+        {
+          "caller": "LogicSystem",
+          "callee": "std::thread::hardware_concurrency",
+          "lineNumber": 20
+        },
+        {
+          "caller": "LogicSystem",
+          "callee": "emplace_back",
+          "lineNumber": 23
+        },
+        {
+          "caller": "~LogicSystem",
+          "callee": "notify_all",
+          "lineNumber": 29
+        },
+        {
+          "caller": "~LogicSystem",
+          "callee": "joinable",
+          "lineNumber": 31
+        },
+        {
+          "caller": "~LogicSystem",
+          "callee": "join",
+          "lineNumber": 31
+        },
+        {
+          "caller": "postMsgToQue",
+          "callee": "push",
+          "lineNumber": 37
+        },
+        {
+          "caller": "postMsgToQue",
+          "callee": "std::move",
+          "lineNumber": 37
+        },
+        {
+          "caller": "postMsgToQue",
+          "callee": "size",
+          "lineNumber": 38
+        },
+        {
+          "caller": "postMsgToQue",
+          "callee": "unlock",
+          "lineNumber": 39
+        },
+        {
+          "caller": "postMsgToQue",
+          "callee": "notify_one",
+          "lineNumber": 40
+        },
+        {
+          "caller": "dealMsg",
+          "callee": "wait",
+          "lineNumber": 47
+        },
+        {
+          "caller": "dealMsg",
+          "callee": "empty",
+          "lineNumber": 48
+        },
+        {
+          "caller": "dealMsg",
+          "callee": "load",
+          "lineNumber": 48
+        },
+        {
+          "caller": "dealMsg",
+          "callee": "empty",
+          "lineNumber": 52
+        },
+        {
+          "caller": "dealMsg",
+          "callee": "std::move",
+          "lineNumber": 53
+        },
+        {
+          "caller": "dealMsg",
+          "callee": "front",
+          "lineNumber": 53
+        },
+        {
+          "caller": "dealMsg",
+          "callee": "pop",
+          "lineNumber": 54
+        },
+        {
+          "caller": "dealMsg",
+          "callee": "unlock",
+          "lineNumber": 55
+        },
+        {
+          "caller": "dealMsg",
+          "callee": "parse",
+          "lineNumber": 58
+        },
+        {
+          "caller": "dealMsg",
+          "callee": "LOG_ERROR",
+          "lineNumber": 59
+        },
+        {
+          "caller": "dealMsg",
+          "callee": "lock",
+          "lineNumber": 60
+        },
+        {
+          "caller": "dealMsg",
+          "callee": "asString",
+          "lineNumber": 63
+        },
+        {
+          "caller": "dealMsg",
+          "callee": "get",
+          "lineNumber": 63
+        },
+        {
+          "caller": "dealMsg",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 64
+        },
+        {
+          "caller": "dealMsg",
+          "callee": "find",
+          "lineNumber": 66
+        },
+        {
+          "caller": "dealMsg",
+          "callee": "end",
+          "lineNumber": 67
+        },
+        {
+          "caller": "dealMsg",
+          "callee": "second",
+          "lineNumber": 68
+        },
+        {
+          "caller": "dealMsg",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 70
+        },
+        {
+          "caller": "dealMsg",
+          "callee": "lock",
+          "lineNumber": 72
+        },
+        {
+          "caller": "registerCallBacks",
+          "callee": "std::bind",
+          "lineNumber": 78
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "parse",
+          "lineNumber": 85
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "LOG_ERROR",
+          "lineNumber": 86
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "static_cast<int>",
+          "lineNumber": 89
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "send",
+          "lineNumber": 90
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "toStyledString",
+          "lineNumber": 90
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "asInt",
+          "lineNumber": 93
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "asString",
+          "lineNumber": 94
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "empty",
+          "lineNumber": 95
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "LOG_ERROR",
+          "lineNumber": 96
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "static_cast<int>",
+          "lineNumber": 99
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "send",
+          "lineNumber": 100
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "toStyledString",
+          "lineNumber": 100
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 103
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "send",
+          "lineNumber": 107
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "toStyledString",
+          "lineNumber": 107
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "asInt",
+          "lineNumber": 108
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "close",
+          "lineNumber": 109
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "reportLogin",
+          "lineNumber": 113
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "StatusGrpcClient::getInstance",
+          "lineNumber": 113
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "error",
+          "lineNumber": 114
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "LOG_ERROR",
+          "lineNumber": 115
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "error",
+          "lineNumber": 115
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "error",
+          "lineNumber": 116
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "find",
+          "lineNumber": 125
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "end",
+          "lineNumber": 126
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "getUser",
+          "lineNumber": 131
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "MySQLManager::getInstance",
+          "lineNumber": 131
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "static_cast<int>",
+          "lineNumber": 133
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "std::to_string",
+          "lineNumber": 144
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "getAndDeleteKick",
+          "lineNumber": 146
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "RedisManager::getInstance",
+          "lineNumber": 146
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "getSessionByUid",
+          "lineNumber": 147
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "getServer",
+          "lineNumber": 147
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "LOG_INFO",
+          "lineNumber": 149
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "send",
+          "lineNumber": 153
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "toStyledString",
+          "lineNumber": 153
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "close",
+          "lineNumber": 154
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "removeUidSession",
+          "lineNumber": 155
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "getServer",
+          "lineNumber": 155
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "setUid",
+          "lineNumber": 159
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "addUidSession",
+          "lineNumber": 160
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "getServer",
+          "lineNumber": 160
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "generate_lock_owner",
+          "lineNumber": 163
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "acquireLockWithRetry",
+          "lineNumber": 164
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "RedisManager::getInstance",
+          "lineNumber": 164
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "setex",
+          "lineNumber": 165
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "RedisManager::getInstance",
+          "lineNumber": 165
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "releaseLock",
+          "lineNumber": 166
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "RedisManager::getInstance",
+          "lineNumber": 166
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "get",
+          "lineNumber": 171
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "RedisManager::getInstance",
+          "lineNumber": 171
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "std::stol",
+          "lineNumber": 172
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "static_cast<Json::Int64>",
+          "lineNumber": 174
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "lrange",
+          "lineNumber": 178
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "RedisManager::getInstance",
+          "lineNumber": 178
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "parse",
+          "lineNumber": 183
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "append",
+          "lineNumber": 184
+        },
+        {
+          "caller": "loginHandler",
+          "callee": "LOG_INFO",
+          "lineNumber": 190
+        }
+      ],
+      "metrics": {
+        "importCount": 8,
+        "exportCount": 6,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/LogicSystem.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 46,
+      "nonEmptyLines": 40,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/MainServer.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 118,
+      "nonEmptyLines": 109,
+      "functions": [
+        {
+          "name": "generate_lock_owner",
+          "startLine": 11,
+          "endLine": 14,
+          "params": []
+        },
+        {
+          "name": "MainServer",
+          "startLine": 16,
+          "endLine": 20,
+          "params": [
+            "io_context",
+            "port",
+            "server_name"
+          ]
+        },
+        {
+          "name": "doAccept",
+          "startLine": 22,
+          "endLine": 27,
+          "params": []
+        },
+        {
+          "name": "onAccept",
+          "startLine": 29,
+          "endLine": 46,
+          "params": [
+            "session",
+            "ec"
+          ]
+        },
+        {
+          "name": "stop",
+          "startLine": 48,
+          "endLine": 56,
+          "params": []
+        },
+        {
+          "name": "clearSession",
+          "startLine": 58,
+          "endLine": 97,
+          "params": [
+            "uuid"
+          ]
+        },
+        {
+          "name": "addUidSession",
+          "startLine": 99,
+          "endLine": 104,
+          "params": [
+            "uid",
+            "session"
+          ]
+        },
+        {
+          "name": "removeUidSession",
+          "startLine": 106,
+          "endLine": 110,
+          "params": [
+            "uid"
+          ]
+        },
+        {
+          "name": "getSessionByUid",
+          "startLine": 112,
+          "endLine": 118,
+          "params": [
+            "uid"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "MainServer",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "doAccept",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "onAccept",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "stop",
+          "line": 48,
+          "isDefault": false
+        },
+        {
+          "name": "clearSession",
+          "line": 58,
+          "isDefault": false
+        },
+        {
+          "name": "addUidSession",
+          "line": 99,
+          "isDefault": false
+        },
+        {
+          "name": "removeUidSession",
+          "line": 106,
+          "isDefault": false
+        },
+        {
+          "name": "getSessionByUid",
+          "line": 112,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "generate_lock_owner",
+          "callee": "boost::uuids::random_generator()",
+          "lineNumber": 12
+        },
+        {
+          "caller": "generate_lock_owner",
+          "callee": "boost::uuids::random_generator",
+          "lineNumber": 12
+        },
+        {
+          "caller": "generate_lock_owner",
+          "callee": "boost::uuids::to_string",
+          "lineNumber": 13
+        },
+        {
+          "caller": "MainServer",
+          "callee": "tcp::endpoint",
+          "lineNumber": 17
+        },
+        {
+          "caller": "MainServer",
+          "callee": "tcp::v4",
+          "lineNumber": 17
+        },
+        {
+          "caller": "MainServer",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 18
+        },
+        {
+          "caller": "MainServer",
+          "callee": "doAccept",
+          "lineNumber": 19
+        },
+        {
+          "caller": "doAccept",
+          "callee": "getIOContext",
+          "lineNumber": 23
+        },
+        {
+          "caller": "doAccept",
+          "callee": "IOContextPool::getInstance",
+          "lineNumber": 23
+        },
+        {
+          "caller": "doAccept",
+          "callee": "std::make_shared<Session>",
+          "lineNumber": 24
+        },
+        {
+          "caller": "doAccept",
+          "callee": "async_accept",
+          "lineNumber": 25
+        },
+        {
+          "caller": "doAccept",
+          "callee": "getSocket",
+          "lineNumber": 25
+        },
+        {
+          "caller": "doAccept",
+          "callee": "std::bind",
+          "lineNumber": 26
+        },
+        {
+          "caller": "onAccept",
+          "callee": "async_accept",
+          "lineNumber": 32
+        },
+        {
+          "caller": "onAccept",
+          "callee": "ws",
+          "lineNumber": 32
+        },
+        {
+          "caller": "onAccept",
+          "callee": "insert",
+          "lineNumber": 36
+        },
+        {
+          "caller": "onAccept",
+          "callee": "getUUID",
+          "lineNumber": 36
+        },
+        {
+          "caller": "onAccept",
+          "callee": "start",
+          "lineNumber": 37
+        },
+        {
+          "caller": "onAccept",
+          "callee": "LOG_ERROR",
+          "lineNumber": 39
+        },
+        {
+          "caller": "onAccept",
+          "callee": "message",
+          "lineNumber": 39
+        },
+        {
+          "caller": "onAccept",
+          "callee": "LOG_ERROR",
+          "lineNumber": 43
+        },
+        {
+          "caller": "onAccept",
+          "callee": "message",
+          "lineNumber": 43
+        },
+        {
+          "caller": "onAccept",
+          "callee": "doAccept",
+          "lineNumber": 45
+        },
+        {
+          "caller": "stop",
+          "callee": "close",
+          "lineNumber": 50
+        },
+        {
+          "caller": "stop",
+          "callee": "close",
+          "lineNumber": 53
+        },
+        {
+          "caller": "stop",
+          "callee": "clear",
+          "lineNumber": 55
+        },
+        {
+          "caller": "clearSession",
+          "callee": "find",
+          "lineNumber": 63
+        },
+        {
+          "caller": "clearSession",
+          "callee": "end",
+          "lineNumber": 64
+        },
+        {
+          "caller": "clearSession",
+          "callee": "getUid",
+          "lineNumber": 65
+        },
+        {
+          "caller": "clearSession",
+          "callee": "erase",
+          "lineNumber": 66
+        },
+        {
+          "caller": "clearSession",
+          "callee": "removeUidSession",
+          "lineNumber": 71
+        },
+        {
+          "caller": "clearSession",
+          "callee": "std::to_string",
+          "lineNumber": 73
+        },
+        {
+          "caller": "clearSession",
+          "callee": "generate_lock_owner",
+          "lineNumber": 75
+        },
+        {
+          "caller": "clearSession",
+          "callee": "acquireLockWithRetry",
+          "lineNumber": 76
+        },
+        {
+          "caller": "clearSession",
+          "callee": "RedisManager::getInstance",
+          "lineNumber": 76
+        },
+        {
+          "caller": "clearSession",
+          "callee": "get",
+          "lineNumber": 79
+        },
+        {
+          "caller": "clearSession",
+          "callee": "RedisManager::getInstance",
+          "lineNumber": 79
+        },
+        {
+          "caller": "clearSession",
+          "callee": "find",
+          "lineNumber": 80
+        },
+        {
+          "caller": "clearSession",
+          "callee": "del",
+          "lineNumber": 81
+        },
+        {
+          "caller": "clearSession",
+          "callee": "RedisManager::getInstance",
+          "lineNumber": 81
+        },
+        {
+          "caller": "clearSession",
+          "callee": "releaseLock",
+          "lineNumber": 84
+        },
+        {
+          "caller": "clearSession",
+          "callee": "RedisManager::getInstance",
+          "lineNumber": 84
+        },
+        {
+          "caller": "clearSession",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 87
+        },
+        {
+          "caller": "clearSession",
+          "callee": "post",
+          "lineNumber": 90
+        },
+        {
+          "caller": "clearSession",
+          "callee": "AsyncTaskPool::getInstance",
+          "lineNumber": 90
+        },
+        {
+          "caller": "clearSession",
+          "callee": "reportDisconnect",
+          "lineNumber": 92
+        },
+        {
+          "caller": "clearSession",
+          "callee": "StatusGrpcClient::getInstance",
+          "lineNumber": 92
+        },
+        {
+          "caller": "clearSession",
+          "callee": "LOG_ERROR",
+          "lineNumber": 94
+        },
+        {
+          "caller": "addUidSession",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 103
+        },
+        {
+          "caller": "removeUidSession",
+          "callee": "erase",
+          "lineNumber": 108
+        },
+        {
+          "caller": "removeUidSession",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 109
+        },
+        {
+          "caller": "getSessionByUid",
+          "callee": "find",
+          "lineNumber": 115
+        },
+        {
+          "caller": "getSessionByUid",
+          "callee": "end",
+          "lineNumber": 116
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 8,
+        "functionCount": 9,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/MainServer.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 38,
+      "nonEmptyLines": 33,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/MySQLConnectPool.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 97,
+      "nonEmptyLines": 89,
+      "functions": [
+        {
+          "name": "MySQLConnectPool",
+          "startLine": 5,
+          "endLine": 22,
+          "params": [
+            "pool_size",
+            "url",
+            "user",
+            "password",
+            "dbName"
+          ]
+        },
+        {
+          "name": "~MySQLConnectPool",
+          "startLine": 24,
+          "endLine": 27,
+          "params": []
+        },
+        {
+          "name": "checkLoop",
+          "startLine": 29,
+          "endLine": 35,
+          "params": []
+        },
+        {
+          "name": "stop",
+          "startLine": 37,
+          "endLine": 48,
+          "params": []
+        },
+        {
+          "name": "checkConnection",
+          "startLine": 50,
+          "endLine": 78,
+          "params": []
+        },
+        {
+          "name": "getConnection",
+          "startLine": 80,
+          "endLine": 89,
+          "params": []
+        },
+        {
+          "name": "returnConnection",
+          "startLine": 91,
+          "endLine": 97,
+          "params": [
+            "connection"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "MySQLConnectPool",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "~MySQLConnectPool",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "checkLoop",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "stop",
+          "line": 37,
+          "isDefault": false
+        },
+        {
+          "name": "checkConnection",
+          "line": 50,
+          "isDefault": false
+        },
+        {
+          "name": "getConnection",
+          "line": 80,
+          "isDefault": false
+        },
+        {
+          "name": "returnConnection",
+          "line": 91,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "MySQLConnectPool",
+          "callee": "std::move",
+          "lineNumber": 6
+        },
+        {
+          "caller": "MySQLConnectPool",
+          "callee": "std::move",
+          "lineNumber": 6
+        },
+        {
+          "caller": "MySQLConnectPool",
+          "callee": "std::move",
+          "lineNumber": 6
+        },
+        {
+          "caller": "MySQLConnectPool",
+          "callee": "std::move",
+          "lineNumber": 6
+        },
+        {
+          "caller": "MySQLConnectPool",
+          "callee": "store",
+          "lineNumber": 8
+        },
+        {
+          "caller": "MySQLConnectPool",
+          "callee": "sql::mysql::get_driver_instance",
+          "lineNumber": 11
+        },
+        {
+          "caller": "MySQLConnectPool",
+          "callee": "connect",
+          "lineNumber": 12
+        },
+        {
+          "caller": "MySQLConnectPool",
+          "callee": "setSchema",
+          "lineNumber": 13
+        },
+        {
+          "caller": "MySQLConnectPool",
+          "callee": "time_since_epoch",
+          "lineNumber": 14
+        },
+        {
+          "caller": "MySQLConnectPool",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 14
+        },
+        {
+          "caller": "MySQLConnectPool",
+          "callee": "count",
+          "lineNumber": 15
+        },
+        {
+          "caller": "MySQLConnectPool",
+          "callee": "std::chrono::duration_cast<std::chrono::seconds>",
+          "lineNumber": 15
+        },
+        {
+          "caller": "MySQLConnectPool",
+          "callee": "emplace",
+          "lineNumber": 16
+        },
+        {
+          "caller": "MySQLConnectPool",
+          "callee": "std::make_unique<SqlConnection>",
+          "lineNumber": 16
+        },
+        {
+          "caller": "MySQLConnectPool",
+          "callee": "std::thread",
+          "lineNumber": 18
+        },
+        {
+          "caller": "MySQLConnectPool",
+          "callee": "LOG_ERROR",
+          "lineNumber": 20
+        },
+        {
+          "caller": "MySQLConnectPool",
+          "callee": "what",
+          "lineNumber": 20
+        },
+        {
+          "caller": "~MySQLConnectPool",
+          "callee": "stop",
+          "lineNumber": 25
+        },
+        {
+          "caller": "~MySQLConnectPool",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 26
+        },
+        {
+          "caller": "checkLoop",
+          "callee": "load",
+          "lineNumber": 30
+        },
+        {
+          "caller": "checkLoop",
+          "callee": "checkConnection",
+          "lineNumber": 31
+        },
+        {
+          "caller": "checkLoop",
+          "callee": "std::this_thread::sleep_for",
+          "lineNumber": 33
+        },
+        {
+          "caller": "checkLoop",
+          "callee": "std::chrono::seconds",
+          "lineNumber": 33
+        },
+        {
+          "caller": "stop",
+          "callee": "notify_all",
+          "lineNumber": 41
+        },
+        {
+          "caller": "stop",
+          "callee": "joinable",
+          "lineNumber": 42
+        },
+        {
+          "caller": "stop",
+          "callee": "join",
+          "lineNumber": 43
+        },
+        {
+          "caller": "stop",
+          "callee": "empty",
+          "lineNumber": 45
+        },
+        {
+          "caller": "stop",
+          "callee": "pop",
+          "lineNumber": 46
+        },
+        {
+          "caller": "checkConnection",
+          "callee": "time_since_epoch",
+          "lineNumber": 52
+        },
+        {
+          "caller": "checkConnection",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 52
+        },
+        {
+          "caller": "checkConnection",
+          "callee": "count",
+          "lineNumber": 53
+        },
+        {
+          "caller": "checkConnection",
+          "callee": "std::chrono::duration_cast<std::chrono::seconds>",
+          "lineNumber": 53
+        },
+        {
+          "caller": "checkConnection",
+          "callee": "std::move",
+          "lineNumber": 55
+        },
+        {
+          "caller": "checkConnection",
+          "callee": "front",
+          "lineNumber": 55
+        },
+        {
+          "caller": "checkConnection",
+          "callee": "pop",
+          "lineNumber": 56
+        },
+        {
+          "caller": "checkConnection",
+          "callee": "push",
+          "lineNumber": 58
+        },
+        {
+          "caller": "checkConnection",
+          "callee": "std::move",
+          "lineNumber": 58
+        },
+        {
+          "caller": "checkConnection",
+          "callee": "getLastTime",
+          "lineNumber": 61
+        },
+        {
+          "caller": "checkConnection",
+          "callee": "createStatement",
+          "lineNumber": 65
+        },
+        {
+          "caller": "checkConnection",
+          "callee": "getConn",
+          "lineNumber": 65
+        },
+        {
+          "caller": "checkConnection",
+          "callee": "executeQuery",
+          "lineNumber": 66
+        },
+        {
+          "caller": "checkConnection",
+          "callee": "setLastTime",
+          "lineNumber": 67
+        },
+        {
+          "caller": "checkConnection",
+          "callee": "LOG_ERROR",
+          "lineNumber": 69
+        },
+        {
+          "caller": "checkConnection",
+          "callee": "what",
+          "lineNumber": 69
+        },
+        {
+          "caller": "checkConnection",
+          "callee": "sql::mysql::get_driver_instance",
+          "lineNumber": 71
+        },
+        {
+          "caller": "checkConnection",
+          "callee": "connect",
+          "lineNumber": 72
+        },
+        {
+          "caller": "checkConnection",
+          "callee": "setSchema",
+          "lineNumber": 73
+        },
+        {
+          "caller": "checkConnection",
+          "callee": "reset",
+          "lineNumber": 74
+        },
+        {
+          "caller": "checkConnection",
+          "callee": "getConn",
+          "lineNumber": 74
+        },
+        {
+          "caller": "checkConnection",
+          "callee": "setLastTime",
+          "lineNumber": 75
+        },
+        {
+          "caller": "getConnection",
+          "callee": "wait_for",
+          "lineNumber": 82
+        },
+        {
+          "caller": "getConnection",
+          "callee": "std::chrono::seconds",
+          "lineNumber": 82
+        },
+        {
+          "caller": "getConnection",
+          "callee": "empty",
+          "lineNumber": 82
+        },
+        {
+          "caller": "getConnection",
+          "callee": "std::move",
+          "lineNumber": 86
+        },
+        {
+          "caller": "getConnection",
+          "callee": "front",
+          "lineNumber": 86
+        },
+        {
+          "caller": "getConnection",
+          "callee": "pop",
+          "lineNumber": 87
+        },
+        {
+          "caller": "returnConnection",
+          "callee": "push",
+          "lineNumber": 94
+        },
+        {
+          "caller": "returnConnection",
+          "callee": "std::move",
+          "lineNumber": 94
+        },
+        {
+          "caller": "returnConnection",
+          "callee": "notify_one",
+          "lineNumber": 95
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 7,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/MySQLConnectPool.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 78,
+      "nonEmptyLines": 71,
+      "callGraph": [
+        {
+          "caller": "ConnectionGuard",
+          "callee": "std::move",
+          "lineNumber": 60
+        },
+        {
+          "caller": "~ConnectionGuard",
+          "callee": "returnConnection",
+          "lineNumber": 63
+        },
+        {
+          "caller": "~ConnectionGuard",
+          "callee": "std::move",
+          "lineNumber": 63
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/MySQLDao.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 157,
+      "nonEmptyLines": 149,
+      "functions": [
+        {
+          "name": "MySQLDao",
+          "startLine": 5,
+          "endLine": 13,
+          "params": []
+        },
+        {
+          "name": "~MySQLDao",
+          "startLine": 15,
+          "endLine": 17,
+          "params": []
+        },
+        {
+          "name": "checkLogin",
+          "startLine": 19,
+          "endLine": 49,
+          "params": [
+            "email",
+            "password",
+            "userinfo"
+          ]
+        },
+        {
+          "name": "getUser",
+          "startLine": 51,
+          "endLine": 77,
+          "params": [
+            "uid"
+          ]
+        },
+        {
+          "name": "getUsersByTeam",
+          "startLine": 79,
+          "endLine": 95,
+          "params": [
+            "teamId"
+          ]
+        },
+        {
+          "name": "insertMessage",
+          "startLine": 97,
+          "endLine": 112,
+          "params": [
+            "uid",
+            "type",
+            "title",
+            "content"
+          ]
+        },
+        {
+          "name": "markMessagesRead",
+          "startLine": 114,
+          "endLine": 139,
+          "params": [
+            "uid",
+            "ids"
+          ]
+        },
+        {
+          "name": "deleteMessages",
+          "startLine": 141,
+          "endLine": 157,
+          "params": [
+            "uid",
+            "ids"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "MySQLDao",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "~MySQLDao",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "checkLogin",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "getUser",
+          "line": 51,
+          "isDefault": false
+        },
+        {
+          "name": "getUsersByTeam",
+          "line": 79,
+          "isDefault": false
+        },
+        {
+          "name": "insertMessage",
+          "line": 97,
+          "isDefault": false
+        },
+        {
+          "name": "markMessagesRead",
+          "line": 114,
+          "isDefault": false
+        },
+        {
+          "name": "deleteMessages",
+          "line": 141,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "MySQLDao",
+          "callee": "ConfigManager::getInstance",
+          "lineNumber": 6
+        },
+        {
+          "caller": "MySQLDao",
+          "callee": "std::make_unique<MySQLConnectPool>",
+          "lineNumber": 12
+        },
+        {
+          "caller": "~MySQLDao",
+          "callee": "stop",
+          "lineNumber": 16
+        },
+        {
+          "caller": "checkLogin",
+          "callee": "ConnectionGuard",
+          "lineNumber": 20
+        },
+        {
+          "caller": "checkLogin",
+          "callee": "getConnection",
+          "lineNumber": 20
+        },
+        {
+          "caller": "checkLogin",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 22
+        },
+        {
+          "caller": "checkLogin",
+          "callee": "getConn",
+          "lineNumber": 23
+        },
+        {
+          "caller": "checkLogin",
+          "callee": "get",
+          "lineNumber": 23
+        },
+        {
+          "caller": "checkLogin",
+          "callee": "prepareStatement",
+          "lineNumber": 25
+        },
+        {
+          "caller": "checkLogin",
+          "callee": "setString",
+          "lineNumber": 26
+        },
+        {
+          "caller": "checkLogin",
+          "callee": "setString",
+          "lineNumber": 27
+        },
+        {
+          "caller": "checkLogin",
+          "callee": "executeQuery",
+          "lineNumber": 28
+        },
+        {
+          "caller": "checkLogin",
+          "callee": "next",
+          "lineNumber": 29
+        },
+        {
+          "caller": "checkLogin",
+          "callee": "LOG_ERROR",
+          "lineNumber": 30
+        },
+        {
+          "caller": "checkLogin",
+          "callee": "getString",
+          "lineNumber": 34
+        },
+        {
+          "caller": "checkLogin",
+          "callee": "getInt",
+          "lineNumber": 36
+        },
+        {
+          "caller": "checkLogin",
+          "callee": "getInt",
+          "lineNumber": 37
+        },
+        {
+          "caller": "checkLogin",
+          "callee": "isNull",
+          "lineNumber": 38
+        },
+        {
+          "caller": "checkLogin",
+          "callee": "getInt",
+          "lineNumber": 38
+        },
+        {
+          "caller": "checkLogin",
+          "callee": "isNull",
+          "lineNumber": 39
+        },
+        {
+          "caller": "checkLogin",
+          "callee": "getInt",
+          "lineNumber": 39
+        },
+        {
+          "caller": "checkLogin",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 40
+        },
+        {
+          "caller": "checkLogin",
+          "callee": "LOG_ERROR",
+          "lineNumber": 44
+        },
+        {
+          "caller": "checkLogin",
+          "callee": "what",
+          "lineNumber": 44
+        },
+        {
+          "caller": "checkLogin",
+          "callee": "LOG_ERROR",
+          "lineNumber": 45
+        },
+        {
+          "caller": "checkLogin",
+          "callee": "getErrorCode",
+          "lineNumber": 45
+        },
+        {
+          "caller": "checkLogin",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 46
+        },
+        {
+          "caller": "checkLogin",
+          "callee": "getSQLState",
+          "lineNumber": 46
+        },
+        {
+          "caller": "getUser",
+          "callee": "ConnectionGuard",
+          "lineNumber": 52
+        },
+        {
+          "caller": "getUser",
+          "callee": "getConnection",
+          "lineNumber": 52
+        },
+        {
+          "caller": "getUser",
+          "callee": "getConn",
+          "lineNumber": 54
+        },
+        {
+          "caller": "getUser",
+          "callee": "get",
+          "lineNumber": 54
+        },
+        {
+          "caller": "getUser",
+          "callee": "prepareStatement",
+          "lineNumber": 56
+        },
+        {
+          "caller": "getUser",
+          "callee": "setInt",
+          "lineNumber": 57
+        },
+        {
+          "caller": "getUser",
+          "callee": "executeQuery",
+          "lineNumber": 58
+        },
+        {
+          "caller": "getUser",
+          "callee": "next",
+          "lineNumber": 60
+        },
+        {
+          "caller": "getUser",
+          "callee": "std::make_shared<UserInfo>",
+          "lineNumber": 61
+        },
+        {
+          "caller": "getUser",
+          "callee": "getString",
+          "lineNumber": 63
+        },
+        {
+          "caller": "getUser",
+          "callee": "getString",
+          "lineNumber": 64
+        },
+        {
+          "caller": "getUser",
+          "callee": "getInt",
+          "lineNumber": 65
+        },
+        {
+          "caller": "getUser",
+          "callee": "isNull",
+          "lineNumber": 66
+        },
+        {
+          "caller": "getUser",
+          "callee": "getInt",
+          "lineNumber": 66
+        },
+        {
+          "caller": "getUser",
+          "callee": "isNull",
+          "lineNumber": 67
+        },
+        {
+          "caller": "getUser",
+          "callee": "getInt",
+          "lineNumber": 67
+        },
+        {
+          "caller": "getUser",
+          "callee": "LOG_ERROR",
+          "lineNumber": 72
+        },
+        {
+          "caller": "getUser",
+          "callee": "what",
+          "lineNumber": 72
+        },
+        {
+          "caller": "getUser",
+          "callee": "LOG_ERROR",
+          "lineNumber": 73
+        },
+        {
+          "caller": "getUser",
+          "callee": "getErrorCode",
+          "lineNumber": 73
+        },
+        {
+          "caller": "getUser",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 74
+        },
+        {
+          "caller": "getUser",
+          "callee": "getSQLState",
+          "lineNumber": 74
+        },
+        {
+          "caller": "getUsersByTeam",
+          "callee": "ConnectionGuard",
+          "lineNumber": 80
+        },
+        {
+          "caller": "getUsersByTeam",
+          "callee": "getConnection",
+          "lineNumber": 80
+        },
+        {
+          "caller": "getUsersByTeam",
+          "callee": "getConn",
+          "lineNumber": 83
+        },
+        {
+          "caller": "getUsersByTeam",
+          "callee": "get",
+          "lineNumber": 83
+        },
+        {
+          "caller": "getUsersByTeam",
+          "callee": "prepareStatement",
+          "lineNumber": 85
+        },
+        {
+          "caller": "getUsersByTeam",
+          "callee": "setInt",
+          "lineNumber": 86
+        },
+        {
+          "caller": "getUsersByTeam",
+          "callee": "executeQuery",
+          "lineNumber": 87
+        },
+        {
+          "caller": "getUsersByTeam",
+          "callee": "next",
+          "lineNumber": 88
+        },
+        {
+          "caller": "getUsersByTeam",
+          "callee": "push_back",
+          "lineNumber": 89
+        },
+        {
+          "caller": "getUsersByTeam",
+          "callee": "getInt",
+          "lineNumber": 89
+        },
+        {
+          "caller": "getUsersByTeam",
+          "callee": "LOG_ERROR",
+          "lineNumber": 92
+        },
+        {
+          "caller": "getUsersByTeam",
+          "callee": "what",
+          "lineNumber": 92
+        },
+        {
+          "caller": "insertMessage",
+          "callee": "ConnectionGuard",
+          "lineNumber": 98
+        },
+        {
+          "caller": "insertMessage",
+          "callee": "getConnection",
+          "lineNumber": 98
+        },
+        {
+          "caller": "insertMessage",
+          "callee": "getConn",
+          "lineNumber": 100
+        },
+        {
+          "caller": "insertMessage",
+          "callee": "get",
+          "lineNumber": 100
+        },
+        {
+          "caller": "insertMessage",
+          "callee": "prepareStatement",
+          "lineNumber": 102
+        },
+        {
+          "caller": "insertMessage",
+          "callee": "setInt",
+          "lineNumber": 103
+        },
+        {
+          "caller": "insertMessage",
+          "callee": "setString",
+          "lineNumber": 104
+        },
+        {
+          "caller": "insertMessage",
+          "callee": "setString",
+          "lineNumber": 105
+        },
+        {
+          "caller": "insertMessage",
+          "callee": "setString",
+          "lineNumber": 106
+        },
+        {
+          "caller": "insertMessage",
+          "callee": "executeUpdate",
+          "lineNumber": 107
+        },
+        {
+          "caller": "insertMessage",
+          "callee": "LOG_ERROR",
+          "lineNumber": 109
+        },
+        {
+          "caller": "insertMessage",
+          "callee": "what",
+          "lineNumber": 109
+        },
+        {
+          "caller": "markMessagesRead",
+          "callee": "ConnectionGuard",
+          "lineNumber": 115
+        },
+        {
+          "caller": "markMessagesRead",
+          "callee": "getConnection",
+          "lineNumber": 115
+        },
+        {
+          "caller": "markMessagesRead",
+          "callee": "getConn",
+          "lineNumber": 117
+        },
+        {
+          "caller": "markMessagesRead",
+          "callee": "get",
+          "lineNumber": 117
+        },
+        {
+          "caller": "markMessagesRead",
+          "callee": "empty",
+          "lineNumber": 118
+        },
+        {
+          "caller": "markMessagesRead",
+          "callee": "prepareStatement",
+          "lineNumber": 121
+        },
+        {
+          "caller": "markMessagesRead",
+          "callee": "setInt",
+          "lineNumber": 122
+        },
+        {
+          "caller": "markMessagesRead",
+          "callee": "executeUpdate",
+          "lineNumber": 123
+        },
+        {
+          "caller": "markMessagesRead",
+          "callee": "prepareStatement",
+          "lineNumber": 128
+        },
+        {
+          "caller": "markMessagesRead",
+          "callee": "setInt64",
+          "lineNumber": 129
+        },
+        {
+          "caller": "markMessagesRead",
+          "callee": "setInt",
+          "lineNumber": 130
+        },
+        {
+          "caller": "markMessagesRead",
+          "callee": "executeUpdate",
+          "lineNumber": 131
+        },
+        {
+          "caller": "markMessagesRead",
+          "callee": "LOG_ERROR",
+          "lineNumber": 136
+        },
+        {
+          "caller": "markMessagesRead",
+          "callee": "what",
+          "lineNumber": 136
+        },
+        {
+          "caller": "deleteMessages",
+          "callee": "ConnectionGuard",
+          "lineNumber": 142
+        },
+        {
+          "caller": "deleteMessages",
+          "callee": "getConnection",
+          "lineNumber": 142
+        },
+        {
+          "caller": "deleteMessages",
+          "callee": "getConn",
+          "lineNumber": 144
+        },
+        {
+          "caller": "deleteMessages",
+          "callee": "get",
+          "lineNumber": 144
+        },
+        {
+          "caller": "deleteMessages",
+          "callee": "prepareStatement",
+          "lineNumber": 147
+        },
+        {
+          "caller": "deleteMessages",
+          "callee": "setInt64",
+          "lineNumber": 148
+        },
+        {
+          "caller": "deleteMessages",
+          "callee": "setInt",
+          "lineNumber": 149
+        },
+        {
+          "caller": "deleteMessages",
+          "callee": "executeUpdate",
+          "lineNumber": 150
+        },
+        {
+          "caller": "deleteMessages",
+          "callee": "LOG_ERROR",
+          "lineNumber": 154
+        },
+        {
+          "caller": "deleteMessages",
+          "callee": "what",
+          "lineNumber": 154
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 8,
+        "functionCount": 8,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/MySQLDao.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 22,
+      "nonEmptyLines": 19,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/MySQLManager.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 30,
+      "nonEmptyLines": 23,
+      "functions": [
+        {
+          "name": "MySQLManager",
+          "startLine": 3,
+          "endLine": 5,
+          "params": []
+        },
+        {
+          "name": "checkLogin",
+          "startLine": 7,
+          "endLine": 9,
+          "params": [
+            "email",
+            "password",
+            "userinfo"
+          ]
+        },
+        {
+          "name": "getUser",
+          "startLine": 11,
+          "endLine": 14,
+          "params": [
+            "uid"
+          ]
+        },
+        {
+          "name": "getUsersByTeam",
+          "startLine": 16,
+          "endLine": 18,
+          "params": [
+            "teamId"
+          ]
+        },
+        {
+          "name": "insertMessage",
+          "startLine": 20,
+          "endLine": 22,
+          "params": [
+            "uid",
+            "type",
+            "title",
+            "content"
+          ]
+        },
+        {
+          "name": "markMessagesRead",
+          "startLine": 24,
+          "endLine": 26,
+          "params": [
+            "uid",
+            "ids"
+          ]
+        },
+        {
+          "name": "deleteMessages",
+          "startLine": 28,
+          "endLine": 30,
+          "params": [
+            "uid",
+            "ids"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "MySQLManager",
+          "line": 3,
+          "isDefault": false
+        },
+        {
+          "name": "checkLogin",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "getUser",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "getUsersByTeam",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "insertMessage",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "markMessagesRead",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "deleteMessages",
+          "line": 28,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "MySQLManager",
+          "callee": "std::make_unique<MySQLDao>",
+          "lineNumber": 4
+        },
+        {
+          "caller": "checkLogin",
+          "callee": "checkLogin",
+          "lineNumber": 8
+        },
+        {
+          "caller": "getUser",
+          "callee": "getUser",
+          "lineNumber": 12
+        },
+        {
+          "caller": "getUsersByTeam",
+          "callee": "getUsersByTeam",
+          "lineNumber": 17
+        },
+        {
+          "caller": "insertMessage",
+          "callee": "insertMessage",
+          "lineNumber": 21
+        },
+        {
+          "caller": "markMessagesRead",
+          "callee": "markMessagesRead",
+          "lineNumber": 25
+        },
+        {
+          "caller": "deleteMessages",
+          "callee": "deleteMessages",
+          "lineNumber": 29
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 7,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/MySQLManager.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 26,
+      "nonEmptyLines": 22,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/PushGrpcServiceImpl.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 249,
+      "nonEmptyLines": 213,
+      "functions": [
+        {
+          "name": "setGlobalMainServer",
+          "startLine": 18,
+          "endLine": 18,
+          "params": [
+            "server"
+          ]
+        },
+        {
+          "name": "setGlobalGrpcPort",
+          "startLine": 19,
+          "endLine": 19,
+          "params": [
+            "port"
+          ]
+        },
+        {
+          "name": "parseNodeValue",
+          "startLine": 22,
+          "endLine": 31,
+          "params": [
+            "val",
+            "host",
+            "ws_port",
+            "grpc_port"
+          ]
+        },
+        {
+          "name": "generate_lock_owner",
+          "startLine": 33,
+          "endLine": 36,
+          "params": []
+        },
+        {
+          "name": "pushMessageToUser",
+          "startLine": 39,
+          "endLine": 119,
+          "params": [
+            "uid",
+            "msgType",
+            "title",
+            "payload"
+          ]
+        },
+        {
+          "name": "PushToUser",
+          "startLine": 121,
+          "endLine": 136,
+          "params": [
+            "context",
+            "req",
+            "resp"
+          ]
+        },
+        {
+          "name": "PushToTeam",
+          "startLine": 138,
+          "endLine": 164,
+          "params": [
+            "context",
+            "req",
+            "resp"
+          ]
+        },
+        {
+          "name": "GetMessages",
+          "startLine": 166,
+          "endLine": 208,
+          "params": [
+            "context",
+            "req",
+            "resp"
+          ]
+        },
+        {
+          "name": "MarkRead",
+          "startLine": 210,
+          "endLine": 235,
+          "params": [
+            "context",
+            "req",
+            "resp"
+          ]
+        },
+        {
+          "name": "DeleteMessage",
+          "startLine": 237,
+          "endLine": 249,
+          "params": [
+            "context",
+            "req",
+            "resp"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "setGlobalMainServer",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "setGlobalGrpcPort",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "PushToUser",
+          "line": 121,
+          "isDefault": false
+        },
+        {
+          "name": "PushToTeam",
+          "line": 138,
+          "isDefault": false
+        },
+        {
+          "name": "GetMessages",
+          "line": 166,
+          "isDefault": false
+        },
+        {
+          "name": "MarkRead",
+          "line": 210,
+          "isDefault": false
+        },
+        {
+          "name": "DeleteMessage",
+          "line": 237,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "parseNodeValue",
+          "callee": "find",
+          "lineNumber": 23
+        },
+        {
+          "caller": "parseNodeValue",
+          "callee": "find",
+          "lineNumber": 25
+        },
+        {
+          "caller": "parseNodeValue",
+          "callee": "substr",
+          "lineNumber": 27
+        },
+        {
+          "caller": "parseNodeValue",
+          "callee": "substr",
+          "lineNumber": 28
+        },
+        {
+          "caller": "parseNodeValue",
+          "callee": "substr",
+          "lineNumber": 29
+        },
+        {
+          "caller": "parseNodeValue",
+          "callee": "empty",
+          "lineNumber": 30
+        },
+        {
+          "caller": "parseNodeValue",
+          "callee": "empty",
+          "lineNumber": 30
+        },
+        {
+          "caller": "generate_lock_owner",
+          "callee": "boost::uuids::random_generator()",
+          "lineNumber": 34
+        },
+        {
+          "caller": "generate_lock_owner",
+          "callee": "boost::uuids::random_generator",
+          "lineNumber": 34
+        },
+        {
+          "caller": "generate_lock_owner",
+          "callee": "boost::uuids::to_string",
+          "lineNumber": 35
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "insertMessage",
+          "lineNumber": 43
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "MySQLManager::getInstance",
+          "lineNumber": 43
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "std::to_string",
+          "lineNumber": 46
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "std::chrono::system_clock::now",
+          "lineNumber": 52
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "std::chrono::system_clock::to_time_t",
+          "lineNumber": 53
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "strftime",
+          "lineNumber": 55
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "localtime",
+          "lineNumber": 55
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "toStyledString",
+          "lineNumber": 58
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "generate_lock_owner",
+          "lineNumber": 62
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "acquireLockWithRetry",
+          "lineNumber": 63
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "RedisManager::getInstance",
+          "lineNumber": 63
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "pushMessageAtomic",
+          "lineNumber": 64
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "RedisManager::getInstance",
+          "lineNumber": 64
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "releaseLock",
+          "lineNumber": 65
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "RedisManager::getInstance",
+          "lineNumber": 65
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "LOG_ERROR",
+          "lineNumber": 67
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "getSessionByUid",
+          "lineNumber": 72
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "send",
+          "lineNumber": 79
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "toStyledString",
+          "lineNumber": 79
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "get",
+          "lineNumber": 87
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "RedisManager::getInstance",
+          "lineNumber": 87
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "empty",
+          "lineNumber": 87
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "parseNodeValue",
+          "lineNumber": 89
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "getStub",
+          "lineNumber": 92
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "PushNodeManager::getInstance",
+          "lineNumber": 92
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "set_deadline",
+          "lineNumber": 95
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "std::chrono::system_clock::now",
+          "lineNumber": 95
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "std::chrono::seconds",
+          "lineNumber": 95
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "set_uid",
+          "lineNumber": 98
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "set_msg_type",
+          "lineNumber": 99
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "set_title",
+          "lineNumber": 100
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "set_payload",
+          "lineNumber": 101
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "PushToUser",
+          "lineNumber": 102
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "returnStub",
+          "lineNumber": 103
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "PushNodeManager::getInstance",
+          "lineNumber": 103
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "std::move",
+          "lineNumber": 103
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "ok",
+          "lineNumber": 104
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "error",
+          "lineNumber": 104
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "delivered",
+          "lineNumber": 105
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "LOG_INFO",
+          "lineNumber": 106
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "LOG_ERROR",
+          "lineNumber": 109
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "ok",
+          "lineNumber": 109
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "error_message",
+          "lineNumber": 109
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "LOG_ERROR",
+          "lineNumber": 112
+        },
+        {
+          "caller": "pushMessageToUser",
+          "callee": "what",
+          "lineNumber": 112
+        },
+        {
+          "caller": "PushToUser",
+          "callee": "uid",
+          "lineNumber": 123
+        },
+        {
+          "caller": "PushToUser",
+          "callee": "msg_type",
+          "lineNumber": 124
+        },
+        {
+          "caller": "PushToUser",
+          "callee": "title",
+          "lineNumber": 125
+        },
+        {
+          "caller": "PushToUser",
+          "callee": "payload",
+          "lineNumber": 126
+        },
+        {
+          "caller": "PushToUser",
+          "callee": "LOG_INFO",
+          "lineNumber": 128
+        },
+        {
+          "caller": "PushToUser",
+          "callee": "pushMessageToUser",
+          "lineNumber": 131
+        },
+        {
+          "caller": "PushToUser",
+          "callee": "set_error",
+          "lineNumber": 133
+        },
+        {
+          "caller": "PushToUser",
+          "callee": "static_cast<int>",
+          "lineNumber": 133
+        },
+        {
+          "caller": "PushToUser",
+          "callee": "set_delivered",
+          "lineNumber": 134
+        },
+        {
+          "caller": "PushToTeam",
+          "callee": "team_id",
+          "lineNumber": 140
+        },
+        {
+          "caller": "PushToTeam",
+          "callee": "exclude_uid",
+          "lineNumber": 141
+        },
+        {
+          "caller": "PushToTeam",
+          "callee": "msg_type",
+          "lineNumber": 142
+        },
+        {
+          "caller": "PushToTeam",
+          "callee": "title",
+          "lineNumber": 143
+        },
+        {
+          "caller": "PushToTeam",
+          "callee": "payload",
+          "lineNumber": 144
+        },
+        {
+          "caller": "PushToTeam",
+          "callee": "LOG_INFO",
+          "lineNumber": 146
+        },
+        {
+          "caller": "PushToTeam",
+          "callee": "getUsersByTeam",
+          "lineNumber": 148
+        },
+        {
+          "caller": "PushToTeam",
+          "callee": "MySQLManager::getInstance",
+          "lineNumber": 148
+        },
+        {
+          "caller": "PushToTeam",
+          "callee": "pushMessageToUser",
+          "lineNumber": 155
+        },
+        {
+          "caller": "PushToTeam",
+          "callee": "set_error",
+          "lineNumber": 160
+        },
+        {
+          "caller": "PushToTeam",
+          "callee": "set_delivered_count",
+          "lineNumber": 161
+        },
+        {
+          "caller": "PushToTeam",
+          "callee": "set_cached_count",
+          "lineNumber": 162
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "uid",
+          "lineNumber": 168
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "page",
+          "lineNumber": 169
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "page",
+          "lineNumber": 169
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "page_size",
+          "lineNumber": 170
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "page_size",
+          "lineNumber": 170
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "LOG_INFO",
+          "lineNumber": 173
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "std::to_string",
+          "lineNumber": 176
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "get",
+          "lineNumber": 179
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "RedisManager::getInstance",
+          "lineNumber": 179
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "std::stol",
+          "lineNumber": 180
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "set_unread_count",
+          "lineNumber": 182
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "static_cast<int32_t>",
+          "lineNumber": 182
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "lrange",
+          "lineNumber": 186
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "RedisManager::getInstance",
+          "lineNumber": 186
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "static_cast<int>",
+          "lineNumber": 188
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "size",
+          "lineNumber": 188
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "set_total",
+          "lineNumber": 189
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "parse",
+          "lineNumber": 195
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "add_messages",
+          "lineNumber": 196
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "set_id",
+          "lineNumber": 197
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "set_msg_type",
+          "lineNumber": 198
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "asString",
+          "lineNumber": 198
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "get",
+          "lineNumber": 198
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "set_title",
+          "lineNumber": 199
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "asString",
+          "lineNumber": 199
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "get",
+          "lineNumber": 199
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "set_content",
+          "lineNumber": 200
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "asString",
+          "lineNumber": 200
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "get",
+          "lineNumber": 200
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "set_is_read",
+          "lineNumber": 201
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "asInt",
+          "lineNumber": 201
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "get",
+          "lineNumber": 201
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "set_created_at",
+          "lineNumber": 202
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "asString",
+          "lineNumber": 202
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "get",
+          "lineNumber": 202
+        },
+        {
+          "caller": "GetMessages",
+          "callee": "set_error",
+          "lineNumber": 206
+        },
+        {
+          "caller": "MarkRead",
+          "callee": "uid",
+          "lineNumber": 212
+        },
+        {
+          "caller": "MarkRead",
+          "callee": "LOG_INFO",
+          "lineNumber": 213
+        },
+        {
+          "caller": "MarkRead",
+          "callee": "ids_size",
+          "lineNumber": 213
+        },
+        {
+          "caller": "MarkRead",
+          "callee": "ids_size",
+          "lineNumber": 216
+        },
+        {
+          "caller": "MarkRead",
+          "callee": "push_back",
+          "lineNumber": 216
+        },
+        {
+          "caller": "MarkRead",
+          "callee": "ids",
+          "lineNumber": 216
+        },
+        {
+          "caller": "MarkRead",
+          "callee": "markMessagesRead",
+          "lineNumber": 219
+        },
+        {
+          "caller": "MarkRead",
+          "callee": "MySQLManager::getInstance",
+          "lineNumber": 219
+        },
+        {
+          "caller": "MarkRead",
+          "callee": "std::to_string",
+          "lineNumber": 222
+        },
+        {
+          "caller": "MarkRead",
+          "callee": "generate_lock_owner",
+          "lineNumber": 224
+        },
+        {
+          "caller": "MarkRead",
+          "callee": "acquireLockWithRetry",
+          "lineNumber": 225
+        },
+        {
+          "caller": "MarkRead",
+          "callee": "RedisManager::getInstance",
+          "lineNumber": 225
+        },
+        {
+          "caller": "MarkRead",
+          "callee": "empty",
+          "lineNumber": 226
+        },
+        {
+          "caller": "MarkRead",
+          "callee": "static_cast<int>",
+          "lineNumber": 226
+        },
+        {
+          "caller": "MarkRead",
+          "callee": "size",
+          "lineNumber": 226
+        },
+        {
+          "caller": "MarkRead",
+          "callee": "markReadAtomic",
+          "lineNumber": 227
+        },
+        {
+          "caller": "MarkRead",
+          "callee": "RedisManager::getInstance",
+          "lineNumber": 227
+        },
+        {
+          "caller": "MarkRead",
+          "callee": "releaseLock",
+          "lineNumber": 228
+        },
+        {
+          "caller": "MarkRead",
+          "callee": "RedisManager::getInstance",
+          "lineNumber": 228
+        },
+        {
+          "caller": "MarkRead",
+          "callee": "LOG_ERROR",
+          "lineNumber": 230
+        },
+        {
+          "caller": "MarkRead",
+          "callee": "set_error",
+          "lineNumber": 233
+        },
+        {
+          "caller": "DeleteMessage",
+          "callee": "uid",
+          "lineNumber": 239
+        },
+        {
+          "caller": "DeleteMessage",
+          "callee": "LOG_INFO",
+          "lineNumber": 240
+        },
+        {
+          "caller": "DeleteMessage",
+          "callee": "ids_size",
+          "lineNumber": 240
+        },
+        {
+          "caller": "DeleteMessage",
+          "callee": "ids_size",
+          "lineNumber": 243
+        },
+        {
+          "caller": "DeleteMessage",
+          "callee": "push_back",
+          "lineNumber": 243
+        },
+        {
+          "caller": "DeleteMessage",
+          "callee": "ids",
+          "lineNumber": 243
+        },
+        {
+          "caller": "DeleteMessage",
+          "callee": "deleteMessages",
+          "lineNumber": 245
+        },
+        {
+          "caller": "DeleteMessage",
+          "callee": "MySQLManager::getInstance",
+          "lineNumber": 245
+        },
+        {
+          "caller": "DeleteMessage",
+          "callee": "set_error",
+          "lineNumber": 247
+        }
+      ],
+      "metrics": {
+        "importCount": 8,
+        "exportCount": 7,
+        "functionCount": 10,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/PushGrpcServiceImpl.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 40,
+      "nonEmptyLines": 33,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/PushServerMain.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 103,
+      "nonEmptyLines": 89,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 21,
+          "endLine": 103,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 21,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "ConfigManager::getInstance",
+          "lineNumber": 23
+        },
+        {
+          "caller": "main",
+          "callee": "Logger::getInstance",
+          "lineNumber": 30
+        },
+        {
+          "caller": "main",
+          "callee": "setRemoteFlushCallback",
+          "lineNumber": 32
+        },
+        {
+          "caller": "main",
+          "callee": "Logger::getInstance",
+          "lineNumber": 32
+        },
+        {
+          "caller": "main",
+          "callee": "set_service",
+          "lineNumber": 34
+        },
+        {
+          "caller": "main",
+          "callee": "add_entries",
+          "lineNumber": 36
+        },
+        {
+          "caller": "main",
+          "callee": "set_service",
+          "lineNumber": 37
+        },
+        {
+          "caller": "main",
+          "callee": "set_level",
+          "lineNumber": 38
+        },
+        {
+          "caller": "main",
+          "callee": "Logger::levelToString",
+          "lineNumber": 38
+        },
+        {
+          "caller": "main",
+          "callee": "set_message",
+          "lineNumber": 39
+        },
+        {
+          "caller": "main",
+          "callee": "set_timestamp",
+          "lineNumber": 40
+        },
+        {
+          "caller": "main",
+          "callee": "reportLog",
+          "lineNumber": 42
+        },
+        {
+          "caller": "main",
+          "callee": "StatusGrpcClient::getInstance",
+          "lineNumber": 42
+        },
+        {
+          "caller": "main",
+          "callee": "AsyncTaskPool::getInstance",
+          "lineNumber": 45
+        },
+        {
+          "caller": "main",
+          "callee": "LOG_INFO",
+          "lineNumber": 46
+        },
+        {
+          "caller": "main",
+          "callee": "std::this_thread::sleep_for",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "std::chrono::seconds",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "heartbeat",
+          "lineNumber": 54
+        },
+        {
+          "caller": "main",
+          "callee": "StatusGrpcClient::getInstance",
+          "lineNumber": 54
+        },
+        {
+          "caller": "main",
+          "callee": "IOContextPool::getInstance",
+          "lineNumber": 58
+        },
+        {
+          "caller": "main",
+          "callee": "std::make_shared<MainServer>",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "atoi",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "c_str",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "setGlobalMainServer",
+          "lineNumber": 62
+        },
+        {
+          "caller": "main",
+          "callee": "get",
+          "lineNumber": 62
+        },
+        {
+          "caller": "main",
+          "callee": "setGlobalGrpcPort",
+          "lineNumber": 65
+        },
+        {
+          "caller": "main",
+          "callee": "AddListeningPort",
+          "lineNumber": 69
+        },
+        {
+          "caller": "main",
+          "callee": "grpc::InsecureServerCredentials",
+          "lineNumber": 69
+        },
+        {
+          "caller": "main",
+          "callee": "RegisterService",
+          "lineNumber": 70
+        },
+        {
+          "caller": "main",
+          "callee": "BuildAndStart",
+          "lineNumber": 71
+        },
+        {
+          "caller": "main",
+          "callee": "LOG_INFO",
+          "lineNumber": 73
+        },
+        {
+          "caller": "main",
+          "callee": "Wait",
+          "lineNumber": 75
+        },
+        {
+          "caller": "main",
+          "callee": "async_wait",
+          "lineNumber": 79
+        },
+        {
+          "caller": "main",
+          "callee": "LOG_INFO",
+          "lineNumber": 81
+        },
+        {
+          "caller": "main",
+          "callee": "Shutdown",
+          "lineNumber": 82
+        },
+        {
+          "caller": "main",
+          "callee": "stop",
+          "lineNumber": 83
+        },
+        {
+          "caller": "main",
+          "callee": "Logger::getInstance",
+          "lineNumber": 83
+        },
+        {
+          "caller": "main",
+          "callee": "stop",
+          "lineNumber": 84
+        },
+        {
+          "caller": "main",
+          "callee": "stop",
+          "lineNumber": 85
+        },
+        {
+          "caller": "main",
+          "callee": "AsyncTaskPool::getInstance",
+          "lineNumber": 85
+        },
+        {
+          "caller": "main",
+          "callee": "stop",
+          "lineNumber": 86
+        },
+        {
+          "caller": "main",
+          "callee": "PushNodeManager::getInstance",
+          "lineNumber": 86
+        },
+        {
+          "caller": "main",
+          "callee": "stop",
+          "lineNumber": 87
+        },
+        {
+          "caller": "main",
+          "callee": "stop",
+          "lineNumber": 88
+        },
+        {
+          "caller": "main",
+          "callee": "LOG_INFO",
+          "lineNumber": 91
+        },
+        {
+          "caller": "main",
+          "callee": "run",
+          "lineNumber": 92
+        },
+        {
+          "caller": "main",
+          "callee": "joinable",
+          "lineNumber": 95
+        },
+        {
+          "caller": "main",
+          "callee": "join",
+          "lineNumber": 95
+        },
+        {
+          "caller": "main",
+          "callee": "joinable",
+          "lineNumber": 96
+        },
+        {
+          "caller": "main",
+          "callee": "join",
+          "lineNumber": 96
+        },
+        {
+          "caller": "main",
+          "callee": "LOG_ERROR",
+          "lineNumber": 100
+        },
+        {
+          "caller": "main",
+          "callee": "what",
+          "lineNumber": 100
+        }
+      ],
+      "metrics": {
+        "importCount": 9,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/RPCConnectPool.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 124,
+      "nonEmptyLines": 108,
+      "functions": [
+        {
+          "name": "StatusConnectPool",
+          "startLine": 4,
+          "endLine": 11,
+          "params": [
+            "pool_size",
+            "host",
+            "port"
+          ]
+        },
+        {
+          "name": "~StatusConnectPool",
+          "startLine": 13,
+          "endLine": 17,
+          "params": []
+        },
+        {
+          "name": "getStub",
+          "startLine": 19,
+          "endLine": 30,
+          "params": []
+        },
+        {
+          "name": "returnStub",
+          "startLine": 32,
+          "endLine": 38,
+          "params": [
+            "stub"
+          ]
+        },
+        {
+          "name": "stop",
+          "startLine": 40,
+          "endLine": 47,
+          "params": []
+        },
+        {
+          "name": "PushConnectPool",
+          "startLine": 51,
+          "endLine": 58,
+          "params": [
+            "pool_size",
+            "host",
+            "port"
+          ]
+        },
+        {
+          "name": "~PushConnectPool",
+          "startLine": 60,
+          "endLine": 62,
+          "params": []
+        },
+        {
+          "name": "getStub",
+          "startLine": 64,
+          "endLine": 73,
+          "params": []
+        },
+        {
+          "name": "returnStub",
+          "startLine": 75,
+          "endLine": 81,
+          "params": [
+            "stub"
+          ]
+        },
+        {
+          "name": "stop",
+          "startLine": 83,
+          "endLine": 88,
+          "params": []
+        },
+        {
+          "name": "getStub",
+          "startLine": 97,
+          "endLine": 107,
+          "params": [
+            "host",
+            "grpc_port"
+          ]
+        },
+        {
+          "name": "returnStub",
+          "startLine": 109,
+          "endLine": 116,
+          "params": [
+            "host",
+            "grpc_port",
+            "stub"
+          ]
+        },
+        {
+          "name": "stop",
+          "startLine": 118,
+          "endLine": 124,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "StatusConnectPool",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "~StatusConnectPool",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "getStub",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "returnStub",
+          "line": 32,
+          "isDefault": false
+        },
+        {
+          "name": "stop",
+          "line": 40,
+          "isDefault": false
+        },
+        {
+          "name": "PushConnectPool",
+          "line": 51,
+          "isDefault": false
+        },
+        {
+          "name": "~PushConnectPool",
+          "line": 60,
+          "isDefault": false
+        },
+        {
+          "name": "getStub",
+          "line": 64,
+          "isDefault": false
+        },
+        {
+          "name": "returnStub",
+          "line": 75,
+          "isDefault": false
+        },
+        {
+          "name": "stop",
+          "line": 83,
+          "isDefault": false
+        },
+        {
+          "name": "getStub",
+          "line": 97,
+          "isDefault": false
+        },
+        {
+          "name": "returnStub",
+          "line": 109,
+          "isDefault": false
+        },
+        {
+          "name": "stop",
+          "line": 118,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "StatusConnectPool",
+          "callee": "std::move",
+          "lineNumber": 5
+        },
+        {
+          "caller": "StatusConnectPool",
+          "callee": "std::move",
+          "lineNumber": 5
+        },
+        {
+          "caller": "StatusConnectPool",
+          "callee": "grpc::CreateChannel",
+          "lineNumber": 8
+        },
+        {
+          "caller": "StatusConnectPool",
+          "callee": "grpc::InsecureChannelCredentials",
+          "lineNumber": 8
+        },
+        {
+          "caller": "StatusConnectPool",
+          "callee": "emplace",
+          "lineNumber": 9
+        },
+        {
+          "caller": "StatusConnectPool",
+          "callee": "StatusService::NewStub",
+          "lineNumber": 9
+        },
+        {
+          "caller": "~StatusConnectPool",
+          "callee": "stop",
+          "lineNumber": 15
+        },
+        {
+          "caller": "~StatusConnectPool",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 16
+        },
+        {
+          "caller": "getStub",
+          "callee": "wait_for",
+          "lineNumber": 21
+        },
+        {
+          "caller": "getStub",
+          "callee": "std::chrono::seconds",
+          "lineNumber": 21
+        },
+        {
+          "caller": "getStub",
+          "callee": "empty",
+          "lineNumber": 21
+        },
+        {
+          "caller": "getStub",
+          "callee": "std::move",
+          "lineNumber": 27
+        },
+        {
+          "caller": "getStub",
+          "callee": "front",
+          "lineNumber": 27
+        },
+        {
+          "caller": "getStub",
+          "callee": "pop",
+          "lineNumber": 28
+        },
+        {
+          "caller": "returnStub",
+          "callee": "push",
+          "lineNumber": 35
+        },
+        {
+          "caller": "returnStub",
+          "callee": "std::move",
+          "lineNumber": 35
+        },
+        {
+          "caller": "returnStub",
+          "callee": "notify_one",
+          "lineNumber": 36
+        },
+        {
+          "caller": "stop",
+          "callee": "notify_all",
+          "lineNumber": 43
+        },
+        {
+          "caller": "stop",
+          "callee": "empty",
+          "lineNumber": 44
+        },
+        {
+          "caller": "stop",
+          "callee": "pop",
+          "lineNumber": 45
+        },
+        {
+          "caller": "PushConnectPool",
+          "callee": "grpc::CreateChannel",
+          "lineNumber": 55
+        },
+        {
+          "caller": "PushConnectPool",
+          "callee": "grpc::InsecureChannelCredentials",
+          "lineNumber": 55
+        },
+        {
+          "caller": "PushConnectPool",
+          "callee": "emplace",
+          "lineNumber": 56
+        },
+        {
+          "caller": "PushConnectPool",
+          "callee": "PushService::NewStub",
+          "lineNumber": 56
+        },
+        {
+          "caller": "~PushConnectPool",
+          "callee": "stop",
+          "lineNumber": 61
+        },
+        {
+          "caller": "getStub",
+          "callee": "wait_for",
+          "lineNumber": 66
+        },
+        {
+          "caller": "getStub",
+          "callee": "std::chrono::seconds",
+          "lineNumber": 66
+        },
+        {
+          "caller": "getStub",
+          "callee": "empty",
+          "lineNumber": 66
+        },
+        {
+          "caller": "getStub",
+          "callee": "std::move",
+          "lineNumber": 70
+        },
+        {
+          "caller": "getStub",
+          "callee": "front",
+          "lineNumber": 70
+        },
+        {
+          "caller": "getStub",
+          "callee": "pop",
+          "lineNumber": 71
+        },
+        {
+          "caller": "returnStub",
+          "callee": "push",
+          "lineNumber": 78
+        },
+        {
+          "caller": "returnStub",
+          "callee": "std::move",
+          "lineNumber": 78
+        },
+        {
+          "caller": "returnStub",
+          "callee": "notify_one",
+          "lineNumber": 79
+        },
+        {
+          "caller": "stop",
+          "callee": "notify_all",
+          "lineNumber": 86
+        },
+        {
+          "caller": "stop",
+          "callee": "empty",
+          "lineNumber": 87
+        },
+        {
+          "caller": "stop",
+          "callee": "pop",
+          "lineNumber": 87
+        },
+        {
+          "caller": "getStub",
+          "callee": "find",
+          "lineNumber": 100
+        },
+        {
+          "caller": "getStub",
+          "callee": "end",
+          "lineNumber": 101
+        },
+        {
+          "caller": "getStub",
+          "callee": "std::make_shared<PushConnectPool>",
+          "lineNumber": 102
+        },
+        {
+          "caller": "getStub",
+          "callee": "getStub",
+          "lineNumber": 104
+        },
+        {
+          "caller": "getStub",
+          "callee": "getStub",
+          "lineNumber": 106
+        },
+        {
+          "caller": "returnStub",
+          "callee": "find",
+          "lineNumber": 112
+        },
+        {
+          "caller": "returnStub",
+          "callee": "end",
+          "lineNumber": 113
+        },
+        {
+          "caller": "returnStub",
+          "callee": "returnStub",
+          "lineNumber": 114
+        },
+        {
+          "caller": "returnStub",
+          "callee": "std::move",
+          "lineNumber": 114
+        },
+        {
+          "caller": "stop",
+          "callee": "stop",
+          "lineNumber": 121
+        },
+        {
+          "caller": "stop",
+          "callee": "clear",
+          "lineNumber": 123
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 13,
+        "functionCount": 13,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/RPCConnectPool.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 71,
+      "nonEmptyLines": 63,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/RedisConnectPool.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 68,
+      "nonEmptyLines": 62,
+      "functions": [
+        {
+          "name": "RedisConnectPool",
+          "startLine": 5,
+          "endLine": 30,
+          "params": [
+            "pool_size",
+            "host",
+            "port",
+            "password"
+          ]
+        },
+        {
+          "name": "~RedisConnectPool",
+          "startLine": 32,
+          "endLine": 35,
+          "params": []
+        },
+        {
+          "name": "getConnection",
+          "startLine": 37,
+          "endLine": 51,
+          "params": []
+        },
+        {
+          "name": "returnConnection",
+          "startLine": 53,
+          "endLine": 59,
+          "params": [
+            "connect"
+          ]
+        },
+        {
+          "name": "stop",
+          "startLine": 61,
+          "endLine": 68,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "RedisConnectPool",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "~RedisConnectPool",
+          "line": 32,
+          "isDefault": false
+        },
+        {
+          "name": "getConnection",
+          "line": 37,
+          "isDefault": false
+        },
+        {
+          "name": "returnConnection",
+          "line": 53,
+          "isDefault": false
+        },
+        {
+          "name": "stop",
+          "line": 61,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "RedisConnectPool",
+          "callee": "std::move",
+          "lineNumber": 6
+        },
+        {
+          "caller": "RedisConnectPool",
+          "callee": "redisConnect",
+          "lineNumber": 9
+        },
+        {
+          "caller": "RedisConnectPool",
+          "callee": "c_str",
+          "lineNumber": 9
+        },
+        {
+          "caller": "RedisConnectPool",
+          "callee": "LOG_ERROR",
+          "lineNumber": 11
+        },
+        {
+          "caller": "RedisConnectPool",
+          "callee": "redisFree",
+          "lineNumber": 13
+        },
+        {
+          "caller": "RedisConnectPool",
+          "callee": "static_cast<redisReply*>",
+          "lineNumber": 18
+        },
+        {
+          "caller": "RedisConnectPool",
+          "callee": "redisCommand",
+          "lineNumber": 18
+        },
+        {
+          "caller": "RedisConnectPool",
+          "callee": "c_str",
+          "lineNumber": 18
+        },
+        {
+          "caller": "RedisConnectPool",
+          "callee": "LOG_ERROR",
+          "lineNumber": 20
+        },
+        {
+          "caller": "RedisConnectPool",
+          "callee": "freeReplyObject",
+          "lineNumber": 21
+        },
+        {
+          "caller": "RedisConnectPool",
+          "callee": "redisFree",
+          "lineNumber": 22
+        },
+        {
+          "caller": "RedisConnectPool",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 25
+        },
+        {
+          "caller": "RedisConnectPool",
+          "callee": "freeReplyObject",
+          "lineNumber": 26
+        },
+        {
+          "caller": "RedisConnectPool",
+          "callee": "emplace",
+          "lineNumber": 28
+        },
+        {
+          "caller": "~RedisConnectPool",
+          "callee": "stop",
+          "lineNumber": 33
+        },
+        {
+          "caller": "~RedisConnectPool",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 34
+        },
+        {
+          "caller": "getConnection",
+          "callee": "wait_for",
+          "lineNumber": 39
+        },
+        {
+          "caller": "getConnection",
+          "callee": "std::chrono::seconds",
+          "lineNumber": 39
+        },
+        {
+          "caller": "getConnection",
+          "callee": "empty",
+          "lineNumber": 39
+        },
+        {
+          "caller": "getConnection",
+          "callee": "std::move",
+          "lineNumber": 48
+        },
+        {
+          "caller": "getConnection",
+          "callee": "front",
+          "lineNumber": 48
+        },
+        {
+          "caller": "getConnection",
+          "callee": "pop",
+          "lineNumber": 49
+        },
+        {
+          "caller": "returnConnection",
+          "callee": "push",
+          "lineNumber": 56
+        },
+        {
+          "caller": "returnConnection",
+          "callee": "std::move",
+          "lineNumber": 56
+        },
+        {
+          "caller": "returnConnection",
+          "callee": "notify_one",
+          "lineNumber": 57
+        },
+        {
+          "caller": "stop",
+          "callee": "store",
+          "lineNumber": 63
+        },
+        {
+          "caller": "stop",
+          "callee": "notify_all",
+          "lineNumber": 64
+        },
+        {
+          "caller": "stop",
+          "callee": "empty",
+          "lineNumber": 65
+        },
+        {
+          "caller": "stop",
+          "callee": "pop",
+          "lineNumber": 66
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 5,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/RedisConnectPool.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 40,
+      "nonEmptyLines": 37,
+      "callGraph": [
+        {
+          "caller": "operator()",
+          "callee": "redisFree",
+          "lineNumber": 17
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/RedisManager.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 543,
+      "nonEmptyLines": 506,
+      "functions": [
+        {
+          "name": "RedisManager",
+          "startLine": 5,
+          "endLine": 12,
+          "params": []
+        },
+        {
+          "name": "~RedisManager",
+          "startLine": 14,
+          "endLine": 16,
+          "params": []
+        },
+        {
+          "name": "get",
+          "startLine": 19,
+          "endLine": 39,
+          "params": [
+            "key",
+            "value"
+          ]
+        },
+        {
+          "name": "set",
+          "startLine": 41,
+          "endLine": 62,
+          "params": [
+            "key",
+            "value"
+          ]
+        },
+        {
+          "name": "auth",
+          "startLine": 64,
+          "endLine": 85,
+          "params": [
+            "password"
+          ]
+        },
+        {
+          "name": "del",
+          "startLine": 87,
+          "endLine": 106,
+          "params": [
+            "key"
+          ]
+        },
+        {
+          "name": "lpush",
+          "startLine": 108,
+          "endLine": 127,
+          "params": [
+            "key",
+            "value"
+          ]
+        },
+        {
+          "name": "rpush",
+          "startLine": 129,
+          "endLine": 148,
+          "params": [
+            "key",
+            "value"
+          ]
+        },
+        {
+          "name": "lpop",
+          "startLine": 150,
+          "endLine": 170,
+          "params": [
+            "key",
+            "value"
+          ]
+        },
+        {
+          "name": "rpop",
+          "startLine": 172,
+          "endLine": 192,
+          "params": [
+            "key",
+            "value"
+          ]
+        },
+        {
+          "name": "hset",
+          "startLine": 194,
+          "endLine": 209,
+          "params": [
+            "key",
+            "field",
+            "value"
+          ]
+        },
+        {
+          "name": "hset",
+          "startLine": 210,
+          "endLine": 236,
+          "params": [
+            "key",
+            "field",
+            "value",
+            "valuelen"
+          ]
+        },
+        {
+          "name": "hget",
+          "startLine": 238,
+          "endLine": 263,
+          "params": [
+            "key",
+            "field"
+          ]
+        },
+        {
+          "name": "existskey",
+          "startLine": 265,
+          "endLine": 280,
+          "params": [
+            "key"
+          ]
+        },
+        {
+          "name": "setex",
+          "startLine": 282,
+          "endLine": 294,
+          "params": [
+            "key",
+            "value",
+            "seconds"
+          ]
+        },
+        {
+          "name": "expire",
+          "startLine": 296,
+          "endLine": 305,
+          "params": [
+            "key",
+            "seconds"
+          ]
+        },
+        {
+          "name": "incr",
+          "startLine": 307,
+          "endLine": 316,
+          "params": [
+            "key"
+          ]
+        },
+        {
+          "name": "decr",
+          "startLine": 318,
+          "endLine": 327,
+          "params": [
+            "key"
+          ]
+        },
+        {
+          "name": "ltrim",
+          "startLine": 329,
+          "endLine": 337,
+          "params": [
+            "key",
+            "start",
+            "stop"
+          ]
+        },
+        {
+          "name": "lrange",
+          "startLine": 339,
+          "endLine": 350,
+          "params": [
+            "key",
+            "start",
+            "stop",
+            "values"
+          ]
+        },
+        {
+          "name": "acquireLock",
+          "startLine": 352,
+          "endLine": 368,
+          "params": [
+            "lock_key",
+            "owner_id",
+            "ttl_seconds"
+          ]
+        },
+        {
+          "name": "releaseLock",
+          "startLine": 370,
+          "endLine": 387,
+          "params": [
+            "lock_key",
+            "owner_id"
+          ]
+        },
+        {
+          "name": "acquireLockWithRetry",
+          "startLine": 389,
+          "endLine": 402,
+          "params": [
+            "lock_key",
+            "owner_id",
+            "ttl_seconds",
+            "max_retries",
+            "base_delay_ms"
+          ]
+        },
+        {
+          "name": "evalScript",
+          "startLine": 404,
+          "endLine": 441,
+          "params": [
+            "lua_script",
+            "keys",
+            "args"
+          ]
+        },
+        {
+          "name": "pushMessageAtomic",
+          "startLine": 443,
+          "endLine": 465,
+          "params": [
+            "uid_str",
+            "msg_json",
+            "max_messages",
+            "ttl_seconds"
+          ]
+        },
+        {
+          "name": "markReadAtomic",
+          "startLine": 467,
+          "endLine": 483,
+          "params": [
+            "uid_str",
+            "decrement_count",
+            "ttl_seconds"
+          ]
+        },
+        {
+          "name": "getAndDeleteKick",
+          "startLine": 485,
+          "endLine": 518,
+          "params": [
+            "uid_str",
+            "out_kick_value"
+          ]
+        },
+        {
+          "name": "appendLogAtomic",
+          "startLine": 520,
+          "endLine": 539,
+          "params": [
+            "service_name",
+            "log_json",
+            "max_entries",
+            "ttl_seconds"
+          ]
+        },
+        {
+          "name": "close",
+          "startLine": 541,
+          "endLine": 543,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "RedisManager",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "~RedisManager",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "get",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "set",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "auth",
+          "line": 64,
+          "isDefault": false
+        },
+        {
+          "name": "del",
+          "line": 87,
+          "isDefault": false
+        },
+        {
+          "name": "lpush",
+          "line": 108,
+          "isDefault": false
+        },
+        {
+          "name": "rpush",
+          "line": 129,
+          "isDefault": false
+        },
+        {
+          "name": "lpop",
+          "line": 150,
+          "isDefault": false
+        },
+        {
+          "name": "rpop",
+          "line": 172,
+          "isDefault": false
+        },
+        {
+          "name": "hset",
+          "line": 194,
+          "isDefault": false
+        },
+        {
+          "name": "hset",
+          "line": 210,
+          "isDefault": false
+        },
+        {
+          "name": "hget",
+          "line": 238,
+          "isDefault": false
+        },
+        {
+          "name": "existskey",
+          "line": 265,
+          "isDefault": false
+        },
+        {
+          "name": "setex",
+          "line": 282,
+          "isDefault": false
+        },
+        {
+          "name": "expire",
+          "line": 296,
+          "isDefault": false
+        },
+        {
+          "name": "incr",
+          "line": 307,
+          "isDefault": false
+        },
+        {
+          "name": "decr",
+          "line": 318,
+          "isDefault": false
+        },
+        {
+          "name": "ltrim",
+          "line": 329,
+          "isDefault": false
+        },
+        {
+          "name": "lrange",
+          "line": 339,
+          "isDefault": false
+        },
+        {
+          "name": "acquireLock",
+          "line": 352,
+          "isDefault": false
+        },
+        {
+          "name": "releaseLock",
+          "line": 370,
+          "isDefault": false
+        },
+        {
+          "name": "acquireLockWithRetry",
+          "line": 389,
+          "isDefault": false
+        },
+        {
+          "name": "evalScript",
+          "line": 404,
+          "isDefault": false
+        },
+        {
+          "name": "pushMessageAtomic",
+          "line": 443,
+          "isDefault": false
+        },
+        {
+          "name": "markReadAtomic",
+          "line": 467,
+          "isDefault": false
+        },
+        {
+          "name": "getAndDeleteKick",
+          "line": 485,
+          "isDefault": false
+        },
+        {
+          "name": "appendLogAtomic",
+          "line": 520,
+          "isDefault": false
+        },
+        {
+          "name": "close",
+          "line": 541,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "RedisManager",
+          "callee": "ConfigManager::getInstance",
+          "lineNumber": 6
+        },
+        {
+          "caller": "RedisManager",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 10
+        },
+        {
+          "caller": "RedisManager",
+          "callee": "std::make_unique<RedisConnectPool>",
+          "lineNumber": 11
+        },
+        {
+          "caller": "RedisManager",
+          "callee": "std::atoi",
+          "lineNumber": 11
+        },
+        {
+          "caller": "RedisManager",
+          "callee": "c_str",
+          "lineNumber": 11
+        },
+        {
+          "caller": "~RedisManager",
+          "callee": "close",
+          "lineNumber": 15
+        },
+        {
+          "caller": "get",
+          "callee": "getConnection",
+          "lineNumber": 20
+        },
+        {
+          "caller": "get",
+          "callee": "static_cast<redisReply*>",
+          "lineNumber": 24
+        },
+        {
+          "caller": "get",
+          "callee": "redisCommand",
+          "lineNumber": 24
+        },
+        {
+          "caller": "get",
+          "callee": "get",
+          "lineNumber": 24
+        },
+        {
+          "caller": "get",
+          "callee": "c_str",
+          "lineNumber": 24
+        },
+        {
+          "caller": "get",
+          "callee": "returnConnection",
+          "lineNumber": 25
+        },
+        {
+          "caller": "get",
+          "callee": "std::move",
+          "lineNumber": 25
+        },
+        {
+          "caller": "get",
+          "callee": "LOG_ERROR",
+          "lineNumber": 27
+        },
+        {
+          "caller": "get",
+          "callee": "std::string",
+          "lineNumber": 32
+        },
+        {
+          "caller": "get",
+          "callee": "freeReplyObject",
+          "lineNumber": 33
+        },
+        {
+          "caller": "get",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 34
+        },
+        {
+          "caller": "get",
+          "callee": "freeReplyObject",
+          "lineNumber": 37
+        },
+        {
+          "caller": "set",
+          "callee": "getConnection",
+          "lineNumber": 42
+        },
+        {
+          "caller": "set",
+          "callee": "static_cast<redisReply*>",
+          "lineNumber": 46
+        },
+        {
+          "caller": "set",
+          "callee": "redisCommand",
+          "lineNumber": 46
+        },
+        {
+          "caller": "set",
+          "callee": "get",
+          "lineNumber": 46
+        },
+        {
+          "caller": "set",
+          "callee": "c_str",
+          "lineNumber": 46
+        },
+        {
+          "caller": "set",
+          "callee": "c_str",
+          "lineNumber": 46
+        },
+        {
+          "caller": "set",
+          "callee": "returnConnection",
+          "lineNumber": 47
+        },
+        {
+          "caller": "set",
+          "callee": "std::move",
+          "lineNumber": 47
+        },
+        {
+          "caller": "set",
+          "callee": "LOG_ERROR",
+          "lineNumber": 49
+        },
+        {
+          "caller": "set",
+          "callee": "strcmp",
+          "lineNumber": 53
+        },
+        {
+          "caller": "set",
+          "callee": "strcmp",
+          "lineNumber": 53
+        },
+        {
+          "caller": "set",
+          "callee": "LOG_ERROR",
+          "lineNumber": 55
+        },
+        {
+          "caller": "set",
+          "callee": "freeReplyObject",
+          "lineNumber": 56
+        },
+        {
+          "caller": "set",
+          "callee": "freeReplyObject",
+          "lineNumber": 59
+        },
+        {
+          "caller": "set",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 60
+        },
+        {
+          "caller": "auth",
+          "callee": "getConnection",
+          "lineNumber": 65
+        },
+        {
+          "caller": "auth",
+          "callee": "static_cast<redisReply*>",
+          "lineNumber": 69
+        },
+        {
+          "caller": "auth",
+          "callee": "redisCommand",
+          "lineNumber": 69
+        },
+        {
+          "caller": "auth",
+          "callee": "get",
+          "lineNumber": 69
+        },
+        {
+          "caller": "auth",
+          "callee": "c_str",
+          "lineNumber": 69
+        },
+        {
+          "caller": "auth",
+          "callee": "returnConnection",
+          "lineNumber": 70
+        },
+        {
+          "caller": "auth",
+          "callee": "std::move",
+          "lineNumber": 70
+        },
+        {
+          "caller": "auth",
+          "callee": "LOG_ERROR",
+          "lineNumber": 72
+        },
+        {
+          "caller": "auth",
+          "callee": "LOG_ERROR",
+          "lineNumber": 77
+        },
+        {
+          "caller": "auth",
+          "callee": "freeReplyObject",
+          "lineNumber": 78
+        },
+        {
+          "caller": "auth",
+          "callee": "freeReplyObject",
+          "lineNumber": 82
+        },
+        {
+          "caller": "auth",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 83
+        },
+        {
+          "caller": "del",
+          "callee": "getConnection",
+          "lineNumber": 88
+        },
+        {
+          "caller": "del",
+          "callee": "static_cast<redisReply*>",
+          "lineNumber": 92
+        },
+        {
+          "caller": "del",
+          "callee": "redisCommand",
+          "lineNumber": 92
+        },
+        {
+          "caller": "del",
+          "callee": "get",
+          "lineNumber": 92
+        },
+        {
+          "caller": "del",
+          "callee": "c_str",
+          "lineNumber": 92
+        },
+        {
+          "caller": "del",
+          "callee": "returnConnection",
+          "lineNumber": 93
+        },
+        {
+          "caller": "del",
+          "callee": "std::move",
+          "lineNumber": 93
+        },
+        {
+          "caller": "del",
+          "callee": "LOG_ERROR",
+          "lineNumber": 95
+        },
+        {
+          "caller": "del",
+          "callee": "LOG_ERROR",
+          "lineNumber": 99
+        },
+        {
+          "caller": "del",
+          "callee": "freeReplyObject",
+          "lineNumber": 100
+        },
+        {
+          "caller": "del",
+          "callee": "freeReplyObject",
+          "lineNumber": 103
+        },
+        {
+          "caller": "del",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 104
+        },
+        {
+          "caller": "lpush",
+          "callee": "getConnection",
+          "lineNumber": 109
+        },
+        {
+          "caller": "lpush",
+          "callee": "static_cast<redisReply*>",
+          "lineNumber": 113
+        },
+        {
+          "caller": "lpush",
+          "callee": "redisCommand",
+          "lineNumber": 113
+        },
+        {
+          "caller": "lpush",
+          "callee": "get",
+          "lineNumber": 113
+        },
+        {
+          "caller": "lpush",
+          "callee": "c_str",
+          "lineNumber": 113
+        },
+        {
+          "caller": "lpush",
+          "callee": "c_str",
+          "lineNumber": 113
+        },
+        {
+          "caller": "lpush",
+          "callee": "returnConnection",
+          "lineNumber": 114
+        },
+        {
+          "caller": "lpush",
+          "callee": "std::move",
+          "lineNumber": 114
+        },
+        {
+          "caller": "lpush",
+          "callee": "LOG_ERROR",
+          "lineNumber": 116
+        },
+        {
+          "caller": "lpush",
+          "callee": "LOG_ERROR",
+          "lineNumber": 120
+        },
+        {
+          "caller": "lpush",
+          "callee": "freeReplyObject",
+          "lineNumber": 121
+        },
+        {
+          "caller": "lpush",
+          "callee": "freeReplyObject",
+          "lineNumber": 124
+        },
+        {
+          "caller": "lpush",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 125
+        },
+        {
+          "caller": "rpush",
+          "callee": "getConnection",
+          "lineNumber": 130
+        },
+        {
+          "caller": "rpush",
+          "callee": "static_cast<redisReply*>",
+          "lineNumber": 134
+        },
+        {
+          "caller": "rpush",
+          "callee": "redisCommand",
+          "lineNumber": 134
+        },
+        {
+          "caller": "rpush",
+          "callee": "get",
+          "lineNumber": 134
+        },
+        {
+          "caller": "rpush",
+          "callee": "c_str",
+          "lineNumber": 134
+        },
+        {
+          "caller": "rpush",
+          "callee": "c_str",
+          "lineNumber": 134
+        },
+        {
+          "caller": "rpush",
+          "callee": "returnConnection",
+          "lineNumber": 135
+        },
+        {
+          "caller": "rpush",
+          "callee": "std::move",
+          "lineNumber": 135
+        },
+        {
+          "caller": "rpush",
+          "callee": "LOG_ERROR",
+          "lineNumber": 137
+        },
+        {
+          "caller": "rpush",
+          "callee": "LOG_ERROR",
+          "lineNumber": 141
+        },
+        {
+          "caller": "rpush",
+          "callee": "freeReplyObject",
+          "lineNumber": 142
+        },
+        {
+          "caller": "rpush",
+          "callee": "freeReplyObject",
+          "lineNumber": 145
+        },
+        {
+          "caller": "rpush",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 146
+        },
+        {
+          "caller": "lpop",
+          "callee": "getConnection",
+          "lineNumber": 151
+        },
+        {
+          "caller": "lpop",
+          "callee": "static_cast<redisReply*>",
+          "lineNumber": 155
+        },
+        {
+          "caller": "lpop",
+          "callee": "redisCommand",
+          "lineNumber": 155
+        },
+        {
+          "caller": "lpop",
+          "callee": "get",
+          "lineNumber": 155
+        },
+        {
+          "caller": "lpop",
+          "callee": "c_str",
+          "lineNumber": 155
+        },
+        {
+          "caller": "lpop",
+          "callee": "returnConnection",
+          "lineNumber": 156
+        },
+        {
+          "caller": "lpop",
+          "callee": "std::move",
+          "lineNumber": 156
+        },
+        {
+          "caller": "lpop",
+          "callee": "LOG_ERROR",
+          "lineNumber": 158
+        },
+        {
+          "caller": "lpop",
+          "callee": "std::string",
+          "lineNumber": 162
+        },
+        {
+          "caller": "lpop",
+          "callee": "freeReplyObject",
+          "lineNumber": 163
+        },
+        {
+          "caller": "lpop",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 164
+        },
+        {
+          "caller": "lpop",
+          "callee": "freeReplyObject",
+          "lineNumber": 167
+        },
+        {
+          "caller": "lpop",
+          "callee": "LOG_ERROR",
+          "lineNumber": 168
+        },
+        {
+          "caller": "rpop",
+          "callee": "getConnection",
+          "lineNumber": 173
+        },
+        {
+          "caller": "rpop",
+          "callee": "static_cast<redisReply*>",
+          "lineNumber": 177
+        },
+        {
+          "caller": "rpop",
+          "callee": "redisCommand",
+          "lineNumber": 177
+        },
+        {
+          "caller": "rpop",
+          "callee": "get",
+          "lineNumber": 177
+        },
+        {
+          "caller": "rpop",
+          "callee": "c_str",
+          "lineNumber": 177
+        },
+        {
+          "caller": "rpop",
+          "callee": "returnConnection",
+          "lineNumber": 178
+        },
+        {
+          "caller": "rpop",
+          "callee": "std::move",
+          "lineNumber": 178
+        },
+        {
+          "caller": "rpop",
+          "callee": "LOG_ERROR",
+          "lineNumber": 180
+        },
+        {
+          "caller": "rpop",
+          "callee": "std::string",
+          "lineNumber": 184
+        },
+        {
+          "caller": "rpop",
+          "callee": "freeReplyObject",
+          "lineNumber": 185
+        },
+        {
+          "caller": "rpop",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 186
+        },
+        {
+          "caller": "rpop",
+          "callee": "freeReplyObject",
+          "lineNumber": 189
+        },
+        {
+          "caller": "rpop",
+          "callee": "LOG_ERROR",
+          "lineNumber": 190
+        },
+        {
+          "caller": "hset",
+          "callee": "getConnection",
+          "lineNumber": 195
+        },
+        {
+          "caller": "hset",
+          "callee": "static_cast<redisReply*>",
+          "lineNumber": 199
+        },
+        {
+          "caller": "hset",
+          "callee": "redisCommand",
+          "lineNumber": 199
+        },
+        {
+          "caller": "hset",
+          "callee": "get",
+          "lineNumber": 199
+        },
+        {
+          "caller": "hset",
+          "callee": "c_str",
+          "lineNumber": 199
+        },
+        {
+          "caller": "hset",
+          "callee": "c_str",
+          "lineNumber": 199
+        },
+        {
+          "caller": "hset",
+          "callee": "c_str",
+          "lineNumber": 199
+        },
+        {
+          "caller": "hset",
+          "callee": "returnConnection",
+          "lineNumber": 200
+        },
+        {
+          "caller": "hset",
+          "callee": "std::move",
+          "lineNumber": 200
+        },
+        {
+          "caller": "hset",
+          "callee": "LOG_ERROR",
+          "lineNumber": 202
+        },
+        {
+          "caller": "hset",
+          "callee": "freeReplyObject",
+          "lineNumber": 203
+        },
+        {
+          "caller": "hset",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 206
+        },
+        {
+          "caller": "hset",
+          "callee": "freeReplyObject",
+          "lineNumber": 207
+        },
+        {
+          "caller": "hset",
+          "callee": "getConnection",
+          "lineNumber": 212
+        },
+        {
+          "caller": "hset",
+          "callee": "strlen",
+          "lineNumber": 221
+        },
+        {
+          "caller": "hset",
+          "callee": "strlen",
+          "lineNumber": 223
+        },
+        {
+          "caller": "hset",
+          "callee": "redisCommandArgv",
+          "lineNumber": 226
+        },
+        {
+          "caller": "hset",
+          "callee": "get",
+          "lineNumber": 226
+        },
+        {
+          "caller": "hset",
+          "callee": "returnConnection",
+          "lineNumber": 227
+        },
+        {
+          "caller": "hset",
+          "callee": "std::move",
+          "lineNumber": 227
+        },
+        {
+          "caller": "hset",
+          "callee": "LOG_ERROR",
+          "lineNumber": 229
+        },
+        {
+          "caller": "hset",
+          "callee": "freeReplyObject",
+          "lineNumber": 230
+        },
+        {
+          "caller": "hset",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 233
+        },
+        {
+          "caller": "hset",
+          "callee": "freeReplyObject",
+          "lineNumber": 234
+        },
+        {
+          "caller": "hget",
+          "callee": "getConnection",
+          "lineNumber": 240
+        },
+        {
+          "caller": "hget",
+          "callee": "c_str",
+          "lineNumber": 248
+        },
+        {
+          "caller": "hget",
+          "callee": "length",
+          "lineNumber": 249
+        },
+        {
+          "caller": "hget",
+          "callee": "c_str",
+          "lineNumber": 250
+        },
+        {
+          "caller": "hget",
+          "callee": "length",
+          "lineNumber": 251
+        },
+        {
+          "caller": "hget",
+          "callee": "static_cast<redisReply*>",
+          "lineNumber": 252
+        },
+        {
+          "caller": "hget",
+          "callee": "redisCommandArgv",
+          "lineNumber": 252
+        },
+        {
+          "caller": "hget",
+          "callee": "get",
+          "lineNumber": 252
+        },
+        {
+          "caller": "hget",
+          "callee": "returnConnection",
+          "lineNumber": 253
+        },
+        {
+          "caller": "hget",
+          "callee": "std::move",
+          "lineNumber": 253
+        },
+        {
+          "caller": "hget",
+          "callee": "freeReplyObject",
+          "lineNumber": 255
+        },
+        {
+          "caller": "hget",
+          "callee": "LOG_ERROR",
+          "lineNumber": 256
+        },
+        {
+          "caller": "hget",
+          "callee": "freeReplyObject",
+          "lineNumber": 260
+        },
+        {
+          "caller": "hget",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 261
+        },
+        {
+          "caller": "existskey",
+          "callee": "getConnection",
+          "lineNumber": 266
+        },
+        {
+          "caller": "existskey",
+          "callee": "static_cast<redisReply*>",
+          "lineNumber": 270
+        },
+        {
+          "caller": "existskey",
+          "callee": "redisCommand",
+          "lineNumber": 270
+        },
+        {
+          "caller": "existskey",
+          "callee": "get",
+          "lineNumber": 270
+        },
+        {
+          "caller": "existskey",
+          "callee": "c_str",
+          "lineNumber": 270
+        },
+        {
+          "caller": "existskey",
+          "callee": "returnConnection",
+          "lineNumber": 271
+        },
+        {
+          "caller": "existskey",
+          "callee": "std::move",
+          "lineNumber": 271
+        },
+        {
+          "caller": "existskey",
+          "callee": "LOG_ERROR",
+          "lineNumber": 273
+        },
+        {
+          "caller": "existskey",
+          "callee": "freeReplyObject",
+          "lineNumber": 277
+        },
+        {
+          "caller": "existskey",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 278
+        },
+        {
+          "caller": "setex",
+          "callee": "getConnection",
+          "lineNumber": 283
+        },
+        {
+          "caller": "setex",
+          "callee": "static_cast<redisReply*>",
+          "lineNumber": 285
+        },
+        {
+          "caller": "setex",
+          "callee": "redisCommand",
+          "lineNumber": 285
+        },
+        {
+          "caller": "setex",
+          "callee": "get",
+          "lineNumber": 285
+        },
+        {
+          "caller": "setex",
+          "callee": "c_str",
+          "lineNumber": 285
+        },
+        {
+          "caller": "setex",
+          "callee": "c_str",
+          "lineNumber": 285
+        },
+        {
+          "caller": "setex",
+          "callee": "returnConnection",
+          "lineNumber": 286
+        },
+        {
+          "caller": "setex",
+          "callee": "std::move",
+          "lineNumber": 286
+        },
+        {
+          "caller": "setex",
+          "callee": "LOG_ERROR",
+          "lineNumber": 287
+        },
+        {
+          "caller": "setex",
+          "callee": "strcmp",
+          "lineNumber": 288
+        },
+        {
+          "caller": "setex",
+          "callee": "strcmp",
+          "lineNumber": 288
+        },
+        {
+          "caller": "setex",
+          "callee": "freeReplyObject",
+          "lineNumber": 289
+        },
+        {
+          "caller": "setex",
+          "callee": "freeReplyObject",
+          "lineNumber": 291
+        },
+        {
+          "caller": "setex",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 292
+        },
+        {
+          "caller": "expire",
+          "callee": "getConnection",
+          "lineNumber": 297
+        },
+        {
+          "caller": "expire",
+          "callee": "static_cast<redisReply*>",
+          "lineNumber": 299
+        },
+        {
+          "caller": "expire",
+          "callee": "redisCommand",
+          "lineNumber": 299
+        },
+        {
+          "caller": "expire",
+          "callee": "get",
+          "lineNumber": 299
+        },
+        {
+          "caller": "expire",
+          "callee": "c_str",
+          "lineNumber": 299
+        },
+        {
+          "caller": "expire",
+          "callee": "returnConnection",
+          "lineNumber": 300
+        },
+        {
+          "caller": "expire",
+          "callee": "std::move",
+          "lineNumber": 300
+        },
+        {
+          "caller": "expire",
+          "callee": "LOG_ERROR",
+          "lineNumber": 301
+        },
+        {
+          "caller": "expire",
+          "callee": "freeReplyObject",
+          "lineNumber": 303
+        },
+        {
+          "caller": "incr",
+          "callee": "getConnection",
+          "lineNumber": 308
+        },
+        {
+          "caller": "incr",
+          "callee": "static_cast<redisReply*>",
+          "lineNumber": 310
+        },
+        {
+          "caller": "incr",
+          "callee": "redisCommand",
+          "lineNumber": 310
+        },
+        {
+          "caller": "incr",
+          "callee": "get",
+          "lineNumber": 310
+        },
+        {
+          "caller": "incr",
+          "callee": "c_str",
+          "lineNumber": 310
+        },
+        {
+          "caller": "incr",
+          "callee": "returnConnection",
+          "lineNumber": 311
+        },
+        {
+          "caller": "incr",
+          "callee": "std::move",
+          "lineNumber": 311
+        },
+        {
+          "caller": "incr",
+          "callee": "freeReplyObject",
+          "lineNumber": 312
+        },
+        {
+          "caller": "incr",
+          "callee": "freeReplyObject",
+          "lineNumber": 314
+        },
+        {
+          "caller": "decr",
+          "callee": "getConnection",
+          "lineNumber": 319
+        },
+        {
+          "caller": "decr",
+          "callee": "static_cast<redisReply*>",
+          "lineNumber": 321
+        },
+        {
+          "caller": "decr",
+          "callee": "redisCommand",
+          "lineNumber": 321
+        },
+        {
+          "caller": "decr",
+          "callee": "get",
+          "lineNumber": 321
+        },
+        {
+          "caller": "decr",
+          "callee": "c_str",
+          "lineNumber": 321
+        },
+        {
+          "caller": "decr",
+          "callee": "returnConnection",
+          "lineNumber": 322
+        },
+        {
+          "caller": "decr",
+          "callee": "std::move",
+          "lineNumber": 322
+        },
+        {
+          "caller": "decr",
+          "callee": "freeReplyObject",
+          "lineNumber": 323
+        },
+        {
+          "caller": "decr",
+          "callee": "freeReplyObject",
+          "lineNumber": 325
+        },
+        {
+          "caller": "ltrim",
+          "callee": "getConnection",
+          "lineNumber": 330
+        },
+        {
+          "caller": "ltrim",
+          "callee": "static_cast<redisReply*>",
+          "lineNumber": 332
+        },
+        {
+          "caller": "ltrim",
+          "callee": "redisCommand",
+          "lineNumber": 332
+        },
+        {
+          "caller": "ltrim",
+          "callee": "get",
+          "lineNumber": 332
+        },
+        {
+          "caller": "ltrim",
+          "callee": "c_str",
+          "lineNumber": 332
+        },
+        {
+          "caller": "ltrim",
+          "callee": "returnConnection",
+          "lineNumber": 333
+        },
+        {
+          "caller": "ltrim",
+          "callee": "std::move",
+          "lineNumber": 333
+        },
+        {
+          "caller": "ltrim",
+          "callee": "LOG_ERROR",
+          "lineNumber": 334
+        },
+        {
+          "caller": "ltrim",
+          "callee": "freeReplyObject",
+          "lineNumber": 335
+        },
+        {
+          "caller": "lrange",
+          "callee": "getConnection",
+          "lineNumber": 340
+        },
+        {
+          "caller": "lrange",
+          "callee": "static_cast<redisReply*>",
+          "lineNumber": 342
+        },
+        {
+          "caller": "lrange",
+          "callee": "redisCommand",
+          "lineNumber": 342
+        },
+        {
+          "caller": "lrange",
+          "callee": "get",
+          "lineNumber": 342
+        },
+        {
+          "caller": "lrange",
+          "callee": "c_str",
+          "lineNumber": 342
+        },
+        {
+          "caller": "lrange",
+          "callee": "returnConnection",
+          "lineNumber": 343
+        },
+        {
+          "caller": "lrange",
+          "callee": "std::move",
+          "lineNumber": 343
+        },
+        {
+          "caller": "lrange",
+          "callee": "freeReplyObject",
+          "lineNumber": 344
+        },
+        {
+          "caller": "lrange",
+          "callee": "emplace_back",
+          "lineNumber": 346
+        },
+        {
+          "caller": "lrange",
+          "callee": "freeReplyObject",
+          "lineNumber": 348
+        },
+        {
+          "caller": "acquireLock",
+          "callee": "getConnection",
+          "lineNumber": 353
+        },
+        {
+          "caller": "acquireLock",
+          "callee": "static_cast<redisReply*>",
+          "lineNumber": 355
+        },
+        {
+          "caller": "acquireLock",
+          "callee": "redisCommand",
+          "lineNumber": 355
+        },
+        {
+          "caller": "acquireLock",
+          "callee": "get",
+          "lineNumber": 355
+        },
+        {
+          "caller": "acquireLock",
+          "callee": "c_str",
+          "lineNumber": 356
+        },
+        {
+          "caller": "acquireLock",
+          "callee": "c_str",
+          "lineNumber": 356
+        },
+        {
+          "caller": "acquireLock",
+          "callee": "returnConnection",
+          "lineNumber": 357
+        },
+        {
+          "caller": "acquireLock",
+          "callee": "std::move",
+          "lineNumber": 357
+        },
+        {
+          "caller": "acquireLock",
+          "callee": "LOG_ERROR",
+          "lineNumber": 359
+        },
+        {
+          "caller": "acquireLock",
+          "callee": "strcmp",
+          "lineNumber": 362
+        },
+        {
+          "caller": "acquireLock",
+          "callee": "freeReplyObject",
+          "lineNumber": 363
+        },
+        {
+          "caller": "acquireLock",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 365
+        },
+        {
+          "caller": "releaseLock",
+          "callee": "getConnection",
+          "lineNumber": 371
+        },
+        {
+          "caller": "releaseLock",
+          "callee": "static_cast<redisReply*>",
+          "lineNumber": 374
+        },
+        {
+          "caller": "releaseLock",
+          "callee": "redisCommand",
+          "lineNumber": 374
+        },
+        {
+          "caller": "releaseLock",
+          "callee": "get",
+          "lineNumber": 374
+        },
+        {
+          "caller": "releaseLock",
+          "callee": "c_str",
+          "lineNumber": 375
+        },
+        {
+          "caller": "releaseLock",
+          "callee": "c_str",
+          "lineNumber": 375
+        },
+        {
+          "caller": "releaseLock",
+          "callee": "returnConnection",
+          "lineNumber": 376
+        },
+        {
+          "caller": "releaseLock",
+          "callee": "std::move",
+          "lineNumber": 376
+        },
+        {
+          "caller": "releaseLock",
+          "callee": "LOG_ERROR",
+          "lineNumber": 378
+        },
+        {
+          "caller": "releaseLock",
+          "callee": "freeReplyObject",
+          "lineNumber": 382
+        },
+        {
+          "caller": "releaseLock",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 384
+        },
+        {
+          "caller": "acquireLockWithRetry",
+          "callee": "acquireLock",
+          "lineNumber": 392
+        },
+        {
+          "caller": "acquireLockWithRetry",
+          "callee": "std::this_thread::sleep_for",
+          "lineNumber": 397
+        },
+        {
+          "caller": "acquireLockWithRetry",
+          "callee": "std::chrono::milliseconds",
+          "lineNumber": 397
+        },
+        {
+          "caller": "acquireLockWithRetry",
+          "callee": "LOG_WARN",
+          "lineNumber": 400
+        },
+        {
+          "caller": "evalScript",
+          "callee": "getConnection",
+          "lineNumber": 407
+        },
+        {
+          "caller": "evalScript",
+          "callee": "push_back",
+          "lineNumber": 411
+        },
+        {
+          "caller": "evalScript",
+          "callee": "push_back",
+          "lineNumber": 412
+        },
+        {
+          "caller": "evalScript",
+          "callee": "push_back",
+          "lineNumber": 413
+        },
+        {
+          "caller": "evalScript",
+          "callee": "std::to_string",
+          "lineNumber": 413
+        },
+        {
+          "caller": "evalScript",
+          "callee": "size",
+          "lineNumber": 413
+        },
+        {
+          "caller": "evalScript",
+          "callee": "push_back",
+          "lineNumber": 414
+        },
+        {
+          "caller": "evalScript",
+          "callee": "push_back",
+          "lineNumber": 415
+        },
+        {
+          "caller": "evalScript",
+          "callee": "size",
+          "lineNumber": 417
+        },
+        {
+          "caller": "evalScript",
+          "callee": "size",
+          "lineNumber": 418
+        },
+        {
+          "caller": "evalScript",
+          "callee": "size",
+          "lineNumber": 419
+        },
+        {
+          "caller": "evalScript",
+          "callee": "c_str",
+          "lineNumber": 420
+        },
+        {
+          "caller": "evalScript",
+          "callee": "size",
+          "lineNumber": 421
+        },
+        {
+          "caller": "evalScript",
+          "callee": "static_cast<redisReply*>",
+          "lineNumber": 424
+        },
+        {
+          "caller": "evalScript",
+          "callee": "redisCommandArgv",
+          "lineNumber": 424
+        },
+        {
+          "caller": "evalScript",
+          "callee": "get",
+          "lineNumber": 425
+        },
+        {
+          "caller": "evalScript",
+          "callee": "static_cast<int>",
+          "lineNumber": 425
+        },
+        {
+          "caller": "evalScript",
+          "callee": "size",
+          "lineNumber": 425
+        },
+        {
+          "caller": "evalScript",
+          "callee": "data",
+          "lineNumber": 425
+        },
+        {
+          "caller": "evalScript",
+          "callee": "data",
+          "lineNumber": 425
+        },
+        {
+          "caller": "evalScript",
+          "callee": "returnConnection",
+          "lineNumber": 426
+        },
+        {
+          "caller": "evalScript",
+          "callee": "std::move",
+          "lineNumber": 426
+        },
+        {
+          "caller": "evalScript",
+          "callee": "LOG_ERROR",
+          "lineNumber": 428
+        },
+        {
+          "caller": "evalScript",
+          "callee": "std::stoll",
+          "lineNumber": 435
+        },
+        {
+          "caller": "evalScript",
+          "callee": "freeReplyObject",
+          "lineNumber": 439
+        },
+        {
+          "caller": "pushMessageAtomic",
+          "callee": "std::to_string",
+          "lineNumber": 457
+        },
+        {
+          "caller": "pushMessageAtomic",
+          "callee": "std::to_string",
+          "lineNumber": 457
+        },
+        {
+          "caller": "pushMessageAtomic",
+          "callee": "evalScript",
+          "lineNumber": 458
+        },
+        {
+          "caller": "pushMessageAtomic",
+          "callee": "LOG_ERROR",
+          "lineNumber": 460
+        },
+        {
+          "caller": "pushMessageAtomic",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 463
+        },
+        {
+          "caller": "markReadAtomic",
+          "callee": "std::to_string",
+          "lineNumber": 475
+        },
+        {
+          "caller": "markReadAtomic",
+          "callee": "std::to_string",
+          "lineNumber": 475
+        },
+        {
+          "caller": "markReadAtomic",
+          "callee": "evalScript",
+          "lineNumber": 476
+        },
+        {
+          "caller": "markReadAtomic",
+          "callee": "LOG_ERROR",
+          "lineNumber": 478
+        },
+        {
+          "caller": "markReadAtomic",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 481
+        },
+        {
+          "caller": "getAndDeleteKick",
+          "callee": "getConnection",
+          "lineNumber": 491
+        },
+        {
+          "caller": "getAndDeleteKick",
+          "callee": "size",
+          "lineNumber": 495
+        },
+        {
+          "caller": "getAndDeleteKick",
+          "callee": "size",
+          "lineNumber": 496
+        },
+        {
+          "caller": "getAndDeleteKick",
+          "callee": "size",
+          "lineNumber": 497
+        },
+        {
+          "caller": "getAndDeleteKick",
+          "callee": "c_str",
+          "lineNumber": 498
+        },
+        {
+          "caller": "getAndDeleteKick",
+          "callee": "size",
+          "lineNumber": 499
+        },
+        {
+          "caller": "getAndDeleteKick",
+          "callee": "static_cast<redisReply*>",
+          "lineNumber": 502
+        },
+        {
+          "caller": "getAndDeleteKick",
+          "callee": "redisCommandArgv",
+          "lineNumber": 502
+        },
+        {
+          "caller": "getAndDeleteKick",
+          "callee": "get",
+          "lineNumber": 503
+        },
+        {
+          "caller": "getAndDeleteKick",
+          "callee": "static_cast<int>",
+          "lineNumber": 503
+        },
+        {
+          "caller": "getAndDeleteKick",
+          "callee": "size",
+          "lineNumber": 503
+        },
+        {
+          "caller": "getAndDeleteKick",
+          "callee": "data",
+          "lineNumber": 503
+        },
+        {
+          "caller": "getAndDeleteKick",
+          "callee": "data",
+          "lineNumber": 503
+        },
+        {
+          "caller": "getAndDeleteKick",
+          "callee": "returnConnection",
+          "lineNumber": 504
+        },
+        {
+          "caller": "getAndDeleteKick",
+          "callee": "std::move",
+          "lineNumber": 504
+        },
+        {
+          "caller": "getAndDeleteKick",
+          "callee": "LOG_ERROR",
+          "lineNumber": 507
+        },
+        {
+          "caller": "getAndDeleteKick",
+          "callee": "std::string",
+          "lineNumber": 511
+        },
+        {
+          "caller": "getAndDeleteKick",
+          "callee": "freeReplyObject",
+          "lineNumber": 512
+        },
+        {
+          "caller": "getAndDeleteKick",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 513
+        },
+        {
+          "caller": "getAndDeleteKick",
+          "callee": "freeReplyObject",
+          "lineNumber": 516
+        },
+        {
+          "caller": "appendLogAtomic",
+          "callee": "std::to_string",
+          "lineNumber": 532
+        },
+        {
+          "caller": "appendLogAtomic",
+          "callee": "std::to_string",
+          "lineNumber": 532
+        },
+        {
+          "caller": "appendLogAtomic",
+          "callee": "evalScript",
+          "lineNumber": 533
+        },
+        {
+          "caller": "appendLogAtomic",
+          "callee": "LOG_ERROR",
+          "lineNumber": 535
+        },
+        {
+          "caller": "close",
+          "callee": "stop",
+          "lineNumber": 542
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 29,
+        "functionCount": 29,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/RedisManager.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 92,
+      "nonEmptyLines": 80,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/Session.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 91,
+      "nonEmptyLines": 79,
+      "functions": [
+        {
+          "name": "Session",
+          "startLine": 7,
+          "endLine": 11,
+          "params": [
+            "io_context",
+            "server"
+          ]
+        },
+        {
+          "name": "start",
+          "startLine": 17,
+          "endLine": 19,
+          "params": []
+        },
+        {
+          "name": "send",
+          "startLine": 21,
+          "endLine": 32,
+          "params": [
+            "msg"
+          ]
+        },
+        {
+          "name": "close",
+          "startLine": 34,
+          "endLine": 40,
+          "params": []
+        },
+        {
+          "name": "sharedSelf",
+          "startLine": 42,
+          "endLine": 44,
+          "params": []
+        },
+        {
+          "name": "doRead",
+          "startLine": 46,
+          "endLine": 51,
+          "params": []
+        },
+        {
+          "name": "onRead",
+          "startLine": 53,
+          "endLine": 67,
+          "params": [
+            "ec",
+            "bytes_transferred"
+          ]
+        },
+        {
+          "name": "doWriteLocked",
+          "startLine": 70,
+          "endLine": 77,
+          "params": []
+        },
+        {
+          "name": "onWrite",
+          "startLine": 79,
+          "endLine": 91,
+          "params": [
+            "ec",
+            "bytes_transferred"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Session",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "start",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "send",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "close",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "sharedSelf",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "doRead",
+          "line": 46,
+          "isDefault": false
+        },
+        {
+          "name": "onRead",
+          "line": 53,
+          "isDefault": false
+        },
+        {
+          "name": "doWriteLocked",
+          "line": 70,
+          "isDefault": false
+        },
+        {
+          "name": "onWrite",
+          "line": 79,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "Session",
+          "callee": "boost::uuids::random_generator()",
+          "lineNumber": 9
+        },
+        {
+          "caller": "Session",
+          "callee": "boost::uuids::random_generator",
+          "lineNumber": 9
+        },
+        {
+          "caller": "Session",
+          "callee": "boost::uuids::to_string",
+          "lineNumber": 10
+        },
+        {
+          "caller": "start",
+          "callee": "doRead",
+          "lineNumber": 18
+        },
+        {
+          "caller": "send",
+          "callee": "size",
+          "lineNumber": 23
+        },
+        {
+          "caller": "send",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 24
+        },
+        {
+          "caller": "send",
+          "callee": "empty",
+          "lineNumber": 27
+        },
+        {
+          "caller": "send",
+          "callee": "push",
+          "lineNumber": 28
+        },
+        {
+          "caller": "send",
+          "callee": "doWriteLocked",
+          "lineNumber": 30
+        },
+        {
+          "caller": "close",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 37
+        },
+        {
+          "caller": "close",
+          "callee": "close",
+          "lineNumber": 39
+        },
+        {
+          "caller": "sharedSelf",
+          "callee": "shared_from_this",
+          "lineNumber": 43
+        },
+        {
+          "caller": "doRead",
+          "callee": "shared_from_this",
+          "lineNumber": 47
+        },
+        {
+          "caller": "doRead",
+          "callee": "async_read",
+          "lineNumber": 48
+        },
+        {
+          "caller": "doRead",
+          "callee": "onRead",
+          "lineNumber": 49
+        },
+        {
+          "caller": "onRead",
+          "callee": "LOG_ERROR",
+          "lineNumber": 55
+        },
+        {
+          "caller": "onRead",
+          "callee": "message",
+          "lineNumber": 55
+        },
+        {
+          "caller": "onRead",
+          "callee": "close",
+          "lineNumber": 56
+        },
+        {
+          "caller": "onRead",
+          "callee": "clearSession",
+          "lineNumber": 57
+        },
+        {
+          "caller": "onRead",
+          "callee": "beast::buffers_to_string",
+          "lineNumber": 61
+        },
+        {
+          "caller": "onRead",
+          "callee": "data",
+          "lineNumber": 61
+        },
+        {
+          "caller": "onRead",
+          "callee": "consume",
+          "lineNumber": 62
+        },
+        {
+          "caller": "onRead",
+          "callee": "LOG_DEBUG",
+          "lineNumber": 63
+        },
+        {
+          "caller": "onRead",
+          "callee": "postMsgToQue",
+          "lineNumber": 65
+        },
+        {
+          "caller": "onRead",
+          "callee": "LogicSystem::getInstance",
+          "lineNumber": 65
+        },
+        {
+          "caller": "onRead",
+          "callee": "shared_from_this",
+          "lineNumber": 65
+        },
+        {
+          "caller": "onRead",
+          "callee": "std::move",
+          "lineNumber": 65
+        },
+        {
+          "caller": "onRead",
+          "callee": "doRead",
+          "lineNumber": 66
+        },
+        {
+          "caller": "doWriteLocked",
+          "callee": "shared_from_this",
+          "lineNumber": 71
+        },
+        {
+          "caller": "doWriteLocked",
+          "callee": "empty",
+          "lineNumber": 72
+        },
+        {
+          "caller": "doWriteLocked",
+          "callee": "front",
+          "lineNumber": 73
+        },
+        {
+          "caller": "doWriteLocked",
+          "callee": "async_write",
+          "lineNumber": 74
+        },
+        {
+          "caller": "doWriteLocked",
+          "callee": "net::buffer",
+          "lineNumber": 74
+        },
+        {
+          "caller": "doWriteLocked",
+          "callee": "onWrite",
+          "lineNumber": 75
+        },
+        {
+          "caller": "onWrite",
+          "callee": "LOG_ERROR",
+          "lineNumber": 81
+        },
+        {
+          "caller": "onWrite",
+          "callee": "message",
+          "lineNumber": 81
+        },
+        {
+          "caller": "onWrite",
+          "callee": "close",
+          "lineNumber": 82
+        },
+        {
+          "caller": "onWrite",
+          "callee": "clearSession",
+          "lineNumber": 83
+        },
+        {
+          "caller": "onWrite",
+          "callee": "pop",
+          "lineNumber": 87
+        },
+        {
+          "caller": "onWrite",
+          "callee": "empty",
+          "lineNumber": 88
+        },
+        {
+          "caller": "onWrite",
+          "callee": "doWriteLocked",
+          "lineNumber": 89
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 9,
+        "functionCount": 9,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/Session.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 49,
+      "nonEmptyLines": 43,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/StatusGrpcClient.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 79,
+      "nonEmptyLines": 73,
+      "functions": [
+        {
+          "name": "StatusGrpcClient",
+          "startLine": 4,
+          "endLine": 9,
+          "params": []
+        },
+        {
+          "name": "setDeadline",
+          "startLine": 11,
+          "endLine": 14,
+          "params": [
+            "ctx"
+          ]
+        },
+        {
+          "name": "reportLogin",
+          "startLine": 16,
+          "endLine": 32,
+          "params": [
+            "uid",
+            "token"
+          ]
+        },
+        {
+          "name": "reportLog",
+          "startLine": 34,
+          "endLine": 42,
+          "params": [
+            "req"
+          ]
+        },
+        {
+          "name": "heartbeat",
+          "startLine": 44,
+          "endLine": 59,
+          "params": [
+            "host",
+            "port"
+          ]
+        },
+        {
+          "name": "reportDisconnect",
+          "startLine": 61,
+          "endLine": 79,
+          "params": [
+            "server_name"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "StatusGrpcClient",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "reportLogin",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "reportLog",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "heartbeat",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "reportDisconnect",
+          "line": 61,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "StatusGrpcClient",
+          "callee": "ConfigManager::getInstance",
+          "lineNumber": 5
+        },
+        {
+          "caller": "StatusGrpcClient",
+          "callee": "std::make_unique<StatusConnectPool>",
+          "lineNumber": 8
+        },
+        {
+          "caller": "setDeadline",
+          "callee": "std::chrono::system_clock::now",
+          "lineNumber": 12
+        },
+        {
+          "caller": "setDeadline",
+          "callee": "std::chrono::seconds",
+          "lineNumber": 12
+        },
+        {
+          "caller": "setDeadline",
+          "callee": "set_deadline",
+          "lineNumber": 13
+        },
+        {
+          "caller": "reportLogin",
+          "callee": "setDeadline",
+          "lineNumber": 20
+        },
+        {
+          "caller": "reportLogin",
+          "callee": "set_uid",
+          "lineNumber": 21
+        },
+        {
+          "caller": "reportLogin",
+          "callee": "set_token",
+          "lineNumber": 22
+        },
+        {
+          "caller": "reportLogin",
+          "callee": "getStub",
+          "lineNumber": 23
+        },
+        {
+          "caller": "reportLogin",
+          "callee": "set_error",
+          "lineNumber": 24
+        },
+        {
+          "caller": "reportLogin",
+          "callee": "static_cast<int>",
+          "lineNumber": 24
+        },
+        {
+          "caller": "reportLogin",
+          "callee": "returnStub",
+          "lineNumber": 25
+        },
+        {
+          "caller": "reportLogin",
+          "callee": "std::move",
+          "lineNumber": 25
+        },
+        {
+          "caller": "reportLogin",
+          "callee": "ReportLogin",
+          "lineNumber": 26
+        },
+        {
+          "caller": "reportLogin",
+          "callee": "ok",
+          "lineNumber": 27
+        },
+        {
+          "caller": "reportLogin",
+          "callee": "LOG_ERROR",
+          "lineNumber": 28
+        },
+        {
+          "caller": "reportLogin",
+          "callee": "error_message",
+          "lineNumber": 28
+        },
+        {
+          "caller": "reportLogin",
+          "callee": "set_error",
+          "lineNumber": 29
+        },
+        {
+          "caller": "reportLogin",
+          "callee": "static_cast<int>",
+          "lineNumber": 29
+        },
+        {
+          "caller": "reportLog",
+          "callee": "setDeadline",
+          "lineNumber": 37
+        },
+        {
+          "caller": "reportLog",
+          "callee": "getStub",
+          "lineNumber": 38
+        },
+        {
+          "caller": "reportLog",
+          "callee": "returnStub",
+          "lineNumber": 40
+        },
+        {
+          "caller": "reportLog",
+          "callee": "std::move",
+          "lineNumber": 40
+        },
+        {
+          "caller": "reportLog",
+          "callee": "ReportLog",
+          "lineNumber": 41
+        },
+        {
+          "caller": "heartbeat",
+          "callee": "setDeadline",
+          "lineNumber": 48
+        },
+        {
+          "caller": "heartbeat",
+          "callee": "set_service",
+          "lineNumber": 49
+        },
+        {
+          "caller": "heartbeat",
+          "callee": "set_host",
+          "lineNumber": 50
+        },
+        {
+          "caller": "heartbeat",
+          "callee": "set_port",
+          "lineNumber": 51
+        },
+        {
+          "caller": "heartbeat",
+          "callee": "count",
+          "lineNumber": 52
+        },
+        {
+          "caller": "heartbeat",
+          "callee": "std::chrono::duration_cast<std::chrono::seconds>",
+          "lineNumber": 52
+        },
+        {
+          "caller": "heartbeat",
+          "callee": "time_since_epoch",
+          "lineNumber": 53
+        },
+        {
+          "caller": "heartbeat",
+          "callee": "std::chrono::system_clock::now",
+          "lineNumber": 53
+        },
+        {
+          "caller": "heartbeat",
+          "callee": "set_timestamp",
+          "lineNumber": 54
+        },
+        {
+          "caller": "heartbeat",
+          "callee": "getStub",
+          "lineNumber": 55
+        },
+        {
+          "caller": "heartbeat",
+          "callee": "returnStub",
+          "lineNumber": 57
+        },
+        {
+          "caller": "heartbeat",
+          "callee": "std::move",
+          "lineNumber": 57
+        },
+        {
+          "caller": "heartbeat",
+          "callee": "ServerHeartbeat",
+          "lineNumber": 58
+        },
+        {
+          "caller": "reportDisconnect",
+          "callee": "setDeadline",
+          "lineNumber": 65
+        },
+        {
+          "caller": "reportDisconnect",
+          "callee": "set_server_name",
+          "lineNumber": 66
+        },
+        {
+          "caller": "reportDisconnect",
+          "callee": "getStub",
+          "lineNumber": 67
+        },
+        {
+          "caller": "reportDisconnect",
+          "callee": "LOG_ERROR",
+          "lineNumber": 69
+        },
+        {
+          "caller": "reportDisconnect",
+          "callee": "returnStub",
+          "lineNumber": 72
+        },
+        {
+          "caller": "reportDisconnect",
+          "callee": "std::move",
+          "lineNumber": 72
+        },
+        {
+          "caller": "reportDisconnect",
+          "callee": "ReportDisconnect",
+          "lineNumber": 73
+        },
+        {
+          "caller": "reportDisconnect",
+          "callee": "ok",
+          "lineNumber": 74
+        },
+        {
+          "caller": "reportDisconnect",
+          "callee": "LOG_ERROR",
+          "lineNumber": 75
+        },
+        {
+          "caller": "reportDisconnect",
+          "callee": "error_message",
+          "lineNumber": 75
+        },
+        {
+          "caller": "reportDisconnect",
+          "callee": "LOG_INFO",
+          "lineNumber": 77
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 5,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "PushServer/StatusGrpcClient.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 37,
+      "nonEmptyLines": 32,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "batchImportData": {
+    "PushServer2/CMakeLists.txt": [],
+    "PushServer2/config.ini": [],
+    "PushServer2/message.proto": []
+  },
+  "neighborMap": {},
+  "files": [
+    {
+      "path": "PushServer2/CMakeLists.txt",
+      "language": "txt",
+      "sizeLines": 117,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "PushServer2/config.ini",
+      "language": "config",
+      "sizeLines": 27,
+      "fileCategory": "config"
+    },
+    {
+      "path": "PushServer2/message.proto",
+      "language": "protobuf",
+      "sizeLines": 550,
+      "fileCategory": "data"
+    }
+  ]
+}

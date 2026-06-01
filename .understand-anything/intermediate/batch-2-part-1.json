@@ -1,0 +1,990 @@
+{
+  "nodes": [
+    {
+      "id": "file:PushServer2/AsyncTaskPool.cpp",
+      "type": "file",
+      "name": "AsyncTaskPool.cpp",
+      "filePath": "PushServer2/AsyncTaskPool.cpp",
+      "summary": "\u5f02\u6b65\u4efb\u52a1\u7ebf\u7a0b\u6c60\u5b9e\u73b0\uff0c\u57fa\u4e8e Boost.Asio io_context \u7ba1\u7406\u7ebf\u7a0b\u6c60\uff0c\u63d0\u4f9b post \u65b9\u6cd5\u6295\u9012\u5f02\u6b65\u4efb\u52a1\u3002",
+      "tags": [
+        "\u7ebf\u7a0b\u6c60",
+        "\u5f02\u6b65\u4efb\u52a1",
+        "\u57fa\u7840\u8bbe\u65bd"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/AsyncTaskPool.h",
+      "type": "file",
+      "name": "AsyncTaskPool.h",
+      "filePath": "PushServer2/AsyncTaskPool.h",
+      "summary": "AsyncTaskPool \u5355\u4f8b\u5934\u6587\u4ef6\uff0c\u5b9a\u4e49\u57fa\u4e8e Boost.Asio \u7684\u5f02\u6b65\u4efb\u52a1\u7ebf\u7a0b\u6c60\u63a5\u53e3\u3002",
+      "tags": [
+        "\u5355\u4f8b",
+        "\u7ebf\u7a0b\u6c60",
+        "\u5934\u6587\u4ef6"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/ConfigManager.cpp",
+      "type": "file",
+      "name": "ConfigManager.cpp",
+      "filePath": "PushServer2/ConfigManager.cpp",
+      "summary": "\u914d\u7f6e\u7ba1\u7406\u5668\u5b9e\u73b0\uff0c\u8bfb\u53d6 INI \u914d\u7f6e\u6587\u4ef6\u5e76\u89e3\u6790\u4e3a section-key-value \u6620\u5c04\u8868\u3002",
+      "tags": [
+        "\u914d\u7f6e\u7ba1\u7406",
+        "INI\u89e3\u6790",
+        "\u5355\u4f8b"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/ConfigManager.h",
+      "type": "file",
+      "name": "ConfigManager.h",
+      "filePath": "PushServer2/ConfigManager.h",
+      "summary": "ConfigManager \u5355\u4f8b\u5934\u6587\u4ef6\uff0c\u5b9a\u4e49 INI \u914d\u7f6e\u6587\u4ef6\u7684 section \u6570\u636e\u7ed3\u6784\u548c\u8bfb\u53d6\u63a5\u53e3\u3002",
+      "tags": [
+        "\u914d\u7f6e\u7ba1\u7406",
+        "\u5355\u4f8b",
+        "\u5934\u6587\u4ef6"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/Global.h",
+      "type": "file",
+      "name": "Global.h",
+      "filePath": "PushServer2/Global.h",
+      "summary": "\u5168\u5c40\u5171\u4eab\u5934\u6587\u4ef6\uff0c\u5b9a\u4e49 UserInfo \u7ed3\u6784\u4f53\u3001ErrorCodes \u679a\u4e3e\u3001WebSocket \u6d88\u606f\u7c7b\u578b\u5b8f\u548c Defer RAII \u5de5\u5177\u7c7b\u3002",
+      "tags": [
+        "\u5168\u5c40\u5b9a\u4e49",
+        "\u6570\u636e\u6a21\u578b",
+        "WebSocket\u534f\u8bae"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/IOContextPool.cpp",
+      "type": "file",
+      "name": "IOContextPool.cpp",
+      "filePath": "PushServer2/IOContextPool.cpp",
+      "summary": "IO \u4e0a\u4e0b\u6587\u6c60\u5b9e\u73b0\uff0c\u7ba1\u7406\u591a\u4e2a Boost.Asio io_context \u5b9e\u4f8b\uff0c\u8f6e\u8be2\u5206\u914d\u4ee5\u5b9e\u73b0\u8d1f\u8f7d\u5747\u8861\u3002",
+      "tags": [
+        "IO\u6c60",
+        "\u5f02\u6b65IO",
+        "\u8d1f\u8f7d\u5747\u8861"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/IOContextPool.h",
+      "type": "file",
+      "name": "IOContextPool.h",
+      "filePath": "PushServer2/IOContextPool.h",
+      "summary": "IOContextPool \u5355\u4f8b\u5934\u6587\u4ef6\uff0c\u5b9a\u4e49 io_context \u6c60\u7684\u8f6e\u8be2\u5206\u914d\u548c\u751f\u547d\u5468\u671f\u7ba1\u7406\u63a5\u53e3\u3002",
+      "tags": [
+        "IO\u6c60",
+        "\u5355\u4f8b",
+        "\u5934\u6587\u4ef6"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/Logger.cpp",
+      "type": "file",
+      "name": "Logger.cpp",
+      "filePath": "PushServer2/Logger.cpp",
+      "summary": "\u65e5\u5fd7\u7cfb\u7edf\u5b9e\u73b0\uff0c\u652f\u6301\u6587\u4ef6\u8f93\u51fa\u3001\u6309\u65e5\u671f\u8f6e\u8f6c\u3001\u8fdc\u7a0b\u6279\u91cf\u4e0a\u62a5\uff0c\u901a\u8fc7\u540e\u53f0\u7ebf\u7a0b\u5b9a\u65f6 flush \u7f13\u51b2\u533a\u3002",
+      "tags": [
+        "\u65e5\u5fd7\u7cfb\u7edf",
+        "\u6587\u4ef6\u8f6e\u8f6c",
+        "\u8fdc\u7a0b\u4e0a\u62a5"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/Logger.h",
+      "type": "file",
+      "name": "Logger.h",
+      "filePath": "PushServer2/Logger.h",
+      "summary": "Logger \u5355\u4f8b\u5934\u6587\u4ef6\uff0c\u5b9a\u4e49\u65e5\u5fd7\u7ea7\u522b\u3001format_string \u6a21\u677f\u51fd\u6570\u3001LogEntry \u7ed3\u6784\u4f53\u548c LOG_DEBUG/INFO/WARN/ERROR \u5b8f\u3002",
+      "tags": [
+        "\u65e5\u5fd7\u7cfb\u7edf",
+        "\u5355\u4f8b",
+        "\u6a21\u677f\u51fd\u6570"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/LogicSystem.cpp",
+      "type": "file",
+      "name": "LogicSystem.cpp",
+      "filePath": "PushServer2/LogicSystem.cpp",
+      "summary": "\u6838\u5fc3\u4e1a\u52a1\u903b\u8f91\u5b9e\u73b0\uff0c\u7ba1\u7406\u6d88\u606f\u961f\u5217\u548c\u5de5\u4f5c\u7ebf\u7a0b\uff0c\u5b9e\u73b0 loginHandler \u5904\u7406\u7528\u6237\u767b\u5f55\u8ba4\u8bc1\u3001Redis \u5728\u7ebf\u72b6\u6001\u7ba1\u7406\u3001\u65e7\u4f1a\u8bdd\u8e22\u4e0b\u7ebf\u548c\u79bb\u7ebf\u6d88\u606f\u63a8\u9001\u3002",
+      "tags": [
+        "\u4e1a\u52a1\u903b\u8f91",
+        "\u6d88\u606f\u961f\u5217",
+        "\u767b\u5f55\u8ba4\u8bc1"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:PushServer2/LogicSystem.h",
+      "type": "file",
+      "name": "LogicSystem.h",
+      "filePath": "PushServer2/LogicSystem.h",
+      "summary": "LogicSystem \u5355\u4f8b\u5934\u6587\u4ef6\uff0c\u5b9a\u4e49\u6d88\u606f\u961f\u5217\u3001\u5de5\u4f5c\u7ebf\u7a0b\u3001\u56de\u8c03\u51fd\u6570\u6620\u5c04\u8868\u548c\u7528\u6237\u4fe1\u606f\u7f13\u5b58\u3002",
+      "tags": [
+        "\u4e1a\u52a1\u903b\u8f91",
+        "\u5355\u4f8b",
+        "\u6d88\u606f\u961f\u5217"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/MainServer.cpp",
+      "type": "file",
+      "name": "MainServer.cpp",
+      "filePath": "PushServer2/MainServer.cpp",
+      "summary": "WebSocket \u670d\u52a1\u5668\u6838\u5fc3\u5b9e\u73b0\uff0c\u8d1f\u8d23\u63a5\u53d7\u8fde\u63a5\u3001WebSocket \u63e1\u624b\u3001Session \u751f\u547d\u5468\u671f\u7ba1\u7406\uff0c\u4ee5\u53ca uid \u5230 Session \u7684\u6620\u5c04\u548c\u5206\u5e03\u5f0f\u9501\u4fdd\u62a4\u7684\u5728\u7ebf\u72b6\u6001\u6e05\u7406\u3002",
+      "tags": [
+        "WebSocket\u670d\u52a1\u5668",
+        "\u4f1a\u8bdd\u7ba1\u7406",
+        "\u5206\u5e03\u5f0f\u9501"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:PushServer2/MainServer.h",
+      "type": "file",
+      "name": "MainServer.h",
+      "filePath": "PushServer2/MainServer.h",
+      "summary": "MainServer \u5934\u6587\u4ef6\uff0c\u5b9a\u4e49 WebSocket \u670d\u52a1\u5668\u7684\u8fde\u63a5\u63a5\u53d7\u3001Session \u7ba1\u7406\u548c uid \u6620\u5c04\u63a5\u53e3\u3002",
+      "tags": [
+        "WebSocket\u670d\u52a1\u5668",
+        "\u4f1a\u8bdd\u7ba1\u7406",
+        "\u5934\u6587\u4ef6"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/MySQLConnectPool.cpp",
+      "type": "file",
+      "name": "MySQLConnectPool.cpp",
+      "filePath": "PushServer2/MySQLConnectPool.cpp",
+      "summary": "MySQL \u8fde\u63a5\u6c60\u5b9e\u73b0\uff0c\u652f\u6301\u8fde\u63a5\u521b\u5efa\u3001\u5b9a\u671f\u4fdd\u6d3b\u68c0\u67e5\u3001\u8d85\u65f6\u83b7\u53d6\u548c\u5f52\u8fd8\uff0c\u81ea\u52a8\u66ff\u6362\u5931\u6548\u8fde\u63a5\u3002",
+      "tags": [
+        "\u8fde\u63a5\u6c60",
+        "MySQL",
+        "\u4fdd\u6d3b\u673a\u5236"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/MySQLConnectPool.h",
+      "type": "file",
+      "name": "MySQLConnectPool.h",
+      "filePath": "PushServer2/MySQLConnectPool.h",
+      "summary": "MySQL \u8fde\u63a5\u6c60\u5934\u6587\u4ef6\uff0c\u5b9a\u4e49 SqlConnection \u5c01\u88c5\u7c7b\u3001MySQLConnectPool \u548c ConnectionGuard RAII \u7c7b\u3002",
+      "tags": [
+        "\u8fde\u63a5\u6c60",
+        "MySQL",
+        "RAII"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/AsyncTaskPool.cpp:AsyncTaskPool",
+      "type": "function",
+      "name": "AsyncTaskPool::AsyncTaskPool",
+      "filePath": "PushServer2/AsyncTaskPool.cpp",
+      "lineRange": [
+        3,
+        15
+      ],
+      "summary": "\u6784\u9020\u51fd\u6570\uff0c\u521b\u5efa\u81f3\u5c11 4 \u4e2a\u5de5\u4f5c\u7ebf\u7a0b\u8fd0\u884c io_context\uff0c\u4f7f\u7528 work_guard \u9632\u6b62\u65e0\u4efb\u52a1\u65f6\u9000\u51fa\u3002",
+      "tags": [
+        "\u6784\u9020\u51fd\u6570",
+        "\u7ebf\u7a0b\u6c60\u521d\u59cb\u5316"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/AsyncTaskPool.cpp:post",
+      "type": "function",
+      "name": "AsyncTaskPool::post",
+      "filePath": "PushServer2/AsyncTaskPool.cpp",
+      "lineRange": [
+        21,
+        23
+      ],
+      "summary": "\u5411 io_context \u6295\u9012\u5f02\u6b65\u4efb\u52a1\uff0c\u7531\u7ebf\u7a0b\u6c60\u4e2d\u7684\u5de5\u4f5c\u7ebf\u7a0b\u6267\u884c\u3002",
+      "tags": [
+        "\u5f02\u6b65\u6295\u9012",
+        "\u7ebf\u7a0b\u6c60"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/Logger.cpp:Logger",
+      "type": "function",
+      "name": "Logger::Logger",
+      "filePath": "PushServer2/Logger.cpp",
+      "lineRange": [
+        7,
+        36
+      ],
+      "summary": "\u6784\u9020\u51fd\u6570\uff0c\u4ece ConfigManager \u8bfb\u53d6\u65e5\u5fd7\u914d\u7f6e\uff08\u7ea7\u522b\u3001\u8def\u5f84\u3001\u670d\u52a1\u540d\u3001flush \u95f4\u9694\uff09\uff0c\u521b\u5efa\u65e5\u5fd7\u76ee\u5f55\uff0c\u6253\u5f00\u65e5\u5fd7\u6587\u4ef6\uff0c\u542f\u52a8\u540e\u53f0 flush \u7ebf\u7a0b\u3002",
+      "tags": [
+        "\u6784\u9020\u51fd\u6570",
+        "\u65e5\u5fd7\u521d\u59cb\u5316",
+        "\u914d\u7f6e\u8bfb\u53d6"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/Logger.cpp:timestamp",
+      "type": "function",
+      "name": "Logger::timestamp",
+      "filePath": "PushServer2/Logger.cpp",
+      "lineRange": [
+        53,
+        64
+      ],
+      "summary": "\u751f\u6210\u6beb\u79d2\u7cbe\u5ea6\u7684\u65f6\u95f4\u6233\u5b57\u7b26\u4e32\uff0c\u683c\u5f0f\u4e3a YYYY-MM-DD HH:MM:SS.mmm\u3002",
+      "tags": [
+        "\u65f6\u95f4\u683c\u5f0f\u5316",
+        "\u5de5\u5177\u51fd\u6570"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/Logger.cpp:rotateIfNeeded",
+      "type": "function",
+      "name": "Logger::rotateIfNeeded",
+      "filePath": "PushServer2/Logger.cpp",
+      "lineRange": [
+        76,
+        90
+      ],
+      "summary": "\u6309\u65e5\u671f\u68c0\u67e5\u662f\u5426\u9700\u8981\u8f6e\u8f6c\u65e5\u5fd7\u6587\u4ef6\uff0c\u8de8\u5929\u65f6\u5173\u95ed\u65e7\u6587\u4ef6\u5e76\u6253\u5f00\u65b0\u6587\u4ef6\uff08\u683c\u5f0f\uff1a\u670d\u52a1\u540d_\u65e5\u671f.log\uff09\u3002",
+      "tags": [
+        "\u65e5\u5fd7\u8f6e\u8f6c",
+        "\u6587\u4ef6\u7ba1\u7406"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/Logger.cpp:log",
+      "type": "function",
+      "name": "Logger::log",
+      "filePath": "PushServer2/Logger.cpp",
+      "lineRange": [
+        100,
+        117
+      ],
+      "summary": "\u6838\u5fc3\u65e5\u5fd7\u65b9\u6cd5\uff0c\u8fc7\u6ee4\u4f4e\u4e8e\u6700\u4f4e\u7ea7\u522b\u7684\u65e5\u5fd7\uff0c\u683c\u5f0f\u5316\u8f93\u51fa\u5230\u6587\u4ef6\uff0cINFO \u53ca\u4ee5\u4e0a\u7ea7\u522b\u540c\u65f6\u7f13\u5b58\u5230\u8fdc\u7a0b\u4e0a\u62a5\u7f13\u51b2\u533a\u3002",
+      "tags": [
+        "\u65e5\u5fd7\u5199\u5165",
+        "\u8fdc\u7a0b\u4e0a\u62a5"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/Logger.cpp:flushLoop",
+      "type": "function",
+      "name": "Logger::flushLoop",
+      "filePath": "PushServer2/Logger.cpp",
+      "lineRange": [
+        119,
+        146
+      ],
+      "summary": "\u540e\u53f0 flush \u7ebf\u7a0b\u5faa\u73af\uff0c\u5b9a\u65f6\u5c06\u7f13\u51b2\u533a\u65e5\u5fd7\u6279\u91cf\u901a\u8fc7\u8fdc\u7a0b\u56de\u8c03\u4e0a\u62a5\uff0c\u9000\u51fa\u65f6\u6267\u884c\u6700\u7ec8 flush\u3002",
+      "tags": [
+        "\u540e\u53f0\u7ebf\u7a0b",
+        "\u6279\u91cf\u4e0a\u62a5"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/LogicSystem.cpp:LogicSystem",
+      "type": "function",
+      "name": "LogicSystem::LogicSystem",
+      "filePath": "PushServer2/LogicSystem.cpp",
+      "lineRange": [
+        18,
+        25
+      ],
+      "summary": "\u6784\u9020\u51fd\u6570\uff0c\u6ce8\u518c\u6d88\u606f\u56de\u8c03\u5904\u7406\u5668\uff0c\u542f\u52a8\u4e0e\u786c\u4ef6\u5e76\u53d1\u6570\u76f8\u540c\u7684\u5de5\u4f5c\u7ebf\u7a0b\u5904\u7406\u6d88\u606f\u961f\u5217\u3002",
+      "tags": [
+        "\u6784\u9020\u51fd\u6570",
+        "\u5de5\u4f5c\u7ebf\u7a0b\u542f\u52a8"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/LogicSystem.cpp:dealMsg",
+      "type": "function",
+      "name": "LogicSystem::dealMsg",
+      "filePath": "PushServer2/LogicSystem.cpp",
+      "lineRange": [
+        44,
+        75
+      ],
+      "summary": "\u5de5\u4f5c\u7ebf\u7a0b\u4e3b\u5faa\u73af\uff0c\u4ece\u6d88\u606f\u961f\u5217\u53d6\u6d88\u606f\u3001\u89e3\u6790 JSON\u3001\u6839\u636e type \u5b57\u6bb5\u5206\u53d1\u5230\u5bf9\u5e94\u7684\u56de\u8c03\u5904\u7406\u5668\u3002",
+      "tags": [
+        "\u6d88\u606f\u5206\u53d1",
+        "\u5de5\u4f5c\u7ebf\u7a0b"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/LogicSystem.cpp:loginHandler",
+      "type": "function",
+      "name": "LogicSystem::loginHandler",
+      "filePath": "PushServer2/LogicSystem.cpp",
+      "lineRange": [
+        82,
+        192
+      ],
+      "summary": "\u767b\u5f55\u5904\u7406\u5668\uff0c\u9a8c\u8bc1 uid/token\uff08\u8c03\u7528 StatusServer\uff09\uff0c\u67e5\u8be2\u7528\u6237\u4fe1\u606f\uff08MySQL\uff09\uff0c\u8e22\u6389\u65e7\u4f1a\u8bdd\uff08Redis \u539f\u5b50\u6807\u8bb0\uff09\uff0c\u8bbe\u7f6e\u5728\u7ebf\u72b6\u6001\uff08\u5206\u5e03\u5f0f\u9501\uff09\uff0c\u83b7\u53d6\u672a\u8bfb\u8ba1\u6570\u548c\u79bb\u7ebf\u6d88\u606f\u3002",
+      "tags": [
+        "\u767b\u5f55\u8ba4\u8bc1",
+        "\u5206\u5e03\u5f0f\u4f1a\u8bdd",
+        "Redis\u539f\u5b50\u64cd\u4f5c"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:PushServer2/MainServer.cpp:MainServer",
+      "type": "function",
+      "name": "MainServer::MainServer",
+      "filePath": "PushServer2/MainServer.cpp",
+      "lineRange": [
+        16,
+        20
+      ],
+      "summary": "\u6784\u9020\u51fd\u6570\uff0c\u521b\u5efa TCP acceptor \u76d1\u542c\u6307\u5b9a\u7aef\u53e3\uff0c\u5f00\u59cb\u63a5\u53d7 WebSocket \u8fde\u63a5\u3002",
+      "tags": [
+        "\u6784\u9020\u51fd\u6570",
+        "\u670d\u52a1\u5668\u542f\u52a8"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/MainServer.cpp:doAccept",
+      "type": "function",
+      "name": "MainServer::doAccept",
+      "filePath": "PushServer2/MainServer.cpp",
+      "lineRange": [
+        22,
+        27
+      ],
+      "summary": "\u4ece IOContextPool \u8f6e\u8be2\u83b7\u53d6 io_context\uff0c\u521b\u5efa\u65b0 Session \u5e76\u5f02\u6b65\u63a5\u53d7 TCP \u8fde\u63a5\u3002",
+      "tags": [
+        "\u8fde\u63a5\u63a5\u53d7",
+        "\u5f02\u6b65IO"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/MainServer.cpp:onAccept",
+      "type": "function",
+      "name": "MainServer::onAccept",
+      "filePath": "PushServer2/MainServer.cpp",
+      "lineRange": [
+        29,
+        46
+      ],
+      "summary": "TCP \u8fde\u63a5\u63a5\u53d7\u56de\u8c03\uff0c\u6267\u884c WebSocket \u63e1\u624b\uff0c\u6210\u529f\u540e\u5c06 Session \u6ce8\u518c\u5230 sessions_ \u6620\u5c04\u5e76\u542f\u52a8\u8bfb\u53d6\u3002",
+      "tags": [
+        "WebSocket\u63e1\u624b",
+        "\u4f1a\u8bdd\u6ce8\u518c"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/MainServer.cpp:clearSession",
+      "type": "function",
+      "name": "MainServer::clearSession",
+      "filePath": "PushServer2/MainServer.cpp",
+      "lineRange": [
+        58,
+        97
+      ],
+      "summary": "\u6e05\u9664\u65ad\u5f00\u7684\u4f1a\u8bdd\uff1a\u4ece sessions_ \u79fb\u9664\uff0c\u83b7\u53d6 uid\uff0c\u5206\u5e03\u5f0f\u9501\u4fdd\u62a4\u4e0b\u6e05\u7406 Redis \u5728\u7ebf\u72b6\u6001\uff0c\u5f02\u6b65\u901a\u77e5 StatusServer \u65ad\u5f00\u4e8b\u4ef6\u3002",
+      "tags": [
+        "\u4f1a\u8bdd\u6e05\u7406",
+        "\u5206\u5e03\u5f0f\u9501",
+        "\u72b6\u6001\u540c\u6b65"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:PushServer2/MainServer.cpp:getSessionByUid",
+      "type": "function",
+      "name": "MainServer::getSessionByUid",
+      "filePath": "PushServer2/MainServer.cpp",
+      "lineRange": [
+        112,
+        118
+      ],
+      "summary": "\u901a\u8fc7 uid \u67e5\u627e\u5bf9\u5e94\u7684 Session\uff0c\u4f7f\u7528 shared_mutex \u5b9e\u73b0\u8bfb\u5199\u5206\u79bb\u3002",
+      "tags": [
+        "\u4f1a\u8bdd\u67e5\u627e",
+        "\u8bfb\u5199\u9501"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:PushServer2/MySQLConnectPool.cpp:MySQLConnectPool",
+      "type": "function",
+      "name": "MySQLConnectPool::MySQLConnectPool",
+      "filePath": "PushServer2/MySQLConnectPool.cpp",
+      "lineRange": [
+        5,
+        22
+      ],
+      "summary": "\u6784\u9020\u51fd\u6570\uff0c\u521b\u5efa\u6307\u5b9a\u6570\u91cf\u7684 MySQL \u8fde\u63a5\u653e\u5165\u6c60\u4e2d\uff0c\u542f\u52a8\u4fdd\u6d3b\u68c0\u67e5\u7ebf\u7a0b\u3002",
+      "tags": [
+        "\u6784\u9020\u51fd\u6570",
+        "\u8fde\u63a5\u6c60\u521d\u59cb\u5316"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/MySQLConnectPool.cpp:checkConnection",
+      "type": "function",
+      "name": "MySQLConnectPool::checkConnection",
+      "filePath": "PushServer2/MySQLConnectPool.cpp",
+      "lineRange": [
+        50,
+        78
+      ],
+      "summary": "\u904d\u5386\u8fde\u63a5\u6c60\uff0c\u5bf9\u8d85\u8fc7 5 \u5206\u949f\u672a\u4f7f\u7528\u7684\u8fde\u63a5\u6267\u884c SELECT 1 \u4fdd\u6d3b\uff0c\u5931\u6548\u65f6\u81ea\u52a8\u91cd\u5efa\u8fde\u63a5\u3002",
+      "tags": [
+        "\u8fde\u63a5\u4fdd\u6d3b",
+        "\u81ea\u52a8\u6062\u590d"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:PushServer2/MySQLConnectPool.cpp:getConnection",
+      "type": "function",
+      "name": "MySQLConnectPool::getConnection",
+      "filePath": "PushServer2/MySQLConnectPool.cpp",
+      "lineRange": [
+        80,
+        89
+      ],
+      "summary": "\u4ece\u8fde\u63a5\u6c60\u83b7\u53d6\u4e00\u4e2a\u8fde\u63a5\uff0c\u5e26 3 \u79d2\u8d85\u65f6\u7b49\u5f85\uff0c\u6c60\u7a7a\u6216\u5df2\u505c\u6b62\u65f6\u8fd4\u56de nullptr\u3002",
+      "tags": [
+        "\u8fde\u63a5\u83b7\u53d6",
+        "\u8d85\u65f6\u7b49\u5f85"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:PushServer2/AsyncTaskPool.h:AsyncTaskPool",
+      "type": "class",
+      "name": "AsyncTaskPool",
+      "filePath": "PushServer2/AsyncTaskPool.h",
+      "lineRange": [
+        11,
+        24
+      ],
+      "summary": "\u5f02\u6b65\u4efb\u52a1\u7ebf\u7a0b\u6c60\u5355\u4f8b\uff0c\u57fa\u4e8e Boost.Asio io_context \u5b9e\u73b0\uff0c\u7528\u4e8e\u6295\u9012\u548c\u6267\u884c\u5f02\u6b65\u4efb\u52a1\u3002",
+      "tags": [
+        "\u5355\u4f8b",
+        "\u7ebf\u7a0b\u6c60",
+        "\u5f02\u6b65\u4efb\u52a1"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:PushServer2/ConfigManager.h:ConfigManager",
+      "type": "class",
+      "name": "ConfigManager",
+      "filePath": "PushServer2/ConfigManager.h",
+      "lineRange": [
+        22,
+        38
+      ],
+      "summary": "\u914d\u7f6e\u7ba1\u7406\u5668\u5355\u4f8b\uff0c\u8bfb\u53d6 INI \u914d\u7f6e\u6587\u4ef6\uff0c\u901a\u8fc7 operator[] \u6309 section \u548c key \u8bbf\u95ee\u914d\u7f6e\u503c\u3002",
+      "tags": [
+        "\u5355\u4f8b",
+        "\u914d\u7f6e\u7ba1\u7406",
+        "INI\u89e3\u6790"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:PushServer2/IOContextPool.h:IOContextPool",
+      "type": "class",
+      "name": "IOContextPool",
+      "filePath": "PushServer2/IOContextPool.h",
+      "lineRange": [
+        9,
+        25
+      ],
+      "summary": "IO \u4e0a\u4e0b\u6587\u6c60\u5355\u4f8b\uff0c\u7ba1\u7406\u591a\u4e2a Boost.Asio io_context \u5b9e\u4f8b\uff0c\u901a\u8fc7\u8f6e\u8be2\u5206\u914d\u5b9e\u73b0\u7f51\u7edc IO \u8d1f\u8f7d\u5747\u8861\u3002",
+      "tags": [
+        "\u5355\u4f8b",
+        "IO\u6c60",
+        "\u8d1f\u8f7d\u5747\u8861"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:PushServer2/Logger.h:Logger",
+      "type": "class",
+      "name": "Logger",
+      "filePath": "PushServer2/Logger.h",
+      "lineRange": [
+        46,
+        87
+      ],
+      "summary": "\u65e5\u5fd7\u7cfb\u7edf\u5355\u4f8b\uff0c\u652f\u6301 DEBUG/INFO/WARN/ERROR \u56db\u7ea7\u65e5\u5fd7\uff0c\u6309\u65e5\u671f\u8f6e\u8f6c\u6587\u4ef6\uff0c\u540e\u53f0\u7ebf\u7a0b\u5b9a\u65f6\u6279\u91cf\u4e0a\u62a5\u8fdc\u7a0b\u65e5\u5fd7\u3002",
+      "tags": [
+        "\u5355\u4f8b",
+        "\u65e5\u5fd7\u7cfb\u7edf",
+        "\u6587\u4ef6\u8f6e\u8f6c",
+        "\u8fdc\u7a0b\u4e0a\u62a5"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:PushServer2/LogicSystem.h:LogicSystem",
+      "type": "class",
+      "name": "LogicSystem",
+      "filePath": "PushServer2/LogicSystem.h",
+      "lineRange": [
+        20,
+        44
+      ],
+      "summary": "\u4e1a\u52a1\u903b\u8f91\u7cfb\u7edf\u5355\u4f8b\uff0c\u7ba1\u7406\u6d88\u606f\u961f\u5217\u548c\u5de5\u4f5c\u7ebf\u7a0b\u6c60\uff0c\u901a\u8fc7\u56de\u8c03\u6620\u5c04\u8868\u5206\u53d1 WebSocket \u6d88\u606f\u5230\u5bf9\u5e94\u5904\u7406\u5668\u3002",
+      "tags": [
+        "\u5355\u4f8b",
+        "\u4e1a\u52a1\u903b\u8f91",
+        "\u6d88\u606f\u961f\u5217"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:PushServer2/MainServer.h:MainServer",
+      "type": "class",
+      "name": "MainServer",
+      "filePath": "PushServer2/MainServer.h",
+      "lineRange": [
+        15,
+        36
+      ],
+      "summary": "WebSocket \u670d\u52a1\u5668\u6838\u5fc3\u7c7b\uff0c\u8d1f\u8d23 TCP \u8fde\u63a5\u63a5\u53d7\u3001WebSocket \u63e1\u624b\u3001Session \u751f\u547d\u5468\u671f\u7ba1\u7406\u548c uid-Session \u6620\u5c04\u3002",
+      "tags": [
+        "WebSocket\u670d\u52a1\u5668",
+        "\u4f1a\u8bdd\u7ba1\u7406",
+        "\u8fde\u63a5\u7ba1\u7406"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:PushServer2/MySQLConnectPool.h:MySQLConnectPool",
+      "type": "class",
+      "name": "MySQLConnectPool",
+      "filePath": "PushServer2/MySQLConnectPool.h",
+      "lineRange": [
+        34,
+        55
+      ],
+      "summary": "MySQL \u8fde\u63a5\u6c60\uff0c\u7ba1\u7406\u4e00\u7ec4\u6570\u636e\u5e93\u8fde\u63a5\uff0c\u652f\u6301\u8d85\u65f6\u83b7\u53d6\u3001\u5f52\u8fd8\u548c\u5b9a\u671f\u4fdd\u6d3b\u68c0\u67e5\u3002",
+      "tags": [
+        "\u8fde\u63a5\u6c60",
+        "MySQL",
+        "\u7ebf\u7a0b\u5b89\u5168"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:PushServer2/MySQLConnectPool.h:ConnectionGuard",
+      "type": "class",
+      "name": "ConnectionGuard",
+      "filePath": "PushServer2/MySQLConnectPool.h",
+      "lineRange": [
+        57,
+        76
+      ],
+      "summary": "MySQL \u8fde\u63a5\u7684 RAII \u5b88\u536b\uff0c\u6790\u6784\u65f6\u81ea\u52a8\u5f52\u8fd8\u8fde\u63a5\u5230\u8fde\u63a5\u6c60\uff0c\u9632\u6b62\u8fde\u63a5\u6cc4\u6f0f\u3002",
+      "tags": [
+        "RAII",
+        "\u8fde\u63a5\u7ba1\u7406",
+        "MySQL"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:PushServer2/MySQLDao.h:MySQLDao",
+      "type": "class",
+      "name": "MySQLDao",
+      "filePath": "PushServer2/MySQLDao.h",
+      "lineRange": [
+        6,
+        20
+      ],
+      "summary": "MySQL \u6570\u636e\u8bbf\u95ee\u5bf9\u8c61\uff0c\u5c01\u88c5\u7528\u6237\u67e5\u8be2\u3001\u767b\u5f55\u9a8c\u8bc1\u3001\u6d88\u606f\u63d2\u5165/\u6807\u8bb0\u5df2\u8bfb/\u5220\u9664\u7b49\u6570\u636e\u5e93\u64cd\u4f5c\u3002",
+      "tags": [
+        "\u6570\u636e\u8bbf\u95ee",
+        "MySQL",
+        "\u7528\u6237\u7ba1\u7406",
+        "\u6d88\u606f\u7ba1\u7406"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:PushServer2/AsyncTaskPool.cpp",
+      "target": "file:PushServer2/AsyncTaskPool.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/ConfigManager.cpp",
+      "target": "file:PushServer2/ConfigManager.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/IOContextPool.cpp",
+      "target": "file:PushServer2/IOContextPool.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/IOContextPool.cpp",
+      "target": "file:PushServer2/Logger.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/Logger.cpp",
+      "target": "file:PushServer2/ConfigManager.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/Logger.cpp",
+      "target": "file:PushServer2/Logger.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/LogicSystem.cpp",
+      "target": "file:PushServer2/AsyncTaskPool.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/LogicSystem.cpp",
+      "target": "file:PushServer2/Global.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/LogicSystem.cpp",
+      "target": "file:PushServer2/Logger.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/LogicSystem.cpp",
+      "target": "file:PushServer2/LogicSystem.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/LogicSystem.cpp",
+      "target": "file:PushServer2/MainServer.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/LogicSystem.cpp",
+      "target": "file:PushServer2/MySQLManager.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/LogicSystem.cpp",
+      "target": "file:PushServer2/RedisManager.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/LogicSystem.cpp",
+      "target": "file:PushServer2/StatusGrpcClient.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/MainServer.cpp",
+      "target": "file:PushServer2/AsyncTaskPool.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/MainServer.cpp",
+      "target": "file:PushServer2/Logger.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/MainServer.cpp",
+      "target": "file:PushServer2/MainServer.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/MainServer.cpp",
+      "target": "file:PushServer2/RedisManager.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/MainServer.cpp",
+      "target": "file:PushServer2/StatusGrpcClient.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/MySQLConnectPool.cpp",
+      "target": "file:PushServer2/Logger.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/MySQLConnectPool.cpp",
+      "target": "file:PushServer2/MySQLConnectPool.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:PushServer2/AsyncTaskPool.cpp",
+      "target": "class:PushServer2/AsyncTaskPool.h:AsyncTaskPool",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/Logger.cpp",
+      "target": "class:PushServer2/Logger.h:Logger",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/LogicSystem.cpp",
+      "target": "class:PushServer2/LogicSystem.h:LogicSystem",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/MainServer.cpp",
+      "target": "class:PushServer2/MainServer.h:MainServer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/MySQLConnectPool.cpp",
+      "target": "class:PushServer2/MySQLConnectPool.h:MySQLConnectPool",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/AsyncTaskPool.cpp",
+      "target": "file:PushServer2/AsyncTaskPool.cpp:AsyncTaskPool",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/AsyncTaskPool.cpp",
+      "target": "file:PushServer2/AsyncTaskPool.cpp:post",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/Logger.cpp",
+      "target": "file:PushServer2/Logger.cpp:Logger",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/Logger.cpp",
+      "target": "file:PushServer2/Logger.cpp:timestamp",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/Logger.cpp",
+      "target": "file:PushServer2/Logger.cpp:rotateIfNeeded",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/Logger.cpp",
+      "target": "file:PushServer2/Logger.cpp:log",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/Logger.cpp",
+      "target": "file:PushServer2/Logger.cpp:flushLoop",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/LogicSystem.cpp",
+      "target": "file:PushServer2/LogicSystem.cpp:LogicSystem",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/LogicSystem.cpp",
+      "target": "file:PushServer2/LogicSystem.cpp:dealMsg",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/LogicSystem.cpp",
+      "target": "file:PushServer2/LogicSystem.cpp:loginHandler",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/MainServer.cpp",
+      "target": "file:PushServer2/MainServer.cpp:MainServer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/MainServer.cpp",
+      "target": "file:PushServer2/MainServer.cpp:doAccept",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/MainServer.cpp",
+      "target": "file:PushServer2/MainServer.cpp:onAccept",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/MainServer.cpp",
+      "target": "file:PushServer2/MainServer.cpp:clearSession",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/MainServer.cpp",
+      "target": "file:PushServer2/MainServer.cpp:getSessionByUid",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/MySQLConnectPool.cpp",
+      "target": "file:PushServer2/MySQLConnectPool.cpp:MySQLConnectPool",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/MySQLConnectPool.cpp",
+      "target": "file:PushServer2/MySQLConnectPool.cpp:checkConnection",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/MySQLConnectPool.cpp",
+      "target": "file:PushServer2/MySQLConnectPool.cpp:getConnection",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:PushServer2/AsyncTaskPool.h",
+      "target": "class:PushServer2/AsyncTaskPool.h:AsyncTaskPool",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:PushServer2/ConfigManager.h",
+      "target": "class:PushServer2/ConfigManager.h:ConfigManager",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:PushServer2/IOContextPool.h",
+      "target": "class:PushServer2/IOContextPool.h:IOContextPool",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:PushServer2/Logger.h",
+      "target": "class:PushServer2/Logger.h:Logger",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:PushServer2/LogicSystem.h",
+      "target": "class:PushServer2/LogicSystem.h:LogicSystem",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

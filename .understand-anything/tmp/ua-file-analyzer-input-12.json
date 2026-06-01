@@ -1,0 +1,14 @@
+{
+  "projectRoot": "/home/oxythecrack/Desktop/OxyTasks",
+  "batchFiles": [
+    {"path": "PushServer/CMakeLists.txt", "language": "txt", "sizeLines": 117, "fileCategory": "config"},
+    {"path": "PushServer/config.ini", "language": "config", "sizeLines": 27, "fileCategory": "config"},
+    {"path": "PushServer/message.proto", "language": "protobuf", "sizeLines": 550, "fileCategory": "data"}
+  ],
+  "batchImportData": {
+    "PushServer/CMakeLists.txt": [],
+    "PushServer/config.ini": [],
+    "PushServer/message.proto": []
+  },
+  "neighborMap": {}
+}
