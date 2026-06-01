@@ -47,7 +47,7 @@
 
 <p align = "center">
   <a href="assets/Dashboard.png">
-    <img src="https://img.shields.io/badge/View%20more-Fronted%20Design-1000?style=flat&logo=&logoColor=white" alt="ClientViews" />
+    <img src="https://img.shields.io/badge/View%20more-Frontend%20Design-1000?style=flat&logo=&logoColor=white" alt="ClientViews" />
   </a>
   <br/>
 </p>
