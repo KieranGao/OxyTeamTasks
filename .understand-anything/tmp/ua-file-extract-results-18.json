@@ -1,0 +1,792 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 23,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "Client/src/config/index.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 13,
+      "exports": [
+        {
+          "name": "API_BASE_URL",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Client/src/layout/AuthLayout.vue",
+      "language": "vue",
+      "fileCategory": "code",
+      "totalLines": 106,
+      "nonEmptyLines": 96,
+      "metrics": {}
+    },
+    {
+      "path": "Client/src/layout/MainLayout.vue",
+      "language": "vue",
+      "fileCategory": "code",
+      "totalLines": 585,
+      "nonEmptyLines": 531,
+      "metrics": {}
+    },
+    {
+      "path": "Client/src/stores/app.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 49,
+      "nonEmptyLines": 41,
+      "exports": [
+        {
+          "name": "useAppStore",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "applyTheme",
+          "callee": "document.documentElement.classList.toggle",
+          "lineNumber": 28
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Client/src/stores/user.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 164,
+      "nonEmptyLines": 149,
+      "functions": [
+        {
+          "name": "getPushClient",
+          "startLine": 7,
+          "endLine": 12,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "useUserStore",
+          "line": 18,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getPushClient",
+          "callee": "import",
+          "lineNumber": 9
+        },
+        {
+          "caller": "persist",
+          "callee": "localStorage.setItem",
+          "lineNumber": 42
+        },
+        {
+          "caller": "persist",
+          "callee": "String",
+          "lineNumber": 42
+        },
+        {
+          "caller": "persist",
+          "callee": "localStorage.removeItem",
+          "lineNumber": 44
+        },
+        {
+          "caller": "clearAuth",
+          "callee": "localStorage.removeItem",
+          "lineNumber": 58
+        },
+        {
+          "caller": "clearAuth",
+          "callee": "localStorage.removeItem",
+          "lineNumber": 59
+        },
+        {
+          "caller": "clearAuth",
+          "callee": "localStorage.removeItem",
+          "lineNumber": 60
+        },
+        {
+          "caller": "clearAuth",
+          "callee": "localStorage.removeItem",
+          "lineNumber": 61
+        },
+        {
+          "caller": "clearAuth",
+          "callee": "localStorage.removeItem",
+          "lineNumber": 62
+        },
+        {
+          "caller": "clearAuth",
+          "callee": "localStorage.removeItem",
+          "lineNumber": 63
+        },
+        {
+          "caller": "clearAuth",
+          "callee": "localStorage.removeItem",
+          "lineNumber": 64
+        },
+        {
+          "caller": "login",
+          "callee": "loginUser",
+          "lineNumber": 69
+        },
+        {
+          "caller": "login",
+          "callee": "persist",
+          "lineNumber": 83
+        },
+        {
+          "caller": "login",
+          "callee": "persist",
+          "lineNumber": 84
+        },
+        {
+          "caller": "login",
+          "callee": "persist",
+          "lineNumber": 85
+        },
+        {
+          "caller": "login",
+          "callee": "persist",
+          "lineNumber": 86
+        },
+        {
+          "caller": "login",
+          "callee": "persist",
+          "lineNumber": 87
+        },
+        {
+          "caller": "login",
+          "callee": "persist",
+          "lineNumber": 88
+        },
+        {
+          "caller": "login",
+          "callee": "persist",
+          "lineNumber": 89
+        },
+        {
+          "caller": "login",
+          "callee": "getPushClient",
+          "lineNumber": 94
+        },
+        {
+          "caller": "login",
+          "callee": "pc.connectPushServer",
+          "lineNumber": 95
+        },
+        {
+          "caller": "login",
+          "callee": "console.error",
+          "lineNumber": 97
+        },
+        {
+          "caller": "register",
+          "callee": "apiRegister",
+          "lineNumber": 105
+        },
+        {
+          "caller": "resetPassword",
+          "callee": "apiResetPassword",
+          "lineNumber": 113
+        },
+        {
+          "caller": "updateTeam",
+          "callee": "apiUpdateTeam",
+          "lineNumber": 121
+        },
+        {
+          "caller": "updateTeam",
+          "callee": "persist",
+          "lineNumber": 127
+        },
+        {
+          "caller": "logout",
+          "callee": "pushClient.disconnect",
+          "lineNumber": 134
+        },
+        {
+          "caller": "logout",
+          "callee": "clearAuth",
+          "lineNumber": 136
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Client/src/styles/global.css",
+      "language": "css",
+      "fileCategory": "markup",
+      "totalLines": 238,
+      "nonEmptyLines": 210,
+      "metrics": {}
+    },
+    {
+      "path": "Client/src/styles/variables.css",
+      "language": "css",
+      "fileCategory": "markup",
+      "totalLines": 154,
+      "nonEmptyLines": 135,
+      "metrics": {}
+    },
+    {
+      "path": "Client/src/utils/crypto.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 41,
+      "nonEmptyLines": 39,
+      "functions": [
+        {
+          "name": "sha256",
+          "startLine": 17,
+          "endLine": 23,
+          "params": [
+            "input"
+          ]
+        },
+        {
+          "name": "sha256Sync",
+          "startLine": 37,
+          "endLine": 41,
+          "params": [
+            "input"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "sha256",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "sha256Sync",
+          "line": 37,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "sha256",
+          "callee": "encoder.encode",
+          "lineNumber": 19
+        },
+        {
+          "caller": "sha256",
+          "callee": "crypto.subtle.digest",
+          "lineNumber": 20
+        },
+        {
+          "caller": "sha256",
+          "callee": "Array.from",
+          "lineNumber": 21
+        },
+        {
+          "caller": "sha256",
+          "callee": "hashArray.map((b) => b.toString(16).padStart(2, '0')).join",
+          "lineNumber": 22
+        },
+        {
+          "caller": "sha256",
+          "callee": "hashArray.map",
+          "lineNumber": 22
+        },
+        {
+          "caller": "sha256",
+          "callee": "b.toString(16).padStart",
+          "lineNumber": 22
+        },
+        {
+          "caller": "sha256",
+          "callee": "b.toString",
+          "lineNumber": 22
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Client/src/utils/pushClient.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 235,
+      "nonEmptyLines": 212,
+      "functions": [
+        {
+          "name": "connectPushServer",
+          "startLine": 30,
+          "endLine": 55,
+          "params": [
+            "serverHost",
+            "serverPort",
+            "userUid",
+            "userToken"
+          ]
+        },
+        {
+          "name": "doConnect",
+          "startLine": 57,
+          "endLine": 142,
+          "params": []
+        },
+        {
+          "name": "disconnect",
+          "startLine": 147,
+          "endLine": 168,
+          "params": []
+        },
+        {
+          "name": "sendMessage",
+          "startLine": 192,
+          "endLine": 198,
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "name": "onMessage",
+          "startLine": 203,
+          "endLine": 208,
+          "params": [
+            "type",
+            "callback"
+          ]
+        },
+        {
+          "name": "offMessage",
+          "startLine": 213,
+          "endLine": 218,
+          "params": [
+            "type",
+            "callback"
+          ]
+        },
+        {
+          "name": "isConnected",
+          "startLine": 223,
+          "endLine": 225,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "connectPushServer",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "disconnect",
+          "line": 147,
+          "isDefault": false
+        },
+        {
+          "name": "sendMessage",
+          "line": 192,
+          "isDefault": false
+        },
+        {
+          "name": "onMessage",
+          "line": 203,
+          "isDefault": false
+        },
+        {
+          "name": "offMessage",
+          "line": 213,
+          "isDefault": false
+        },
+        {
+          "name": "isConnected",
+          "line": 223,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "connectPushServer",
+          "callee": "console.log",
+          "lineNumber": 34
+        },
+        {
+          "caller": "connectPushServer",
+          "callee": "console.log",
+          "lineNumber": 39
+        },
+        {
+          "caller": "connectPushServer",
+          "callee": "clearTimeout",
+          "lineNumber": 50
+        },
+        {
+          "caller": "connectPushServer",
+          "callee": "console.log",
+          "lineNumber": 53
+        },
+        {
+          "caller": "connectPushServer",
+          "callee": "doConnect",
+          "lineNumber": 54
+        },
+        {
+          "caller": "doConnect",
+          "callee": "clearTimeout",
+          "lineNumber": 59
+        },
+        {
+          "caller": "doConnect",
+          "callee": "console.log",
+          "lineNumber": 65
+        },
+        {
+          "caller": "doConnect",
+          "callee": "console.error",
+          "lineNumber": 70
+        },
+        {
+          "caller": "doConnect",
+          "callee": "ws.close",
+          "lineNumber": 81
+        },
+        {
+          "caller": "doConnect",
+          "callee": "console.log",
+          "lineNumber": 87
+        },
+        {
+          "caller": "doConnect",
+          "callee": "console.log",
+          "lineNumber": 91
+        },
+        {
+          "caller": "doConnect",
+          "callee": "sendMessage",
+          "lineNumber": 92
+        },
+        {
+          "caller": "doConnect",
+          "callee": "JSON.parse",
+          "lineNumber": 101
+        },
+        {
+          "caller": "doConnect",
+          "callee": "console.log",
+          "lineNumber": 103
+        },
+        {
+          "caller": "doConnect",
+          "callee": "handlers.has",
+          "lineNumber": 105
+        },
+        {
+          "caller": "doConnect",
+          "callee": "handlers.get(type).forEach",
+          "lineNumber": 106
+        },
+        {
+          "caller": "doConnect",
+          "callee": "handlers.get",
+          "lineNumber": 106
+        },
+        {
+          "caller": "doConnect",
+          "callee": "fn",
+          "lineNumber": 106
+        },
+        {
+          "caller": "doConnect",
+          "callee": "handlers.has",
+          "lineNumber": 108
+        },
+        {
+          "caller": "doConnect",
+          "callee": "handlers.get('*').forEach",
+          "lineNumber": 109
+        },
+        {
+          "caller": "doConnect",
+          "callee": "handlers.get",
+          "lineNumber": 109
+        },
+        {
+          "caller": "doConnect",
+          "callee": "fn",
+          "lineNumber": 109
+        },
+        {
+          "caller": "doConnect",
+          "callee": "console.error",
+          "lineNumber": 112
+        },
+        {
+          "caller": "doConnect",
+          "callee": "console.log",
+          "lineNumber": 119
+        },
+        {
+          "caller": "doConnect",
+          "callee": "console.log",
+          "lineNumber": 122
+        },
+        {
+          "caller": "doConnect",
+          "callee": "Math.min",
+          "lineNumber": 125
+        },
+        {
+          "caller": "doConnect",
+          "callee": "console.log",
+          "lineNumber": 126
+        },
+        {
+          "caller": "doConnect",
+          "callee": "setTimeout",
+          "lineNumber": 127
+        },
+        {
+          "caller": "doConnect",
+          "callee": "doConnect",
+          "lineNumber": 131
+        },
+        {
+          "caller": "doConnect",
+          "callee": "console.log",
+          "lineNumber": 133
+        },
+        {
+          "caller": "doConnect",
+          "callee": "console.error",
+          "lineNumber": 140
+        },
+        {
+          "caller": "disconnect",
+          "callee": "clearTimeout",
+          "lineNumber": 149
+        },
+        {
+          "caller": "disconnect",
+          "callee": "socket.close",
+          "lineNumber": 160
+        },
+        {
+          "caller": "done",
+          "callee": "resolve",
+          "lineNumber": 162
+        },
+        {
+          "caller": "disconnect",
+          "callee": "socket.addEventListener",
+          "lineNumber": 163
+        },
+        {
+          "caller": "disconnect",
+          "callee": "setTimeout",
+          "lineNumber": 164
+        },
+        {
+          "caller": "disconnect",
+          "callee": "Promise.resolve",
+          "lineNumber": 167
+        },
+        {
+          "caller": "sendMessage",
+          "callee": "ws.send",
+          "lineNumber": 194
+        },
+        {
+          "caller": "sendMessage",
+          "callee": "JSON.stringify",
+          "lineNumber": 194
+        },
+        {
+          "caller": "sendMessage",
+          "callee": "console.warn",
+          "lineNumber": 196
+        },
+        {
+          "caller": "onMessage",
+          "callee": "handlers.has",
+          "lineNumber": 204
+        },
+        {
+          "caller": "onMessage",
+          "callee": "handlers.set",
+          "lineNumber": 205
+        },
+        {
+          "caller": "onMessage",
+          "callee": "handlers.get(type).push",
+          "lineNumber": 207
+        },
+        {
+          "caller": "onMessage",
+          "callee": "handlers.get",
+          "lineNumber": 207
+        },
+        {
+          "caller": "offMessage",
+          "callee": "handlers.has",
+          "lineNumber": 214
+        },
+        {
+          "caller": "offMessage",
+          "callee": "handlers.get(type).filter",
+          "lineNumber": 215
+        },
+        {
+          "caller": "offMessage",
+          "callee": "handlers.get",
+          "lineNumber": 215
+        },
+        {
+          "caller": "offMessage",
+          "callee": "handlers.set",
+          "lineNumber": 216
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 6,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Client/src/views/checkin/CheckinView.vue",
+      "language": "vue",
+      "fileCategory": "code",
+      "totalLines": 215,
+      "nonEmptyLines": 195,
+      "metrics": {}
+    },
+    {
+      "path": "Client/src/views/dashboard/DashboardView.vue",
+      "language": "vue",
+      "fileCategory": "code",
+      "totalLines": 437,
+      "nonEmptyLines": 411,
+      "metrics": {}
+    },
+    {
+      "path": "Client/src/views/login/LoginView.vue",
+      "language": "vue",
+      "fileCategory": "code",
+      "totalLines": 140,
+      "nonEmptyLines": 122,
+      "metrics": {}
+    },
+    {
+      "path": "Client/src/views/manage/AllTeamsInfoView.vue",
+      "language": "vue",
+      "fileCategory": "code",
+      "totalLines": 119,
+      "nonEmptyLines": 105,
+      "metrics": {}
+    },
+    {
+      "path": "Client/src/views/manage/MonitorView.vue",
+      "language": "vue",
+      "fileCategory": "code",
+      "totalLines": 166,
+      "nonEmptyLines": 155,
+      "metrics": {}
+    },
+    {
+      "path": "Client/src/views/manage/TaskManageView.vue",
+      "language": "vue",
+      "fileCategory": "code",
+      "totalLines": 445,
+      "nonEmptyLines": 411,
+      "metrics": {}
+    },
+    {
+      "path": "Client/src/views/manage/TeamProgressView.vue",
+      "language": "vue",
+      "fileCategory": "code",
+      "totalLines": 459,
+      "nonEmptyLines": 419,
+      "metrics": {}
+    },
+    {
+      "path": "Client/src/views/manage/UserManageView.vue",
+      "language": "vue",
+      "fileCategory": "code",
+      "totalLines": 222,
+      "nonEmptyLines": 200,
+      "metrics": {}
+    },
+    {
+      "path": "Client/src/views/messages/MessagesView.vue",
+      "language": "vue",
+      "fileCategory": "code",
+      "totalLines": 144,
+      "nonEmptyLines": 130,
+      "metrics": {}
+    },
+    {
+      "path": "Client/src/views/profile/ProfileView.vue",
+      "language": "vue",
+      "fileCategory": "code",
+      "totalLines": 384,
+      "nonEmptyLines": 362,
+      "metrics": {}
+    },
+    {
+      "path": "Client/src/views/register/RegisterView.vue",
+      "language": "vue",
+      "fileCategory": "code",
+      "totalLines": 242,
+      "nonEmptyLines": 217,
+      "metrics": {}
+    },
+    {
+      "path": "Client/src/views/reset/ResetPasswordView.vue",
+      "language": "vue",
+      "fileCategory": "code",
+      "totalLines": 302,
+      "nonEmptyLines": 267,
+      "metrics": {}
+    },
+    {
+      "path": "Client/src/views/taskboard/TaskBoardView.vue",
+      "language": "vue",
+      "fileCategory": "code",
+      "totalLines": 175,
+      "nonEmptyLines": 160,
+      "metrics": {}
+    },
+    {
+      "path": "Client/src/views/todolist/TodoListView.vue",
+      "language": "vue",
+      "fileCategory": "code",
+      "totalLines": 209,
+      "nonEmptyLines": 192,
+      "metrics": {}
+    }
+  ]
+}

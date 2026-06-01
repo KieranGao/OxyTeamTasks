@@ -1,0 +1,12 @@
+{
+  "projectRoot": "/home/oxythecrack/Desktop/OxyTasks",
+  "batchFiles": [
+    {"path": "UMSServer/Global.h", "language": "c", "sizeLines": 53, "fileCategory": "code"},
+    {"path": "UMSServer/Singleton.h", "language": "c", "sizeLines": 30, "fileCategory": "code"}
+  ],
+  "batchImportData": {
+    "UMSServer/Global.h": [],
+    "UMSServer/Singleton.h": []
+  },
+  "neighborMap": {}
+}

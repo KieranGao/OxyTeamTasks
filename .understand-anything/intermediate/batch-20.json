@@ -1,0 +1,113 @@
+{
+  "nodes": [
+    {
+      "id": "file:UMSServer/Global.h",
+      "type": "file",
+      "name": "Global.h",
+      "filePath": "UMSServer/Global.h",
+      "summary": "UMSServer 的全局定义头文件，包含用户信息数据结构（UserInfo、PendingUserInfo）、用户相关错误码枚举（ErrorCodes）以及 RAII 延迟执行工具类（Defer）。",
+      "tags": ["type-definition", "data-model", "utility", "header-file", "error-handling"],
+      "complexity": "moderate",
+      "languageNotes": "使用 C++ enum class 实现类型安全的错误码，Defer 类利用析构函数自动执行回调实现 RAII 作用域守卫。"
+    },
+    {
+      "id": "file:UMSServer/Singleton.h",
+      "type": "file",
+      "name": "Singleton.h",
+      "filePath": "UMSServer/Singleton.h",
+      "summary": "通用单例模板基类，采用 CRTP（Curiously Recurring Template Pattern）配合 Meyer's Singleton（函数内 static 局部变量）实现线程安全的单例模式，供系统中各 Manager 类继承使用。",
+      "tags": ["design-pattern", "template", "singleton", "utility", "header-file"],
+      "complexity": "simple",
+      "languageNotes": "C++11 起函数内 static 局部变量的初始化是线程安全的，因此 getInstance() 无需额外加锁。使用 delete 禁用拷贝构造和赋值运算符确保唯一实例。"
+    },
+    {
+      "id": "class:UMSServer/Global.h:UserInfo",
+      "type": "class",
+      "name": "UserInfo",
+      "filePath": "UMSServer/Global.h",
+      "lineRange": [12, 21],
+      "summary": "用户信息数据结构，包含用户名、密码、邮箱、UID、角色、所属队长 ID、所属队伍 ID 和在线状态等字段。",
+      "tags": ["data-model", "struct", "user"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:UMSServer/Global.h:PendingUserInfo",
+      "type": "class",
+      "name": "PendingUserInfo",
+      "filePath": "UMSServer/Global.h",
+      "lineRange": [23, 30],
+      "summary": "待审批用户信息数据结构，用于表示尚未通过教练审核的注册用户，包含 UID、用户名、邮箱、角色、所属队伍和默认状态。",
+      "tags": ["data-model", "struct", "user", "approval"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:UMSServer/Global.h:ErrorCodes",
+      "type": "class",
+      "name": "ErrorCodes",
+      "filePath": "UMSServer/Global.h",
+      "lineRange": [32, 43],
+      "summary": "用户管理服务的错误码枚举，定义了从 JSON 解析错误到用户已审批等 10 种业务错误状态码，供 RPC 响应和 HTTP 网关层统一使用。",
+      "tags": ["enum", "error-handling", "constants"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:UMSServer/Global.h:Defer",
+      "type": "class",
+      "name": "Defer",
+      "filePath": "UMSServer/Global.h",
+      "lineRange": [45, 51],
+      "summary": "RAII 延迟执行工具类，在构造时接收一个 std::function 回调，在析构时自动调用该回调，用于确保资源释放或收尾逻辑在作用域结束时执行。",
+      "tags": ["utility", "raii", "scope-guard", "design-pattern"],
+      "complexity": "simple",
+      "languageNotes": "典型的 scope guard 实现模式，常用于确保锁释放、连接关闭等清理操作不被遗漏。"
+    },
+    {
+      "id": "class:UMSServer/Singleton.h:Singleton",
+      "type": "class",
+      "name": "Singleton",
+      "filePath": "UMSServer/Singleton.h",
+      "lineRange": [10, 23],
+      "summary": "CRTP 单例模板基类，子类继承 Singleton<T> 即可获得线程安全的 getInstance() 静态方法，通过 delete 禁用拷贝和赋值操作确保实例唯一性。",
+      "tags": ["design-pattern", "singleton", "template", "crtp"],
+      "complexity": "simple",
+      "languageNotes": "使用 Curiously Recurring Template Pattern（CRTP）实现静态多态，Meyer's Singleton 利用 C++11 线程安全的 static 局部变量初始化保证并发安全。"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:UMSServer/Global.h",
+      "target": "class:UMSServer/Global.h:UserInfo",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:UMSServer/Global.h",
+      "target": "class:UMSServer/Global.h:PendingUserInfo",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:UMSServer/Global.h",
+      "target": "class:UMSServer/Global.h:ErrorCodes",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:UMSServer/Global.h",
+      "target": "class:UMSServer/Global.h:Defer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:UMSServer/Singleton.h",
+      "target": "class:UMSServer/Singleton.h:Singleton",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    }
+  ]
+}

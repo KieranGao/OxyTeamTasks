@@ -1,0 +1,13 @@
+{
+  "projectRoot": "/home/oxythecrack/Desktop/OxyTasks",
+  "batchFiles": [
+    {"path": "UMSServer/CMakeLists.txt", "language": "txt", "sizeLines": 86, "fileCategory": "config"},
+    {"path": "UMSServer/config.ini", "language": "config", "sizeLines": 25, "fileCategory": "config"},
+    {"path": "UMSServer/message.proto", "language": "protobuf", "sizeLines": 550, "fileCategory": "data"}
+  ],
+  "batchImportData": {
+    "UMSServer/CMakeLists.txt": [],
+    "UMSServer/config.ini": [],
+    "UMSServer/message.proto": []
+  }
+}

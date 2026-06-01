@@ -1,0 +1,181 @@
+{
+  "nodes": [
+    {
+      "id": "config:StatusServer/CMakeLists.txt",
+      "type": "config",
+      "name": "CMakeLists.txt",
+      "filePath": "StatusServer/CMakeLists.txt",
+      "summary": "StatusServer 的 CMake 构建配置文件，定义 C++17 编译标准，配置 Boost、jsoncpp、protobuf、hiredis 和 gRPC 依赖，并通过 protoc 自动生成 Protobuf/gRPC 桩代码。",
+      "tags": ["build-system", "configuration", "cmake", "grpc", "protobuf"],
+      "complexity": "moderate",
+      "languageNotes": "使用 add_custom_command 在构建时从 message.proto 自动生成 .pb.h/.pb.cc 和 .grpc.pb.h/.grpc.pb.cc 文件；POST_BUILD 步骤自动复制 config.ini 到构建目录。"
+    },
+    {
+      "id": "config:StatusServer/config.ini",
+      "type": "config",
+      "name": "config.ini",
+      "filePath": "StatusServer/config.ini",
+      "summary": "StatusServer 运行时配置文件，包含 GateServer、StatusServer、Redis、MySQL 连接参数，PushServer 节点列表，线段树负载均衡策略选择，以及日志和心跳监控设置。",
+      "tags": ["configuration", "runtime-config", "load-balancing", "redis", "monitoring"],
+      "complexity": "simple",
+      "languageNotes": "AllocateMethods 段提供两种负载均衡策略：SegmentTree（O(log n)，适合大型集群）和 Brute（O(N)，适合小型集群）。当前启用的是 SegmentTree。"
+    },
+    {
+      "id": "schema:StatusServer/message.proto",
+      "type": "schema",
+      "name": "message.proto",
+      "filePath": "StatusServer/message.proto",
+      "summary": "项目全局 Protobuf/gRPC 接口定义文件，涵盖 5 个微服务（UserService、MailerService、StatusService、PushService、TaskService）共 35 个 RPC 方法和 80 个消息类型，是整个分布式系统的通信契约。",
+      "tags": ["schema-definition", "grpc", "protobuf", "api-schema", "microservices"],
+      "complexity": "complex",
+      "languageNotes": "proto3 语法，package message。各服务共享同一 proto 文件但每个服务目录各保留一份副本以独立生成桩代码。TaskService 包含 AssigneeStatus 支持多指派人独立状态追踪。"
+    },
+    {
+      "id": "endpoint:StatusServer/message.proto:StatusService",
+      "type": "endpoint",
+      "name": "StatusService",
+      "filePath": "StatusServer/message.proto",
+      "summary": "状态调度服务，提供推送节点分配（AllocatePushServer）、登录上报（ReportLogin）、日志上报与查询（ReportLog/QueryLogs）、服务心跳（ServerHeartbeat）、服务状态查询（QueryServerStatus）、断线上报（ReportDisconnect）和用户推送节点查询（GetPushServerForUser）共 8 个 RPC 方法。",
+      "tags": ["service-definition", "load-balancing", "heartbeat", "logging", "push-routing"],
+      "complexity": "complex"
+    },
+    {
+      "id": "endpoint:StatusServer/message.proto:UserService",
+      "type": "endpoint",
+      "name": "UserService",
+      "filePath": "StatusServer/message.proto",
+      "summary": "用户管理服务，提供注册、登录、重置密码、验证码、待审核用户列表、审批/拒绝注册、角色设置、用户列表和队伍信息更新共 10 个 RPC 方法。",
+      "tags": ["service-definition", "authentication", "user-management", "authorization"],
+      "complexity": "complex"
+    },
+    {
+      "id": "endpoint:StatusServer/message.proto:TaskService",
+      "type": "endpoint",
+      "name": "TaskService",
+      "filePath": "StatusServer/message.proto",
+      "summary": "任务管理服务，提供任务 CRUD（CreateTask/UpdateTask/DeleteTask/GetTask/ListTasks）、TODO 管理（AddTodo/ListTodo/UpdateTodo/DeleteTodo）和每日打卡（Checkin/GetCheckins）共 11 个 RPC 方法。",
+      "tags": ["service-definition", "task-management", "todo", "checkin"],
+      "complexity": "complex"
+    },
+    {
+      "id": "endpoint:StatusServer/message.proto:PushService",
+      "type": "endpoint",
+      "name": "PushService",
+      "filePath": "StatusServer/message.proto",
+      "summary": "推送服务，提供向单用户推送（PushToUser）、向队伍推送（PushToTeam）、消息列表查询（GetMessages）、标记已读（MarkRead）和删除消息（DeleteMessage）共 5 个 RPC 方法，支持实时推送与离线缓存。",
+      "tags": ["service-definition", "push-notification", "websocket", "message-queue"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "endpoint:StatusServer/message.proto:MailerService",
+      "type": "endpoint",
+      "name": "MailerService",
+      "filePath": "StatusServer/message.proto",
+      "summary": "邮件服务，提供单一 RPC 方法 SendMail，用于向指定邮箱发送验证码。",
+      "tags": ["service-definition", "email", "verification"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:StatusServer/message.proto:TaskInfo",
+      "type": "function",
+      "name": "TaskInfo",
+      "filePath": "StatusServer/message.proto",
+      "lineRange": [389, 402],
+      "summary": "核心任务详情消息类型，包含任务 ID、创建者、标题、描述、全局状态、优先级、截止日期、指派人列表、时间戳、当前用户独立状态（my_status）及所有指派人独立状态列表（assignee_statuses），是任务模块数据传输的核心载体。",
+      "tags": ["data-model", "task-management", "multi-assignee"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:StatusServer/message.proto:UserInfoMsg",
+      "type": "function",
+      "name": "UserInfoMsg",
+      "filePath": "StatusServer/message.proto",
+      "lineRange": [124, 132],
+      "summary": "用户信息消息类型，包含 UID、用户名、邮箱、角色、所属队伍 ID、所属队长 ID 和账号状态，用于用户列表查询响应。",
+      "tags": ["data-model", "user-management"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:StatusServer/message.proto:ServerInfo",
+      "type": "function",
+      "name": "ServerInfo",
+      "filePath": "StatusServer/message.proto",
+      "lineRange": [246, 253],
+      "summary": "服务器状态消息类型，包含服务名、IP、端口、在线状态、最后心跳时间和当前连接数（仅 PushServer 有效），用于系统监控面板。",
+      "tags": ["data-model", "monitoring", "heartbeat"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "config:StatusServer/CMakeLists.txt",
+      "target": "schema:StatusServer/message.proto",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:StatusServer/CMakeLists.txt",
+      "target": "config:StatusServer/config.ini",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "schema:StatusServer/message.proto",
+      "target": "endpoint:StatusServer/message.proto:StatusService",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "schema:StatusServer/message.proto",
+      "target": "endpoint:StatusServer/message.proto:UserService",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "schema:StatusServer/message.proto",
+      "target": "endpoint:StatusServer/message.proto:TaskService",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "schema:StatusServer/message.proto",
+      "target": "endpoint:StatusServer/message.proto:PushService",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "schema:StatusServer/message.proto",
+      "target": "endpoint:StatusServer/message.proto:MailerService",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "schema:StatusServer/message.proto",
+      "target": "function:StatusServer/message.proto:TaskInfo",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:StatusServer/message.proto",
+      "target": "function:StatusServer/message.proto:UserInfoMsg",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:StatusServer/message.proto",
+      "target": "function:StatusServer/message.proto:ServerInfo",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    }
+  ]
+}

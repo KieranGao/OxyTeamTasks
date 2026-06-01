@@ -1,0 +1,13 @@
+{
+  "projectRoot": "/home/oxythecrack/Desktop/OxyTasks",
+  "batchFiles": [
+    {"path": "TaskServer/CMakeLists.txt", "language": "txt", "sizeLines": 89, "fileCategory": "config"},
+    {"path": "TaskServer/config.ini", "language": "config", "sizeLines": 24, "fileCategory": "config"},
+    {"path": "TaskServer/message.proto", "language": "protobuf", "sizeLines": 550, "fileCategory": "code"}
+  ],
+  "batchImportData": {
+    "TaskServer/CMakeLists.txt": [],
+    "TaskServer/config.ini": [],
+    "TaskServer/message.proto": []
+  }
+}
