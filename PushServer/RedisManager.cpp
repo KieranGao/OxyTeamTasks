@@ -464,24 +464,39 @@ bool RedisManager::pushMessageAtomic(const std::string& uid_str, const std::stri
     return true;
 }
 
+// 减少用户未读消息数
 bool RedisManager::markReadAtomic(const std::string& uid_str, int decrement_count, int ttl_seconds) {
-    std::string lua;
-    if (decrement_count == 0) {
-        lua = "redis.call('SETEX',KEYS[1],ARGV[2],0) return 1";
-    } else {
-        lua = "local n=tonumber(ARGV[1]) for i=1,n do redis.call('DECR',KEYS[1]) end return 1";
-    }
+    std::string lua =
+        "local key = KEYS[1] "
+        "local decr = tonumber(ARGV[1]) "
+        "local ttl = tonumber(ARGV[2]) "
+        // 等于0直接设置为0
+        "if decr <= 0 then "
+        "    redis.call('SETEX', key, ttl, 0) " // SETEX key ttl value 设置+过期（原子）
+        "else "
+        //DECRBY
+        "    redis.call('DECRBY', key, decr) "
+        "    redis.call('EXPIRE', key, ttl) " // EXPIRE 续期 REDIS KEY
+        "end "
+        "return 1";
+
     std::vector<std::string> keys = {"unread:" + uid_str};
-    std::vector<std::string> args = {std::to_string(decrement_count), std::to_string(ttl_seconds)};
+    std::vector<std::string> args = {
+        std::to_string(decrement_count),
+        std::to_string(ttl_seconds)
+    };
+
     long long result = evalScript(lua, keys, args);
     if (result < 0) {
         LOG_ERROR("markReadAtomic failed for uid={}", uid_str);
         return false;
     }
-    LOG_DEBUG("markReadAtomic success for uid={} count={}", uid_str, decrement_count);
+    LOG_DEBUG("markReadAtomic success uid={} decr={}", uid_str, decrement_count);
     return true;
 }
 
+
+// 查看是否需要踢掉user，如果需要返回TRUE，并删除value
 bool RedisManager::getAndDeleteKick(const std::string& uid_str, std::string& out_kick_value) {
     std::string lua =
         "local val=redis.call('GET',KEYS[1]) "
@@ -517,6 +532,7 @@ bool RedisManager::getAndDeleteKick(const std::string& uid_str, std::string& out
     return false;
 }
 
+
 bool RedisManager::appendLogAtomic(const std::string& service_name, const std::string& log_json,
                                     int max_entries, int ttl_seconds) {
     std::string lua =
@@ -524,9 +540,9 @@ bool RedisManager::appendLogAtomic(const std::string& service_name, const std::s
         "local entry=ARGV[1] "
         "local max_e=tonumber(ARGV[2]) "
         "local ttl=tonumber(ARGV[3]) "
-        "redis.call('LPUSH',key,entry) "
-        "redis.call('LTRIM',key,0,max_e-1) "
-        "redis.call('EXPIRE',key,ttl) "
+        "redis.call('LPUSH',key,entry) " // 推入JSON日志信息
+        "redis.call('LTRIM',key,0,max_e-1) " // 从左至右取最多max_e条日志
+        "redis.call('EXPIRE',key,ttl) " // 续期KEY
         "return 1";
     std::vector<std::string> keys = {"logs:" + service_name};
     std::vector<std::string> args = {log_json, std::to_string(max_entries), std::to_string(ttl_seconds)};

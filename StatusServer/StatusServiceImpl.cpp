@@ -140,11 +140,12 @@ Status StatusServiceImpl::ReportLogin(ServerContext* context, const LoginReportR
     std::string token_value = "";
 
     bool success = RedisManager::getInstance().get(token_key, token_value);
+    // 找不到TOKEN
     if(!success) {
         resp->set_error(static_cast<int>(ErrorCodes::INVALID_UID));
         return Status::OK;
     }
-
+    // TOKEN 不符
     if(token_value != token) {
         resp->set_error(static_cast<int>(ErrorCodes::INVALID_TOKEN));
         return Status::OK;
