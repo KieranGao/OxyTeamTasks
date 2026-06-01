@@ -1,0 +1,637 @@
+{
+  "nodes": [
+    {
+      "id": "config:TaskServer/CMakeLists.txt",
+      "type": "config",
+      "name": "CMakeLists.txt",
+      "filePath": "TaskServer/CMakeLists.txt",
+      "summary": "TaskServer 的 CMake 构建配置，定义 C++17 编译标准，依赖 Boost、Protobuf、gRPC、Hiredis、MySQL Connector/C++，并包含 message.proto 的自动生成规则。构建产物为 TaskServer 可执行文件。",
+      "tags": ["build-system", "cmake", "protobuf", "grpc", "cpp"],
+      "complexity": "moderate",
+      "languageNotes": "使用 CMake 3.16+ 的 find_package 和 pkg_check_modules 发现依赖；通过 add_custom_command 在构建时自动调用 protoc 生成 C++/gRPC 桩代码。"
+    },
+    {
+      "id": "config:TaskServer/config.ini",
+      "type": "config",
+      "name": "config.ini",
+      "filePath": "TaskServer/config.ini",
+      "summary": "TaskServer 运行时配置文件，包含 gRPC 服务端口（50054）、Redis 连接（6379）、MySQL 连接（oxytasks 数据库）、日志设置以及下游 PushServer/StatusServer 的地址。",
+      "tags": ["configuration", "runtime", "database", "redis"],
+      "complexity": "simple"
+    },
+    {
+      "id": "schema:TaskServer/message.proto",
+      "type": "schema",
+      "name": "message.proto",
+      "filePath": "TaskServer/message.proto",
+      "summary": "TaskServer 的 Protobuf/gRPC 核心协议文件，定义了 4 个服务（UserService、MailerService、StatusService、PushService、TaskService）共 35 个 RPC 方法和 80 个消息类型，覆盖用户管理、邮件验证、状态调度、消息推送、任务/TODO/打卡全流程。虽然位于 TaskServer 目录，但内容包含整个系统的完整服务接口定义。",
+      "tags": ["schema-definition", "protobuf", "grpc", "api-schema", "service-definition"],
+      "complexity": "complex",
+      "languageNotes": "proto3 语法，package message；各服务目录各自维护一份完整的 message.proto 副本以避免共享依赖，但必须保持同步一致。"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:UserService.Register",
+      "type": "endpoint",
+      "name": "UserService.Register",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [9, 9],
+      "summary": "用户注册 RPC，接收用户名、邮箱、密码和验证码，返回错误码（0=成功，1=用户名重复，2=邮箱重复，3=验证码错误）。",
+      "tags": ["user-management", "registration", "authentication"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:UserService.Login",
+      "type": "endpoint",
+      "name": "UserService.Login",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [10, 10],
+      "summary": "用户登录 RPC，返回用户 UID、会话 Token 和账号状态（0=待审核，1=已激活）。",
+      "tags": ["user-management", "authentication", "login"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:UserService.ResetPass",
+      "type": "endpoint",
+      "name": "UserService.ResetPass",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [11, 11],
+      "summary": "密码重置 RPC，通过用户名+邮箱+验证码验证身份后设置新密码。",
+      "tags": ["user-management", "authentication", "password"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:UserService.GetVerifyCode",
+      "type": "endpoint",
+      "name": "UserService.GetVerifyCode",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [12, 12],
+      "summary": "获取邮箱验证码 RPC，向指定邮箱发送验证码。",
+      "tags": ["user-management", "email", "verification"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:UserService.ListPendingUsers",
+      "type": "endpoint",
+      "name": "UserService.ListPendingUsers",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [13, 13],
+      "summary": "列出待审核用户 RPC，教练查看尚未通过审批的注册用户列表。",
+      "tags": ["user-management", "admin", "approval"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:UserService.ApproveUser",
+      "type": "endpoint",
+      "name": "UserService.ApproveUser",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [14, 14],
+      "summary": "审批通过 RPC，教练批准用户注册并分配角色和队伍。",
+      "tags": ["user-management", "admin", "approval"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:UserService.RejectUser",
+      "type": "endpoint",
+      "name": "UserService.RejectUser",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [15, 15],
+      "summary": "拒绝注册 RPC，教练拒绝用户的注册申请。",
+      "tags": ["user-management", "admin", "approval"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:UserService.SetUserRole",
+      "type": "endpoint",
+      "name": "UserService.SetUserRole",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [16, 16],
+      "summary": "设置用户角色 RPC，教练可设置队员/队长/教练角色并分配队伍。",
+      "tags": ["user-management", "admin", "role-management"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:UserService.ListAllUsers",
+      "type": "endpoint",
+      "name": "UserService.ListAllUsers",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [17, 17],
+      "summary": "列出所有已激活用户 RPC，返回包含 UID、角色、队伍等完整用户信息。",
+      "tags": ["user-management", "admin", "query"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:UserService.UpdateTeamInfo",
+      "type": "endpoint",
+      "name": "UserService.UpdateTeamInfo",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [18, 18],
+      "summary": "更新用户队伍 RPC，修改指定用户所属的队伍 ID。",
+      "tags": ["user-management", "team", "update"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:MailerService.SendMail",
+      "type": "endpoint",
+      "name": "MailerService.SendMail",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [154, 154],
+      "summary": "发送邮件 RPC，向指定邮箱发送验证码内容，由 MailerServer（Node.js）实现。",
+      "tags": ["email", "notification", "mailer"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:StatusService.AllocatePushServer",
+      "type": "endpoint",
+      "name": "StatusService.AllocatePushServer",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [171, 171],
+      "summary": "分配推送节点 RPC，为用户分配一个 PushServer 实例并返回连接地址和 Token。",
+      "tags": ["status", "push", "load-balancing"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:StatusService.ReportLogin",
+      "type": "endpoint",
+      "name": "StatusService.ReportLogin",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [172, 172],
+      "summary": "上报登录 RPC，GateServer 向 StatusServer 报告用户登录事件。",
+      "tags": ["status", "login", "tracking"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:StatusService.ReportLog",
+      "type": "endpoint",
+      "name": "StatusService.ReportLog",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [173, 173],
+      "summary": "上报日志 RPC，各服务将日志条目批量上报至 StatusServer 进行集中存储。",
+      "tags": ["status", "logging", "monitoring"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:StatusService.QueryLogs",
+      "type": "endpoint",
+      "name": "StatusService.QueryLogs",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [174, 174],
+      "summary": "查询日志 RPC，教练按服务名和日志级别筛选查询集中存储的日志。",
+      "tags": ["status", "logging", "monitoring"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:StatusService.ServerHeartbeat",
+      "type": "endpoint",
+      "name": "StatusService.ServerHeartbeat",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [175, 175],
+      "summary": "服务心跳 RPC，各微服务定期上报心跳以维持在线状态。",
+      "tags": ["status", "heartbeat", "health-check"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:StatusService.QueryServerStatus",
+      "type": "endpoint",
+      "name": "StatusService.QueryServerStatus",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [176, 176],
+      "summary": "查询服务状态 RPC，教练查看所有微服务的在线状态、最后心跳时间和连接数。",
+      "tags": ["status", "monitoring", "admin"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:StatusService.ReportDisconnect",
+      "type": "endpoint",
+      "name": "StatusService.ReportDisconnect",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [177, 177],
+      "summary": "上报断线 RPC，PushServer 断开连接时通知 StatusServer 减少连接计数。",
+      "tags": ["status", "disconnect", "connection-tracking"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:StatusService.GetPushServerForUser",
+      "type": "endpoint",
+      "name": "StatusService.GetPushServerForUser",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [178, 178],
+      "summary": "查询用户推送节点 RPC，批量查询用户所在的 PushServer 地址，用于跨节点消息转发。",
+      "tags": ["status", "push", "routing"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:PushService.PushToUser",
+      "type": "endpoint",
+      "name": "PushService.PushToUser",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [296, 296],
+      "summary": "推送给指定用户 RPC，实时推送或缓存消息，返回是否实时送达。",
+      "tags": ["push", "notification", "realtime"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:PushService.PushToTeam",
+      "type": "endpoint",
+      "name": "PushService.PushToTeam",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [297, 297],
+      "summary": "推送给整个队伍 RPC，向队伍所有成员推送消息，支持排除指定 UID，返回实时送达数和缓存数。",
+      "tags": ["push", "notification", "team"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:PushService.GetMessages",
+      "type": "endpoint",
+      "name": "PushService.GetMessages",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [298, 298],
+      "summary": "查询消息列表 RPC，分页获取用户的消息列表及未读数。",
+      "tags": ["push", "messaging", "query"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:PushService.MarkRead",
+      "type": "endpoint",
+      "name": "PushService.MarkRead",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [299, 299],
+      "summary": "标记已读 RPC，批量将指定消息 ID 标记为已读。",
+      "tags": ["push", "messaging", "read-status"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:PushService.DeleteMessage",
+      "type": "endpoint",
+      "name": "PushService.DeleteMessage",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [300, 300],
+      "summary": "删除消息 RPC，批量删除指定消息 ID。",
+      "tags": ["push", "messaging", "delete"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:TaskService.CreateTask",
+      "type": "endpoint",
+      "name": "TaskService.CreateTask",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [369, 369],
+      "summary": "创建任务 RPC，创建者设置标题、描述、优先级、截止日期和指派人列表，返回新任务 ID。",
+      "tags": ["task", "crud", "creation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:TaskService.UpdateTask",
+      "type": "endpoint",
+      "name": "TaskService.UpdateTask",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [370, 370],
+      "summary": "更新任务 RPC，uid=0 修改全局字段，uid>0 修改该用户对任务的独立状态。",
+      "tags": ["task", "crud", "update"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:TaskService.DeleteTask",
+      "type": "endpoint",
+      "name": "TaskService.DeleteTask",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [371, 371],
+      "summary": "删除任务 RPC，按任务 ID 和操作者 UID 删除任务。",
+      "tags": ["task", "crud", "delete"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:TaskService.GetTask",
+      "type": "endpoint",
+      "name": "TaskService.GetTask",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [372, 372],
+      "summary": "获取单个任务 RPC，返回完整任务详情包括指派人独立状态。",
+      "tags": ["task", "crud", "query"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:TaskService.ListTasks",
+      "type": "endpoint",
+      "name": "TaskService.ListTasks",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [373, 373],
+      "summary": "列出任务 RPC，支持按用户 UID、状态和指派人筛选，uid=0 返回全部任务。",
+      "tags": ["task", "crud", "query", "list"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:TaskService.AddTodo",
+      "type": "endpoint",
+      "name": "TaskService.AddTodo",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [374, 374],
+      "summary": "添加 TODO RPC，创建个人待办事项，返回新 TODO ID。",
+      "tags": ["todo", "crud", "creation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:TaskService.ListTodo",
+      "type": "endpoint",
+      "name": "TaskService.ListTodo",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [375, 375],
+      "summary": "列出 TODO RPC，按用户 UID 和完成状态筛选待办列表。",
+      "tags": ["todo", "crud", "query"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:TaskService.UpdateTodo",
+      "type": "endpoint",
+      "name": "TaskService.UpdateTodo",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [376, 376],
+      "summary": "更新 TODO RPC，修改待办的内容、优先级、截止日期和完成状态。",
+      "tags": ["todo", "crud", "update"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:TaskService.DeleteTodo",
+      "type": "endpoint",
+      "name": "TaskService.DeleteTodo",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [377, 377],
+      "summary": "删除 TODO RPC，按 TODO ID 和用户 UID 删除待办。",
+      "tags": ["todo", "crud", "delete"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:TaskService.Checkin",
+      "type": "endpoint",
+      "name": "TaskService.Checkin",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [378, 378],
+      "summary": "每日打卡 RPC，用户执行每日签到，重复打卡返回错误码 3001。",
+      "tags": ["checkin", "daily", "attendance"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:TaskServer/message.proto:TaskService.GetCheckins",
+      "type": "endpoint",
+      "name": "TaskService.GetCheckins",
+      "filePath": "TaskServer/message.proto",
+      "lineRange": [379, 379],
+      "summary": "查询打卡记录 RPC，按用户 UID 和日期范围查询签到历史，uid=0 返回全部。",
+      "tags": ["checkin", "query", "attendance"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "config:TaskServer/CMakeLists.txt",
+      "target": "schema:TaskServer/message.proto",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:UserService.Register",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:UserService.Login",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:UserService.ResetPass",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:UserService.GetVerifyCode",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:UserService.ListPendingUsers",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:UserService.ApproveUser",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:UserService.RejectUser",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:UserService.SetUserRole",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:UserService.ListAllUsers",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:UserService.UpdateTeamInfo",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:MailerService.SendMail",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:StatusService.AllocatePushServer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:StatusService.ReportLogin",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:StatusService.ReportLog",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:StatusService.QueryLogs",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:StatusService.ServerHeartbeat",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:StatusService.QueryServerStatus",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:StatusService.ReportDisconnect",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:StatusService.GetPushServerForUser",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:PushService.PushToUser",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:PushService.PushToTeam",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:PushService.GetMessages",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:PushService.MarkRead",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:PushService.DeleteMessage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:TaskService.CreateTask",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:TaskService.UpdateTask",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:TaskService.DeleteTask",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:TaskService.GetTask",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:TaskService.ListTasks",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:TaskService.AddTodo",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:TaskService.ListTodo",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:TaskService.UpdateTodo",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:TaskService.DeleteTodo",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:TaskService.Checkin",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "schema:TaskServer/message.proto",
+      "target": "endpoint:TaskServer/message.proto:TaskService.GetCheckins",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    }
+  ]
+}
