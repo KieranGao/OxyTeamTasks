@@ -158,13 +158,6 @@ void LogicSystem::loginHandler(std::shared_ptr<Session> session, const std::stri
 
     session->setUid(uid);
     session->getServer()->addUidSession(uid, session);
-    // 设置在线状态，分布式锁保护
-    std::string online_lock = "lock:online:" + uid_str;
-    std::string lock_owner = generate_lock_owner();
-    if (RedisManager::getInstance().acquireLockWithRetry(online_lock, lock_owner, 10)) {
-        RedisManager::getInstance().setex("online:" + uid_str, "1", 300);
-        RedisManager::getInstance().releaseLock(online_lock, lock_owner);
-    }
 
     std::string unread_str;
     long unread_count = 0;

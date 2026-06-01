@@ -286,8 +286,27 @@ Status StatusServiceImpl::QueryServerStatus(ServerContext* context, const QueryS
     {
         std::lock_guard<std::mutex> lock(server_status_mtx_);
         for (auto& [key, info] : server_status_) {
-            if (info.last_heartbeat > 0 && (now - info.last_heartbeat) > heartbeat_timeout_secs_)
+            int idx = servers_[key].id;
+            if (info.last_heartbeat > 0 && (now - info.last_heartbeat) > heartbeat_timeout_secs_) {
                 info.status = "offline";
+                {
+                    std::lock_guard<std::mutex> lock(server_mtx_);
+                    if(allocate_method_ == "Brute") {
+                        if(idx > 0 and idx <= server_cnt_) server_conns_[idx] = INT_MAX;
+                    } else SegTree_->updateVal(idx, INT_MAX);
+                }
+            } else { // 此时在线，需要检查是不是从离线转为的在线，此时需要更新连接数为0；
+                int curconn = 0;
+                std::lock_guard<std::mutex> lock(server_mtx_);
+                if(allocate_method_ == "Brute") {
+                    if(idx > 0 and idx <= server_cnt_) curconn = server_conns_[idx];
+                } else curconn = SegTree_->getVal(idx);
+                if(curconn == INT_MAX) {
+                    if(allocate_method_ == "Brute") {
+                        if(idx > 0 and idx <= server_cnt_) server_conns_[idx] = 0;
+                    } else SegTree_->updateVal(idx, 0);
+                }
+            }
             servers.push_back({key, info});
         }
     }
@@ -309,7 +328,7 @@ Status StatusServiceImpl::QueryServerStatus(ServerContext* context, const QueryS
             if (it != servers_.end()) {
                 int id = it->second.id;
                 if (allocate_method_ == "Brute") {
-                    if (id > 0 && id <= server_cnt_) conns = server_conns_[id];
+                    if (id > 0 and id <= server_cnt_) conns = server_conns_[id];
                 } else {
                     conns = SegTree_->getVal(id);
                 }

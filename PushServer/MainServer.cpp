@@ -66,23 +66,8 @@ void MainServer::clearSession(std::string uuid) {
             sessions_.erase(it);
         }
     }
-    // 再清除redis中的在线状态
     if (uid > 0) {
         removeUidSession(uid);
-        // 删除在线状态，分布式锁保护
-        std::string uid_str = std::to_string(uid);
-        std::string lock_key = "lock:online:" + uid_str;
-        std::string owner = generate_lock_owner();
-        if (RedisManager::getInstance().acquireLockWithRetry(lock_key, owner, 10)) {
-            // 仅当本节点仍拥有该在线状态时才删除
-            std::string current_node;
-            if (RedisManager::getInstance().get("pushnode:" + uid_str, current_node)) {
-                if (current_node.find(server_name_) != std::string::npos) {
-                    RedisManager::getInstance().del("online:" + uid_str);
-                }
-            }
-            RedisManager::getInstance().releaseLock(lock_key, owner);
-        }
     }
     LOG_DEBUG("[PushServer] session cleared: uuid={} uid={}", uuid, uid);
     std::string name = server_name_;
