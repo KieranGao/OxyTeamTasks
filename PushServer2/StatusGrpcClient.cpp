@@ -55,7 +55,10 @@ void StatusGrpcClient::heartbeat(const std::string& host, const std::string& por
     auto stub = rpc_pool_->getStub();
     if (!stub) return;
     Defer defer([&stub, this](){ rpc_pool_->returnStub(std::move(stub)); });
-    stub->ServerHeartbeat(&context, request, &response);
+    Status status = stub->ServerHeartbeat(&context, request, &response);
+    if (!status.ok()) {
+        LOG_WARN("Heartbeat failed: {}", status.error_message());
+    }
 }
 
 void StatusGrpcClient::reportDisconnect(const std::string& server_name) {

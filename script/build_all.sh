@@ -2,6 +2,7 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 SERVERS=("GateServer" "UMSServer" "StatusServer" "PushServer" "PushServer2" "TaskServer")
 
 GREEN='\033[0;32m'
@@ -15,12 +16,12 @@ echo "============================"
 FAILED=()
 
 for server in "${SERVERS[@]}"; do
-    BUILD_DIR="$SCRIPT_DIR/$server/build"
+    BUILD_DIR="$PROJECT_DIR/$server/build"
     mkdir -p "$BUILD_DIR"
     echo ""
     echo -e "${YELLOW}[$server]${NC} Configuring..."
 
-    if ! cmake -S "$SCRIPT_DIR/$server" -B "$BUILD_DIR" > "$BUILD_DIR/cmake.log" 2>&1; then
+    if ! cmake -S "$PROJECT_DIR/$server" -B "$BUILD_DIR" > "$BUILD_DIR/cmake.log" 2>&1; then
         echo -e "${RED}[$server] CMake configure FAILED${NC}"
         cat "$BUILD_DIR/cmake.log"
         FAILED+=("$server (configure)")

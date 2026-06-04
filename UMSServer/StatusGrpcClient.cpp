@@ -1,4 +1,5 @@
 #include "StatusGrpcClient.h"
+#include "Logger.h"
 
 StatusGrpcClient::StatusGrpcClient() {
     auto& g_config = ConfigManager::getInstance();
@@ -23,12 +24,17 @@ void StatusGrpcClient::heartbeat(const std::string& host, const std::string& por
     HeartbeatReq request;
     HeartbeatRsp response;
     ClientContext context;
+    context.set_deadline(std::chrono::system_clock::now() + std::chrono::seconds(3));
     request.set_service("UMSServer");
     request.set_host(host);
     request.set_port(port);
     request.set_timestamp(std::chrono::duration_cast<std::chrono::seconds>(
         std::chrono::system_clock::now().time_since_epoch()).count());
     auto stub = rpc_pool_->getStub();
+    if (!stub) return;
     Defer defer([&stub, this](){ rpc_pool_->returnStub(std::move(stub)); });
-    stub->ServerHeartbeat(&context, request, &response);
+    Status status = stub->ServerHeartbeat(&context, request, &response);
+    if (!status.ok()) {
+        LOG_WARN("Heartbeat failed: {}", status.error_message());
+    }
 }

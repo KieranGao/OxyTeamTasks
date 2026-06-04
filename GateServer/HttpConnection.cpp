@@ -185,7 +185,7 @@ bool HttpConnection::authenticateRequest_() {
 void HttpConnection::handleRequest_() {
     resp_.version(req_.version());
     resp_.keep_alive(false); // 维持HTTP短连接
-
+    // 对于每个HTTP请求，都先进行鉴权
     if (!authenticateRequest_()) {
         makeResponse_();
         return;

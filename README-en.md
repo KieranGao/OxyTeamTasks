@@ -96,11 +96,11 @@ cd MailerServer && npm install
 
 ```bash
 # Initialize database
-mysql -u root -p < user.sql
-mysql -u root -p oxytasks < task.sql
-mysql -u root -p oxytasks < task_assignments.sql
-mysql -u root -p oxytasks < todo_list.sql
-mysql -u root -p oxytasks < messages.sql
+mysql -u root -p < sql/user.sql
+mysql -u root -p oxytasks < sql/task.sql
+mysql -u root -p oxytasks < sql/task_assignments.sql
+mysql -u root -p oxytasks < sql/todo_list.sql
+mysql -u root -p oxytasks < sql/messages.sql
 
 # Edit config.ini in each server directory with your MySQL/Redis credentials
 # Edit MailerServer/config.json with your SMTP credentials
@@ -111,10 +111,10 @@ mysql -u root -p oxytasks < messages.sql
 
 ```bash
 # Build all C++ servers
-./build_all.sh
+bash script/build_all.sh
 
 # Start all services (handles correct startup order)
-./start_all.sh
+bash script/start_all.sh
 
 # Start frontend dev server
 cd Client && npm run dev
@@ -286,10 +286,17 @@ OxyTasks/
 │   └── src/utils/       # WebSocket client, SHA-256 crypto
 ├── jsoncpp/             # Vendored jsoncpp library
 ├── docs/                # Debug logs, design specs
-├── *.sql                # Database schema files
-├── build_all.sh         # Build all C++ servers
-├── start_all.sh         # Start services in correct order
-└── stop_all.sh          # Graceful shutdown
+├── sql/                 # Database schema files
+│   ├── user.sql         # Users table
+│   ├── task.sql         # Tasks table
+│   ├── task_assignments.sql  # Task assignments table
+│   ├── todo_list.sql    # TODO list table
+│   └── messages.sql     # Messages table
+├── script/              # Operations scripts
+│   ├── build_all.sh     # Build all C++ servers
+│   ├── start_all.sh     # Start services in correct order
+│   ├── stop_all.sh      # Graceful shutdown
+│   └── clear_logs.sh    # Clear all server logs
 ```
 
 ---

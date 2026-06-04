@@ -48,7 +48,7 @@ StatusServer/logs
 TaskServer/logs
 UMSServer/logs
 docs
-*.md
+ *.md
 !README.md
 !README-en.md
 !LICENSE

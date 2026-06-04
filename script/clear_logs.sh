@@ -1,8 +1,9 @@
 #!/bin/bash
 # 一键清除所有服务器 logs 文件夹内容
-# 用法: bash scripts/clear_logs.sh
+# 用法: bash script/clear_logs.sh
 
-PROJECT_DIR="$(pwd)"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 
 LOGS_DIRS=(
     "$PROJECT_DIR/GateServer/logs"

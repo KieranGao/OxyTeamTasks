@@ -1,5 +1,6 @@
 #!/bin/bash
-BASE="/home/oxythecrack/Desktop/OxyTasks"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+BASE="$(cd "$SCRIPT_DIR/.." && pwd)"
 LOGDIR="$BASE/server_logs"
 mkdir -p "$LOGDIR"
 
@@ -78,4 +79,4 @@ check_http "GateServer"    "http://127.0.0.1:8080/user_login"
 
 echo ""
 echo "=== Logs: $LOGDIR ==="
-echo "To stop: ./stop_all.sh"
+echo "To stop: bash script/stop_all.sh"

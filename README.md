@@ -96,11 +96,11 @@ cd MailerServer && npm install
 
 ```bash
 # 初始化数据库
-mysql -u root -p < user.sql
-mysql -u root -p oxytasks < task.sql
-mysql -u root -p oxytasks < task_assignments.sql
-mysql -u root -p oxytasks < todo_list.sql
-mysql -u root -p oxytasks < messages.sql
+mysql -u root -p < sql/user.sql
+mysql -u root -p oxytasks < sql/task.sql
+mysql -u root -p oxytasks < sql/task_assignments.sql
+mysql -u root -p oxytasks < sql/todo_list.sql
+mysql -u root -p oxytasks < sql/messages.sql
 
 # 编辑各服务器目录下的 config.ini，配置 MySQL/Redis 连接信息
 # 编辑 MailerServer/config.json，配置 SMTP 邮件发送凭证
@@ -111,10 +111,10 @@ mysql -u root -p oxytasks < messages.sql
 
 ```bash
 # 构建所有 C++ 服务器
-./build_all.sh
+bash script/build_all.sh
 
 # 按正确顺序启动所有服务
-./start_all.sh
+bash script/start_all.sh
 
 # 启动前端开发服务器
 cd Client && npm run dev
@@ -286,10 +286,17 @@ OxyTasks/
 │   └── src/utils/       # WebSocket 客户端、SHA-256 加密工具
 ├── jsoncpp/             # 内嵌的 jsoncpp 库
 ├── docs/                # 调试日志、设计文档
-├── *.sql                # 数据库建表脚本
-├── build_all.sh         # 一键构建所有 C++ 服务器
-├── start_all.sh         # 按正确顺序启动服务
-└── stop_all.sh          # 优雅停止所有服务
+├── sql/                 # 数据库建表脚本
+│   ├── user.sql         # 用户表
+│   ├── task.sql         # 任务表
+│   ├── task_assignments.sql  # 任务分配表
+│   ├── todo_list.sql    # 待办表
+│   └── messages.sql     # 消息表
+├── script/              # 运维脚本
+│   ├── build_all.sh     # 一键构建所有 C++ 服务器
+│   ├── start_all.sh     # 按正确顺序启动服务
+│   ├── stop_all.sh      # 优雅停止所有服务
+│   └── clear_logs.sh    # 清除所有服务器日志
 ```
 
 ---
