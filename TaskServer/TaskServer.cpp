@@ -1,5 +1,6 @@
 #include "TaskGrpcServiceImpl.h"
 #include "StatusGrpcClient.h"
+#include "KafkaProducer.h"
 #include "PushGrpcClient.h"
 #include "MySQLManager.h"
 #include "Global.h"
@@ -20,17 +21,8 @@ void RunServer() {
 
     Logger::getInstance();
     LOG_INFO("TaskServer starting on {}", addr);
-    Logger::getInstance().setRemoteFlushCallback([](const std::vector<LogEntry>& batch){
-        ReportLogReq req;
-        req.set_service("TaskServer");
-        for(auto& e : batch) {
-            auto* entry = req.add_entries();
-            entry->set_level(Logger::levelToString(e.level));
-            entry->set_message(e.message);
-            entry->set_timestamp(e.timestamp);
-            entry->set_service("TaskServer");
-        }
-        StatusGrpcClient::getInstance().reportLog(req);
+    Logger::getInstance().setRemoteFlushCallback([](const std::vector<LogEntry>& batch) {
+        KafkaProducer::getInstance().produceLogBatch("TaskServer", batch);
     });
 
     std::atomic<bool> hb_running{true};

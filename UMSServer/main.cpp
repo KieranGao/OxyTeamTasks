@@ -2,6 +2,7 @@
 #include "ConfigManager.h"
 #include "Logger.h"
 #include "StatusGrpcClient.h"
+#include "KafkaProducer.h"
 #include <grpcpp/grpcpp.h>
 #include <thread>
 #include <chrono>
@@ -18,16 +19,7 @@ int main() {
     LOG_INFO("UMSServer starting on {}", addr);
 
     Logger::getInstance().setRemoteFlushCallback([](const std::vector<LogEntry>& batch) {
-        ReportLogReq req;
-        req.set_service("UMSServer");
-        for (auto& e : batch) {
-            auto* entry = req.add_entries();
-            entry->set_service("UMSServer");
-            entry->set_level(Logger::levelToString(e.level));
-            entry->set_message(e.message);
-            entry->set_timestamp(e.timestamp);
-        }
-        StatusGrpcClient::getInstance().reportLog(req);
+        KafkaProducer::getInstance().produceLogBatch("UMSServer", batch);
     });
 
     // Heartbeat thread

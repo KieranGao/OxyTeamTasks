@@ -25,6 +25,7 @@ set(TASKSERVER_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/StatusGrpcClient.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/PushGrpcClient.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Logger.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/KafkaProducer.cpp
 )
 
 # Protobuf
@@ -86,4 +87,5 @@ target_link_libraries(${PROJECT_NAME}
     protobuf::libprotobuf
     ${HIREDIS_LIBRARY}
     ${MYSQLCPPCONN_LIBRARY}
+    rdkafka
 )

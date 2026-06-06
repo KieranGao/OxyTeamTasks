@@ -13,6 +13,7 @@
 #include <boost/asio.hpp>
 #include <grpcpp/grpcpp.h>
 #include "StatusServiceImpl.h"
+#include "KafkaConsumer.h"
 
 using grpc::Server;
 using grpc::ServerBuilder;
@@ -61,6 +62,41 @@ void RunServer() {
     });
     LOG_INFO("StatusServer starting on {}", server_address);
 
+    // 启动 Kafka Consumer（日志消费主通道）
+    std::string kafka_brokers = g_config["Kafka"]["brokers"];
+    std::string kafka_topic = g_config["Kafka"]["topic"];
+    if (kafka_topic.empty()) kafka_topic = "logs";
+
+    KafkaConsumer kafka_consumer(kafka_brokers, kafka_topic, "status-server-log-group",
+        [](const std::string& json_str) {
+            // 解析 Kafka 消息 JSON，调用 storeLogEntries
+            Json::Value root;
+            Json::CharReaderBuilder builder;
+            std::string errs;
+            std::istringstream stream(json_str);
+            if (!Json::parseFromStream(builder, stream, &root, &errs)) {
+                LOG_ERROR("Kafka log JSON parse failed: {}", errs);
+                return;
+            }
+
+            std::string service = root["service"].asString();
+            std::vector<LogEntryData> entries;
+            const auto& arr = root["entries"];
+            for (Json::Value::ArrayIndex i = 0; i < arr.size(); ++i) {
+                LogEntryData e;
+                e.level = arr[i]["level"].asString();
+                e.message = arr[i]["message"].asString();
+                e.timestamp = arr[i]["timestamp"].asInt64();
+                entries.push_back(std::move(e));
+            }
+
+            if (!entries.empty()) {
+                StatusServiceImpl::storeLogEntries(service, entries);
+            }
+        });
+    kafka_consumer.start();
+    LOG_INFO("Kafka consumer started, topic={}", kafka_topic);
+
     StatusServiceImpl service;
     ServerBuilder builder;
     builder.AddListeningPort(server_address, InsecureServerCredentials());
@@ -73,6 +109,7 @@ void RunServer() {
     signals.async_wait([&](const boost::system::error_code& ec, int) {
         if (!ec) {
             LOG_INFO("StatusServer shutting down...");
+            kafka_consumer.stop();
             server->Shutdown();
         }
     });

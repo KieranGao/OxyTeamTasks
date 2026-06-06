@@ -41,6 +41,7 @@ set(CHATSERVER_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/MainServer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Session.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Logger.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/KafkaProducer.cpp
 )
 
 # 查找protobuf包
@@ -115,4 +116,5 @@ target_link_libraries(${PROJECT_NAME}
     protobuf::libprotobuf
     ${HIREDIS_LIBRARY}
     ${MYSQLCPPCONN_LIBRARY}
+    rdkafka
 )

@@ -40,6 +40,10 @@ GateServer (HTTP gateway, port 8080, Boost.Beast)
   ├── StatusServer (port 50052)    — online status, push scheduling, logging
   └── PushServer (port 8890)       — WebSocket push to clients (Boost.Asio)
 MailerServer (Node.js)             — email verification via gRPC
+
+日志上报 (Kafka):
+  各服务器 Logger → KafkaProducer → Kafka (logs topic) → StatusServer KafkaConsumer → Redis
+  gRPC ReportLog 保留为兜底通道
 ```
 
 GateServer is the HTTP→gRPC gateway. All frontend requests go through it. It translates JSON HTTP POST to protobuf gRPC calls. Each downstream server has its own `TaskGrpcClient`/`UserGrpcClient`/`StatusGrpcClient` in GateServer.

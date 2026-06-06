@@ -2,6 +2,7 @@
 #include "AsyncTaskPool.h"
 #include "Logger.h"
 #include "StatusGrpcClient.h"
+#include "KafkaProducer.h"
 #include "PushGrpcServiceImpl.h"
 #include "RPCConnectPool.h"
 #include <csignal>
@@ -30,16 +31,7 @@ int main() {
         Logger::getInstance();
 
         Logger::getInstance().setRemoteFlushCallback([log_service](const std::vector<LogEntry>& batch) {
-            ReportLogReq req;
-            req.set_service(log_service);
-            for (auto& e : batch) {
-                auto* entry = req.add_entries();
-                entry->set_service(log_service);
-                entry->set_level(Logger::levelToString(e.level));
-                entry->set_message(e.message);
-                entry->set_timestamp(e.timestamp);
-            }
-            StatusGrpcClient::getInstance().reportLog(req);
+            KafkaProducer::getInstance().produceLogBatch(log_service, batch);
         });
 
         AsyncTaskPool::getInstance();  // 提前初始化线程池

@@ -34,6 +34,7 @@ English · [中文](README.md)
   <img src="https://img.shields.io/badge/Element_Plus-409EFF?style=flat&logo=element&logoColor=white" alt="Element Plus" />
   <img src="https://img.shields.io/badge/Pinia-FAD847?style=flat&logo=vuedotjs&logoColor=black" alt="Pinia" />
   <img src="https://img.shields.io/badge/CMake-064F8C?style=flat&logo=cmake&logoColor=white" alt="CMake" />
+  <img src="https://img.shields.io/badge/Apache_Kafka-231F20?style=flat&logo=apachekafka&logoColor=white" alt="Kafka" />
 </p>
 
 <p align="center">
@@ -64,6 +65,7 @@ English · [中文](README.md)
 | **Per-Assignee Task Tracking** | Independent status tracking per assignee on shared tasks, with batch SQL population and rollback support |
 | **Distributed Concurrency Safety** | Redis distributed locks with Lua atomic scripts for login tokens, message push, and unread counters |
 | **Load-Balanced Push Servers** | Segment tree algorithm for O(log n) PushServer allocation by connection count, with horizontal scaling support |
+| **Kafka Log Pipeline** | Kafka as primary log reporting channel, async produce from all servers, StatusServer consumes and aggregates, gRPC as fallback |
 
 ---
 
@@ -76,14 +78,14 @@ English · [中文](README.md)
 - Node.js 18+
 - MySQL 8.0
 - Redis 6.0+
-- Boost, Protobuf, gRPC, hiredis, mysqlcppconn (system libraries)
+- Boost, Protobuf, gRPC, hiredis, mysqlcppconn, librdkafka (system libraries)
 
 ### Install Dependencies
 
 ```bash
 # System packages (Ubuntu/Debian)
 sudo apt install libboost-all-dev libprotobuf-dev protobuf-compiler \
-  libgrpc++-dev protobuf-compiler-grpc libhiredis-dev libmysqlcppconn-dev
+  libgrpc++-dev protobuf-compiler-grpc libhiredis-dev libmysqlcppconn-dev librdkafka-dev
 
 # Frontend dependencies
 cd Client && npm install
@@ -195,6 +197,14 @@ graph LR
     P1 --> R
     P2 --> R
     M --> R
+    subgraph Log Reporting
+        G -.->|produce| K[Kafka<br/>logs topic]
+        U -.->|produce| K
+        T -.->|produce| K
+        P1 -.->|produce| K
+        P2 -.->|produce| K
+        K -->|consume| S
+    end
 ```
 
 **Startup order**: StatusServer → UMSServer → TaskServer → PushServer1 → PushServer2 → GateServer
@@ -324,6 +334,7 @@ OxyTasks/
 | hiredis | Redis client for caching, distributed locks, session management |
 | MySQL Connector/C++ | Database access with connection pooling |
 | jsoncpp (vendored) | JSON parsing for HTTP request/response |
+| librdkafka | Kafka C/C++ client for log reporting pipeline |
 
 ### Backend (Node.js)
 
@@ -340,6 +351,7 @@ OxyTasks/
 | MySQL 8.0 | Persistent storage (users, tasks, TODOs, check-ins, messages) |
 | Redis 6.0+ | Session tokens, distributed locks, message cache, unread counters, log aggregation |
 | CMake | Build system for all C++ servers |
+| Kafka | Log reporting message queue, decoupling producers and consumers |
 
 ---
 

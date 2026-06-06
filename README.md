@@ -34,6 +34,7 @@
   <img src="https://img.shields.io/badge/Element_Plus-409EFF?style=flat&logo=element&logoColor=white" alt="Element Plus" />
   <img src="https://img.shields.io/badge/Pinia-FAD847?style=flat&logo=vuedotjs&logoColor=black" alt="Pinia" />
   <img src="https://img.shields.io/badge/CMake-064F8C?style=flat&logo=cmake&logoColor=white" alt="CMake" />
+  <img src="https://img.shields.io/badge/Apache_Kafka-231F20?style=flat&logo=apachekafka&logoColor=white" alt="Kafka" />
 </p>
 
 <p align="center">
@@ -64,6 +65,7 @@
 | **独立任务追踪** | 共享任务的每个执行人独立状态追踪，支持批量 SQL 查询和状态回退 |
 | **分布式并发安全** | Redis 分布式锁配合 Lua 原子脚本，保障登录令牌、消息推送和未读计数的一致性 |
 | **负载均衡推送服务器** | 基于线段树算法的 O(log n) PushServer 分配，按连接数均衡，支持水平扩展 |
+| **Kafka 日志管道** | Kafka 作为日志上报主通道，各服务器异步写入，StatusServer 消费聚合，gRPC 保留为兜底 |
 
 ---
 
@@ -76,14 +78,14 @@
 - Node.js 18+
 - MySQL 8.0
 - Redis 6.0+
-- Boost、Protobuf、gRPC、hiredis、mysqlcppconn（系统库）
+- Boost、Protobuf、gRPC、hiredis、mysqlcppconn、librdkafka（系统库）
 
 ### 安装依赖
 
 ```bash
 # 系统包（Ubuntu/Debian）
 sudo apt install libboost-all-dev libprotobuf-dev protobuf-compiler \
-  libgrpc++-dev protobuf-compiler-grpc libhiredis-dev libmysqlcppconn-dev
+  libgrpc++-dev protobuf-compiler-grpc libhiredis-dev libmysqlcppconn-dev librdkafka-dev
 
 # 前端依赖
 cd Client && npm install
@@ -195,6 +197,14 @@ graph LR
     P1 --> R
     P2 --> R
     M --> R
+    subgraph 日志上报
+        G -.->|produce| K[Kafka<br/>logs topic]
+        U -.->|produce| K
+        T -.->|produce| K
+        P1 -.->|produce| K
+        P2 -.->|produce| K
+        K -->|consume| S
+    end
 ```
 
 **启动顺序**：StatusServer → UMSServer → TaskServer → PushServer1 → PushServer2 → GateServer
@@ -324,6 +334,7 @@ OxyTasks/
 | hiredis | Redis 客户端，用于缓存、分布式锁、会话管理 |
 | MySQL Connector/C++ | 数据库访问，带连接池 |
 | jsoncpp（内嵌） | HTTP 请求/响应的 JSON 解析 |
+| librdkafka | Kafka C/C++ 客户端，用于日志上报管道 |
 
 ### 后端（Node.js）
 
@@ -340,6 +351,7 @@ OxyTasks/
 | MySQL 8.0 | 持久化存储（用户、任务、待办、打卡、消息） |
 | Redis 6.0+ | 会话令牌、分布式锁、消息缓存、未读计数、日志聚合 |
 | CMake | 所有 C++ 服务器的构建系统 |
+| Kafka | 日志上报消息队列，解耦生产端和消费端 |
 
 ---
 

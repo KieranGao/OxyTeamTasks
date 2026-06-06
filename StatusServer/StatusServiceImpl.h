@@ -54,6 +54,13 @@ public:
     int id;
 };
 
+// 日志条目数据，用于 gRPC handler 和 Kafka consumer 共用
+struct LogEntryData {
+    std::string level;
+    std::string message;
+    int64_t timestamp;
+};
+
 class StatusServiceImpl final : public StatusService::Service {
 public:
     StatusServiceImpl();
@@ -65,6 +72,9 @@ public:
     Status QueryServerStatus(ServerContext* context, const QueryServerStatusReq* req, QueryServerStatusRsp* resp) override;
     Status ReportDisconnect(ServerContext* context, const DisconnectReq* req, DisconnectRsp* resp) override;
     Status GetPushServerForUser(ServerContext* context, const GetPushServerForUserReq* req, GetPushServerForUserRsp* resp) override;
+
+    // 日志存储：gRPC handler 和 Kafka consumer 共用
+    static void storeLogEntries(const std::string& service, const std::vector<LogEntryData>& entries);
 private:
     bool insertToken(int uid, std::string token);
     PushServer& getPushServer();

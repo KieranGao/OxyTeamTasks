@@ -34,6 +34,8 @@ set(GATESERVER_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/StatusServiceImpl.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/StatusServer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Logger.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/KafkaProducer.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/KafkaConsumer.cpp
 )
 
 # 查找protobuf包
@@ -101,5 +103,6 @@ target_link_libraries(${PROJECT_NAME}
     ${GRPC_LIBRARIES}
     protobuf::libprotobuf
     ${HIREDIS_LIBRARY}
+    rdkafka
     # MySQL library not needed
 )

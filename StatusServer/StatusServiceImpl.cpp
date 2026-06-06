@@ -185,21 +185,28 @@ bool StatusServiceImpl::insertToken(int uid, std::string token) {
 }
 
 
-// ---- 日志上报 ----
-// 日志由各服务 Logger 后台线程每 5s 批量 gRPC 上报至此
+// ---- 日志存储（gRPC handler 和 Kafka consumer 共用） ----
 // INFO+ 级别 → LPUSH Redis List + LTRIM 500 + EXPIRE 7天
-Status StatusServiceImpl::ReportLog(ServerContext* context, const ReportLogReq* req, ReportLogRsp* resp) {
-    for (int i = 0; i < req->entries_size(); ++i) {
-        const auto& entry = req->entries(i);
-        if (entry.level() == "DEBUG") continue;  // DEBUG 只写本地文件，不推远程
+void StatusServiceImpl::storeLogEntries(const std::string& service, const std::vector<LogEntryData>& entries) {
+    auto& redis = RedisManager::getInstance();
+    for (const auto& entry : entries) {
+        if (entry.level == "DEBUG") continue;  // DEBUG 只写本地文件，不推远程
 
-        std::string redis_key = "logs:" + entry.service();
-        std::string json = "{\"service\":\"" + entry.service() + "\",\"level\":\"" + entry.level()
-            + "\",\"message\":\"" + jsonEscape(entry.message()) + "\",\"timestamp\":" + std::to_string(entry.timestamp()) + "}";
+        std::string json = "{\"service\":\"" + service + "\",\"level\":\"" + entry.level
+            + "\",\"message\":\"" + jsonEscape(entry.message) + "\",\"timestamp\":" + std::to_string(entry.timestamp) + "}";
 
-        auto& redis = RedisManager::getInstance();
-        redis.appendLogAtomic(entry.service(), json);
+        redis.appendLogAtomic(service, json);
     }
+}
+
+// ---- 日志上报（gRPC 兜底通道） ----
+Status StatusServiceImpl::ReportLog(ServerContext* context, const ReportLogReq* req, ReportLogRsp* resp) {
+    std::vector<LogEntryData> entries;
+    for (int i = 0; i < req->entries_size(); ++i) {
+        const auto& e = req->entries(i);
+        entries.push_back({e.level(), e.message(), e.timestamp()});
+    }
+    storeLogEntries(req->service(), entries);
     resp->set_error(static_cast<int>(ErrorCodes::SUCCESS));
     return Status::OK;
 }
