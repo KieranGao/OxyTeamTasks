@@ -156,7 +156,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { useAppStore } from '@/stores/app'
 import { getMessages, markRead } from '@/api/message'
-import { onMessage as onWsMessage, offMessage } from '@/utils/pushClient'
+import { onMessage as onWsMessage, offMessage, connectPushServer, isConnected } from '@/utils/pushClient'
 import { ElNotification } from 'element-plus'
 import {
   HomeFilled, Grid, List, Check, Bell, EditPen, DataLine, DataBoard,
@@ -250,7 +250,17 @@ onMounted(() => {
   onWsMessage('notify', handleNotify)
   onWsMessage('kicked', handleKicked)
   onWsMessage('login_rsp', handleLoginRsp)
-  if (userStore.uid) loadRecentMessages()
+  if (userStore.uid) {
+    loadRecentMessages()
+    // 刷新页面后重连 WebSocket（login() 只在首次登录时调用）
+    console.log('[MainLayout] onMounted: uid=', userStore.uid, 'host=', userStore.pushServerHost, 'port=', userStore.pushServerPort, 'connected=', isConnected())
+    if (!isConnected() && userStore.pushServerHost && userStore.pushServerPort) {
+      console.log('[MainLayout] calling connectPushServer')
+      connectPushServer(userStore.pushServerHost, userStore.pushServerPort, userStore.uid, userStore.token)
+    } else {
+      console.log('[MainLayout] skipping reconnect: connected=', isConnected(), 'host=', userStore.pushServerHost, 'port=', userStore.pushServerPort)
+    }
+  }
 })
 
 onUnmounted(() => {

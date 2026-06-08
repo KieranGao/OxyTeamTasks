@@ -110,7 +110,7 @@ void LogicSystem::loginHandler(std::shared_ptr<Session> session, const std::stri
         }
     });
 
-    LoginReportRsp rsp = StatusGrpcClient::getInstance().reportLogin(uid, token);
+    LoginReportRsp rsp = StatusGrpcClient::getInstance().reportLogin(uid, token, session->getServer()->getServerName());
     if (rsp.error() != 0) {
         LOG_ERROR("[PushServer] loginHandler: token validation failed for uid={}, error={}", uid, rsp.error());
         rtvalue["error"] = rsp.error();

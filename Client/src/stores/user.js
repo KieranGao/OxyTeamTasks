@@ -24,8 +24,8 @@ export const useUserStore = defineStore('user', () => {
   const role = ref(Number(localStorage.getItem('role')) || 0)
   const belongCaptainId = ref(Number(localStorage.getItem('belong_captain_id')) || 0)
   const belongTeamId = ref(Number(localStorage.getItem('belong_team_id')) || 0)
-  const pushServerHost = ref('')
-  const pushServerPort = ref('')
+  const pushServerHost = ref(localStorage.getItem('pushServerHost') || '')
+  const pushServerPort = ref(localStorage.getItem('pushServerPort') || '')
 
   // --- Getters ---
   const isLoggedIn = computed(() => !!token.value)
@@ -62,6 +62,8 @@ export const useUserStore = defineStore('user', () => {
     localStorage.removeItem('role')
     localStorage.removeItem('belong_captain_id')
     localStorage.removeItem('belong_team_id')
+    localStorage.removeItem('pushServerHost')
+    localStorage.removeItem('pushServerPort')
   }
 
   // --- Actions ---
@@ -87,6 +89,8 @@ export const useUserStore = defineStore('user', () => {
     persist('role', res.role ?? 0)
     persist('belong_captain_id', res.belong_captain_id ?? 0)
     persist('belong_team_id', res.belong_team_id ?? 0)
+    persist('pushServerHost', res.host || '')
+    persist('pushServerPort', res.port || '')
 
     // Auto-connect WebSocket to PushServer after login
     if (pushServerHost.value && pushServerPort.value) {

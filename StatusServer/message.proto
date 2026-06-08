@@ -192,8 +192,9 @@ message AllocateRsp {
 
 // --- 上报登录 ---
 message LoginReportReq {
-  int32 uid = 1;     // 用户ID
-  string token = 2;  // 会话Token
+  int32 uid = 1;           // 用户ID
+  string token = 2;        // 会话Token
+  string server_name = 3;  // PushServer节点名（用于连接数计数）
 }
 
 message LoginReportRsp {
@@ -264,6 +265,7 @@ message QueryServerStatusRsp {
 // --- 断线上报 ---
 message DisconnectReq {
   string server_name = 1;  // 服务名
+  int32 uid = 2;           // 断开连接的用户UID（用于清理token和路由）
 }
 
 message DisconnectRsp {

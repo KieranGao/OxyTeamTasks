@@ -70,15 +70,17 @@ void MainServer::clearSession(std::string uuid) {
         removeUidSession(uid);
     }
     LOG_DEBUG("[PushServer] session cleared: uuid={} uid={}", uuid, uid);
-    std::string name = server_name_;
-    // 异步通知掉线
-    AsyncTaskPool::getInstance().post([name]() {
-        try {
-            StatusGrpcClient::getInstance().reportDisconnect(name);
-        } catch (...) {
-            LOG_ERROR("[PushServer] reportDisconnect failed for {}", name);
-        }
-    });
+    // 只有已认证的连接(uid>0)才上报断线，避免未认证连接导致计数变负
+    if (uid > 0) {
+        std::string name = server_name_;
+        AsyncTaskPool::getInstance().post([name, uid]() {
+            try {
+                StatusGrpcClient::getInstance().reportDisconnect(name, uid);
+            } catch (...) {
+                LOG_ERROR("[PushServer] reportDisconnect failed for {}", name);
+            }
+        });
+    }
 }
 
 void MainServer::addUidSession(int uid, std::shared_ptr<Session> session) {

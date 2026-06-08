@@ -25,10 +25,10 @@ using message::StatusService;
 class StatusGrpcClient : public Singleton<StatusGrpcClient> {
     friend class Singleton<StatusGrpcClient>;
 public:
-    LoginReportRsp reportLogin(int uid, const std::string& token);
+    LoginReportRsp reportLogin(int uid, const std::string& token, const std::string& server_name);
     void reportLog(const ReportLogReq& req);
     void heartbeat(const std::string& host, const std::string& port);
-    void reportDisconnect(const std::string& server_name);
+    void reportDisconnect(const std::string& server_name, int uid);
 private:
     std::unique_ptr<StatusConnectPool> rpc_pool_;
     StatusGrpcClient();

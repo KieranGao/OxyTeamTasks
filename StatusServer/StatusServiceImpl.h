@@ -77,7 +77,7 @@ public:
     static void storeLogEntries(const std::string& service, const std::vector<LogEntryData>& entries);
 private:
     bool insertToken(int uid, std::string token);
-    PushServer& getPushServer();
+    PushServer& selectPushServer();
     void returnServer(PushServer& cs);
 
     // 负载均衡

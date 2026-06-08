@@ -53,7 +53,7 @@ StatusServiceImpl::StatusServiceImpl()
     }
 }
 
-PushServer& StatusServiceImpl::getPushServer() {
+PushServer& StatusServiceImpl::selectPushServer() {
     std::lock_guard<std::mutex> lock(server_mtx_);
     assert(!servers_.empty());
     if(allocate_method_ == "Brute") {
@@ -65,12 +65,9 @@ PushServer& StatusServiceImpl::getPushServer() {
                 minIdx = i;
             }
         }
-        server_conns_[minIdx]++;
         return servers_idx_[minIdx];
     } else {
         int minIdx = SegTree_->queryMinidx(1,server_cnt_);
-        int minCon = SegTree_->getVal(minIdx);
-        SegTree_->updateVal(minIdx, minCon + 1);
         return servers_idx_[minIdx];
     }
 }
@@ -78,16 +75,17 @@ PushServer& StatusServiceImpl::getPushServer() {
 // Caller must hold server_mtx_
 void StatusServiceImpl::returnServer(PushServer& cs) {
     if(allocate_method_ == "Brute") {
-        if(cs.id > 0 and cs.id <= server_cnt_) server_conns_[cs.id]--;
+        if(cs.id > 0 and cs.id <= server_cnt_ and server_conns_[cs.id] > 0) server_conns_[cs.id]--;
     } else {
-        SegTree_->updateVal(cs.id, SegTree_->getVal(cs.id) - 1);
+        int cur = SegTree_->getVal(cs.id);
+        if(cur > 0) SegTree_->updateVal(cs.id, cur - 1);
     }
 }
 
 Status StatusServiceImpl::AllocatePushServer(ServerContext* context, const AllocateReq* req, AllocateRsp* resp)
 {
     LOG_INFO("[StatusServer] AllocatePushServer uid={}", req->uid());
-    PushServer& server = getPushServer();
+    PushServer& server = selectPushServer();
     resp->set_error(static_cast<int>(ErrorCodes::SUCCESS));
     resp->set_host(server.host);
     resp->set_port(server.port);
@@ -150,24 +148,56 @@ Status StatusServiceImpl::ReportLogin(ServerContext* context, const LoginReportR
         resp->set_error(static_cast<int>(ErrorCodes::INVALID_TOKEN));
         return Status::OK;
     }
+
+    // Token 验证成功，递增该节点的连接数（首次登录和重连都走这里）
+    if (!request->server_name().empty()) {
+        std::lock_guard<std::mutex> lock(server_mtx_);
+        auto it = servers_.find(request->server_name());
+        if (it != servers_.end()) {
+            int idx = it->second.id;
+            if (allocate_method_ == "Brute") {
+                if (idx > 0 && idx <= server_cnt_ && server_conns_[idx] != INT_MAX)
+                    server_conns_[idx]++;
+            } else {
+                int cur = SegTree_->getVal(idx);
+                if (cur != INT_MAX)
+                    SegTree_->updateVal(idx, cur + 1);
+            }
+            LOG_INFO("[StatusServer] ReportLogin: incremented conn count for server={}", request->server_name());
+        }
+    }
+
     resp->set_error(static_cast<int>(ErrorCodes::SUCCESS));
     return Status::OK;
 }
 
 // ---- 断线上报 ----
-// PushServer 在用户断开 WebSocket 时调用，递减该节点的连接计数
+// PushServer 在用户断开 WebSocket 时调用，递减该节点的连接计数，并清理用户的路由
 Status StatusServiceImpl::ReportDisconnect(ServerContext* context, const DisconnectReq* req, DisconnectRsp* resp) {
-    std::lock_guard<std::mutex> lock(server_mtx_);
-    LOG_INFO("[StatusServer] ReportDisconnect server={}", req->server_name());
-    auto it = servers_.find(req->server_name());
-    if (it != servers_.end()) {
-        returnServer(it->second);
-        resp->set_error(static_cast<int>(ErrorCodes::SUCCESS));
-        LOG_INFO("[StatusServer] ReportDisconnect: decremented conn count for {}", req->server_name());
-    } else {
-        LOG_ERROR("[StatusServer] ReportDisconnect: unknown server={}", req->server_name());
-        resp->set_error(static_cast<int>(ErrorCodes::INVALID_UID));
+    // 1. 递减连接数
+    {
+        std::lock_guard<std::mutex> lock(server_mtx_);
+        auto it = servers_.find(req->server_name());
+        if (it != servers_.end()) {
+            returnServer(it->second);
+            LOG_INFO("[StatusServer] ReportDisconnect: decremented conn count for {}", req->server_name());
+        } else {
+            LOG_ERROR("[StatusServer] ReportDisconnect: unknown server={}", req->server_name());
+        }
     }
+
+    // 2. 清理 pushnode 路由（uid > 0 时）
+    //    注意：不删 token（utoken_<uid>），因为刷新页面会导致短暂断开重连，
+    //    客户端持有 token，删了会导致"登录已过期"。token 由 TTL 自然过期。
+    int uid = req->uid();
+    if (uid > 0) {
+        auto& redis = RedisManager::getInstance();
+        std::string uid_str = std::to_string(uid);
+        redis.del("pushnode:" + uid_str);
+        LOG_INFO("[StatusServer] ReportDisconnect: cleaned pushnode for uid={}", uid);
+    }
+
+    resp->set_error(static_cast<int>(ErrorCodes::SUCCESS));
     return Status::OK;
 }
 

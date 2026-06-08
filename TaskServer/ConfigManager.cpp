@@ -1,5 +1,5 @@
 #include "ConfigManager.h"
-
+#include <bitset>
 ConfigManager::ConfigManager() {
     boost::filesystem::path current_path = boost::filesystem::current_path();
     boost::filesystem::path config_path = current_path / "config.ini";
@@ -17,7 +17,6 @@ ConfigManager::ConfigManager() {
             for (const auto &kv : section_tree) {
                 section_info._section_datas[kv.first] = kv.second.get_value<std::string>();
             }
-
             conf_map_[section_name] = section_info;
         }
 
@@ -28,7 +27,7 @@ ConfigManager::ConfigManager() {
                 std::cout << "  " << kv.first << "=" << kv.second << std::endl;
             }
         }
-
+        
     } catch (const std::exception &e) {
         std::cerr << "Config error: " << e.what() << std::endl;
     }

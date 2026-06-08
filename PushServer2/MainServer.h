@@ -21,6 +21,7 @@ public:
     void addUidSession(int uid, std::shared_ptr<Session> session);
     void removeUidSession(int uid);
     std::shared_ptr<Session> getSessionByUid(int uid);
+    const std::string& getServerName() const { return server_name_; }
 private:
     void onAccept(std::shared_ptr<Session>, beast::error_code ec);
     void doAccept();

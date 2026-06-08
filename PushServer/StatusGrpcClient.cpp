@@ -13,13 +13,14 @@ static void setDeadline(ClientContext& ctx, int seconds = 3) {
     ctx.set_deadline(deadline);
 }
 
-LoginReportRsp StatusGrpcClient::reportLogin(int uid, const std::string& token) {
+LoginReportRsp StatusGrpcClient::reportLogin(int uid, const std::string& token, const std::string& server_name) {
     LoginReportReq request;
     LoginReportRsp reply;
     ClientContext context;
     setDeadline(context);
     request.set_uid(uid);
     request.set_token(token);
+    request.set_server_name(server_name);
     auto stub = rpc_pool_->getStub();
     if (!stub) { reply.set_error(static_cast<int>(ErrorCodes::RPC_ERROR)); return reply; }
     Defer defer([&stub, this](){ rpc_pool_->returnStub(std::move(stub)); });
@@ -61,12 +62,13 @@ void StatusGrpcClient::heartbeat(const std::string& host, const std::string& por
     }
 }
 
-void StatusGrpcClient::reportDisconnect(const std::string& server_name) {
+void StatusGrpcClient::reportDisconnect(const std::string& server_name, int uid) {
     DisconnectReq request;
     DisconnectRsp response;
     ClientContext context;
     setDeadline(context);
     request.set_server_name(server_name);
+    request.set_uid(uid);
     auto stub = rpc_pool_->getStub();
     if (!stub) {
         LOG_ERROR("[Push] reportDisconnect: no gRPC stub available for {}", server_name);
