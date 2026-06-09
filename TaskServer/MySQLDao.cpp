@@ -21,6 +21,9 @@ int MySQLDao::createTask(int uid, const std::string& title, const std::string& d
     auto connection = ConnectionGuard(*pool_, pool_->getConnection());
     try {
         auto& sql_conn = connection.get()->getConn();
+        sql_conn->setAutoCommit(false);
+
+        // 1. 插入任务
         std::string sql = "INSERT INTO task (uid, title, description, priority, deadline, assigned_to) VALUES (?, ?, ?, ?, ?, ?)";
         std::unique_ptr<sql::PreparedStatement> pstmt(sql_conn->prepareStatement(sql));
         pstmt->setInt(1, uid);
@@ -41,31 +44,41 @@ int MySQLDao::createTask(int uid, const std::string& title, const std::string& d
         if (res && res->next()) {
             newId = res->getInt("id");
         }
-        if (newId <= 0) return -1;
+        if (newId <= 0) {
+            sql_conn->rollback();
+            sql_conn->setAutoCommit(true);
+            return -1;
+        }
 
-        // Insert per-assignee rows into task_assignments
+        // 2. 插入指派关系（任一失败则整体回滚）
         if (!assigned_to.empty() && assigned_to != "0") {
             std::string remain = assigned_to;
             while (!remain.empty()) {
                 size_t pos = remain.find(',');
                 std::string uidStr = (pos == std::string::npos) ? remain : remain.substr(0, pos);
-                try {
-                    int auid = std::stoi(uidStr);
-                    if (auid > 0) {
-                        std::unique_ptr<sql::PreparedStatement> apstmt(sql_conn->prepareStatement(
-                            "INSERT INTO task_assignments (task_id, assignee_uid, status) VALUES (?, ?, 0)"));
-                        apstmt->setInt(1, newId);
-                        apstmt->setInt(2, auid);
-                        apstmt->executeUpdate();
-                    }
-                } catch (...) {}
+                int auid = std::stoi(uidStr);
+                if (auid > 0) {
+                    std::unique_ptr<sql::PreparedStatement> apstmt(sql_conn->prepareStatement(
+                        "INSERT INTO task_assignments (task_id, assignee_uid, status) VALUES (?, ?, 0)"));
+                    apstmt->setInt(1, newId);
+                    apstmt->setInt(2, auid);
+                    apstmt->executeUpdate();
+                }
                 if (pos == std::string::npos) break;
                 remain = remain.substr(pos + 1);
             }
         }
+
+        sql_conn->commit();
+        sql_conn->setAutoCommit(true);
         return newId;
     } catch (const sql::SQLException& exp) {
         LOG_ERROR("SQLException in createTask: {}", exp.what());
+        try {
+            auto& sql_conn = connection.get()->getConn();
+            sql_conn->rollback();
+            sql_conn->setAutoCommit(true);
+        } catch (...) {}
         return -1;
     }
 }
@@ -75,6 +88,9 @@ bool MySQLDao::updateTask(int id, int uid, const std::string& title, const std::
     auto connection = ConnectionGuard(*pool_, pool_->getConnection());
     try {
         auto& sql_conn = connection.get()->getConn();
+        sql_conn->setAutoCommit(false);
+
+        // 1. 更新任务主表
         std::string sql = "UPDATE task SET title = ?, description = ?, status = ?, priority = ?, deadline = ?, assigned_to = ? WHERE id = ?";
         std::unique_ptr<sql::PreparedStatement> pstmt(sql_conn->prepareStatement(sql));
         pstmt->setString(1, title);
@@ -90,7 +106,7 @@ bool MySQLDao::updateTask(int id, int uid, const std::string& title, const std::
         pstmt->setInt(7, id);
         bool ok = pstmt->executeUpdate() > 0;
 
-        // When uid > 0, also update per-assignee status in task_assignments
+        // 2. 更新指派人独立状态
         if (ok && uid > 0) {
             std::unique_ptr<sql::PreparedStatement> apstmt(sql_conn->prepareStatement(
                 "INSERT INTO task_assignments (task_id, assignee_uid, status) VALUES (?, ?, ?) "
@@ -100,9 +116,17 @@ bool MySQLDao::updateTask(int id, int uid, const std::string& title, const std::
             apstmt->setInt(3, status);
             apstmt->executeUpdate();
         }
+
+        sql_conn->commit();
+        sql_conn->setAutoCommit(true);
         return ok;
     } catch (const sql::SQLException& exp) {
         LOG_ERROR("SQLException in updateTask: {}", exp.what());
+        try {
+            auto& sql_conn = connection.get()->getConn();
+            sql_conn->rollback();
+            sql_conn->setAutoCommit(true);
+        } catch (...) {}
         return false;
     }
 }
@@ -111,12 +135,32 @@ bool MySQLDao::deleteTask(int id, int uid) {
     auto connection = ConnectionGuard(*pool_, pool_->getConnection());
     try {
         auto& sql_conn = connection.get()->getConn();
-        std::unique_ptr<sql::PreparedStatement> pstmt(sql_conn->prepareStatement(
-            "DELETE FROM task WHERE id = ?"));
-        pstmt->setInt(1, id);
-        return pstmt->executeUpdate() > 0;
+        sql_conn->setAutoCommit(false);
+
+        // 先删指派关系，再删任务（无外键级联，手动保证一致性）
+        {
+            std::unique_ptr<sql::PreparedStatement> pstmt(sql_conn->prepareStatement(
+                "DELETE FROM task_assignments WHERE task_id = ?"));
+            pstmt->setInt(1, id);
+            pstmt->executeUpdate();
+        }
+        {
+            std::unique_ptr<sql::PreparedStatement> pstmt(sql_conn->prepareStatement(
+                "DELETE FROM task WHERE id = ?"));
+            pstmt->setInt(1, id);
+            pstmt->executeUpdate();
+        }
+
+        sql_conn->commit();
+        sql_conn->setAutoCommit(true);
+        return true;
     } catch (const sql::SQLException& exp) {
         LOG_ERROR("SQLException in deleteTask: {}", exp.what());
+        try {
+            auto& sql_conn = connection.get()->getConn();
+            sql_conn->rollback();
+            sql_conn->setAutoCommit(true);
+        } catch (...) {}
         return false;
     }
 }
@@ -412,23 +456,13 @@ int MySQLDao::checkin(int uid) {
     auto connection = ConnectionGuard(*pool_, pool_->getConnection());
     try {
         auto& sql_conn = connection.get()->getConn();
-        // Check if already checked in today
-        {
-            std::string sql = "SELECT COUNT(*) AS cnt FROM checkins WHERE uid = ? AND checkin_date = CURDATE()";
-            std::unique_ptr<sql::PreparedStatement> pstmt(sql_conn->prepareStatement(sql));
-            pstmt->setInt(1, uid);
-            std::unique_ptr<sql::ResultSet> res(pstmt->executeQuery());
-            if (res && res->next() && res->getInt("cnt") > 0) {
-                return -2;  // already checked in today
-            }
-        }
-        // Insert new check-in
-        {
-            std::string sql = "INSERT INTO checkins (uid, checkin_date) VALUES (?, CURDATE())";
-            std::unique_ptr<sql::PreparedStatement> pstmt(sql_conn->prepareStatement(sql));
-            pstmt->setInt(1, uid);
-            pstmt->executeUpdate();
-        }
+        // 直接 INSERT，利用 UNIQUE INDEX uk_uid_date 保证原子性
+        // 如果今日已打卡，duplicate key 异常会被捕获并返回 -2
+        std::string sql = "INSERT INTO checkins (uid, checkin_date) VALUES (?, CURDATE())";
+        std::unique_ptr<sql::PreparedStatement> pstmt(sql_conn->prepareStatement(sql));
+        pstmt->setInt(1, uid);
+        pstmt->executeUpdate();
+
         std::unique_ptr<sql::Statement> stmt(sql_conn->createStatement());
         std::unique_ptr<sql::ResultSet> res(stmt->executeQuery("SELECT LAST_INSERT_ID() AS id"));
         if (res && res->next()) {
@@ -436,6 +470,10 @@ int MySQLDao::checkin(int uid) {
         }
         return -1;
     } catch (const sql::SQLException& exp) {
+        // MySQL errno 1062 = duplicate entry for unique key
+        if(exp.getErrorCode() == 1062) {
+            return -2;  // 此时说明今日已经打卡（唯一索引限制）
+        }
         LOG_ERROR("SQLException in checkin: {}", exp.what());
         return -1;
     }

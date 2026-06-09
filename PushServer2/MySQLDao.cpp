@@ -155,3 +155,50 @@ bool MySQLDao::deleteMessages(int uid, const std::vector<int64_t>& ids) {
         return false;
     }
 }
+
+bool MySQLDao::getMessages(int uid, int offset, int limit, std::vector<MessageRow>& messages) {
+    auto connection = ConnectionGuard(*pool_, pool_->getConnection());
+    try {
+        auto& sql_conn = connection.get()->getConn();
+        std::string sql = "SELECT id, type, title, content, is_read, "
+                          "DATE_FORMAT(created_at,'%Y-%m-%d %H:%i:%s') AS created_at "
+                          "FROM messages WHERE uid = ? ORDER BY created_at DESC LIMIT ? OFFSET ?";
+        std::unique_ptr<sql::PreparedStatement> pstmt(sql_conn->prepareStatement(sql));
+        pstmt->setInt(1, uid);
+        pstmt->setInt(2, limit);
+        pstmt->setInt(3, offset);
+        std::unique_ptr<sql::ResultSet> res(pstmt->executeQuery());
+        while (res && res->next()) {
+            MessageRow row;
+            row.id = res->getInt64("id");
+            row.type = res->getString("type");
+            row.title = res->getString("title");
+            row.content = res->isNull("content") ? "" : res->getString("content");
+            row.is_read = res->getInt("is_read");
+            row.created_at = res->getString("created_at");
+            messages.push_back(row);
+        }
+        return true;
+    } catch (const sql::SQLException& exp) {
+        LOG_ERROR("SQLException in getMessages: {}", exp.what());
+        return false;
+    }
+}
+
+long MySQLDao::getUnreadCount(int uid) {
+    auto connection = ConnectionGuard(*pool_, pool_->getConnection());
+    try {
+        auto& sql_conn = connection.get()->getConn();
+        std::string sql = "SELECT COUNT(*) AS cnt FROM messages WHERE uid = ? AND is_read = 0";
+        std::unique_ptr<sql::PreparedStatement> pstmt(sql_conn->prepareStatement(sql));
+        pstmt->setInt(1, uid);
+        std::unique_ptr<sql::ResultSet> res(pstmt->executeQuery());
+        if (res && res->next()) {
+            return res->getInt64("cnt");
+        }
+        return 0;
+    } catch (const sql::SQLException& exp) {
+        LOG_ERROR("SQLException in getUnreadCount: {}", exp.what());
+        return 0;
+    }
+}

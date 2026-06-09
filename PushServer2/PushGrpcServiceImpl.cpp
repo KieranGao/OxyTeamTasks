@@ -11,6 +11,7 @@
 #include "boost/uuid/random_generator.hpp"
 #include "boost/uuid/uuid_io.hpp"
 
+// 前向声明 — MainServer 在 PushServerMain.cpp 中实例化
 static MainServer* g_main_server = nullptr;
 static std::string g_grpc_port;  // 本节点 gRPC 端口
 
@@ -171,8 +172,9 @@ Status PushGrpcServiceImpl::GetMessages(ServerContext* context, const GetMessage
 
     LOG_INFO("[Push] GetMessages uid={} page={} pageSize={}", uid, page, pageSize);
 
-    // 从Redis获取未读计数
     std::string uid_str = std::to_string(uid);
+
+    // 未读计数：始终从 Redis 读（登录时已用 MySQL 校准）
     std::string unread_str;
     long unread_count = 0;
     if (RedisManager::getInstance().get("unread:" + uid_str, unread_str)) {
@@ -180,25 +182,45 @@ Status PushGrpcServiceImpl::GetMessages(ServerContext* context, const GetMessage
     }
     resp->set_unread_count(static_cast<int32_t>(unread_count));
 
-    // 目前从Redis缓存返回消息（最近50条），后续扩展MySQLDao后支持全量查询
-    std::vector<std::string> cached;
-    RedisManager::getInstance().lrange("msgs:" + uid_str, 0, 49, cached);
+    if (page == 1) {
+        // 第一页：读 Redis 热缓存（最近50条，内存速度）
+        std::vector<std::string> cached;
+        RedisManager::getInstance().lrange("msgs:" + uid_str, 0, 49, cached);
 
-    int total = static_cast<int>(cached.size());
-    resp->set_total(total);
+        int total = static_cast<int>(cached.size());
+        resp->set_total(total);
 
-    int count = 0;
-    for (int i = offset; i < total && count < pageSize; ++i, ++count) {
-        Json::Value msg;
-        Json::Reader reader;
-        if (reader.parse(cached[i], msg)) {
+        int count = 0;
+        for (int i = offset; i < total && count < pageSize; ++i, ++count) {
+            Json::Value msg;
+            Json::Reader reader;
+            if (reader.parse(cached[i], msg)) {
+                auto* item = resp->add_messages();
+                item->set_id(0);  // Redis 缓存无真实 ID
+                item->set_msg_type(msg.get("msg_type", "").asString());
+                item->set_title(msg.get("title", "").asString());
+                item->set_content(msg.get("payload", "").asString());
+                item->set_is_read(msg.get("is_read", 0).asInt());
+                item->set_created_at(msg.get("created_at", "").asString());
+            }
+        }
+    } else {
+        // 第二页及之后：读 MySQL（持久化全量数据）
+        std::vector<MySQLDao::MessageRow> rows;
+        MySQLManager::getInstance().getMessages(uid, offset, pageSize, rows);
+
+        // 查询总数（用于分页）
+        // 简化处理：用 unread_count + rows 近似，或直接返回当前页
+        resp->set_total(-1);  // -1 表示"更多数据可用"，客户端按需继续翻页
+
+        for (const auto& row : rows) {
             auto* item = resp->add_messages();
-            item->set_id(0);  // Redis缓存无真实ID
-            item->set_msg_type(msg.get("msg_type", "").asString());
-            item->set_title(msg.get("title", "").asString());
-            item->set_content(msg.get("payload", "").asString());
-            item->set_is_read(msg.get("is_read", 0).asInt());
-            item->set_created_at(msg.get("created_at", "").asString());
+            item->set_id(row.id);
+            item->set_msg_type(row.type);
+            item->set_title(row.title);
+            item->set_content(row.content);
+            item->set_is_read(row.is_read);
+            item->set_created_at(row.created_at);
         }
     }
 
@@ -241,7 +263,38 @@ Status PushGrpcServiceImpl::DeleteMessage(ServerContext* context, const DeleteMe
     std::vector<int64_t> ids;
     for (int i = 0; i < req->ids_size(); ++i) ids.push_back(req->ids(i));
 
+    // 1. 删除 MySQL 记录
     MySQLManager::getInstance().deleteMessages(uid, ids);
+
+    // 2. 刷新 Redis 缓存：从 MySQL 重新加载最近 50 条
+    std::string uid_str = std::to_string(uid);
+    std::vector<MySQLDao::MessageRow> fresh;
+    MySQLManager::getInstance().getMessages(uid, 0, 50, fresh);
+
+    std::string lock_key = "lock:unread:" + uid_str;
+    std::string owner = generate_lock_owner();
+    if (RedisManager::getInstance().acquireLockWithRetry(lock_key, owner, 10)) {
+        // 清空旧缓存，写入新缓存
+        RedisManager::getInstance().del("msgs:" + uid_str);
+        for (auto it = fresh.rbegin(); it != fresh.rend(); ++it) {
+            Json::Value msg;
+            msg["msg_type"] = it->type;
+            msg["title"] = it->title;
+            msg["payload"] = it->content;
+            msg["is_read"] = it->is_read;
+            msg["created_at"] = it->created_at;
+            RedisManager::getInstance().lpush("msgs:" + uid_str, msg.toStyledString());
+        }
+        RedisManager::getInstance().ltrim("msgs:" + uid_str, 0, 49);
+        RedisManager::getInstance().expire("msgs:" + uid_str, 604800);
+
+        // 同步校准未读计数
+        long real_unread = MySQLManager::getInstance().getUnreadCount(uid);
+        RedisManager::getInstance().set("unread:" + uid_str, std::to_string(real_unread));
+        RedisManager::getInstance().expire("unread:" + uid_str, 604800);
+
+        RedisManager::getInstance().releaseLock(lock_key, owner);
+    }
 
     resp->set_error(0);
     return Status::OK;

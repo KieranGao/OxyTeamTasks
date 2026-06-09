@@ -9,6 +9,7 @@
 #include "boost/uuid/random_generator.hpp"
 #include "boost/uuid/uuid_io.hpp"
 #include "Logger.h"
+#include <sstream>
 
 static std::string generate_lock_owner() {
     boost::uuids::uuid uuid = boost::uuids::random_generator()();
@@ -119,29 +120,40 @@ void LogicSystem::loginHandler(std::shared_ptr<Session> session, const std::stri
     rtvalue["error"] = 0;
     rtvalue["uid"] = uid;
 
+    // 旁路缓存：先查 Redis，miss 再查 MySQL 并写回 Redis
+    std::string uid_str = std::to_string(uid);
     std::shared_ptr<UserInfo> user_info;
-    {
-        std::shared_lock<std::shared_mutex> read_lock(users_mtx_);
-        auto it = users_.find(uid);
-        if (it != users_.end()) {
-            user_info = it->second;
-        }
-    }
-    if (!user_info) {
+    std::string cache_key = "user_info:" + uid_str;
+    std::string cached;
+    if (RedisManager::getInstance().get(cache_key, cached) && !cached.empty()) {
+        // Redis 命中，解析 "username|email|role|captain_id|team_id"
+        user_info = std::make_shared<UserInfo>();
+        user_info->uid = uid;
+        std::istringstream ss(cached);
+        std::string field;
+        std::getline(ss, user_info->username, '|');
+        std::getline(ss, user_info->email, '|');
+        if (std::getline(ss, field, '|')) user_info->role = std::stoi(field);
+        if (std::getline(ss, field, '|')) user_info->belong_captain_id = std::stoi(field);
+        if (std::getline(ss, field, '|')) user_info->belong_team_id = std::stoi(field);
+    } else {
+        // Redis miss，查 MySQL 并写回 Redis
         user_info = MySQLManager::getInstance().getUser(uid);
         if (!user_info) {
             rtvalue["error"] = static_cast<int>(ErrorCodes::USER_ID_INVALID);
             return;
         }
-        std::unique_lock<std::shared_mutex> write_lock(users_mtx_);
-        users_[uid] = user_info;
+        std::string val = user_info->username + "|" + user_info->email + "|"
+            + std::to_string(user_info->role) + "|"
+            + std::to_string(user_info->belong_captain_id) + "|"
+            + std::to_string(user_info->belong_team_id);
+        RedisManager::getInstance().set(cache_key, val);  // 不设 TTL，靠写穿删除
     }
     rtvalue["name"] = user_info->username;
 
     // 若当前用户已经在线，需要将旧会话踢下线
 
     // 原子踢人标记检查: 单次Lua调用 GET + DEL
-    std::string uid_str = std::to_string(uid);
     std::string kick_val;
     if (RedisManager::getInstance().getAndDeleteKick(uid_str, kick_val)) {
         auto oldSession = session->getServer()->getSessionByUid(uid);
@@ -159,11 +171,10 @@ void LogicSystem::loginHandler(std::shared_ptr<Session> session, const std::stri
     session->setUid(uid);
     session->getServer()->addUidSession(uid, session);
 
-    std::string unread_str;
-    long unread_count = 0;
-    if (RedisManager::getInstance().get("unread:" + uid_str, unread_str)) {
-        unread_count = std::stol(unread_str);
-    }
+    // 未读计数：优先用 MySQL 校准 Redis（防止 Redis 重启后计数归零）
+    long unread_count = MySQLManager::getInstance().getUnreadCount(uid);
+    RedisManager::getInstance().set("unread:" + uid_str, std::to_string(unread_count));
+    RedisManager::getInstance().expire("unread:" + uid_str, 604800);
     rtvalue["unread_count"] = static_cast<Json::Int64>(unread_count);
 
     // 推送未读消息

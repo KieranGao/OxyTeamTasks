@@ -28,3 +28,11 @@ bool MySQLManager::markMessagesRead(int uid, const std::vector<int64_t>& ids) {
 bool MySQLManager::deleteMessages(int uid, const std::vector<int64_t>& ids) {
     return dao_->deleteMessages(uid, ids);
 }
+
+bool MySQLManager::getMessages(int uid, int offset, int limit, std::vector<MySQLDao::MessageRow>& messages) {
+    return dao_->getMessages(uid, offset, limit, messages);
+}
+
+long MySQLManager::getUnreadCount(int uid) {
+    return dao_->getUnreadCount(uid);
+}

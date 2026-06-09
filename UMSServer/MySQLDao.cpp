@@ -182,12 +182,12 @@ bool MySQLDao::approveUser(int uid, int role, int belong_team_id) {
     auto connection = ConnectionGuard(*pool_, pool_->getConnection());
     try {
         auto& sql_conn = connection.get()->getConn();
+        sql_conn->setAutoCommit(false);
+
         int belong_captain_id = 0;
         if (role == 1) {
-            // 队长：belong_captain_id = 自身 uid
             belong_captain_id = uid;
         } else if (role == 0 && belong_team_id > 0) {
-            // 队员：查找该队伍的队长 uid
             std::unique_ptr<sql::PreparedStatement> capStmt(sql_conn->prepareStatement(
                 "SELECT uid FROM user WHERE belong_team_id = ? AND role = 1 LIMIT 1"));
             capStmt->setInt(1, belong_team_id);
@@ -204,9 +204,17 @@ bool MySQLDao::approveUser(int uid, int role, int belong_team_id) {
         pstmt->setInt(3, belong_captain_id);
         pstmt->setInt(4, uid);
         int affected = pstmt->executeUpdate();
+
+        sql_conn->commit();
+        sql_conn->setAutoCommit(true);
         return affected > 0;
     } catch (const sql::SQLException& exp) {
         LOG_ERROR("SQLException in approveUser: {}", exp.what());
+        try {
+            auto& sql_conn = connection.get()->getConn();
+            sql_conn->rollback();
+            sql_conn->setAutoCommit(true);
+        } catch (...) {}
         return false;
     }
 }
@@ -229,6 +237,8 @@ bool MySQLDao::setUserRole(int uid, int role, int belong_team_id) {
     auto connection = ConnectionGuard(*pool_, pool_->getConnection());
     try {
         auto& sql_conn = connection.get()->getConn();
+        sql_conn->setAutoCommit(false);
+
         int belong_captain_id = 0;
         if (role == 1) {
             belong_captain_id = uid;
@@ -249,9 +259,17 @@ bool MySQLDao::setUserRole(int uid, int role, int belong_team_id) {
         pstmt->setInt(3, belong_captain_id);
         pstmt->setInt(4, uid);
         int affected = pstmt->executeUpdate();
+
+        sql_conn->commit();
+        sql_conn->setAutoCommit(true);
         return affected > 0;
     } catch (const sql::SQLException& exp) {
         LOG_ERROR("SQLException in setUserRole: {}", exp.what());
+        try {
+            auto& sql_conn = connection.get()->getConn();
+            sql_conn->rollback();
+            sql_conn->setAutoCommit(true);
+        } catch (...) {}
         return false;
     }
 }

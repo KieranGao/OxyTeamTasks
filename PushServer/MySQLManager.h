@@ -17,6 +17,8 @@ public:
     bool insertMessage(int uid, const std::string& type, const std::string& title, const std::string& content);
     bool markMessagesRead(int uid, const std::vector<int64_t>& ids);
     bool deleteMessages(int uid, const std::vector<int64_t>& ids);
+    bool getMessages(int uid, int offset, int limit, std::vector<MySQLDao::MessageRow>& messages);
+    long getUnreadCount(int uid);
 private:
     MySQLManager();
     std::unique_ptr<MySQLDao> dao_;

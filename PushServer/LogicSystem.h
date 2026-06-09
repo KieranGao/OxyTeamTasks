@@ -39,8 +39,6 @@ private:
     std::condition_variable cv_;
     std::atomic<bool> is_running_;
     std::unordered_map<std::string, FunCallBack> fun_callbacks_;
-    std::shared_mutex users_mtx_;
-    std::unordered_map<int, std::shared_ptr<UserInfo>> users_;
 };
 
 #endif /* LOGICSYSTEM_H */

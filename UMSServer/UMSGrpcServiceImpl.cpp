@@ -158,6 +158,10 @@ Status UMSGrpcServiceImpl::ApproveUser(ServerContext* context, const ApproveUser
 {
     LOG_INFO("[UMS] ApproveUser uid={} role={} team={}", req->uid(), req->role(), req->belong_team_id());
     bool ok = MySQLManager::getInstance().approveUser(req->uid(), req->role(), req->belong_team_id());
+    if (ok) {
+        // 写穿：MySQL 更新成功后删除 Redis 缓存，下次登录重新加载
+        RedisManager::getInstance().del("user_info:" + std::to_string(req->uid()));
+    }
     resp->set_error(ok ? static_cast<int>(ErrorCodes::SUCCESS) : static_cast<int>(ErrorCodes::RPC_ERROR));
     return Status::OK;
 }
@@ -174,6 +178,9 @@ Status UMSGrpcServiceImpl::SetUserRole(ServerContext* context, const SetUserRole
 {
     LOG_INFO("[UMS] SetUserRole uid={} role={} team={}", req->uid(), req->role(), req->belong_team_id());
     bool ok = MySQLManager::getInstance().setUserRole(req->uid(), req->role(), req->belong_team_id());
+    if (ok) {
+        RedisManager::getInstance().del("user_info:" + std::to_string(req->uid()));
+    }
     resp->set_error(ok ? static_cast<int>(ErrorCodes::SUCCESS) : static_cast<int>(ErrorCodes::RPC_ERROR));
     return Status::OK;
 }
@@ -204,6 +211,9 @@ Status UMSGrpcServiceImpl::UpdateTeamInfo(ServerContext* context, const UpdateTe
 {
     LOG_INFO("[UMS] UpdateTeamInfo uid={} team={}", req->uid(), req->belong_team_id());
     bool ok = MySQLManager::getInstance().updateUserTeam(req->uid(), req->belong_team_id());
+    if (ok) {
+        RedisManager::getInstance().del("user_info:" + std::to_string(req->uid()));
+    }
     resp->set_error(ok ? static_cast<int>(ErrorCodes::SUCCESS) : static_cast<int>(ErrorCodes::USER_ID_INVALID));
     return Status::OK;
 }

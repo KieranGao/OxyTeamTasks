@@ -49,6 +49,7 @@ TaskServer/logs
 UMSServer/logs
 docs
 *.md
+test.cpp
 !README.md
 !README-en.md
 !LICENSE
