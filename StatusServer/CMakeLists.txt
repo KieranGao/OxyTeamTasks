@@ -30,6 +30,7 @@ set(GATESERVER_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/ConfigManager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RPCConnectPool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/StatusGrpcClient.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/PushConnectPool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/SegmentTree.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/StatusServiceImpl.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/StatusServer.cpp

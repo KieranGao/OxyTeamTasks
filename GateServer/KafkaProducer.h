@@ -19,6 +19,7 @@ public:
 private:
     KafkaProducer();
     rd_kafka_t* rk_ = nullptr;
+    rd_kafka_topic_t* rkt_ = nullptr;  // 缓存 topic handle
     std::string default_topic_;
 };
 

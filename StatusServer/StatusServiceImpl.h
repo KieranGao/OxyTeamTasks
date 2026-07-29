@@ -4,6 +4,7 @@
 #include "grpcpp/grpcpp.h"
 #include "message.grpc.pb.h"
 #include "SegmentTree.h"
+#include "PushConnectPool.h"
 #include <set>
 #include <mutex>
 #include <queue>
@@ -32,6 +33,8 @@ using message::DisconnectReq;
 using message::DisconnectRsp;
 using message::GetPushServerForUserReq;
 using message::GetPushServerForUserRsp;
+using message::KickSessionReq;
+using message::KickSessionRsp;
 using message::StatusService;
 
 class PushServer {
@@ -79,6 +82,7 @@ private:
     bool insertToken(int uid, std::string token);
     PushServer& selectPushServer();
     void returnServer(PushServer& cs);
+    void kickOldSession(int uid);
 
     // 负载均衡
     std::unique_ptr<SegmentTree> SegTree_;

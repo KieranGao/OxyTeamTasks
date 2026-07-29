@@ -299,3 +299,31 @@ Status PushGrpcServiceImpl::DeleteMessage(ServerContext* context, const DeleteMe
     resp->set_error(0);
     return Status::OK;
 }
+
+Status PushGrpcServiceImpl::KickSession(ServerContext* context, const KickSessionReq* req, KickSessionRsp* resp)
+{
+    int uid = req->uid();
+    LOG_INFO("[PushServer] KickSession: requested to kick uid={}", uid);
+
+    if (!g_main_server) {
+        LOG_ERROR("[PushServer] KickSession: g_main_server is null");
+        resp->set_error(static_cast<int>(ErrorCodes::RPC_ERROR));
+        return Status::OK;
+    }
+
+    auto oldSession = g_main_server->getSessionByUid(uid);
+    if (oldSession) {
+        LOG_INFO("[PushServer] KickSession: kicking old session for uid={}", uid);
+        Json::Value kickMsg;
+        kickMsg["type"] = WS_MSG_KICKED;
+        kickMsg["reason"] = "other_login";
+        oldSession->send(kickMsg.toStyledString());
+        oldSession->close();
+        g_main_server->removeUidSession(uid);
+    } else {
+        LOG_INFO("[PushServer] KickSession: no active session for uid={}", uid);
+    }
+
+    resp->set_error(0);
+    return Status::OK;
+}

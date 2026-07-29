@@ -20,6 +20,8 @@ using message::MarkReadReq;
 using message::MarkReadRsp;
 using message::DeleteMessageReq;
 using message::DeleteMessageRsp;
+using message::KickSessionReq;
+using message::KickSessionRsp;
 using message::PushService;
 
 class MainServer;  // forward declaration
@@ -31,6 +33,7 @@ public:
     Status GetMessages(ServerContext* context, const GetMessagesReq* req, GetMessagesRsp* resp) override;
     Status MarkRead(ServerContext* context, const MarkReadReq* req, MarkReadRsp* resp) override;
     Status DeleteMessage(ServerContext* context, const DeleteMessageReq* req, DeleteMessageRsp* resp) override;
+    Status KickSession(ServerContext* context, const KickSessionReq* req, KickSessionRsp* resp) override;
 };
 
 // Global setters called from PushServerMain.cpp

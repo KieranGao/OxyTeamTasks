@@ -47,8 +47,6 @@ public:
                            int max_messages = 50, int ttl_seconds = 604800);
     // 原子标记已读: SETEX(0) 或 DECR N 次
     bool markReadAtomic(const std::string& uid_str, int decrement_count, int ttl_seconds = 604800);
-    // 原子踢人标记: GET + DEL
-    bool getAndDeleteKick(const std::string& uid_str, std::string& out_kick_value);
     // 原子日志追加: LPUSH + LTRIM + EXPIRE
     bool appendLogAtomic(const std::string& service_name, const std::string& log_json,
                          int max_entries = 500, int ttl_seconds = 604800);

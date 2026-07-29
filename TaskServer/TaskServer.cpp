@@ -3,6 +3,7 @@
 #include "KafkaProducer.h"
 #include "PushGrpcClient.h"
 #include "MySQLManager.h"
+#include "AsyncTaskPool.h"
 #include "Global.h"
 #include "Logger.h"
 #include "ConfigManager.h"
@@ -24,6 +25,8 @@ void RunServer() {
     Logger::getInstance().setRemoteFlushCallback([](const std::vector<LogEntry>& batch) {
         KafkaProducer::getInstance().produceLogBatch("TaskServer", batch);
     });
+
+    AsyncTaskPool::getInstance();  // 初始化线程池
 
     std::atomic<bool> hb_running{true};
     std::thread hb_thread([&](){
@@ -100,6 +103,7 @@ void RunServer() {
 
     hb_running = false;
     reminder_running = false;
+    AsyncTaskPool::getInstance().stop();
     if (hb_thread.joinable()) hb_thread.join();
     if (reminder_thread.joinable()) reminder_thread.join();
     LOG_INFO("TaskServer stopped");

@@ -151,22 +151,7 @@ void LogicSystem::loginHandler(std::shared_ptr<Session> session, const std::stri
     }
     rtvalue["name"] = user_info->username;
 
-    // 若当前用户已经在线，需要将旧会话踢下线
-
-    // 原子踢人标记检查: 单次Lua调用 GET + DEL
-    std::string kick_val;
-    if (RedisManager::getInstance().getAndDeleteKick(uid_str, kick_val)) {
-        auto oldSession = session->getServer()->getSessionByUid(uid);
-        if (oldSession) {
-            LOG_INFO("[PushServer] Kicking old session for uid={}", uid);
-            Json::Value kickMsg;
-            kickMsg["type"] = WS_MSG_KICKED;
-            kickMsg["reason"] = "other_login";
-            oldSession->send(kickMsg.toStyledString());
-            oldSession->close();
-            session->getServer()->removeUidSession(uid);
-        }
-    }
+    // 踢人逻辑已移至 StatusServer AllocatePushServer 中直接 gRPC 调用 KickSession
 
     session->setUid(uid);
     session->getServer()->addUidSession(uid, session);

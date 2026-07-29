@@ -496,43 +496,6 @@ bool RedisManager::markReadAtomic(const std::string& uid_str, int decrement_coun
 }
 
 
-// 查看是否需要踢掉user，如果需要返回TRUE，并删除value
-bool RedisManager::getAndDeleteKick(const std::string& uid_str, std::string& out_kick_value) {
-    std::string lua =
-        "local val=redis.call('GET',KEYS[1]) "
-        "if val then redis.call('DEL',KEYS[1]) end "
-        "return val";
-
-    auto connect = conn_pool_->getConnection();
-    if (connect == nullptr) return false;
-
-    std::vector<std::string> parts = {"EVAL", lua, "1", "kick:" + uid_str};
-    std::vector<const char*> argv(parts.size());
-    std::vector<size_t> argvlen(parts.size());
-    for (size_t i = 0; i < parts.size(); ++i) {
-        argv[i] = parts[i].c_str();
-        argvlen[i] = parts[i].size();
-    }
-
-    redisReply* reply = static_cast<redisReply*>(redisCommandArgv(
-        connect.get(), static_cast<int>(parts.size()), argv.data(), argvlen.data()));
-    conn_pool_->returnConnection(std::move(connect));
-
-    if (reply == nullptr) {
-        LOG_ERROR("getAndDeleteKick EVAL failed for uid={}", uid_str);
-        return false;
-    }
-    if (reply->type == REDIS_REPLY_STRING) {
-        out_kick_value = std::string(reply->str, reply->len);
-        freeReplyObject(reply);
-        LOG_DEBUG("getAndDeleteKick: found kick marker for uid={}", uid_str);
-        return true;
-    }
-    freeReplyObject(reply);
-    return false;
-}
-
-
 bool RedisManager::appendLogAtomic(const std::string& service_name, const std::string& log_json,
                                     int max_entries, int ttl_seconds) {
     std::string lua =

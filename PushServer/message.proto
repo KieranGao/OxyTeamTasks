@@ -300,6 +300,7 @@ service PushService {
   rpc GetMessages(GetMessagesReq) returns (GetMessagesRsp);        // 查询消息列表
   rpc MarkRead(MarkReadReq) returns (MarkReadRsp);                 // 标记已读
   rpc DeleteMessage(DeleteMessageReq) returns (DeleteMessageRsp);  // 删除消息
+  rpc KickSession(KickSessionReq) returns (KickSessionRsp);        // 踢掉用户旧会话
 }
 
 message PushToUserReq {
@@ -365,6 +366,14 @@ message DeleteMessageReq {
 }
 
 message DeleteMessageRsp {
+  int32 error = 1;  // 0成功
+}
+
+message KickSessionReq {
+  int32 uid = 1;  // 要踢掉的用户UID
+}
+
+message KickSessionRsp {
   int32 error = 1;  // 0成功
 }
 service TaskService {

@@ -28,4 +28,21 @@ for srv in "${SERVERS[@]}"; do
     fi
 done
 
+# 停止 Kafka
+KAFKA_HOME="/usr/local/kafka"
+KAFKA_PID=$(pgrep -f "kafka.Kafka" 2>/dev/null | head -1)
+if [ -n "$KAFKA_PID" ]; then
+    echo -n "  Kafka (PID: $KAFKA_PID) ... "
+    "$KAFKA_HOME/bin/kafka-server-stop.sh" 2>/dev/null
+    sleep 2
+    if pgrep -f "kafka.Kafka" >/dev/null 2>&1; then
+        kill -9 $(pgrep -f "kafka.Kafka" | tr '\n' ' ') 2>/dev/null
+        echo "force killed"
+    else
+        echo "stopped"
+    fi
+else
+    echo "  Kafka ... not running"
+fi
+
 echo "=== Done ==="

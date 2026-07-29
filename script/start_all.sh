@@ -6,6 +6,30 @@ mkdir -p "$LOGDIR"
 
 echo "=== Starting all servers ==="
 
+# 0. Kafka (日志中间件，所有服务依赖)
+KAFKA_HOME="/usr/local/kafka"
+if nc -z -w2 127.0.0.1 9092 2>/dev/null; then
+    echo "  [0/7] Kafka (port 9092) ... already running"
+else
+    echo -n "  [0/7] Kafka (port 9092) ..."
+    mkdir -p /home/oxythecrack/kafka-data
+    "$KAFKA_HOME/bin/kafka-server-start.sh" -daemon "$KAFKA_HOME/config/kraft/server.properties" 2>/dev/null
+    # 等待 Kafka 就绪（最多 20 秒）
+    for i in $(seq 1 20); do
+        if nc -z -w2 127.0.0.1 9092 2>/dev/null; then
+            echo " started"
+            break
+        fi
+        sleep 1
+    done
+    if ! nc -z -w2 127.0.0.1 9092 2>/dev/null; then
+        echo " FAILED (timeout)"
+    fi
+    # 确保内部 topic 存在
+    "$KAFKA_HOME/bin/kafka-topics.sh" --bootstrap-server 127.0.0.1:9092 --create --topic __consumer_offsets --partitions 50 --replication-factor 1 --if-not-exists 2>/dev/null
+    "$KAFKA_HOME/bin/kafka-topics.sh" --bootstrap-server 127.0.0.1:9092 --create --topic logs --partitions 1 --replication-factor 1 --if-not-exists 2>/dev/null
+fi
+
 # 1. StatusServer (依赖项，先启动)
 echo "  [1/6] StatusServer (port 50052)..."
 cd "$BASE/StatusServer/build"
@@ -68,6 +92,7 @@ check_grpc() {
     fi
 }
 
+check_grpc "Kafka"         "127.0.0.1:9092"
 check_grpc "StatusServer"  "127.0.0.1:50052"
 check_grpc "UMSServer"     "127.0.0.1:50053"
 check_grpc "TaskServer"    "127.0.0.1:50054"

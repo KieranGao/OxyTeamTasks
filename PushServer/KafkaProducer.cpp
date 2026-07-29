@@ -40,6 +40,7 @@ KafkaProducer::KafkaProducer() {
 KafkaProducer::~KafkaProducer() {
     if (rk_) {
         rd_kafka_flush(rk_, 5000); // 等待最多 5 秒发完剩余消息
+        if (rkt_) rd_kafka_topic_destroy(rkt_);
         rd_kafka_destroy(rk_);
     }
 }
@@ -47,24 +48,24 @@ KafkaProducer::~KafkaProducer() {
 bool KafkaProducer::produce(const std::string& topic, const std::string& key, const std::string& value) {
     if (!rk_) return false;
 
-    // 查找或创建 topic handle
-    rd_kafka_topic_t* rkt = rd_kafka_topic_new(rk_, topic.c_str(), nullptr);
-    if (!rkt) {
-        LOG_ERROR("Kafka topic creation failed: {}", rd_kafka_err2str(rd_kafka_last_error()));
-        return false;
+    // 缓存 topic handle，避免每次创建/销毁
+    if (!rkt_) {
+        rkt_ = rd_kafka_topic_new(rk_, topic.c_str(), nullptr);
+        if (!rkt_) {
+            LOG_ERROR("Kafka topic creation failed: {}", rd_kafka_err2str(rd_kafka_last_error()));
+            return false;
+        }
     }
 
     // RD_KAFKA_MSG_F_COPY: 让 rdkafka 复制消息内容，调用方无需保持 buffer
     int err = rd_kafka_produce(
-        rkt,
+        rkt_,
         RD_KAFKA_PARTITION_UA,        // 自动分区
         RD_KAFKA_MSG_F_COPY,          // 复制消息
         const_cast<char*>(value.data()), value.size(),
         key.data(), key.size(),
         nullptr                        // opaque
     );
-
-    rd_kafka_topic_destroy(rkt);
 
     if (err == -1) {
         LOG_ERROR("Kafka produce failed: {}", rd_kafka_err2str(rd_kafka_last_error()));

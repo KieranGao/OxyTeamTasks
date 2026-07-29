@@ -1,10 +1,6 @@
 #ifndef SINGLETON_H
 #define SINGLETON_H
 
-#include <memory>
-#include <mutex>
-#include <iostream>
-
 // 单例基类，使用CRTP（Curiously Recurring Template Pattern）实现单例模式
 template<class T>
 class Singleton {

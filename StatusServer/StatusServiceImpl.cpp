@@ -8,6 +8,7 @@
 #include <vector>
 #include <json/json.h>
 #include "Logger.h"
+#include "PushConnectPool.h"
 
 std::string generate_unique_string()
 {
@@ -50,6 +51,47 @@ StatusServiceImpl::StatusServiceImpl()
         std::string key = server.host + ":" + server.port;
         servers_[key] = server;
         servers_idx_[idx++] = server;
+    }
+}
+
+void StatusServiceImpl::kickOldSession(int uid) {
+    std::string uid_str = std::to_string(uid);
+    std::string node_key = "pushnode:" + uid_str;
+    std::string node_info;
+    if (!RedisManager::getInstance().get(node_key, node_info)) {
+        return;  // 用户不在线，无需踢
+    }
+
+    // 解析 host:ws_port:grpc_port
+    auto c1 = node_info.find(':');
+    if (c1 == std::string::npos) return;
+    auto c2 = node_info.find(':', c1 + 1);
+    if (c2 == std::string::npos) return;
+    std::string host = node_info.substr(0, c1);
+    std::string grpc_port = node_info.substr(c2 + 1);
+    if (host.empty() || grpc_port.empty()) return;
+
+    // gRPC 调用 PushServer KickSession
+    auto stub = PushNodeManager::getInstance().getStub(host, grpc_port);
+    if (!stub) {
+        LOG_ERROR("[StatusServer] kickOldSession: failed to get stub for {}:{}", host, grpc_port);
+        return;
+    }
+
+    ClientContext ctx;
+    KickSessionReq req;
+    KickSessionRsp rsp;
+    req.set_uid(uid);
+
+    Defer returnStub([&]() {
+        PushNodeManager::getInstance().returnStub(host, grpc_port, std::move(stub));
+    });
+
+    Status status = stub->KickSession(&ctx, req, &rsp);
+    if (!status.ok()) {
+        LOG_ERROR("[StatusServer] kickOldSession: gRPC failed for uid={}: {}", uid, status.error_message());
+    } else {
+        LOG_INFO("[StatusServer] kickOldSession: kicked old session for uid={}", uid);
     }
 }
 
@@ -112,14 +154,15 @@ Status StatusServiceImpl::AllocatePushServer(ServerContext* context, const Alloc
         return Status::OK;
     }
 
-    // 若旧token存在且不同，设置踢人标记通知PushServer关闭旧会话
-    if (has_old && !old_token.empty() && old_token != resp->token()) {
-        std::string kick_key = "kick:" + uid_str;
-        RedisManager::getInstance().setex(kick_key, old_token, 60);
-        LOG_INFO("[StatusServer] Set kick marker for uid={}", req->uid());
-    }
+    // 若旧token存在且不同，记录需要踢人（锁释放后执行 gRPC 踢人）
+    bool need_kick = has_old && !old_token.empty() && old_token != resp->token();
 
     RedisManager::getInstance().releaseLock(lock_key, owner);
+
+    // 锁释放后直接 gRPC 通知旧节点踢人（不阻塞其他登录请求）
+    if (need_kick) {
+        kickOldSession(req->uid());
+    }
 
     // 存储 uid → PushServer 节点映射，用于消息路由 (host:ws_port:grpc_port)
     std::string node_key = "pushnode:" + std::to_string(req->uid());
