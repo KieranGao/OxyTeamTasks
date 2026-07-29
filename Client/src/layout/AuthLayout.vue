@@ -1,16 +1,19 @@
 <template>
   <div class="auth-layout">
-    <div class="auth-bg-pattern"></div>
+    <div class="auth-grid"></div>
     <div class="auth-card">
-      <div class="auth-card-stripe"></div>
       <div class="auth-brand">
-        <div class="auth-logo-glow"></div>
+        <div class="brand-marker">&gt;_</div>
         <h1>OxyTeamTask</h1>
         <p>分布式训练任务协同系统</p>
       </div>
       <router-view />
     </div>
-    <div class="auth-footer">© 2026 OxyTeamTask. Built for competitive programmers.</div>
+    <div class="auth-footer">
+      <span class="footer-code">© 2026</span>
+      <span class="footer-sep">·</span>
+      <span>Built for competitive programmers</span>
+    </div>
   </div>
 </template>
 
@@ -23,84 +26,74 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: var(--gradient-auth);
+  background: var(--bg-base);
   position: relative;
   overflow: hidden;
 }
 
-.auth-bg-pattern {
+.auth-grid {
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(ellipse at 25% 60%, rgba(79, 110, 247, 0.12) 0%, transparent 50%),
-    radial-gradient(ellipse at 75% 40%, rgba(124, 92, 252, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 80%, rgba(34, 197, 94, 0.04) 0%, transparent 40%);
+    linear-gradient(var(--border-subtle) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-subtle) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.4;
   pointer-events: none;
 }
 
 .auth-card {
-  width: 440px;
-  padding: 44px;
-  background: var(--bg-secondary);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-xl);
+  width: 400px;
+  padding: var(--space-8);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
   position: relative;
-  overflow: hidden;
   z-index: 1;
-}
-
-.auth-card-stripe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: var(--gradient-primary);
 }
 
 .auth-brand {
   text-align: center;
-  margin-bottom: 36px;
-  position: relative;
+  margin-bottom: var(--space-8);
 }
 
-.auth-logo-glow {
-  position: absolute;
-  top: -40px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 200px;
-  height: 100px;
-  background: radial-gradient(ellipse, rgba(79, 110, 247, 0.1), transparent 70%);
-  pointer-events: none;
+.brand-marker {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--space-3);
+  letter-spacing: var(--tracking-tight);
 }
 
 .auth-brand h1 {
-  font-size: 28px;
-  font-weight: 800;
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: -0.5px;
-  position: relative;
-  z-index: 1;
+  font-family: var(--font-mono);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: var(--tracking-tight);
 }
 
 .auth-brand p {
-  margin-top: 8px;
-  font-size: 13px;
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
   color: var(--text-secondary);
-  letter-spacing: 0.3px;
 }
 
 .auth-footer {
   position: absolute;
-  bottom: 24px;
+  bottom: var(--space-6);
   left: 50%;
   transform: translateX(-50%);
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.25);
-  letter-spacing: 0.5px;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
 }
+
+.footer-code { color: var(--text-secondary); }
+.footer-sep { color: var(--text-tertiary); }
 </style>

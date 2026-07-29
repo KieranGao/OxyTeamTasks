@@ -407,39 +407,74 @@ onMounted(async () => {
 
 <style scoped>
 .header-row { display: flex; justify-content: space-between; align-items: flex-start; }
+
 .filter-bar {
-  display: flex; gap: 12px; align-items: center; margin-bottom: 20px;
-  padding: 14px 20px; background: var(--glass-bg); backdrop-filter: var(--glass-blur);
-  border-radius: var(--radius-lg); border: 1px solid var(--border-light);
-  box-shadow: var(--shadow-sm);
+  display: flex; gap: var(--space-3); align-items: center; margin-bottom: var(--space-5);
+  padding: var(--space-3) var(--space-5);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
 }
-.task-count { color: var(--text-secondary); font-size: 13px; font-weight: 500; }
 
-.batch-row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
-.task-card-wrapper { margin-bottom: 14px; }
+.task-count {
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--text-secondary);
+}
+
+.batch-row { display: flex; gap: var(--space-1); align-items: center; flex-wrap: wrap; }
+
+.task-card-wrapper { margin-bottom: var(--space-4); }
+
 .task-card {
-  border-left: 4px solid var(--color-primary);
-  transition: all var(--transition-fast);
+  border: 1px solid var(--border-default);
+  border-left: 3px solid var(--primary);
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
 }
-.task-card:hover { transform: translateX(3px); box-shadow: var(--shadow-md); }
-.card-body { display: flex; gap: 24px; }
+.task-card :deep(.el-card__body) { padding: var(--space-5); }
+
+.card-body { display: flex; gap: var(--space-6); }
 .card-main { flex: 1; min-width: 0; }
-.card-meta { display: flex; flex-direction: column; gap: 8px; min-width: 200px; flex-shrink: 0; }
-.meta-row { display: flex; align-items: center; gap: 6px; font-size: 13px; }
-.meta-label { color: var(--text-secondary); min-width: 48px; font-weight: 500; }
-.card-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border-light); }
+.card-meta { display: flex; flex-direction: column; gap: var(--space-2); min-width: 200px; flex-shrink: 0; }
 
-.task-title { font-weight: 700; font-size: 16px; margin-bottom: 8px; letter-spacing: -0.2px; }
-.task-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6;
+.meta-row { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-sm); }
+.meta-label {
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--text-secondary); min-width: 48px; font-weight: 500;
+}
+
+.card-actions {
+  display: flex; justify-content: flex-end; gap: var(--space-2);
+  margin-top: var(--space-4); padding-top: var(--space-4);
+  border-top: 1px solid var(--border-muted);
+}
+
+.task-title {
+  font-family: var(--font-mono); font-weight: 700;
+  font-size: var(--text-base); margin-bottom: var(--space-2);
+}
+
+.task-desc {
+  font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.6;
   overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
-  -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+  -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+}
 
-.status-counts { display: flex; gap: 4px; flex-wrap: wrap; }
+.status-counts { display: flex; gap: var(--space-1); flex-wrap: wrap; }
 
-.stats-task-title { font-weight: 700; font-size: 15px; margin-bottom: 18px; }
-.stats-section { margin-bottom: 16px; }
-.stats-section-header { margin-bottom: 8px; font-weight: 600; }
-.stats-user-list { display: flex; gap: 6px; flex-wrap: wrap; }
-.stats-user-row { display: inline-flex; align-items: center; gap: 2px; }
-.stats-empty { color: var(--text-secondary); font-size: 13px; }
+.stats-task-title {
+  font-family: var(--font-mono); font-weight: 700;
+  font-size: var(--text-base); margin-bottom: var(--space-5);
+}
+
+.stats-section { margin-bottom: var(--space-4); }
+.stats-section-header {
+  margin-bottom: var(--space-2); font-family: var(--font-mono);
+  font-weight: 600; font-size: var(--text-sm);
+}
+.stats-user-list { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+.stats-user-row { display: inline-flex; align-items: center; gap: var(--space-1); }
+.stats-empty { color: var(--text-secondary); font-size: var(--text-sm); font-family: var(--font-mono); }
 </style>

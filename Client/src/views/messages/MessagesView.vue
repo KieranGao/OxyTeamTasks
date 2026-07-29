@@ -134,11 +134,44 @@ onMounted(loadMessages)
 
 <style scoped>
 .msg-header { display: flex; justify-content: space-between; align-items: center; }
-.msg-unread { font-weight: 600; color: var(--color-primary); }
-.msg-pagination { margin-top: 20px; display: flex; justify-content: center; }
+.msg-unread {
+  font-weight: 600;
+  color: var(--color-primary);
+  font-family: var(--font-mono);
+}
+.msg-pagination { margin-top: var(--space-5); display: flex; justify-content: center; }
 
-:deep(.el-table) { border-radius: var(--radius-md); overflow: hidden; }
-:deep(.el-table th.el-table__cell) { font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
-:deep(.el-table .el-table__row) { transition: background var(--transition-fast); }
-:deep(.el-table .el-table__row:hover > td) { background: var(--color-primary-bg) !important; }
+:deep(.el-card) {
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+}
+:deep(.el-card__header) {
+  border-bottom: 1px solid var(--border-default);
+  padding: var(--space-3) var(--space-4);
+}
+:deep(.el-table) {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--bg-surface);
+  --el-table-border-color: var(--border-default);
+  --el-table-header-bg-color: var(--bg-elevated);
+  --el-table-row-hover-bg-color: var(--bg-elevated);
+  --el-table-bg-color: var(--bg-surface);
+  --el-table-tr-bg-color: var(--bg-surface);
+  --el-table-stripe-bg-color: var(--bg-base);
+}
+:deep(.el-table th.el-table__cell) {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+}
+:deep(.el-table .el-table__row) {
+  transition: background var(--transition-fast);
+}
+:deep(.el-table .el-table__row:hover > td) {
+  background: var(--bg-elevated) !important;
+}
 </style>

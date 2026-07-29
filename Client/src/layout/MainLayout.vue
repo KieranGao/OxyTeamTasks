@@ -3,16 +3,15 @@
     <!-- Sidebar -->
     <aside class="sidebar">
       <div class="sidebar-logo">
-        <div class="logo-glow"></div>
         <span v-if="!appStore.sidebarCollapsed" class="logo-text">OxyTeamTask</span>
-        <span v-else class="logo-icon">OT</span>
+        <span v-else class="logo-icon">&gt;_</span>
       </div>
 
       <el-menu
         :default-active="activeMenu"
         :collapse="appStore.sidebarCollapsed"
         :collapse-transition="false"
-        background-color="var(--bg-sidebar)"
+        background-color="transparent"
         text-color="var(--text-sidebar)"
         active-text-color="var(--text-sidebar-active)"
         router
@@ -39,7 +38,7 @@
         </el-menu-item>
 
         <template v-if="userStore.canManage">
-          <el-divider style="margin: 8px 0; border-color: rgba(255,255,255,0.08)" />
+          <div class="menu-divider"></div>
           <div v-if="!appStore.sidebarCollapsed" class="menu-group-title">管理</div>
           <el-menu-item index="/manage/tasks">
             <el-icon><EditPen /></el-icon>
@@ -52,7 +51,7 @@
         </template>
 
         <template v-if="userStore.isCoach">
-          <el-divider style="margin: 8px 0; border-color: rgba(255,255,255,0.08)" />
+          <div class="menu-divider"></div>
           <div v-if="!appStore.sidebarCollapsed" class="menu-group-title">教练</div>
           <el-menu-item index="/manage/allteams">
             <el-icon><DataBoard /></el-icon>
@@ -101,7 +100,6 @@
             <el-badge :value="unreadCount" :max="99" :hidden="unreadCount === 0" class="notification-badge">
               <el-button icon="Bell" circle text @click="toggleMsgPanel" />
             </el-badge>
-            <!-- Message dropdown panel -->
             <div v-if="msgPanelVisible" class="msg-panel" @click.stop>
               <div class="msg-panel-header">
                 <span>消息通知</span>
@@ -120,7 +118,7 @@
 
           <el-dropdown trigger="click" @command="handleUserCommand">
             <span class="user-info">
-              <el-avatar :size="32" icon="UserFilled" />
+              <el-avatar :size="28" icon="UserFilled" />
               <span class="username">{{ userStore.username || '未登录' }}</span>
               <el-icon class="arrow"><ArrowDown /></el-icon>
             </span>
@@ -168,7 +166,6 @@ const router = useRouter()
 const userStore = useUserStore()
 const appStore = useAppStore()
 
-// Message state
 const unreadCount = ref(0)
 const recentMessages = ref([])
 const msgPanelVisible = ref(false)
@@ -207,7 +204,6 @@ async function markAllRead() {
   } catch (e) { /* ignore */ }
 }
 
-// WebSocket message handlers
 function handleNotify(data) {
   unreadCount.value++
   recentMessages.value.unshift({
@@ -238,7 +234,6 @@ function handleLoginRsp(data) {
   }
 }
 
-// Close panel on outside click
 function onDocClick(e) {
   if (msgPanelVisible.value && !e.target.closest('.msg-bell-wrapper')) {
     msgPanelVisible.value = false
@@ -252,13 +247,8 @@ onMounted(() => {
   onWsMessage('login_rsp', handleLoginRsp)
   if (userStore.uid) {
     loadRecentMessages()
-    // 刷新页面后重连 WebSocket（login() 只在首次登录时调用）
-    console.log('[MainLayout] onMounted: uid=', userStore.uid, 'host=', userStore.pushServerHost, 'port=', userStore.pushServerPort, 'connected=', isConnected())
     if (!isConnected() && userStore.pushServerHost && userStore.pushServerPort) {
-      console.log('[MainLayout] calling connectPushServer')
       connectPushServer(userStore.pushServerHost, userStore.pushServerPort, userStore.uid, userStore.token)
-    } else {
-      console.log('[MainLayout] skipping reconnect: connected=', isConnected(), 'host=', userStore.pushServerHost, 'port=', userStore.pushServerPort)
     }
   }
 })
@@ -277,7 +267,6 @@ const isDark = computed({
   set: () => {},
 })
 
-// Update page title on route change
 watch(pageTitle, (title) => {
   appStore.setPageTitle(title)
 }, { immediate: true })
@@ -303,33 +292,12 @@ function handleUserCommand(cmd) {
   width: var(--sidebar-width);
   min-width: var(--sidebar-width);
   background: var(--bg-sidebar);
+  border-right: 1px solid var(--border-default);
   display: flex;
   flex-direction: column;
-  transition: width var(--transition-normal), min-width var(--transition-normal);
+  transition: width var(--duration-normal) var(--ease-default),
+              min-width var(--duration-normal) var(--ease-default);
   overflow: hidden;
-  position: relative;
-}
-
-.sidebar::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 1px;
-  height: 100%;
-  background: linear-gradient(to bottom, rgba(79, 110, 247, 0.25), rgba(124, 92, 252, 0.08), transparent);
-  z-index: 1;
-}
-
-.sidebar::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 120px;
-  background: linear-gradient(to top, rgba(79, 110, 247, 0.04), transparent);
-  pointer-events: none;
 }
 
 .sidebar-collapsed .sidebar {
@@ -342,57 +310,38 @@ function handleUserCommand(cmd) {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  overflow: hidden;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-.logo-glow {
-  position: absolute;
-  top: -30px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 160px;
-  height: 80px;
-  background: radial-gradient(ellipse, rgba(79, 110, 247, 0.15), transparent 70%);
-  pointer-events: none;
-  animation: logoPulse 4s ease-in-out infinite;
-}
-
-@keyframes logoPulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  border-bottom: 1px solid var(--border-default);
 }
 
 .logo-text {
-  font-size: 17px;
+  font-family: var(--font-mono);
+  font-size: var(--text-md);
   font-weight: 700;
-  color: #fff;
-  letter-spacing: 0.5px;
-  position: relative;
-  z-index: 1;
-  background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.8) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--text-sidebar-active);
+  letter-spacing: var(--tracking-tight);
 }
 
 .logo-icon {
-  font-size: 20px;
-  font-weight: 800;
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-family: var(--font-mono);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.menu-divider {
+  height: 1px;
+  background: var(--border-default);
+  margin: var(--space-2) var(--space-4);
 }
 
 .menu-group-title {
-  padding: 16px 20px 6px;
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.2);
+  padding: var(--space-3) var(--space-5) var(--space-1);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
   text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: 700;
+  letter-spacing: var(--tracking-wider);
+  font-weight: 600;
 }
 
 .sidebar :deep(.el-menu) {
@@ -400,18 +349,17 @@ function handleUserCommand(cmd) {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 6px 0;
+  padding: var(--space-2) 0;
 }
 
 .sidebar :deep(.el-menu-item) {
-  height: 44px;
-  line-height: 44px;
-  margin: 2px 12px;
+  height: 36px;
+  line-height: 36px;
+  margin: 1px var(--space-2);
   border-radius: var(--radius-sm);
-  font-size: 13px;
+  font-size: var(--text-base);
   font-weight: 500;
-  letter-spacing: 0.2px;
-  transition: all var(--transition-fast);
+  transition: all var(--duration-fast) var(--ease-default);
 }
 
 .sidebar :deep(.el-menu-item:hover) {
@@ -420,13 +368,8 @@ function handleUserCommand(cmd) {
 
 .sidebar :deep(.el-menu-item.is-active) {
   background: var(--bg-sidebar-active) !important;
-  box-shadow: 0 2px 12px rgba(79, 110, 247, 0.25);
+  color: var(--text-sidebar-active) !important;
   font-weight: 600;
-}
-
-.sidebar :deep(.el-divider--horizontal) {
-  margin: 8px 16px;
-  border-color: rgba(255, 255, 255, 0.04);
 }
 
 /* ===== Main Area ===== */
@@ -441,83 +384,76 @@ function handleUserCommand(cmd) {
 .header {
   height: var(--header-height);
   min-height: var(--header-height);
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border-bottom: 1px solid var(--border-light);
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-default);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 28px;
+  padding: 0 var(--space-5);
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: var(--z-sticky);
 }
 
 .header-left {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: var(--space-3);
 }
 
 .header-right {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: var(--space-3);
 }
 
 .collapse-btn {
-  font-size: 18px;
+  font-size: var(--text-lg);
   color: var(--text-secondary);
-  transition: color var(--transition-fast);
+  transition: color var(--duration-fast) var(--ease-default);
 }
 .collapse-btn:hover { color: var(--color-primary); }
 
-.notification-badge { margin-right: 4px; }
+.notification-badge { margin-right: var(--space-1); }
 
 /* Message panel */
 .msg-bell-wrapper { position: relative; }
 .msg-panel {
   position: absolute;
-  top: calc(100% + 10px);
+  top: calc(100% + var(--space-2));
   right: 0;
-  width: 360px;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-xl);
-  z-index: 1000;
+  width: 340px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-dropdown);
   overflow: hidden;
-  animation: panelSlide 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-@keyframes panelSlide {
-  from { opacity: 0; transform: translateY(-8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
 .msg-panel-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 20px;
-  border-bottom: 1px solid var(--border-light);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border-default);
+  font-family: var(--font-mono);
   font-weight: 600;
-  font-size: 14px;
-  background: var(--gradient-primary-soft);
+  font-size: var(--text-base);
+  color: var(--text-primary);
 }
-.msg-panel-list { max-height: 380px; overflow-y: auto; }
+.msg-panel-list { max-height: 360px; overflow-y: auto; }
 .msg-panel-empty {
-  padding: 40px 0;
+  padding: var(--space-8) 0;
   text-align: center;
-  color: var(--text-secondary);
-  font-size: 13px;
+  color: var(--text-tertiary);
+  font-size: var(--text-sm);
+  font-family: var(--font-mono);
 }
 .msg-panel-item {
-  padding: 12px 20px;
-  border-bottom: 1px solid var(--border-light);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border-muted);
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: background var(--duration-fast) var(--ease-default);
   position: relative;
 }
 .msg-panel-item:hover { background: var(--color-primary-bg); }
@@ -526,52 +462,58 @@ function handleUserCommand(cmd) {
 .msg-panel-item.unread::before {
   content: '';
   position: absolute;
-  left: 8px;
+  left: var(--space-2);
   top: 50%;
   transform: translateY(-50%);
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
+  width: 5px;
+  height: 5px;
   background: var(--color-primary);
 }
 .msg-panel-title {
-  font-size: 13px;
+  font-size: var(--text-sm);
   color: var(--text-primary);
-  margin-bottom: 4px;
+  margin-bottom: 2px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  padding-left: 8px;
+  padding-left: var(--space-3);
 }
 .msg-panel-item.unread .msg-panel-title { font-weight: 600; }
-.msg-panel-time { font-size: 11px; color: var(--text-secondary); padding-left: 8px; }
+.msg-panel-time {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+  padding-left: var(--space-3);
+}
 .msg-panel-footer {
-  padding: 12px 0;
+  padding: var(--space-3) 0;
   text-align: center;
-  font-size: 13px;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
   font-weight: 500;
   color: var(--color-primary);
   cursor: pointer;
-  border-top: 1px solid var(--border-light);
-  transition: all var(--transition-fast);
+  border-top: 1px solid var(--border-default);
+  transition: background var(--duration-fast) var(--ease-default);
 }
 .msg-panel-footer:hover { background: var(--color-primary-bg); }
 
 .user-info {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-2);
   cursor: pointer;
-  padding: 6px 12px;
-  border-radius: var(--radius-md);
-  transition: all var(--transition-fast);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  transition: background var(--duration-fast) var(--ease-default);
 }
 .user-info:hover { background: var(--color-primary-bg); }
 
 .username {
-  font-size: 13px;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
   color: var(--text-primary);
-  max-width: 110px;
+  max-width: 100px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -579,17 +521,14 @@ function handleUserCommand(cmd) {
 }
 
 .arrow {
-  font-size: 12px;
-  color: var(--text-secondary);
-  transition: transform var(--transition-fast);
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
 }
 
 /* ===== Content ===== */
 .content {
   flex: 1;
   overflow-y: auto;
-  background: var(--bg-primary);
-  background-image: var(--gradient-mesh);
-  background-attachment: fixed;
+  background: var(--bg-base);
 }
 </style>

@@ -97,44 +97,78 @@ async function handleLogin() {
 </script>
 
 <style scoped>
-.login-view { width: 100%; }
+.login-view {
+  width: 100%;
+}
 
+/* Form labels: mono, uppercase, data-forward */
+.login-view :deep(.el-form-item__label) {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Inputs: sharp, dark base bg */
 .login-view :deep(.el-input__wrapper) {
   border-radius: var(--radius-md) !important;
-  transition: all var(--transition-fast) !important;
+  background: var(--bg-base) !important;
+  box-shadow: none !important;
+  border: 1px solid var(--border-default);
+  transition: border-color var(--transition-fast) !important;
 }
 
-.login-view :deep(.el-input__wrapper:focus-within) {
-  box-shadow: 0 0 0 2px var(--color-primary-bg), 0 0 0 3px var(--color-primary) !important;
+.login-view :deep(.el-input__wrapper:hover) {
+  border-color: var(--text-secondary);
 }
 
-.login-view :deep(.el-button--large) {
+.login-view :deep(.el-input__wrapper.is-focus) {
+  border-color: var(--color-primary) !important;
+}
+
+/* Primary button: mono, solid, no decoration */
+.login-view :deep(.el-button--large.el-button--primary) {
   height: 46px;
-  font-size: 15px;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
   font-weight: 600;
-  letter-spacing: 2px;
+  letter-spacing: 0.08em;
   border-radius: var(--radius-md);
-  margin-top: 4px;
+  border: 1px solid var(--color-primary);
+  background: var(--color-primary);
+  color: #fff;
+  margin-top: var(--space-1);
 }
 
+.login-view :deep(.el-button--large.el-button--primary:hover) {
+  opacity: 0.9;
+}
+
+/* Footer links: mono, muted */
 .login-footer {
   text-align: center;
-  margin-top: 16px;
+  margin-top: var(--space-4);
   display: flex;
   justify-content: center;
-  gap: 8px;
+  gap: var(--space-2);
 }
 
 .login-footer a {
-  font-size: 13px;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
   color: var(--text-secondary);
+  text-decoration: none;
   transition: color var(--transition-fast);
 }
 
-.login-footer a:hover { color: var(--color-primary); }
+.login-footer a:hover {
+  color: var(--color-primary);
+}
 
 .login-footer .divider {
-  font-size: 13px;
-  color: var(--border-color);
+  font-size: var(--text-sm);
+  color: var(--border-default);
 }
 </style>

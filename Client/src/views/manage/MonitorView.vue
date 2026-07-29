@@ -144,23 +144,61 @@ onUnmounted(() => {
 
 <style scoped>
 .monitor { padding: 0; }
-.page-header { margin-bottom: 24px; }
-.page-header h2 { margin: 0 0 4px; font-size: 20px; }
-.subtitle { color: var(--text-secondary); font-size: 13px; margin: 0; }
-.section-card { margin-bottom: 24px; }
+
+.page-header { margin-bottom: var(--space-6); }
+.page-header h2 { margin: 0 0 var(--space-1); font-family: var(--font-mono); font-size: var(--text-xl); font-weight: 700; }
+.subtitle { color: var(--text-secondary); font-size: var(--text-sm); margin: 0; font-family: var(--font-sans); }
+
+.section-card { margin-bottom: var(--space-6); }
+
 .card-header { display: flex; align-items: center; justify-content: space-between; }
-.card-title { font-weight: 600; }
-.auto-refresh { font-size: 12px; color: var(--text-secondary); }
-.log-filters { display: flex; align-items: center; }
-.server-card {
-  border-top: 4px solid var(--color-primary);
-  transition: all var(--transition-fast);
-  overflow: hidden;
+
+.card-title {
+  font-family: var(--font-mono); font-weight: 600;
+  font-size: var(--text-sm); text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
-.server-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
-.server-card .server-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-.server-card .server-name { font-weight: 700; font-size: 15px; }
-.server-info p { margin: 5px 0; font-size: 13px; color: var(--text-secondary); }
-.conn-count { font-size: 13px; color: var(--text-primary); margin: 5px 0; font-weight: 600; }
-.heartbeat-time { font-size: 12px; color: var(--text-secondary); }
+
+.auto-refresh {
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  color: var(--text-secondary); text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.log-filters { display: flex; align-items: center; }
+
+.server-card {
+  border: 1px solid var(--border-default);
+  border-left: 3px solid var(--success);
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+}
+.server-card:has(.server-offline) {
+  border-left-color: var(--danger);
+}
+
+.server-card .server-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+
+.server-card .server-name {
+  font-family: var(--font-mono); font-weight: 700;
+  font-size: var(--text-base);
+}
+
+.server-info p {
+  margin: var(--space-1) 0; font-size: var(--text-sm);
+  color: var(--text-secondary); font-family: var(--font-mono);
+}
+
+.conn-count {
+  font-family: var(--font-mono); font-size: var(--text-sm);
+  color: var(--text-primary); margin: var(--space-1) 0; font-weight: 600;
+}
+
+.heartbeat-time {
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
 </style>

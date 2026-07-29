@@ -183,27 +183,32 @@ onMounted(loadTodos)
 
 <style scoped>
 .add-bar {
-  display: flex; gap: 10px; margin-bottom: 20px;
-  padding: 16px 20px;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border-light);
-  box-shadow: var(--shadow-sm);
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+  padding: var(--space-4) var(--space-5);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
 }
 .add-input { flex: 1; }
-.filter-bar { margin-bottom: 20px; }
+.filter-bar { margin-bottom: var(--space-5); }
 .todo-list { display: flex; flex-direction: column; }
 .todo-item {
-  display: flex; align-items: center; gap: 12px;
-  padding: 14px 12px;
-  border-bottom: 1px solid var(--border-light);
-  transition: all var(--transition-fast);
-  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-3);
+  border-bottom: 1px solid var(--border-muted);
 }
 .todo-item:last-child { border-bottom: none; }
-.todo-item:hover { background: var(--color-primary-bg); }
+.todo-item:hover { background: var(--bg-elevated); }
 .todo-item.finished .todo-content { text-decoration: line-through; opacity: 0.35; }
-.todo-content { flex: 1; font-size: 14px; line-height: 1.5; }
-.todo-deadline { font-size: 12px; color: var(--text-secondary); white-space: nowrap; background: var(--bg-primary); padding: 2px 8px; border-radius: var(--radius-sm); }
+.todo-content { flex: 1; font-size: var(--text-sm); line-height: 1.5; }
+.todo-deadline {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
 </style>

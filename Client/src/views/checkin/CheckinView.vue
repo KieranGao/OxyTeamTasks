@@ -178,38 +178,115 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.checkin-card { margin-bottom: 20px; text-align: center; border-top: 4px solid var(--color-success); overflow: visible; }
-.checked-in-state { padding: 24px 0; }
-.checked-text { font-size: 20px; margin: 12px 0 4px; color: var(--color-success); font-weight: 700; }
-.checked-sub { color: var(--text-secondary); font-size: 13px; }
-.checkin-btn { padding: 16px 56px; font-size: 18px; border-radius: var(--radius-lg); font-weight: 600; letter-spacing: 1px; animation: pulse-glow 2s infinite; }
-
-@keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.35); }
-  50% { box-shadow: 0 0 0 12px rgba(34, 197, 94, 0); }
+.checkin-card {
+  margin-bottom: var(--space-5);
+  text-align: center;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+  overflow: visible;
 }
 
+.checked-in-state { padding: var(--space-6) 0; }
+.checked-text {
+  font-size: var(--text-xl);
+  margin: var(--space-3) 0 var(--space-1);
+  color: var(--color-success);
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+.checked-sub { color: var(--text-secondary); font-size: var(--text-sm); }
+
+.checkin-btn {
+  padding: var(--space-3) var(--space-12);
+  font-size: var(--text-lg);
+  font-family: var(--font-mono);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-primary);
+  letter-spacing: 1px;
+}
+
+/* Calendar header */
 .cal-header { display: flex; justify-content: space-between; align-items: center; }
 .cal-nav { display: flex; align-items: center; }
-.cal-month-label { font-weight: 700; margin: 0 16px; min-width: 110px; text-align: center; font-size: 15px; }
-
-.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
-.cal-weekday { text-align: center; font-weight: 600; font-size: 12px; padding: 10px 0; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
-.cal-cell {
-  text-align: center; padding: 10px 4px; border-radius: var(--radius-sm);
-  min-height: 56px; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  background: var(--bg-secondary);
-  border: 1px solid transparent;
-  transition: all var(--transition-fast);
+.cal-month-label {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  margin: 0 var(--space-4);
+  min-width: 110px;
+  text-align: center;
+  font-size: var(--text-base);
 }
-.cal-cell:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
-.cal-day-num { font-size: 14px; margin-bottom: 3px; font-weight: 500; }
-.cal-cell.cal-other-month .cal-day-num { color: var(--text-secondary); opacity: 0.25; }
-.cal-cell.cal-today { border: 2px solid var(--color-primary); box-shadow: 0 0 0 3px var(--color-primary-bg); }
-.cal-cell.cal-checked { background: var(--color-success-bg); border-color: rgba(34, 197, 94, 0.2); }
 
-.cal-legend { margin-top: 16px; display: flex; gap: 20px; align-items: center; justify-content: center; font-size: 13px; color: var(--text-secondary); }
-.legend-dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 4px; }
-.legend-dot.checked { background: var(--color-success); box-shadow: 0 2px 6px rgba(34, 197, 94, 0.3); }
-.legend-dot.unchecked { background: var(--bg-secondary); border: 1px solid var(--border-light); }
+/* Calendar grid */
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  background: var(--border-default);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.cal-weekday {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: var(--text-xs);
+  padding: var(--space-2) 0;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: var(--bg-elevated);
+}
+.cal-cell {
+  text-align: center;
+  padding: var(--space-2) var(--space-1);
+  min-height: 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-base);
+  border: none;
+  transition: background var(--transition-fast);
+}
+.cal-cell:hover { background: var(--bg-elevated); }
+.cal-day-num {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  margin-bottom: 3px;
+  font-weight: 500;
+}
+.cal-cell.cal-other-month .cal-day-num { color: var(--text-secondary); opacity: 0.25; }
+.cal-cell.cal-today {
+  border: 2px solid var(--color-primary);
+  background: var(--bg-elevated);
+}
+.cal-cell.cal-checked {
+  background: var(--color-success-bg);
+  border: 1px solid var(--color-success);
+}
+
+/* Legend */
+.cal-legend {
+  margin-top: var(--space-4);
+  display: flex;
+  gap: var(--space-5);
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+}
+.legend-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-sm);
+  margin-right: var(--space-1);
+}
+.legend-dot.checked { background: var(--color-success); }
+.legend-dot.unchecked { background: var(--bg-elevated); border: 1px solid var(--border-default); }
 </style>

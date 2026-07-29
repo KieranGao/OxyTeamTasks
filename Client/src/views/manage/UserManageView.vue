@@ -210,13 +210,28 @@ onMounted(fetchPending)
 
 <style scoped>
 .user-manage { padding: 0; }
-.page-header { margin-bottom: 24px; }
-.page-header h2 { margin: 0 0 4px; font-size: 20px; }
-.subtitle { color: var(--text-secondary); font-size: 13px; margin: 0; }
-.section-card { margin-bottom: 24px; }
-.card-header { display: flex; align-items: center; justify-content: space-between; }
-.card-title { font-weight: 600; }
 
-:deep(.el-tabs__item) { font-weight: 500; letter-spacing: 0.2px; }
-:deep(.el-tabs__active-bar) { background: var(--gradient-primary); height: 3px; border-radius: 2px; }
+.page-header { margin-bottom: var(--space-6); }
+.page-header h2 { margin: 0 0 var(--space-1); font-family: var(--font-mono); font-size: var(--text-xl); font-weight: 700; }
+.subtitle { color: var(--text-secondary); font-size: var(--text-sm); margin: 0; font-family: var(--font-sans); }
+
+.section-card { margin-bottom: var(--space-6); }
+
+.card-header { display: flex; align-items: center; justify-content: space-between; }
+
+.card-title {
+  font-family: var(--font-mono); font-weight: 600;
+  font-size: var(--text-sm); text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+:deep(.el-tabs__item) {
+  font-family: var(--font-mono); font-weight: 500;
+  font-size: var(--text-xs); text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+:deep(.el-tabs__active-bar) {
+  background: var(--primary); height: 2px; border-radius: 0;
+}
 </style>

@@ -23,9 +23,10 @@ export const useAppStore = defineStore('app', () => {
     document.title = title ? `${title} - OxyTeamTask` : 'OxyTeamTask'
   }
 
-  // Apply theme class to <html> on init
+  // Apply theme class to <html> — dark is default (no class), light adds .light
   function applyTheme() {
-    document.documentElement.classList.toggle('dark', theme.value === 'dark')
+    document.documentElement.classList.toggle('light', theme.value === 'light')
+    document.documentElement.classList.toggle('dark', false)
   }
 
   // Watch for theme changes and persist

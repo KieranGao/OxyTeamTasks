@@ -105,15 +105,49 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.overall-row { margin-bottom: 20px; }
-.summary-card { text-align: center; }
-.summary-num { font-size: 32px; font-weight: 700; }
-.summary-label { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+.overall-row { margin-bottom: var(--space-6); }
 
-.team-card { height: 100%; }
+.summary-card {
+  text-align: center;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+}
+.summary-card :deep(.el-card__body) { padding: var(--space-5) var(--space-4); }
+
+.summary-num {
+  font-family: var(--font-mono); font-weight: 700;
+  font-size: var(--text-3xl); color: var(--text-primary);
+  line-height: 1;
+}
+
+.summary-label {
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text-secondary); margin-top: var(--space-2);
+}
+
+.team-card {
+  height: 100%;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+}
+
 .team-header { display: flex; justify-content: space-between; align-items: center; }
-.team-name { font-weight: 600; font-size: 15px; }
-.team-section { margin-bottom: 4px; }
-.section-title { font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; }
-.member-tags { display: flex; flex-wrap: wrap; gap: 2px; }
+
+.team-name {
+  font-family: var(--font-mono); font-weight: 700;
+  font-size: var(--text-base);
+}
+
+.team-section { margin-bottom: var(--space-1); }
+
+.section-title {
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text-secondary); margin-bottom: var(--space-2);
+}
+
+.member-tags { display: flex; flex-wrap: wrap; gap: var(--space-1); }
 </style>

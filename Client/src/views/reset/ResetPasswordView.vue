@@ -257,20 +257,94 @@ function goLogin() {
   width: 100%;
 }
 
-.reset-view :deep(.el-input__wrapper:focus-within) {
-  box-shadow: 0 0 0 2px var(--color-primary-bg), 0 0 0 3px var(--color-primary) !important;
-}
-
-.reset-view :deep(.el-button--large) {
-  height: 44px;
-  font-size: 15px;
+/* Step indicator override: remove decorative background */
+.reset-view :deep(.el-step__title) {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
   font-weight: 600;
-  letter-spacing: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
+.reset-view :deep(.el-step__title.is-process) {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.reset-view :deep(.el-step__title.is-finish) {
+  color: var(--text-primary);
+}
+
+.reset-view :deep(.el-step__title.is-wait) {
+  color: var(--text-secondary);
+}
+
+/* Form labels: mono, uppercase, data-forward */
+.reset-view :deep(.el-form-item__label) {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Inputs: sharp, dark base bg */
+.reset-view :deep(.el-input__wrapper) {
+  border-radius: var(--radius-md) !important;
+  background: var(--bg-base) !important;
+  box-shadow: none !important;
+  border: 1px solid var(--border-default);
+  transition: border-color var(--transition-fast) !important;
+}
+
+.reset-view :deep(.el-input__wrapper:hover) {
+  border-color: var(--text-secondary);
+}
+
+.reset-view :deep(.el-input__wrapper.is-focus) {
+  border-color: var(--color-primary) !important;
+}
+
+/* Primary button: mono, solid, no decoration */
+.reset-view :deep(.el-button--large.el-button--primary) {
+  height: 44px;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-primary);
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.reset-view :deep(.el-button--large.el-button--primary:hover) {
+  opacity: 0.9;
+}
+
+/* Secondary button (back) */
+.reset-view :deep(.el-button--large:not(.el-button--primary)) {
+  height: 44px;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-default);
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.reset-view :deep(.el-button--large:not(.el-button--primary):hover) {
+  border-color: var(--text-secondary);
+  color: var(--text-primary);
+}
+
+/* Verify code row */
 .verify-row {
   display: flex;
-  gap: 8px;
+  gap: var(--space-2);
 }
 
 .verify-row .el-input {
@@ -279,20 +353,39 @@ function goLogin() {
 
 .verify-row .el-button {
   min-width: 120px;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  border-radius: var(--radius-md);
 }
 
+/* Success state: clean, no decoration */
 .reset-done {
-  padding: 20px 0;
+  padding: var(--space-5) 0;
 }
 
+.reset-done :deep(.el-result__title h1) {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.reset-done :deep(.el-result__subtitle p) {
+  font-family: var(--font-sans);
+  color: var(--text-secondary);
+}
+
+/* Footer link: mono, muted */
 .reset-footer {
   text-align: center;
-  margin-top: 12px;
+  margin-top: var(--space-3);
 }
 
 .reset-footer a {
-  font-size: 13px;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
   color: var(--text-secondary);
+  text-decoration: none;
   transition: color var(--transition-fast);
 }
 
