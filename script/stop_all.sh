@@ -1,7 +1,7 @@
 #!/bin/bash
 # 一键停止所有服务器进程
 
-SERVERS=(GateServer PushServer PushServer2 TaskServer UMSServer StatusServer)
+SERVERS=(GateServer PushServer PushServer2 TaskServer MailerServer UMSServer StatusServer)
 
 echo "=== Stopping all servers ==="
 
@@ -19,6 +19,18 @@ done
 # 等最多 3 秒
 sleep 3
 
+# MailerServer 是 Node.js 进程，需要用不同方式查找
+MAILER_PID=$(pgrep -f "node server.js" -d " " 2>/dev/null | xargs -n1 sh -c 'cat /proc/$1/cmdline 2>/dev/null | tr "\0" " " | grep -q "MailerServer" && echo $1' _ {} 2>/dev/null | head -1)
+if [ -z "$MAILER_PID" ]; then
+    # 备用方案：直接 grep MailerServer 目录下的 server.js
+    MAILER_PID=$(pgrep -f "MailerServer/server.js" 2>/dev/null | head -1)
+fi
+if [ -n "$MAILER_PID" ]; then
+    echo -n "  MailerServer (PID: $MAILER_PID) ... "
+    kill $MAILER_PID 2>/dev/null
+    echo "SIGTERM sent"
+fi
+
 # 如果还有残留，强制杀
 for srv in "${SERVERS[@]}"; do
     pids=$(pgrep -x "$srv" 2>/dev/null)
@@ -27,6 +39,26 @@ for srv in "${SERVERS[@]}"; do
         kill -9 $pids 2>/dev/null
     fi
 done
+
+# 强制杀 MailerServer (Node.js)
+MAILER_PID=$(pgrep -f "MailerServer/server.js" 2>/dev/null | head -1)
+if [ -n "$MAILER_PID" ]; then
+    echo "  MailerServer still alive, force killing ..."
+    kill -9 $MAILER_PID 2>/dev/null
+fi
+
+# 停止 Client (Vite dev server)
+CLIENT_PID=$(pgrep -f "vite" 2>/dev/null | head -1)
+if [ -n "$CLIENT_PID" ]; then
+    echo -n "  Client (PID: $CLIENT_PID) ... "
+    kill $CLIENT_PID 2>/dev/null
+    echo "SIGTERM sent"
+    sleep 1
+    if pgrep -f "vite" >/dev/null 2>&1; then
+        kill -9 $(pgrep -f "vite" | tr '\n' ' ') 2>/dev/null
+        echo "  Client force killed"
+    fi
+fi
 
 # 停止 Kafka
 KAFKA_HOME="/usr/local/kafka"

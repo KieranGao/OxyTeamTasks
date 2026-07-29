@@ -49,7 +49,7 @@ TaskServer/logs
 UMSServer/logs
 docs
 prac
-.md
+*.md
 test.cpp
 !README.md
 !README-en.md

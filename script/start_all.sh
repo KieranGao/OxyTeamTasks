@@ -31,39 +31,51 @@ else
 fi
 
 # 1. StatusServer (依赖项，先启动)
-echo "  [1/6] StatusServer (port 50052)..."
+echo "  [1/7] StatusServer (port 50052)..."
 cd "$BASE/StatusServer/build"
 ./StatusServer > "$LOGDIR/StatusServer.log" 2>&1 &
 sleep 1
 
-# 2. UMSServer
-echo "  [2/6] UMSServer (port 50051)..."
+# 2. MailerServer (Node.js, 依赖 StatusServer 心跳 + Redis)
+echo "  [2/7] MailerServer (grpc:50051)..."
+cd "$BASE/MailerServer"
+node server.js > "$LOGDIR/MailerServer.log" 2>&1 &
+sleep 1
+
+# 3. UMSServer
+echo "  [3/7] UMSServer (port 50053)..."
 cd "$BASE/UMSServer/build"
 ./UMSServer > "$LOGDIR/UMSServer.log" 2>&1 &
 sleep 1
 
-# 3. TaskServer
-echo "  [3/6] TaskServer (port 50054)..."
+# 4. TaskServer
+echo "  [4/7] TaskServer (port 50054)..."
 cd "$BASE/TaskServer/build"
 ./TaskServer > "$LOGDIR/TaskServer.log" 2>&1 &
 sleep 1
 
-# 4. PushServer1
-echo "  [4/6] PushServer1 (ws:8890 grpc:50056)..."
+# 5. PushServer1
+echo "  [5/7] PushServer1 (ws:8890 grpc:50056)..."
 cd "$BASE/PushServer/build"
 ./PushServer > "$LOGDIR/PushServer.log" 2>&1 &
 sleep 1
 
-# 5. PushServer2
-echo "  [5/6] PushServer2 (ws:8891 grpc:50057)..."
+# 6. PushServer2
+echo "  [6/7] PushServer2 (ws:8891 grpc:50057)..."
 cd "$BASE/PushServer2/build"
 ./PushServer2 > "$LOGDIR/PushServer2.log" 2>&1 &
 sleep 1
 
-# 6. GateServer
-echo "  [6/6] GateServer (port 8080)..."
+# 7. GateServer
+echo "  [7/7] GateServer (port 8080)..."
 cd "$BASE/GateServer/build"
 ./GateServer > "$LOGDIR/GateServer.log" 2>&1 &
+sleep 2
+
+# 8. Client (Vite dev server)
+echo "  [8/8] Client (port 3000)..."
+cd "$BASE/Client"
+nohup npm run dev > "$LOGDIR/Client.log" 2>&1 &
 sleep 2
 
 # 健康检查
@@ -94,6 +106,7 @@ check_grpc() {
 
 check_grpc "Kafka"         "127.0.0.1:9092"
 check_grpc "StatusServer"  "127.0.0.1:50052"
+check_grpc "MailerServer"  "127.0.0.1:50051"
 check_grpc "UMSServer"     "127.0.0.1:50053"
 check_grpc "TaskServer"    "127.0.0.1:50054"
 check_grpc "PushServer1"   "127.0.0.1:8890"
@@ -101,6 +114,7 @@ check_grpc "PushServer1g"  "127.0.0.1:50056"
 check_grpc "PushServer2"   "127.0.0.1:8891"
 check_grpc "PushServer2g"  "127.0.0.1:50057"
 check_http "GateServer"    "http://127.0.0.1:8080/user_login"
+check_http "Client"        "http://127.0.0.1:3000"
 
 echo ""
 echo "=== Logs: $LOGDIR ==="
