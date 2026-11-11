@@ -88,7 +88,7 @@ std::string UrlDecode(const std::string& str)
 
 void HttpConnection::PreParseGetParam() {
     // 提取 URI, 格式为 /path?key1=value1&key2=value2...
-    std::string uri = req_.target().to_string();
+    std::string uri = std::string(req_.target());
     // 查找查询字符串的开始位置（即 '?' 的位置）  
     auto query_pos = uri.find('?');
     if (query_pos == std::string::npos) {
@@ -125,7 +125,7 @@ void HttpConnection::PreParseGetParam() {
 
 bool HttpConnection::authenticateRequest_() {
 
-    std::string target = req_.target().to_string();
+    std::string target = std::string(req_.target());
     auto query_pos = target.find('?');
     std::string path = (query_pos != std::string::npos) ? target.substr(0, query_pos) : target;
     // 如果是公开端点，则不需要token验证
@@ -207,7 +207,7 @@ void HttpConnection::handleRequest_() {
         return;
     }
     if(req_.method() == http::verb::post) {
-        bool ok = LogicSystem::getInstance().handlePost(req_.target().to_string(), shared_from_this());
+        bool ok = LogicSystem::getInstance().handlePost(std::string(req_.target()), shared_from_this());
         if(!ok) {
             resp_.result(http::status::not_found);
             resp_.set(http::field::content_type, "text/plain");
